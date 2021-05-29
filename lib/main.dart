@@ -1,6 +1,6 @@
-import 'package:fitme/configs/themes.dart';
-
-import 'screens/login.dart';
+import '/configs/themes.dart';
+import 'constants/routes.dart';
+import 'routes/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      initialRoute: AppRoutes.login,
+      routes: getRoutes(),
     );
   }
 }
