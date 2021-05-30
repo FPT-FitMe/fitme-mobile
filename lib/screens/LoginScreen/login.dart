@@ -1,6 +1,6 @@
-import '/constants/colors.dart';
-import '/screens/LoginScreen/login_presenter.dart';
-import '/screens/LoginScreen/login_view.dart';
+import 'package:fitme/constants/colors.dart';
+import 'package:fitme/screens/LoginScreen/login_presenter.dart';
+import 'package:fitme/screens/LoginScreen/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                               width: 20,
                               height: 20,
                               child: CircularProgressIndicator(
-                                color: Colors.white,
+                                backgroundColor: Colors.white,
                               ),
                             )
                           : Text(

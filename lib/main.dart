@@ -1,4 +1,4 @@
-import '/configs/themes.dart';
+import 'configs/themes.dart';
 import 'constants/routes.dart';
 import 'routes/routes.dart';
 import 'package:flutter/material.dart';

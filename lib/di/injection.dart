@@ -1,5 +1,5 @@
-import '/repository/auth_repository.dart';
-import '/services/auth_service.dart';
+import 'package:fitme/repository/auth_repository.dart';
+import 'package:fitme/services/auth_service.dart';
 
 class Injector {
   static final Injector _singleton = new Injector._internal();
