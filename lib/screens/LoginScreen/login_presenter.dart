@@ -1,6 +1,6 @@
-import '/di/injection.dart';
-import '/repository/auth_repository.dart';
-import '/screens/LoginScreen/login_view.dart';
+import 'package:fitme/di/injection.dart';
+import 'package:fitme/repository/auth_repository.dart';
+import 'package:fitme/screens/LoginScreen/login_view.dart';
 
 class LoginPresenter {
   LoginView _loginView;

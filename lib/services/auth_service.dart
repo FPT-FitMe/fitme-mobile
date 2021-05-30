@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '/models/user.dart';
-import '/repository/auth_repository.dart';
+import 'package:fitme/models/user.dart';
+import 'package:fitme/repository/auth_repository.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService implements AuthRepository {

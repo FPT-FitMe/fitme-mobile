@@ -1,6 +1,6 @@
-import '/constants/routes.dart';
-import '/screens/LoginScreen/login.dart';
-import '/screens/RegisterScreen/register.dart';
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/LoginScreen/login.dart';
+import 'package:fitme/screens/RegisterScreen/register.dart';
 
 getRoutes() {
   return {
