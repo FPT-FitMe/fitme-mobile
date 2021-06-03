@@ -21,6 +21,10 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  _RegisterScreenState() {
+    _presenter = new RegisterPresenter(this);
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -195,6 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
     setState(() {
       _isLoading = false;
     });
+    Navigator.pushNamed(context, '/completeProfile');
     // TODO: navigate sang home va xoa stack
   }
 

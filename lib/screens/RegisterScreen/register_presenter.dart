@@ -1,4 +1,4 @@
-import 'package:fitme/screens/LoginScreen/login_presenter.dart';
+import 'package:fitme/screens/RegisterScreen/register_view.dart';
 
 import 'register_view.dart';
 import 'package:fitme/di/injection.dart';
@@ -14,5 +14,6 @@ class RegisterPresenter {
 
   void register(User user) {
     // do register
+    _registerView.registerSuccess();
   }
 }
