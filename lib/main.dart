@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.newUserInfo,
+      initialRoute: AppRoutes.login,
       routes: getRoutes(),
     );
   }

@@ -54,13 +54,13 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                     ),
                     TextFormField(
                       autofocus: true,
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: _firstNameController,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Họ",
                       ),
                       validator: MultiValidator([
-                        EmailValidator(errorText: "Email không hợp lệ"),
+                        MaxLengthValidator(20, errorText: "Họ không được dài quá 20 kí tự"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -69,13 +69,13 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                     ),
                     TextFormField(
                       autofocus: true,
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: _lastNameController,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "Tên",
                       ),
                       validator: MultiValidator([
-                        EmailValidator(errorText: "Email không hợp lệ"),
+                        MaxLengthValidator(30, errorText: "Tên không được dài quá 30 kí tự"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -90,7 +90,6 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                         labelText: "Email",
                       ),
                       validator: MultiValidator([
-                        EmailValidator(errorText: "Email không hợp lệ"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -199,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, '/completeProfile');
+    Navigator.pushNamed(context, '/newUserInfo');
     // TODO: navigate sang home va xoa stack
   }
 
