@@ -1,7 +1,6 @@
 
 import 'package:fitme/constants/colors.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewUserInfoScreen extends StatelessWidget {

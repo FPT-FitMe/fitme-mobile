@@ -1,7 +1,7 @@
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/screens/LoginScreen/login.dart';
 import 'package:fitme/screens/RegisterScreen/register.dart';
-import 'package:fitme/screens/NewUserInfoScreen/newUserInfo.dart';
+import 'package:fitme/screens/NewUserInfoScreen/new_user_info.dart';
 import 'package:fitme/screens/SurveyScreen/survey.dart';
 
 getRoutes() {
