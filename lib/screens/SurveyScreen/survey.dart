@@ -181,7 +181,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.male),
+                    Icon(Icons.male, color: selectedGender == 1 ? Colors.white : Colors.black, size: 50,),
                     Text("Nam",
                         style: selectedGender == 1
                             ? TextStyle(
@@ -212,7 +212,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.female),
+                    Icon(Icons.female, color: selectedGender == 2 ? Colors.white : Colors.black, size: 50,),
                     Text("Nữ",
                         style: selectedGender == 2
                             ? TextStyle(
