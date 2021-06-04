@@ -181,7 +181,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset("assets/images/man.svg", width: 75, height: 75),
+                    Icon(Icons.male),
                     Text("Nam",
                         style: selectedGender == 1
                             ? TextStyle(
@@ -212,7 +212,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset("assets/images/woman.svg", width: 75, height: 75),
+                    Icon(Icons.female),
                     Text("Nữ",
                         style: selectedGender == 2
                             ? TextStyle(
