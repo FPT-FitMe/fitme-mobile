@@ -13,6 +13,6 @@ getRoutes() {
     AppRoutes.register: (context) => RegisterScreen(),
     AppRoutes.newUserInfo: (context) => NewUserInfoScreen(),
     AppRoutes.survey: (context) => SurveyScreen(),
-    AppRoutes.bottom_bar: (context) => BottomBarScreen(),
+    AppRoutes.mainScreen: (context) => BottomBarScreen(),
   };
 }

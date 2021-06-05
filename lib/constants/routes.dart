@@ -4,6 +4,6 @@ class AppRoutes {
   static const String completeProfile = '/completeProfile';
   static const String newUserInfo = '/newUserInfo';
   static const String survey = '/survey';
-  static const String bottom_bar = '/bottomBar';
+  static const String mainScreen = '/bottomBar';
   static const String explore = '/explore';
 }

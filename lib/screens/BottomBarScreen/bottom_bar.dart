@@ -51,18 +51,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _screens[_selectedIndex]['title'],
-          style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1!.color,
-          ),
+    final appBar = AppBar(
+      elevation: 0,
+      title: Text(
+        _screens[_selectedIndex]['title'],
+        style: TextStyle(
+          color: Theme.of(context).textTheme.bodyText1!.color,
         ),
-        backgroundColor: Colors.white,
       ),
+      backgroundColor: Colors.white,
+    );
+    Color? color_background = appBar.backgroundColor;
+    return Scaffold(
+      appBar: appBar,
       body: _screens[_selectedIndex]['screen'],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: color_background,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time),
@@ -90,7 +94,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
+        elevation: 0,
       ),
+      backgroundColor: color_background,
     );
   }
 }
