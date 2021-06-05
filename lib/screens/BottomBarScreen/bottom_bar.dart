@@ -88,6 +88,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         currentIndex: _selectedIndex,
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
+        type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
     );
