@@ -29,7 +29,7 @@ class PostScreen extends StatelessWidget {
               child: titleSection,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20,10,20,0),
+              padding: const EdgeInsets.fromLTRB(20,10,20,10),
               child: authorSection,
             ),
             Padding(
