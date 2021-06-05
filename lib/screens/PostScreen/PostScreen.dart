@@ -24,24 +24,41 @@ class PostScreen extends StatelessWidget {
             width: 600,
             height: 200,
           ),
-          titleSection,
-          authorSection,
-          timeSection,
-          headLineSection,
-          textSection,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,20,20,10),
+              child: titleSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,10,20,0),
+              child: authorSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,10,20,0),
+              child: timeSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,10,20,0),
+              child: headLineSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20,10,20,0),
+              child: textSection,
+            ),
         ],
       ),
     );
   }
 
   Widget authorSection = Container(
-    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
           backgroundImage: NetworkImage('https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
           radius: 20,
+        ),
+        SizedBox(
+          width: 10,
         ),
         Column( 
           children: [
@@ -57,7 +74,6 @@ class PostScreen extends StatelessWidget {
   );
 
   Widget titleSection = Container(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
     alignment: Alignment.centerLeft,
     child: Text(
       "Chạy thế nào để hiệu quả ?",
@@ -68,7 +84,6 @@ class PostScreen extends StatelessWidget {
   );
 
   Widget timeSection = Container(
-    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
     alignment: Alignment.centerLeft,
     child: Row(
       children: [
@@ -86,7 +101,6 @@ class PostScreen extends StatelessWidget {
   );
 
   Widget headLineSection = Container(
-    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
     alignment: Alignment.centerLeft,
     child: Text('Chạy bộ đúng cách và những lợi ích không tưởng',
         softWrap: true,
@@ -95,7 +109,6 @@ class PostScreen extends StatelessWidget {
   );
 
   Widget textSection = Container(
-    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
     alignment: Alignment.centerLeft,
     child: Text(
       'Chạy bộ đúng cách và những lợi ích không tưởng Không nhiều hơn mà cũng không ít hơn, với 30 phút chạy bộ đúng cách mỗi ngày đã đủ giúp bạn cải thiện sức khỏe cho cơ thể, giảm các bệnh về huyết áp, tim mạch, giảm cân và kéo dài tuổi thọ. Các nghiên cứu khoa học chỉ ra rằng trong vòng nửa tiếng chạy bộ, cơ thể sẽ đốt cháy từ 300-500 calo (trung bình 10 calo/phút) tùy theo mức độ tập luyện.',
