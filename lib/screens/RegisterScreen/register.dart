@@ -12,7 +12,8 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> implements RegisterView {
+class _RegisterScreenState extends State<RegisterScreen>
+    implements RegisterView {
   final _formKey = GlobalKey<FormState>();
   late RegisterPresenter _presenter;
   bool _isLoading = false;
@@ -25,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
   _RegisterScreenState() {
     _presenter = new RegisterPresenter(this);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,8 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                         labelText: "Họ",
                       ),
                       validator: MultiValidator([
-                        MaxLengthValidator(20, errorText: "Họ không được dài quá 20 kí tự"),
+                        MaxLengthValidator(20,
+                            errorText: "Họ không được dài quá 20 kí tự"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -75,7 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                         labelText: "Tên",
                       ),
                       validator: MultiValidator([
-                        MaxLengthValidator(30, errorText: "Tên không được dài quá 30 kí tự"),
+                        MaxLengthValidator(30,
+                            errorText: "Tên không được dài quá 30 kí tự"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -89,9 +92,8 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                       decoration: InputDecoration(
                         labelText: "Email",
                       ),
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: "* Bắt buộc")
-                      ]),
+                      validator: MultiValidator(
+                          [RequiredValidator(errorText: "* Bắt buộc")]),
                     ),
                     SizedBox(
                       height: 20,
@@ -134,19 +136,19 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                         ),
                         child: _isLoading
                             ? SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                          ),
-                        )
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ),
+                              )
                             : Text(
-                          "Đăng ký",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20),
-                        ),
+                                "Đăng ký",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20),
+                              ),
                       ),
                     ),
                   ],
@@ -205,11 +207,13 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
   void submitForm() {
     String email = _emailController.text;
     String password = _passwordController.text;
+    String name = _lastNameController.text;
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      _presenter.register(new User(email, password));
+      _presenter
+          .register(new User(email: email, password: password, name: name));
     }
   }
 }

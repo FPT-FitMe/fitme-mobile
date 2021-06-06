@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'package:fitme/widgets/title_article.dart';
+import 'package:fitme/models/plan.dart';
+
+import 'package:fitme/fake_data.dart';
 
 final nowDate = DateTime.now();
 final firstDay = DateTime(nowDate.year, nowDate.month - 3, nowDate.day);
@@ -19,28 +23,37 @@ class _ExploreScreenState extends State<ExploreScreen> {
     color: const Color(0xFF263238),
     fontSize: 16.0,
   );
-  // Plan _getPlansForDay() {}
+  late Plan _selectedPlan;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay = DateTime.now();
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+  DateTime? _selectedDay;
+
   //cai nay phai tinh
   double _spendingTimeOfTotal = 0.5;
   int numOfdatePractice = 10;
 
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    // if (!isSameDay(_selectedDay, selectedDay)) {
-    setState(() {
-      _selectedDay = selectedDay;
-      _focusedDay = focusedDay;
-      _rangeStart = null; // Important to clean those
-      _rangeEnd = null;
-      _rangeSelectionMode = RangeSelectionMode.toggledOff;
-    });
+  @override
+  void initState() {
+    super.initState();
 
-    // _selectedEvents.value = _getEventsForDay(selectedDay);
-    // }
+    _selectedDay = _focusedDay;
+    _selectedPlan = _getPlansForDay(_selectedDay!.day);
+    ;
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        _selectedPlan = _getPlansForDay(selectedDay.day);
+      });
+    }
+  }
+
+  //cai nay phai viet get data Plan
+  Plan _getPlansForDay(int day) {
+    return LIST_PLAN.where((plan) => plan.id == day).first;
   }
 
   @override
@@ -55,11 +68,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
             lastDay: lastDay,
             focusedDay: _focusedDay,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            // rangeStartDay: _rangeStart,
-            // rangeEndDay: _rangeEnd,
             calendarFormat: CalendarFormat.week,
             headerVisible: false,
-            // rangeSelectionMode: _rangeSelectionMode,
             // eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
@@ -154,18 +164,44 @@ class _ExploreScreenState extends State<ExploreScreen> {
             children: [
               TitleArticle(
                 title: "Mục tiêu hôm nay",
-                listExercise: ['a'],
+                listExercise: _selectedPlan.listGoal,
               ),
               TitleArticle(
                 title: "Đồ ăn (sáng/trưa/chiều)",
-                listMeal: ['a', 'b'],
+                listMeal: _selectedPlan.listMeal,
               ),
               TitleArticle(
                 title: "Hoàn thành",
-                listExercise: ['a', 'b'],
+                listExercise: _selectedPlan.listExercise,
               ),
             ],
-          )
+          ),
+          //phan tong ket
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            // margin: EdgeInsets.symmetric(vertical: 15),
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Tổng kết",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                    "  - Lượng calo tiêu thụ: ${_selectedPlan.totolOfCaloOut} kcals"),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                    "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
+              ],
+            ),
+          ),
         ],
       ),
     );

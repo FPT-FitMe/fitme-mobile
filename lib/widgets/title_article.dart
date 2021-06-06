@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/meal.dart';
+
 class TitleArticle extends StatelessWidget {
-  final List? listExercise;
-  final List? listMeal;
+  final List<Exercise>? listExercise;
+  final List<Meal>? listMeal;
   final String title;
   final String name = "Yoga buổi sáng";
   final int cal = 15;
@@ -37,15 +40,29 @@ class TitleArticle extends StatelessWidget {
                 ...listExercise!.map((exerciser) {
                   return Flexible(
                       fit: FlexFit.tight,
-                      child: _cardArticle(context, imageUrl, isFavorite,
-                          isPremium, name, duration, cal));
+                      child: _cardArticle(
+                          context,
+                          exerciser.id,
+                          exerciser.imageUrl,
+                          exerciser.isFavorite,
+                          exerciser.isPremium,
+                          exerciser.name,
+                          exerciser.duration,
+                          exerciser.cal));
                 }),
               if (listMeal != null)
                 ...listMeal!.map((meal) {
                   return Flexible(
                       fit: FlexFit.tight,
-                      child: _cardArticle(context, imageUrl, isFavorite,
-                          isPremium, name, duration, cal));
+                      child: _cardArticle(
+                          context,
+                          meal.id,
+                          meal.imageUrl,
+                          meal.isFavorite,
+                          meal.isPremium,
+                          meal.name,
+                          meal.duration,
+                          meal.cal));
                 }),
             ],
           ),
@@ -55,14 +72,15 @@ class TitleArticle extends StatelessWidget {
   }
 }
 
-void _selectArticle(BuildContext ctx) {
+// chuyen qua trang detail cua exercise/meal
+void _selectArticle(BuildContext ctx, int id) {
   // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
 }
 
-Widget _cardArticle(BuildContext context, String imageUrl, bool isFavorite,
-    bool isPremium, String name, int duration, int cal) {
+Widget _cardArticle(BuildContext context, int id, String imageUrl,
+    bool isFavorite, bool isPremium, String name, int duration, int cal) {
   return InkWell(
-    onTap: () => _selectArticle(context),
+    onTap: () => _selectArticle(context, id),
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
