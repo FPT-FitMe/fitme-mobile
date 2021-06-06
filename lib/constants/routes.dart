@@ -4,4 +4,5 @@ class AppRoutes {
   static const String completeProfile = '/completeProfile';
   static const String newUserInfo = '/newUserInfo';
   static const String survey = '/survey';
+  static const String userProfile = '/user';
 }
