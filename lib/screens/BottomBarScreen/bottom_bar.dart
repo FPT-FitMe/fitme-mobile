@@ -1,5 +1,8 @@
-import 'package:fitme/screens/ExploreScreen/explore.dart';
 import 'package:flutter/material.dart';
+import 'package:community_material_icon/community_material_icon.dart';
+
+import 'package:fitme/constants/colors.dart';
+import 'package:fitme/screens/ExploreScreen/explore.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
@@ -71,10 +74,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time),
+            activeIcon: Icon(Icons.access_time_filled),
             label: 'Tiến độ',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(CommunityMaterialIcons.arm_flex_outline),
+            activeIcon: Icon(CommunityMaterialIcons.arm_flex),
             label: 'Tập luyện',
           ),
           BottomNavigationBarItem(
@@ -82,17 +87,19 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             label: 'Tạo mới',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dinner_dining),
+            icon: Icon(CommunityMaterialIcons.pot_steam_outline),
+            activeIcon: Icon(CommunityMaterialIcons.pot_steam),
             label: 'Bữa ăn',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
+            activeIcon: Icon(Icons.account_circle),
             label: 'Người dùng',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
+        unselectedItemColor: AppColors.textColor,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
         elevation: 0,

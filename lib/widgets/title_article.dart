@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 
+import 'package:fitme/constants/colors.dart';
+
 class TitleArticle extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
@@ -25,13 +27,21 @@ class TitleArticle extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                GestureDetector(
+                  onDoubleTap: null,
+                  child: Text(
+                    "Hiện tất cả",
+                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                  ),
+                )
+              ],
             ),
           ),
           Row(
@@ -79,8 +89,11 @@ void _selectArticle(BuildContext ctx, int id) {
 
 Widget _cardArticle(BuildContext context, int id, String imageUrl,
     bool isFavorite, bool isPremium, String name, int duration, int cal) {
-  return InkWell(
+  return GestureDetector(
     onTap: () => _selectArticle(context, id),
+    // focusColor: Colors.white,
+    // hoverColor: Colors.white,
+    // splashColor: Colors.white,
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),

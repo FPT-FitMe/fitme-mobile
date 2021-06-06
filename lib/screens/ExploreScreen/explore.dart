@@ -20,7 +20,7 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   final _daysOfWeek = ['Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'CN'];
   final _textStyleForCalendar = const TextStyle(
-    color: const Color(0xFF263238),
+    color: const Color.fromRGBO(38, 50, 56, 1),
     fontSize: 16.0,
   );
   late Plan _selectedPlan;
@@ -53,6 +53,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   //cai nay phai viet get data Plan
   Plan _getPlansForDay(int day) {
+    if (day < DateTime.now().day - 1 || day > DateTime.now().day)
+      day = DateTime.now().day;
     return LIST_PLAN.where((plan) => plan.id == day).first;
   }
 
@@ -70,18 +72,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             calendarFormat: CalendarFormat.week,
             headerVisible: false,
-            // eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
               todayTextStyle: _textStyleForCalendar,
               weekendTextStyle: _textStyleForCalendar,
               defaultTextStyle: _textStyleForCalendar,
               defaultDecoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: Color.fromRGBO(196, 196, 196, 0.2),
                 shape: BoxShape.circle,
               ),
               weekendDecoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: Color.fromRGBO(196, 196, 196, 0.2),
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
@@ -121,8 +122,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                    border:
-                        Border.all(color: Colors.grey, width: double.infinity),
+                    border: Border.all(
+                        color: Color.fromRGBO(196, 196, 196, 1),
+                        width: double.infinity),
                     color: Color.fromRGBO(220, 220, 220, 1),
                     borderRadius: BorderRadius.circular(10),
                   ),
