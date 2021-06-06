@@ -1,5 +1,5 @@
-
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,8 +17,10 @@ class NewUserInfoScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 50),
-              Text("Xin chào conmeo,",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              Text(
+                "Xin chào conmeo,",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 5),
               Text("Để bắt đầu, chúng tôi cần một số thông tin của bạn",
                   style: TextStyle(fontSize: 16, color: AppColors.grayText)),
@@ -36,7 +38,7 @@ class NewUserInfoScreen extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/survey');
+                    Navigator.pushNamed(context, AppRoutes.survey);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -54,7 +56,7 @@ class NewUserInfoScreen extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ),
     );
   }

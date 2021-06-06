@@ -5,4 +5,5 @@ class AppRoutes {
   static const String newUserInfo = '/newUserInfo';
   static const String survey = '/survey';
   static const String userProfile = '/user';
+  static const String setting = '/user/setting';
 }

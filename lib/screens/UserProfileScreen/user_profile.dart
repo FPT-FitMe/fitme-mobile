@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/widgets/calories_card.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,9 @@ class UserProfileScreen extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.setting);
+            },
             child: Icon(CommunityMaterialIcons.cog),
           ),
           SizedBox(
