@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
+import 'package:fitme/widgets/title_article.dart';
 
 final nowDate = DateTime.now();
 final firstDay = DateTime(nowDate.year, nowDate.month - 3, nowDate.day);
@@ -25,6 +25,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   DateTime? _selectedDay = DateTime.now();
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  //cai nay phai tinh
+  double _spendingTimeOfTotal = 0.5;
+  int numOfdatePractice = 10;
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     // if (!isSameDay(_selectedDay, selectedDay)) {
@@ -44,7 +47,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TableCalendar(
             rowHeight: 50,
@@ -99,7 +101,70 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ),
                 ),
             ],
-            
+          ),
+          //cai thanh bar voi ngay luyen
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5),
+            height: 10,
+            width: 340,
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: Colors.grey, width: double.infinity),
+                    color: Color.fromRGBO(220, 220, 220, 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                FractionallySizedBox(
+                  widthFactor: _spendingTimeOfTotal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.topLeft,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${numOfdatePractice}',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                  TextSpan(
+                      text: '/30 ngày luyện tập',
+                      style: TextStyle(color: Colors.black)),
+                ],
+              ),
+            ),
+          ),
+          //phan muc tieu bai tap do an
+          Column(
+            children: [
+              TitleArticle(
+                title: "Mục tiêu hôm nay",
+                listExercise: ['a'],
+              ),
+              TitleArticle(
+                title: "Đồ ăn (sáng/trưa/chiều)",
+                listMeal: ['a', 'b'],
+              ),
+              TitleArticle(
+                title: "Hoàn thành",
+                listExercise: ['a', 'b'],
+              ),
+            ],
           )
         ],
       ),

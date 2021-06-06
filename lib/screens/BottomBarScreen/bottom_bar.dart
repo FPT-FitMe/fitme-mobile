@@ -10,12 +10,13 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
+  final String name = "Hùng";
 
   //title la cai hien len appbar
   final List<Map<String, dynamic>> _screens = [
     {
       'screen': ExploreScreen(),
-      'title': 'Explore',
+      'title': 'Chào ',
     },
     {
       'screen': Center(
@@ -54,7 +55,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     final appBar = AppBar(
       elevation: 0,
       title: Text(
-        _screens[_selectedIndex]['title'],
+        _screens[_selectedIndex]['title'] + name + ",",
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyText1!.color,
         ),
