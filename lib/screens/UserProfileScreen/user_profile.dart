@@ -1,7 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/widgets/calories_card.dart';
 import 'package:flutter/material.dart';
 
@@ -76,18 +75,23 @@ class UserProfileScreen extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Thành tựu của bạn",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                "Hiện tất cả",
-                style: TextStyle(fontSize: 10, color: AppColors.grayText),
-              )
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.achievement);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Thành tựu của bạn",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "Hiện tất cả",
+                  style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                )
+              ],
+            ),
           ),
           SizedBox(
             height: 10,
