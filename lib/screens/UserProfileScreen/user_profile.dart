@@ -1,6 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/widgets/calories_card.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,9 @@ class UserProfileScreen extends StatelessWidget {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.payment);
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),

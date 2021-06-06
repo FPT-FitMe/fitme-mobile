@@ -1,3 +1,5 @@
+import 'package:fitme/screens/PaymentScreen/payment.dart';
+
 import 'configs/themes.dart';
 import 'constants/routes.dart';
 import 'routes/routes.dart';
@@ -15,8 +17,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.login,
+      initialRoute: AppRoutes.userProfile,
       routes: getRoutes(),
+      onGenerateRoute: (settings) {
+        generateRoutes(settings);
+      },
     );
   }
 }

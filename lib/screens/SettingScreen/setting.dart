@@ -11,7 +11,12 @@ class SettingScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Cài đặt"),
+        title: Text(
+          "Cài đặt",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
         centerTitle: true,
         bottom: PreferredSize(
           child: Container(
