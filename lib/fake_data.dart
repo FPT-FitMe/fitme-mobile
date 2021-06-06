@@ -34,9 +34,9 @@ const LIST_GOAL = const [
 const LIST_MEAL = const [
   Meal(
     id: 1,
-    name: 'Spaghetti with Tomato Sauce',
+    name: 'Salad bắp cải',
     imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg',
+        'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
     duration: 20,
     cal: 150,
     isFavorite: true,
@@ -44,9 +44,9 @@ const LIST_MEAL = const [
   ),
   Meal(
     id: 2,
-    name: 'Toast Hawaii',
+    name: 'Rau củ nướng',
     imageUrl:
-        'https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg',
+        'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/aubergine-goulash_1-e33971f.jpg?webp=true&quality=90&resize=500%2C454',
     duration: 15,
     cal: 300,
     isFavorite: false,
@@ -89,9 +89,9 @@ const LIST_EXERCISE2 = const [
 const LIST_MEAL2 = const [
   Meal(
     id: 1,
-    name: 'Spaghetti with Tomato Sauce',
+    name: 'Salad bắp cải',
     imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg',
+        'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
     duration: 20,
     cal: 150,
     isFavorite: true,
@@ -99,9 +99,9 @@ const LIST_MEAL2 = const [
   ),
   Meal(
     id: 2,
-    name: 'Toast Hawaii',
+    name: 'Rau củ nướng',
     imageUrl:
-        'https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg',
+        'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/aubergine-goulash_1-e33971f.jpg?webp=true&quality=90&resize=500%2C454',
     duration: 15,
     cal: 300,
     isFavorite: false,
