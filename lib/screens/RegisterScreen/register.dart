@@ -207,13 +207,11 @@ class _RegisterScreenState extends State<RegisterScreen>
   void submitForm() {
     String email = _emailController.text;
     String password = _passwordController.text;
-    String name = _lastNameController.text;
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      _presenter
-          .register(new User(email: email, password: password, name: name));
+      _presenter.register(new User(email: email, password: password));
     }
   }
 }
