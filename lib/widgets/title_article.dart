@@ -139,6 +139,9 @@ Widget _cardArticle(BuildContext context, int id, String imageUrl,
                 )
             ],
           ),
+          SizedBox(
+            height: 4,
+          ),
           Container(
             // padding: EdgeInsets.symmetric(horizontal: 10),
             alignment: Alignment.topLeft,
