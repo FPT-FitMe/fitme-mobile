@@ -6,7 +6,7 @@ class Plan {
   final List<Exercise> listExercise;
   final List<Meal> listMeal;
   final List<Exercise> listGoal; //cai nay de tam thoi
-  final int totolOfCaloOut;
+  final int totalOfCaloOut;
   final int totalOfCaloIn;
 
   const Plan({
@@ -14,7 +14,7 @@ class Plan {
     required this.listExercise,
     required this.listMeal,
     required this.totalOfCaloIn,
-    required this.totolOfCaloOut,
+    required this.totalOfCaloOut,
     required this.listGoal,
   });
 }
