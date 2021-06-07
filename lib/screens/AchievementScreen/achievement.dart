@@ -16,39 +16,53 @@ class AchievementScreen extends StatelessWidget {
         title: Text("Thành tựu"),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-        child: Column(
-          children: [
-            Center(
-              child: CircularPercentIndicator(
-                radius: 200.0,
-                lineWidth: 20.0,
-                animation: true,
-                percent: 0.2,
-                center: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "4",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                    ),
-                    Text(
-                      "/ 20",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ],
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 30),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: CircularPercentIndicator(
+                  radius: 200.0,
+                  lineWidth: 20.0,
+                  animation: true,
+                  percent: 0.2,
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "4",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 30),
+                      ),
+                      Text(
+                        "/ 20",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  circularStrokeCap: CircularStrokeCap.round,
+                  progressColor: AppColors.primary,
                 ),
-                circularStrokeCap: CircularStrokeCap.round,
-                progressColor: AppColors.primary,
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            _buildAchievementCard(),
-          ],
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: [
+                  _buildAchievementCard(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _buildAchievementCard(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _buildAchievementCard(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

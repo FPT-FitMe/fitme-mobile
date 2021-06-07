@@ -34,94 +34,97 @@ class UserProfileScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 15, right: 15),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _buildUserStats(),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 45,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.payment);
+        padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+        child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            _buildUserStats(),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.payment);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: Text(
+                  "Mua gói FitMe PRO",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "Hoạt động của bạn",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CaloriesCard(),
+            SizedBox(
+              height: 30,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.achievement);
               },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text(
-                "Mua gói FitMe PRO",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Thành tựu của bạn",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    "Hiện tất cả",
+                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                  )
+                ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            "Hoạt động của bạn",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CaloriesCard(),
-          SizedBox(
-            height: 30,
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, AppRoutes.achievement);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            SizedBox(
+              height: 10,
+            ),
+            Row(
               children: [
-                Text(
-                  "Thành tựu của bạn",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  child: Image.network(
+                    'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+                    width: 45,
+                    height: 45,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Text(
-                  "Hiện tất cả",
-                  style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                )
+                SizedBox(
+                  width: 10,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  child: Image.network(
+                    'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+                    width: 45,
+                    height: 45,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Image.network(
-                  'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
-                  width: 45,
-                  height: 45,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: Image.network(
-                  'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
-                  width: 45,
-                  height: 45,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          )
-        ]),
+            )
+          ]),
+        ),
       ),
     );
   }
