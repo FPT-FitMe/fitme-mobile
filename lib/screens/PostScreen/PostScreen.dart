@@ -11,7 +11,7 @@ class PostScreen extends StatelessWidget {
         title: Text(
           "Quay lại",
           style: TextStyle(
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
           ),
         ),
         backgroundColor: Colors.white,
