@@ -211,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen>
       setState(() {
         _isLoading = true;
       });
-      _presenter.register(new User(email: email, password: password));
+      _presenter.register(new User(email, password));
     }
   }
 }
