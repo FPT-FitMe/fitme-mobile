@@ -1,5 +1,6 @@
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/screens/AchievementScreen/achievement.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
 import 'package:fitme/screens/LoginScreen/login.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/RegisterScreen/register.dart';
@@ -19,6 +20,7 @@ getRoutes() {
     AppRoutes.setting: (context) => SettingScreen(),
     AppRoutes.achievement: (context) => AchievementScreen(),
     AppRoutes.payment: (context) => PaymentScreen(),
+    AppRoutes.mainScreen: (context) => BottomBarScreen(),
   };
 }
 

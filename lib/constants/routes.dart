@@ -8,4 +8,6 @@ class AppRoutes {
   static const String userProfile = '/user';
   static const String setting = '/user/setting';
   static const String achievement = '/user/achievement';
+  static const String mainScreen = '/bottomBar';
+  static const String explore = '/explore';
 }
