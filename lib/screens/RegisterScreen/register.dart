@@ -1,3 +1,4 @@
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/screens/RegisterScreen/register_presenter.dart';
 import 'package:fitme/screens/RegisterScreen/register_view.dart';
@@ -171,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushNamed(context, AppRoutes.login);
               },
               child: Text(
                 " Đăng nhập tại đây",
@@ -200,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, '/newUserInfo');
+    Navigator.pushNamed(context, AppRoutes.newUserInfo);
     // TODO: navigate sang home va xoa stack
   }
 

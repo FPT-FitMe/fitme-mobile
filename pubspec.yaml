@@ -35,6 +35,8 @@ dependencies:
   form_field_validator: ^1.1.0
   flutter_svg: ^0.22.0
   community_material_icon: ^5.9.55
+  fl_chart: ^0.36.1
+  percent_indicator: ^3.0.1
 
 dev_dependencies:
   flutter_test:

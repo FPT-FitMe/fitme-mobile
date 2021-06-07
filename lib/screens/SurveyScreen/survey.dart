@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class SurveyScreen extends StatefulWidget {
@@ -24,9 +23,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
   int selectedBodyType = 0; // 0 1 2 3
   int selectedTargetBodyType = 0;
 
-  int ?inputAge;
-  double ?inputHeight;
-  double ?inputWeight;
+  int? inputAge;
+  double? inputHeight;
+  double? inputWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +55,14 @@ class _SurveyScreenState extends State<SurveyScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: onBackButtonPressed),
+            icon: Icon(Icons.arrow_back_ios), onPressed: onBackButtonPressed),
         centerTitle: true,
         title: Text("${(questionIndex + 1).toString()} / $numberOfQuestions"),
         actions: [
           IconButton(
             icon: Icon(Icons.arrow_forward_ios),
-            onPressed: userHasAnsweredCurrentQuestion
-                ? onNextButtonPressed
-                : null,
+            onPressed:
+                userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
           ),
         ],
       ),
@@ -168,33 +165,37 @@ class _SurveyScreenState extends State<SurveyScreen> {
               width: 140,
               height: 140,
               child: ElevatedButton(
-                onPressed: () {
-                  selectedGender = 1;
-                  onNextButtonPressed();
-                },
-                style: selectedGender == 1
-                    ? ElevatedButton.styleFrom(
-                        primary: AppColors.primary,
-                      )
-                    : ElevatedButton.styleFrom(primary: Colors.white),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(Icons.male, color: selectedGender == 1 ? Colors.white : Colors.black, size: 50,),
-                    Text("Nam",
-                        style: selectedGender == 1
-                            ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)
-                            : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)),
-                  ],
-                )
-              ),
+                  onPressed: () {
+                    selectedGender = 1;
+                    onNextButtonPressed();
+                  },
+                  style: selectedGender == 1
+                      ? ElevatedButton.styleFrom(
+                          primary: AppColors.primary,
+                        )
+                      : ElevatedButton.styleFrom(primary: Colors.white),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.male,
+                        color:
+                            selectedGender == 1 ? Colors.white : Colors.black,
+                        size: 50,
+                      ),
+                      Text("Nam",
+                          style: selectedGender == 1
+                              ? TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24)
+                              : TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24)),
+                    ],
+                  )),
             ),
             SizedBox(width: 30),
             SizedBox(
@@ -212,17 +213,21 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.female, color: selectedGender == 2 ? Colors.white : Colors.black, size: 50,),
+                    Icon(
+                      Icons.female,
+                      color: selectedGender == 2 ? Colors.white : Colors.black,
+                      size: 50,
+                    ),
                     Text("Nữ",
                         style: selectedGender == 2
                             ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 24)
                             : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)),
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 24)),
                   ],
                 ),
               ),
@@ -427,40 +432,39 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 width: double.infinity,
                 height: 100,
                 child: ElevatedButton(
-                  onPressed: () {
-                    selectedBodyType = 1;
-                    onNextButtonPressed();
-                  },
-                  style: selectedBodyType == 1
-                      ? ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      primary: AppColors.primary)
-                      : ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      primary: Colors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Gầy",
-                        style: selectedBodyType == 1
-                            ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 26)
-                            : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 26),
-                      ),
-                      Image.asset("assets/images/skinnyBodyType.png"),
-                    ],
-                  )
-                ),
+                    onPressed: () {
+                      selectedBodyType = 1;
+                      onNextButtonPressed();
+                    },
+                    style: selectedBodyType == 1
+                        ? ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
+                        : ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Gầy",
+                          style: selectedBodyType == 1
+                              ? TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
+                              : TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
+                        ),
+                        Image.asset("assets/images/skinnyBodyType.png"),
+                      ],
+                    )),
               ),
               SizedBox(
                 height: 30,
@@ -475,15 +479,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     },
                     style: selectedBodyType == 2
                         ? ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: AppColors.primary)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
                         : ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -491,18 +495,17 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           "Cân đối",
                           style: selectedBodyType == 2
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
                         ),
                         Image.asset("assets/images/averageBodyType.png"),
                       ],
-                    )
-                ),
+                    )),
               ),
               SizedBox(
                 height: 30,
@@ -517,15 +520,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     },
                     style: selectedBodyType == 3
                         ? ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: AppColors.primary)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
                         : ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -533,19 +536,19 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           "Thừa cân",
                           style: selectedBodyType == 3
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
                         ),
-                        Image.asset(selectedGender == 1 ? "assets/images/extraBodyType.png"
-                          : "assets/images/extraFemaleBodyType.png"),
+                        Image.asset(selectedGender == 1
+                            ? "assets/images/extraBodyType.png"
+                            : "assets/images/extraFemaleBodyType.png"),
                       ],
-                    )
-                ),
+                    )),
               ),
             ],
           ),
@@ -585,15 +588,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     },
                     style: selectedTargetBodyType == 1
                         ? ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: AppColors.primary)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
                         : ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -601,18 +604,17 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           "Cắt cơ",
                           style: selectedTargetBodyType == 1
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
                         ),
                         Image.asset("assets/images/cutBodyType.png"),
                       ],
-                    )
-                ),
+                    )),
               ),
               SizedBox(
                 height: 30,
@@ -627,15 +629,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     },
                     style: selectedTargetBodyType == 2
                         ? ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: AppColors.primary)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
                         : ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -643,18 +645,17 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           "Cân đối",
                           style: selectedTargetBodyType == 2
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
                         ),
                         Image.asset("assets/images/averageBodyType.png"),
                       ],
-                    )
-                ),
+                    )),
               ),
               SizedBox(
                 height: 30,
@@ -669,15 +670,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     },
                     style: selectedTargetBodyType == 3
                         ? ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: AppColors.primary)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: AppColors.primary)
                         : ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        primary: Colors.white),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -685,19 +686,19 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           "Thừa cân",
                           style: selectedTargetBodyType == 3
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 26),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 26),
                         ),
-                        Image.asset(selectedGender == 1 ? "assets/images/extraBodyType.png"
+                        Image.asset(selectedGender == 1
+                            ? "assets/images/extraBodyType.png"
                             : "assets/images/extraFemaleBodyType.png"),
                       ],
-                    )
-                ),
+                    )),
               ),
             ],
           ),
@@ -724,46 +725,48 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 height: 30,
               ),
               TextFormField(
-                controller: _ageController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Tuổi",
-                ),
+                  controller: _ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "Tuổi",
+                  ),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
-                    RangeValidator(min: 14, max: 99, errorText: "Vui lòng nhập tuổi hợp lệ")
-                  ])
-              ),
+                    RangeValidator(
+                        min: 14,
+                        max: 99,
+                        errorText: "Vui lòng nhập tuổi hợp lệ")
+                  ])),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
-                controller: _heightController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: "Chiều cao",
-                    suffixText: "cm"
-                ),
-                validator: MultiValidator([
-                  RequiredValidator(errorText: "* Bắt buộc"),
-                  RangeValidator(min: 50, max: 300, errorText: "Vui lòng nhập chiều cao hợp lệ")
-                ])
-              ),
+                  controller: _heightController,
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      InputDecoration(labelText: "Chiều cao", suffixText: "cm"),
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "* Bắt buộc"),
+                    RangeValidator(
+                        min: 50,
+                        max: 300,
+                        errorText: "Vui lòng nhập chiều cao hợp lệ")
+                  ])),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
-                controller: _weightController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: "Cân nặng",
-                    suffixText: "kg"
-                ),
+                  controller: _weightController,
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      InputDecoration(labelText: "Cân nặng", suffixText: "kg"),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
-                    RangeValidator(min: 25, max: 300, errorText: "Vui lòng nhập cân nặng hợp lệ")
-                  ])
-              ),
+                    RangeValidator(
+                        min: 25,
+                        max: 300,
+                        errorText: "Vui lòng nhập cân nặng hợp lệ")
+                  ])),
               SizedBox(
                 height: 35,
               ),
@@ -793,6 +796,5 @@ class _SurveyScreenState extends State<SurveyScreen> {
         ),
       ],
     );
-
   }
 }
