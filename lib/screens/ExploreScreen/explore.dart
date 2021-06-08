@@ -35,7 +35,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
     _selectedPlan = _getPlansForDay(_selectedDay!.day);
     ;
@@ -195,7 +194,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   height: 4,
                 ),
                 Text(
-                    "  - Lượng calo tiêu thụ: ${_selectedPlan.totolOfCaloOut} kcals"),
+                    "  - Lượng calo tiêu thụ: ${_selectedPlan.totalOfCaloOut} kcals"),
                 SizedBox(
                   height: 4,
                 ),
