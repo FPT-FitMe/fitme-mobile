@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         const Locale('vi', ''), // Vietnam, no country code
       ],
-      initialRoute: AppRoutes.postScreen,
+      initialRoute: AppRoutes.detailMeal,
       routes: getRoutes(),
       onGenerateRoute: (settings) {
         generateRoutes(settings);

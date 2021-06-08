@@ -1,3 +1,5 @@
+import 'package:community_material_icon/community_material_icon.dart';
+import 'package:fitme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class DetailMealScreen extends StatelessWidget {
@@ -27,27 +29,30 @@ class DetailMealScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
-              child: titleSection,
+              child: titleSection(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: authorSection,
+              child: authorSection(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: tagSection,
+              child: tagSection(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: timeSection,
+              child: timeSection(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: ingredientSection,
+              child: ingredientSection(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: textSection,
+              child: textSection(),
+            ),
+            SizedBox(
+              height: 30,
             ),
           ],
         ),
@@ -55,139 +60,173 @@ class DetailMealScreen extends StatelessWidget {
     );
   }
 
-  Widget authorSection = Container(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(
-              'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
-          radius: 22,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Column(
+  Widget authorSection() => Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Công thức viết bởi"),
-            SizedBox(height: 5.0),
-            Text("Lalisa Monoban",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
+              radius: 22,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              children: [
+                Text("Công thức viết bởi"),
+                SizedBox(height: 5.0),
+                Text("Lalisa Monoban",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
           ],
         ),
-      ],
-    ),
-  );
+      );
 
-  Widget titleSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      "Cháo yến mạch trái cây",
-      softWrap: true,
-      textAlign: TextAlign.justify,
-      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-    ),
-  );
-
-  Widget tagSection =
-      Wrap(alignment: WrapAlignment.start, spacing: 5.0, children: [
-    Chip(
-      label: const Text('Sáng'),
-    ),
-    Chip(
-      label: const Text('Ít carb'),
-    ),
-    Chip(
-      label: const Text('Trái cây'),
-    ),
-    Chip(
-      label: const Text('Trái cây'),
-    ),
-  ]);
-
-  Widget timeSection = Container(
-    child: Row(
-      children: [
-        Icon(
-          Icons.access_time,
-          color: Colors.grey,
-          size: 30,
-        ),
-        SizedBox(width: 10),
-        Text(
-          '15 phút',
+  Widget titleSection() => Container(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          "Cháo yến mạch trái cây",
           softWrap: true,
-          style: TextStyle(
-            fontSize: 15,
-          ),
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 10),
-        Icon(
-          Icons.breakfast_dining_outlined,
-          color: Colors.grey,
-          size: 30,
-        ),
-        SizedBox(width: 10),
-        Text(
-          '15 phút',
-          softWrap: true,
-          style: TextStyle(
-            fontSize: 15,
-          ),
-        ),
-      ],
-    ),
-  );
+      );
 
-  Widget ingredientSection = Container(
-    child: Column(
-      children: [
-        ListTile(
-          title: Text(
-            'Nguyên liệu cho 1 phần',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 20,
-              color: Colors.black,
-            ),
-          ),
+  Widget _createCustomChip({title: String}) => Chip(
+        label: Text(title),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColors.grayText, width: 1),
+          borderRadius: BorderRadius.circular(5),
         ),
-        SizedBox(width: 10),
-        ListTile(
-          title: Text(
-            'Chuối',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-              color: Colors.black,
-            ),
-          ),
-          trailing: Text('50g'),
-        ),
-        Divider(),
-        ListTile(
-          title: Text(
-            'Bơ',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-              color: Colors.black,
-            ),
-          ),
-          trailing: Text('100g'),
-        ),
-        Divider(),
-      ],
-    ),
-  );
+      );
 
-  Widget textSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      softWrap: true,
-      textAlign: TextAlign.justify,
-      style: TextStyle(fontSize: 15),
-    ),
-  );
+  Widget tagSection() => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _createCustomChip(title: "Sáng"),
+          SizedBox(
+            width: 10,
+          ),
+          _createCustomChip(title: 'Ít carb'),
+          SizedBox(
+            width: 10,
+          ),
+          _createCustomChip(title: 'Trái cây'),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      );
+
+  Widget timeSection() => Container(
+        child: Row(
+          children: [
+            Icon(
+              CommunityMaterialIcons.clock_time_four_outline,
+              color: AppColors.textColor,
+              size: 30,
+            ),
+            SizedBox(width: 10),
+            Text(
+              '15 phút',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+            SizedBox(width: 10),
+            Icon(
+              CommunityMaterialIcons.bread_slice_outline,
+              color: AppColors.textColor,
+              size: 30,
+            ),
+            SizedBox(width: 10),
+            Text(
+              '15 phút',
+              softWrap: true,
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  // FIXME: find another widget for this please
+  Widget ingredientSection() => Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              title: Align(
+                alignment: Alignment(-1.25, 0),
+                child: Text(
+                  'Nguyên liệu cho 1 phần',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 10),
+            ListTile(
+              title: Align(
+                alignment: Alignment(-1.1, 0),
+                child: Text(
+                  'Chuối',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              trailing: Text('50g'),
+            ),
+            Divider(),
+            ListTile(
+              title: Align(
+                alignment: Alignment(-1.08, 0),
+                child: Text(
+                  'Bơ',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              trailing: Text('100g'),
+            ),
+            Divider(),
+          ],
+        ),
+      );
+
+  Widget textSection() => Container(
+        alignment: Alignment.centerLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Cách làm",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              softWrap: true,
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 15),
+            ),
+          ],
+        ),
+      );
 }
