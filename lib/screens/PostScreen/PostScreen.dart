@@ -24,26 +24,26 @@ class PostScreen extends StatelessWidget {
             width: 600,
             height: 200,
           ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20,20,20,10),
-              child: titleSection,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20,10,20,10),
-              child: authorSection,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20,10,20,0),
-              child: timeSection,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20,10,20,0),
-              child: headLineSection,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20,10,20,0),
-              child: textSection,
-            ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+            child: titleSection,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            child: authorSection,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: timeSection,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: headLineSection,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: textSection,
+          ),
         ],
       ),
     );
@@ -54,19 +54,19 @@ class PostScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage('https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
+          backgroundImage: NetworkImage(
+              'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
           radius: 20,
         ),
         SizedBox(
           width: 10,
         ),
-        Column( 
+        Column(
           children: [
             Text("Công thức viết bởi"),
-            Text(
-              "Lalisa Monoban",
-              style: TextStyle(fontWeight: FontWeight.bold)  
-            ),
+            SizedBox(height: 5.0),
+            Text("Lalisa Monoban",
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
       ],
@@ -102,10 +102,19 @@ class PostScreen extends StatelessWidget {
 
   Widget headLineSection = Container(
     alignment: Alignment.centerLeft,
-    child: Text('Chạy bộ đúng cách và những lợi ích không tưởng',
-        softWrap: true,
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+    child: Row(
+      children: [
+        Icon(
+          Icons.access_time,
+          color: Colors.grey,
+        ),
+        SizedBox(width: 10),
+        Text(
+          '15 phút',
+          softWrap: true,
+        ),
+      ],
+    ),
   );
 
   Widget textSection = Container(
