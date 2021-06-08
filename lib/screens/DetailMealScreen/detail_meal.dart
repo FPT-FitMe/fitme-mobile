@@ -165,14 +165,14 @@ class DetailMealScreen extends StatelessWidget {
         Divider(),
         ListTile(
           title: Text(
-            'Chuối',
+            'Bơ',
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 14,
               color: Colors.black,
             ),
           ),
-          trailing: Text('50g'),
+          trailing: Text('100g'),
         ),
         Divider(),
       ],

@@ -102,19 +102,10 @@ class PostScreen extends StatelessWidget {
 
   Widget headLineSection = Container(
     alignment: Alignment.centerLeft,
-    child: Row(
-      children: [
-        Icon(
-          Icons.access_time,
-          color: Colors.grey,
-        ),
-        SizedBox(width: 10),
-        Text(
-          '15 phút',
-          softWrap: true,
-        ),
-      ],
-    ),
+    child: Text('Chạy bộ đúng cách và những lợi ích không tưởng',
+        softWrap: true,
+        textAlign: TextAlign.left,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
   );
 
   Widget textSection = Container(
