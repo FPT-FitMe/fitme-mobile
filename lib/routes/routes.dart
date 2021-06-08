@@ -24,8 +24,8 @@ getRoutes() {
     AppRoutes.achievement: (context) => AchievementScreen(),
     AppRoutes.payment: (context) => PaymentScreen(),
     AppRoutes.mainScreen: (context) => BottomBarScreen(),
-    AppRoutes.coach_detail: (context) => CoachScreen(),
-    AppRoutes.view_all: (context) => ViewAllScreen(),
+    AppRoutes.coachDetail: (context) => CoachScreen(),
+    AppRoutes.viewAll: (context) => ViewAllScreen(),
     AppRoutes.practice: (context) => PracticeScreen(),
   };
 }

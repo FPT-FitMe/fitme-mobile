@@ -101,7 +101,7 @@ class TitleArticle extends StatelessWidget {
 // chuyen qua trang viewAll
   void _viewAllArticle(
       BuildContext ctx, listMeal, listExcercise, String topic) {
-    Navigator.of(ctx).pushNamed(AppRoutes.view_all, arguments: {
+    Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
       'list_exercise': listExcercise,
       'topic': topic,
