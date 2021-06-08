@@ -30,10 +30,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Practice',
     },
     {
-      'screen': BottomDrawer(),
-      'title': 'Log',
-    },
-    {
       'screen': Center(
         child: Text("Meal Screen"),
       ),

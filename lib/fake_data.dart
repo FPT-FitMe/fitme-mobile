@@ -1,5 +1,6 @@
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
 
 final LIST_PLAN = [
@@ -17,6 +18,28 @@ final LIST_PLAN = [
       listGoal: LIST_GOAL2,
       totalOfCaloIn: 200,
       totalOfCaloOut: 110)
+];
+const LIST_COACH = const [
+  PersonalTrainer(
+      id: 1,
+      name: 'Linh',
+      imageUrl:
+          'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg',
+      information:
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi ",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: 'Nguyễn Văn Linh'),
+  PersonalTrainer(
+      id: 2,
+      name: 'Đạt',
+      imageUrl:
+          "https://www.ffs.ie/hs-fs/hubfs/Daragh%20McDonnell_Revised.jpg?width=435&name=Daragh%20McDonnell_Revised.jpg",
+      information:
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: "Hồ Hào Đạt"),
 ];
 
 const LIST_GOAL = const [
