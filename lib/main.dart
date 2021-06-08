@@ -13,13 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-<<<<<<< HEAD
-      title: 'Flutter Demo',
-      theme: AppThemes.defaultTheme,
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.detailmeal,
-      routes: getRoutes(),
-=======
       title: 'FitMe',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
@@ -36,7 +29,6 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         generateRoutes(settings);
       },
->>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
     );
   }
 }

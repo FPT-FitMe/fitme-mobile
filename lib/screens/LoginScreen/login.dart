@@ -1,8 +1,5 @@
 import 'package:fitme/constants/colors.dart';
-<<<<<<< HEAD
-=======
 import 'package:fitme/constants/routes.dart';
->>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
 import 'package:fitme/screens/LoginScreen/login_presenter.dart';
 import 'package:fitme/screens/LoginScreen/login_view.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +42,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
             ),
             GestureDetector(
               onTap: () {
-<<<<<<< HEAD
-                Navigator.pushNamed(context, '/register');
-=======
                 Navigator.pushNamed(context, AppRoutes.register);
->>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
               },
               child: Text(
                 "Đăng ký tại đây",

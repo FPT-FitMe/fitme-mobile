@@ -1,9 +1,5 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter/services.dart';
-=======
->>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
 
 class AppThemes {
   static ThemeData get defaultTheme {
@@ -20,12 +16,8 @@ class AppThemes {
         inputDecorationTheme: InputDecorationTheme(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: TextStyle(fontSize: 18, color: AppColors.grayText),
-<<<<<<< HEAD
-          contentPadding: new EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-=======
           contentPadding:
               new EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
->>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
