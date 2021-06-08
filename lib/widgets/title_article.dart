@@ -61,7 +61,9 @@ class TitleArticle extends StatelessWidget {
                           exerciser.isPremium,
                           exerciser.name,
                           exerciser.duration,
-                          exerciser.cal));
+                          exerciser.cal,
+                          true,
+                          false));
                 }),
               if (listMeal != null)
                 ...listMeal!.map((meal) {
@@ -75,7 +77,9 @@ class TitleArticle extends StatelessWidget {
                           meal.isPremium,
                           meal.name,
                           meal.duration,
-                          meal.cal));
+                          meal.cal,
+                          false,
+                          true));
                 }),
             ],
           ),
@@ -85,8 +89,13 @@ class TitleArticle extends StatelessWidget {
   }
 
   // chuyen qua trang detail cua exercise/meal
-  void _selectArticle(BuildContext ctx, int id) {
+  void _selectArticle(BuildContext ctx, int id, bool isWorkout, bool isMeal) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
+    if (isWorkout) {
+      Navigator.of(ctx).pushNamed(AppRoutes.practice, arguments: {
+        'id': id,
+      });
+    }
   }
 
 // chuyen qua trang viewAll
@@ -99,10 +108,19 @@ class TitleArticle extends StatelessWidget {
     });
   }
 
-  Widget _cardArticle(BuildContext context, int id, String imageUrl,
-      bool isFavorite, bool isPremium, String name, int duration, int cal) {
+  Widget _cardArticle(
+      BuildContext context,
+      int id,
+      String imageUrl,
+      bool isFavorite,
+      bool isPremium,
+      String name,
+      int duration,
+      int cal,
+      bool isWorkout,
+      bool isMeal) {
     return GestureDetector(
-      onTap: () => _selectArticle(context, id),
+      onTap: () => _selectArticle(context, id, isWorkout, isMeal),
       // focusColor: Colors.white,
       // hoverColor: Colors.white,
       // splashColor: Colors.white,
@@ -152,7 +170,7 @@ class TitleArticle extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 4,
+              height: 8,
             ),
             Container(
               // padding: EdgeInsets.symmetric(horizontal: 10),
@@ -160,7 +178,7 @@ class TitleArticle extends StatelessWidget {
               child: Text(
                 name,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 13,
                 ),
               ),
             ),
@@ -170,7 +188,7 @@ class TitleArticle extends StatelessWidget {
               child: Text(
                 '${duration} phút - ${cal} cal',
                 style: TextStyle(
-                  fontSize: 8,
+                  fontSize: 11,
                   color: Colors.black38,
                 ),
               ),
