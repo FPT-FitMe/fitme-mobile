@@ -14,6 +14,7 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final String name = "Hùng";
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   //title la cai hien len appbar
   final List<Map<String, dynamic>> _screens = [
@@ -26,12 +27,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         child: Text("Practic Screen"),
       ),
       'title': 'Practice',
-    },
-    {
-      'screen': Center(
-        child: Text("Log Screen"),
-      ),
-      'title': 'Log',
     },
     {
       'screen': Center(
@@ -48,9 +43,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    index == 2
+        ? _drawerKey.currentState!.openDrawer()
+        : setState(() {
+            _selectedIndex = index;
+          });
   }
 
   @override
@@ -67,6 +64,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
     Color? color_background = appBar.backgroundColor;
     return Scaffold(
+      key: _drawerKey,
+      //CL tu add BottomDrawer ở đây nha, thay cho Drawer á
+      drawer: Drawer(),
       appBar: appBar,
       body: _screens[_selectedIndex]['screen'],
       bottomNavigationBar: BottomNavigationBar(
