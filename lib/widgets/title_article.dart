@@ -186,7 +186,7 @@ class TitleArticle extends StatelessWidget {
               // padding: EdgeInsets.symmetric(horizontal: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                '${duration} phút - ${cal} cal',
+                '${duration} phút - ${cal} kcals',
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.black38,

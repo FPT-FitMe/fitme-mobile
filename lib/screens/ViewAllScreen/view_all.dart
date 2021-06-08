@@ -28,6 +28,7 @@ class ViewAllScreen extends StatelessWidget {
     else
       topic = "chủ đề đã hoàn thành";
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Tất cả ${topic}",

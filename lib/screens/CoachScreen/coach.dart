@@ -11,7 +11,7 @@ class CoachScreen extends StatelessWidget {
     // final routeArgs =
     //     ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     // final coachId = routeArgs['id'] as int;
-    final coachId = 1;
+    final coachId = 2;
     final PersonalTrainer pt = LIST_COACH.where((pt) {
       return pt.id == coachId;
     }).first;

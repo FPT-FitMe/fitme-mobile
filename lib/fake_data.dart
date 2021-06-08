@@ -26,7 +26,7 @@ const LIST_COACH = const [
       imageUrl:
           'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg',
       information:
-          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi \nTập luyện cùng HLV cá nhân là cách nhanh và hiệu quả nhất để bạn đạt được mục tiêu sức khỏe và thể hình của bạn ",
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi ",
       listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       fullname: 'Nguyễn Văn Linh'),
@@ -34,10 +34,10 @@ const LIST_COACH = const [
       id: 2,
       name: 'Đạt',
       imageUrl:
-          'https://scontent-sin6-1.xx.fbcdn.net/v/t1.6435-9/146102237_2362533387224552_6033412381923862316_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=SWqCqOemplQAX-LO-hR&_nc_ht=scontent-sin6-1.xx&oh=4eca4acf7f60d821e343ef23731d8f4d&oe=60E29DEB',
+          "https://www.ffs.ie/hs-fs/hubfs/Daragh%20McDonnell_Revised.jpg?width=435&name=Daragh%20McDonnell_Revised.jpg",
       information:
-          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi \nTập luyện cùng HLV cá nhân là cách nhanh và hiệu quả nhất để bạn đạt được mục tiêu sức khỏe và thể hình của bạn ",
-      listExcersice: LIST_EXERCISE2,
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi",
+      listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       fullname: "Hồ Hào Đạt"),
 ];

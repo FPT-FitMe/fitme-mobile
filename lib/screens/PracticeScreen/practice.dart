@@ -25,6 +25,7 @@ class PracticeScreen extends StatelessWidget {
     final Exercise exercise =
         LIST_EXERCISE.where((element) => element.id == id).first as Exercise;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Container(
           child: Row(
@@ -45,7 +46,6 @@ class PracticeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 15),
         child: Column(
           children: [
             // hình và tiêu đề
@@ -72,14 +72,20 @@ class PracticeScreen extends StatelessWidget {
                     ),
                   ),
                   //hard code
+                  SizedBox(
+                    height: 4,
+                  ),
                   Text(
                     "với Thảo Võ",
                     style: TextStyle(
                       fontSize: 17,
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         children: [
@@ -104,7 +110,9 @@ class PracticeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8,),
+            SizedBox(
+              height: 8,
+            ),
             //cac buoc tap
             Expanded(
               child: SingleChildScrollView(
@@ -123,13 +131,15 @@ class PracticeScreen extends StatelessWidget {
               ),
             ),
             //nut Bat dau
-            SizedBox(height: 8,),
+            SizedBox(
+              height: 8,
+            ),
             SizedBox(
               width: 100,
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigator.pushNamed(context, AppRoutes.payment);
+                  _startExercise();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -150,6 +160,8 @@ class PracticeScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _startExercise() {}
 
   Widget _smallExercise(String title, String imageUrl, int numOfDoExercise) {
     return Container(
