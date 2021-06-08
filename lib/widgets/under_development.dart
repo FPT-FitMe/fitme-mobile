@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class UnderDevelopmentPanel extends StatelessWidget {
   @override
@@ -9,14 +10,12 @@ class UnderDevelopmentPanel extends StatelessWidget {
         children: [
           Text(
             "Tính năng đang phát triển, xin lỗi bạn vì bất tiện này",
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16
-            ),
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
           ),
           Container(
             height: 300,
-            child: Image.asset("assets/images/under_development.png", fit: BoxFit.contain),
+            child: SvgPicture.asset("assets/images/under_development.svg",
+                fit: BoxFit.contain),
           ),
         ],
       ),
