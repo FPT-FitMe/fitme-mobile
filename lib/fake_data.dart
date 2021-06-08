@@ -2,6 +2,7 @@ import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/survey.dart';
 
 final LIST_PLAN = [
   Plan(
@@ -149,5 +150,46 @@ const LIST_GOAL2 = const [
     cal: 25,
     isFavorite: false,
     isPremium: false,
+  ),
+];
+
+var listSurveys = [
+  Survey(
+    question: "Tần suất tập của bạn ?",
+    answers: [
+      "Dưới 3 ngày / tuần",
+      "3 ngày / tuần",
+      "4 ngày / tuần",
+      "5 ngày / tuần",
+      "6 ngày / tuần",
+    ],
+  ),
+  Survey(
+    question: "Bạn tổ chức bữa ăn thế nào ?",
+    answers: [
+      "Sáng, trưa, tối",
+      "Trưa và tối",
+      "3 bữa với xế",
+      "Fasting trung hạn(18h-3 ngày)",
+      "Fasting lâu(>5 ngày)",
+    ],
+  ),
+  Survey(
+    question: "Chế độ ăn uống của bạn ?",
+    answers: [
+      "Thông thường (không nguyên tắc)",
+      "Không ăn thịt",
+      "Chay hoàn toàn",
+      "Keto (mỡ và thịt)",
+    ],
+  ),
+  Survey(
+    question: "Mục tiêu của bạn ?",
+    answers: [
+      "Giảm cân",
+      "Có cơ thể gọn gàng",
+      "Tăng sức bền/ dẻo dai",
+      "Tinh thần thoải mái, ổn định",
+    ],
   ),
 ];

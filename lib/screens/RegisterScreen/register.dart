@@ -35,9 +35,9 @@ class _RegisterScreenState extends State<RegisterScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     ),
                     TextFormField(
                       autofocus: true,
-                      controller: _passwordController,
+                      controller: _confirmPasswordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: "Xác nhận mật khẩu",
@@ -121,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       validator: RequiredValidator(errorText: "* Bắt buộc"),
                     ),
                     SizedBox(
-                      height: 35,
+                      height: 30,
                     ),
                     SizedBox(
                       width: double.infinity,
@@ -152,6 +152,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                               ),
                       ),
                     ),
+                    SizedBox(
+                      height: 50,
+                    ),
                   ],
                 ),
               ),
@@ -159,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomSheet: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -201,8 +204,8 @@ class _RegisterScreenState extends State<RegisterScreen>
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamed(context, AppRoutes.newUserInfo);
-    // TODO: navigate sang home va xoa stack
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.newUserInfo, (routes) => false);
   }
 
   void submitForm() {

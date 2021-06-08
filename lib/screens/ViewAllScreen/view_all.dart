@@ -6,8 +6,8 @@ import 'package:fitme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ViewAllScreen extends StatelessWidget {
-  late List<Meal>? listMeal = null;
-  late List<Exercise>? listExercise = null;
+  late List<Meal>? listMeal;
+  late List<Exercise>? listExercise;
 
   ViewAllScreen({Key? key}) : super(key: key);
 
@@ -31,7 +31,7 @@ class ViewAllScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Tất cả ${topic}",
+          "Tất cả $topic",
           style: TextStyle(
             color: Theme.of(context).textTheme.bodyText1!.color,
           ),
@@ -86,7 +86,7 @@ class ViewAllScreen extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          '${duration} phút - ${cal} kcals',
+          '$duration phút - $cal kcals',
         ),
       ),
     );

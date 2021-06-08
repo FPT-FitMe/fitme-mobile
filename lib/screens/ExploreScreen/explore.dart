@@ -37,7 +37,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     super.initState();
     _selectedDay = _focusedDay;
     _selectedPlan = _getPlansForDay(_selectedDay!.day);
-    ;
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -59,151 +58,171 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          TableCalendar(
-            rowHeight: 50,
-            daysOfWeekVisible: false,
-            firstDay: firstDay,
-            lastDay: lastDay,
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            calendarFormat: CalendarFormat.week,
-            headerVisible: false,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: CalendarStyle(
-              todayTextStyle: _textStyleForCalendar,
-              weekendTextStyle: _textStyleForCalendar,
-              defaultTextStyle: _textStyleForCalendar,
-              defaultDecoration: BoxDecoration(
-                color: Color.fromRGBO(196, 196, 196, 0.2),
-                shape: BoxShape.circle,
-              ),
-              weekendDecoration: BoxDecoration(
-                color: Color.fromRGBO(196, 196, 196, 0.2),
-                shape: BoxShape.circle,
-              ),
-              selectedDecoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
-              ),
-              todayDecoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.7),
-                shape: BoxShape.circle,
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 0, 10),
+              child: Text(
+                "Chào Tùng Nguyễn,",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            onDaySelected: _onDaySelected,
-            // onRangeSelected: _onRangeSelected,
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              for (var i = 0; i < _daysOfWeek.length; i++)
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: Text(
-                    _daysOfWeek[i].toString(),
-                    textAlign: TextAlign.center,
-                  ),
+            TableCalendar(
+              rowHeight: 50,
+              daysOfWeekVisible: false,
+              firstDay: firstDay,
+              lastDay: lastDay,
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              calendarFormat: CalendarFormat.week,
+              headerVisible: false,
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              calendarStyle: CalendarStyle(
+                todayTextStyle: _textStyleForCalendar,
+                weekendTextStyle: _textStyleForCalendar,
+                defaultTextStyle: _textStyleForCalendar,
+                defaultDecoration: BoxDecoration(
+                  color: Color.fromRGBO(196, 196, 196, 0.2),
+                  shape: BoxShape.circle,
                 ),
-            ],
-          ),
-          //cai thanh bar voi ngay luyen
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 5),
-            height: 10,
-            width: 340,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromRGBO(196, 196, 196, 1),
-                        width: double.infinity),
-                    color: Color.fromRGBO(220, 220, 220, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                weekendDecoration: BoxDecoration(
+                  color: Color.fromRGBO(196, 196, 196, 0.2),
+                  shape: BoxShape.circle,
                 ),
-                FractionallySizedBox(
-                  widthFactor: _spendingTimeOfTotal,
-                  child: Container(
+                selectedDecoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.7),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              onDaySelected: _onDaySelected,
+              // onRangeSelected: _onRangeSelected,
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                for (var i = 0; i < _daysOfWeek.length; i++)
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(
+                      _daysOfWeek[i].toString(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
+            ),
+            //cai thanh bar voi ngay luyen
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              height: 10,
+              width: double.infinity,
+              child: Stack(
+                children: <Widget>[
+                  Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      border: Border.all(
+                        color: Color.fromRGBO(196, 196, 196, 1),
+                        width: double.infinity,
+                      ),
+                      color: Color.fromRGBO(220, 220, 220, 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 4,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.topLeft,
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${numOfdatePractice}',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  FractionallySizedBox(
+                    widthFactor: _spendingTimeOfTotal,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
-                  TextSpan(
-                      text: '/30 ngày luyện tập',
-                      style: TextStyle(color: Colors.black)),
                 ],
               ),
             ),
-          ),
-          //phan muc tieu bai tap do an
-          Column(
-            children: [
-              TitleArticle(
-                title: "Mục tiêu hôm nay",
-                listExercise: _selectedPlan.listGoal,
+            SizedBox(
+              height: 4,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              alignment: Alignment.topLeft,
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '$numOfdatePractice',
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                    TextSpan(
+                        text: '/30 ngày luyện tập',
+                        style: TextStyle(color: Colors.black)),
+                  ],
+                ),
               ),
-              TitleArticle(
-                title: "Đồ ăn (sáng/trưa/chiều)",
-                listMeal: _selectedPlan.listMeal,
-              ),
-              TitleArticle(
-                title: "Hoàn thành",
-                listExercise: _selectedPlan.listExercise,
-              ),
-            ],
-          ),
-          //phan tong ket
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            // margin: EdgeInsets.symmetric(vertical: 15),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            //phan muc tieu bai tap do an
+            Column(
               children: [
-                Text(
-                  "Tổng kết",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
+                TitleArticle(
+                  title: "Mục tiêu hôm nay",
+                  listExercise: _selectedPlan.listGoal,
                 ),
-                SizedBox(
-                  height: 4,
+                TitleArticle(
+                  title: "Đồ ăn (sáng/trưa/chiều)",
+                  listMeal: _selectedPlan.listMeal,
                 ),
-                Text(
-                    "  - Lượng calo tiêu thụ: ${_selectedPlan.totalOfCaloOut} kcals"),
-                SizedBox(
-                  height: 4,
+                TitleArticle(
+                  title: "Hoàn thành",
+                  listExercise: _selectedPlan.listExercise,
                 ),
-                Text(
-                    "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
               ],
             ),
-          ),
-        ],
+            //phan tong ket
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              // margin: EdgeInsets.symmetric(vertical: 15),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Tổng kết",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                      "  - Lượng calo tiêu thụ: ${_selectedPlan.totalOfCaloOut} kcals"),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                      "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
       ),
     );
   }
