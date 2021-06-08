@@ -13,4 +13,6 @@ class AppRoutes {
   static const String coachDetail = '/coach';
   static const String viewAll = '/viewAll';
   static const String practice = '/practice';
+  static const String postScreen = '/postScreen';
+  static const String detailMeal = '/detailMeal';
 }

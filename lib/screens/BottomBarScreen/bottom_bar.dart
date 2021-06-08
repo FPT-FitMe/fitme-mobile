@@ -4,6 +4,8 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/screens/ExploreScreen/explore.dart';
 
+import 'bottom_drawer_menu.dart';
+
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
 
@@ -41,10 +43,20 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _onScreenItemTapped(int index) {
+    if (index != 2) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    } else {
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return BottomDrawer();
+          }
+      );
+    }
   }
 
   @override
@@ -95,10 +107,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: AppColors.textColor,
         type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
+        onTap: _onScreenItemTapped,
         elevation: 0,
       ),
       backgroundColor: color_background,
     );
   }
+
 }

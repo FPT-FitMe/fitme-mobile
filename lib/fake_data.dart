@@ -10,14 +10,14 @@ final LIST_PLAN = [
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
       totalOfCaloIn: 325,
-      totolOfCaloOut: 250),
+      totalOfCaloOut: 250),
   Plan(
       id: DateTime.now().day - 1,
       listExercise: LIST_EXERCISE2,
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
       totalOfCaloIn: 200,
-      totolOfCaloOut: 110)
+      totalOfCaloOut: 110)
 ];
 const LIST_COACH = const [
   PersonalTrainer(
