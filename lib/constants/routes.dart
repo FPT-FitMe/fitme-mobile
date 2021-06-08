@@ -10,4 +10,6 @@ class AppRoutes {
   static const String achievement = '/user/achievement';
   static const String mainScreen = '/bottomBar';
   static const String explore = '/explore';
+  static const String postScreen = '/postScreen';
+  static const String detailMeal = '/detailMeal';
 }
