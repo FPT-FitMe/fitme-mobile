@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:fitme/constants/routes.dart';
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
 import 'package:fitme/models/user.dart';
 import 'package:fitme/screens/RegisterScreen/register_presenter.dart';
 import 'package:fitme/screens/RegisterScreen/register_view.dart';
@@ -12,7 +16,12 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
+<<<<<<< HEAD
 class _RegisterScreenState extends State<RegisterScreen> implements RegisterView {
+=======
+class _RegisterScreenState extends State<RegisterScreen>
+    implements RegisterView {
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
   final _formKey = GlobalKey<FormState>();
   late RegisterPresenter _presenter;
   bool _isLoading = false;
@@ -21,7 +30,15 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+<<<<<<< HEAD
   
+=======
+
+  _RegisterScreenState() {
+    _presenter = new RegisterPresenter(this);
+  }
+
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +67,23 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                     ),
                     TextFormField(
                       autofocus: true,
+<<<<<<< HEAD
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
+=======
+                      controller: _firstNameController,
+                      keyboardType: TextInputType.name,
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                       decoration: InputDecoration(
                         labelText: "Họ",
                       ),
                       validator: MultiValidator([
+<<<<<<< HEAD
                         EmailValidator(errorText: "Email không hợp lệ"),
+=======
+                        MaxLengthValidator(20,
+                            errorText: "Họ không được dài quá 20 kí tự"),
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -65,13 +92,23 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                     ),
                     TextFormField(
                       autofocus: true,
+<<<<<<< HEAD
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
+=======
+                      controller: _lastNameController,
+                      keyboardType: TextInputType.name,
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                       decoration: InputDecoration(
                         labelText: "Tên",
                       ),
                       validator: MultiValidator([
+<<<<<<< HEAD
                         EmailValidator(errorText: "Email không hợp lệ"),
+=======
+                        MaxLengthValidator(30,
+                            errorText: "Tên không được dài quá 30 kí tự"),
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -85,10 +122,15 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                       decoration: InputDecoration(
                         labelText: "Email",
                       ),
+<<<<<<< HEAD
                       validator: MultiValidator([
                         EmailValidator(errorText: "Email không hợp lệ"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
+=======
+                      validator: MultiValidator(
+                          [RequiredValidator(errorText: "* Bắt buộc")]),
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                     ),
                     SizedBox(
                       height: 20,
@@ -131,6 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                         ),
                         child: _isLoading
                             ? SizedBox(
+<<<<<<< HEAD
                           width: 20,
                           height: 20,
                           child: CircularProgressIndicator(
@@ -144,6 +187,21 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
                               fontWeight: FontWeight.w600,
                               fontSize: 20),
                         ),
+=======
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                "Đăng ký",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20),
+                              ),
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
                       ),
                     ),
                   ],
@@ -166,7 +224,11 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
             ),
             GestureDetector(
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pushNamed(context, '/login');
+=======
+                Navigator.pushNamed(context, AppRoutes.login);
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
               },
               child: Text(
                 " Đăng nhập tại đây",
@@ -195,6 +257,10 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterView
     setState(() {
       _isLoading = false;
     });
+<<<<<<< HEAD
+=======
+    Navigator.pushNamed(context, AppRoutes.newUserInfo);
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
     // TODO: navigate sang home va xoa stack
   }
 

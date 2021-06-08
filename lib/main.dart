@@ -2,6 +2,7 @@ import 'configs/themes.dart';
 import 'constants/routes.dart';
 import 'routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,11 +13,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       title: 'Flutter Demo',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.detailmeal,
       routes: getRoutes(),
+=======
+      title: 'FitMe',
+      theme: AppThemes.defaultTheme,
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('vi', ''), // Vietnam, no country code
+      ],
+      initialRoute: AppRoutes.login,
+      routes: getRoutes(),
+      onGenerateRoute: (settings) {
+        generateRoutes(settings);
+      },
+>>>>>>> fde812eb00b604d2d685102929a11c6ee98afbae
     );
   }
 }
