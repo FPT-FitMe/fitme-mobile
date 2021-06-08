@@ -1,4 +1,5 @@
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_form.dart';
+import 'package:fitme/widgets/under_develop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -118,7 +119,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
               child: TabBarView(
                 children: [
                   _getActivityList(),
-                  Text('Tính năng đang phát triển ....'),
+                  UnderDevelopmentPanel(),
                   _getWeightLogTabBarView()
                 ],
               ),
