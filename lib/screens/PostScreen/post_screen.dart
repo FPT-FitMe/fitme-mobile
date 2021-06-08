@@ -16,35 +16,37 @@ class PostScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Column(
-        children: [
-          Image.network(
-            'https://images.unsplash.com/photo-1608138404239-d2f557515ecb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-            fit: BoxFit.cover,
-            width: 600,
-            height: 200,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
-            child: titleSection,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: authorSection,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-            child: timeSection,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-            child: headLineSection,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-            child: textSection,
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              'https://images.unsplash.com/photo-1608138404239-d2f557515ecb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+              fit: BoxFit.cover,
+              width: 600,
+              height: 200,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+              child: titleSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: authorSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              child: timeSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              child: headLineSection,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              child: textSection,
+            ),
+          ],
+        ),
       ),
     );
   }
