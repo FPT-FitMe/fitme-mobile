@@ -1,4 +1,3 @@
-// import 'dart:js';
 
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/screens/AchievementScreen/achievement.dart';
@@ -11,6 +10,7 @@ import 'package:fitme/screens/NewUserInfoScreen/new_user_info.dart';
 import 'package:fitme/screens/SettingScreen/setting.dart';
 import 'package:fitme/screens/SurveyScreen/survey.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
+import 'package:fitme/screens/ViewAllScreen/view_all.dart';
 import 'package:flutter/material.dart';
 
 getRoutes() {
@@ -25,6 +25,7 @@ getRoutes() {
     AppRoutes.payment: (context) => PaymentScreen(),
     AppRoutes.mainScreen: (context) => BottomBarScreen(),
     AppRoutes.coach_detail: (context) => CoachScreen(),
+    AppRoutes.view_all: (context) => ViewAllScreen(),
   };
 }
 

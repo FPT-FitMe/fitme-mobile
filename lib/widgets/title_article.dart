@@ -1,3 +1,5 @@
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/ViewAllScreen/view_all.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/models/exercise.dart';
@@ -34,8 +36,9 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                GestureDetector(
-                  onDoubleTap: null,
+                InkWell(
+                  onTap: () =>
+                      _viewAllArticle(context, listMeal, listExercise, title),
                   child: Text(
                     "Hiện tất cả",
                     style: TextStyle(fontSize: 10, color: AppColors.grayText),
@@ -80,91 +83,101 @@ class TitleArticle extends StatelessWidget {
       ),
     );
   }
-}
 
-// chuyen qua trang detail cua exercise/meal
-void _selectArticle(BuildContext ctx, int id) {
-  // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
-}
+  // chuyen qua trang detail cua exercise/meal
+  void _selectArticle(BuildContext ctx, int id) {
+    // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
+  }
 
-Widget _cardArticle(BuildContext context, int id, String imageUrl,
-    bool isFavorite, bool isPremium, String name, int duration, int cal) {
-  return GestureDetector(
-    onTap: () => _selectArticle(context, id),
-    // focusColor: Colors.white,
-    // hoverColor: Colors.white,
-    // splashColor: Colors.white,
-    child: Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      elevation: 0,
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                child: Image.network(
-                  imageUrl,
-                  height: 100,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              if (isFavorite)
-                Positioned(
-                  bottom: 70,
-                  right: 10,
-                  child: Container(
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 17,
-                    ),
+// chuyen qua trang viewAll
+  void _viewAllArticle(
+      BuildContext ctx, listMeal, listExcercise, String topic) {
+    Navigator.of(ctx).pushNamed(AppRoutes.view_all, arguments: {
+      'list_meal': listMeal,
+      'list_exercise': listExcercise,
+      'topic': topic,
+    });
+  }
+
+  Widget _cardArticle(BuildContext context, int id, String imageUrl,
+      bool isFavorite, bool isPremium, String name, int duration, int cal) {
+    return GestureDetector(
+      onTap: () => _selectArticle(context, id),
+      // focusColor: Colors.white,
+      // hoverColor: Colors.white,
+      // splashColor: Colors.white,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        elevation: 0,
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 100,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              if (isPremium)
-                Positioned(
-                  bottom: 70,
-                  left: 10,
-                  child: Container(
-                    child: Icon(
-                      Icons.lock,
-                      color: Colors.white,
-                      size: 17,
+                if (isFavorite)
+                  Positioned(
+                    bottom: 70,
+                    right: 10,
+                    child: Container(
+                      child: Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 17,
+                      ),
                     ),
                   ),
-                )
-            ],
-          ),
-          SizedBox(
-            height: 4,
-          ),
-          Container(
-            // padding: EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.topLeft,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 10,
+                if (isPremium)
+                  Positioned(
+                    bottom: 70,
+                    left: 10,
+                    child: Container(
+                      child: Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                        size: 17,
+                      ),
+                    ),
+                  )
+              ],
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Container(
+              // padding: EdgeInsets.symmetric(horizontal: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontSize: 10,
+                ),
               ),
             ),
-          ),
-          Container(
-            // padding: EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.topLeft,
-            child: Text(
-              '${duration} phút - ${cal} cal',
-              style: TextStyle(
-                fontSize: 8,
-                color: Colors.black38,
+            Container(
+              // padding: EdgeInsets.symmetric(horizontal: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                '${duration} phút - ${cal} cal',
+                style: TextStyle(
+                  fontSize: 8,
+                  color: Colors.black38,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
