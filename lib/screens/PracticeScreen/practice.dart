@@ -134,24 +134,27 @@ class PracticeScreen extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            SizedBox(
-              width: 100,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: () {
-                  _startExercise();
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: SizedBox(
+                width: 150,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _startExercise();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                ),
-                child: Text(
-                  "Bắt đầu",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
+                  child: Text(
+                    "Bắt đầu",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
+                  ),
                 ),
               ),
             ),
