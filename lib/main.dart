@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FitMe',
       theme: AppThemes.defaultTheme,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: AppRoutes.mainScreen,
       routes: getRoutes(),
+      onGenerateRoute: (settings) {
+        generateRoutes(settings);
+      },
     );
   }
 }
