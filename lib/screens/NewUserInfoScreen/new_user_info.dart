@@ -38,7 +38,7 @@ class NewUserInfoScreen extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.survey);
+                    Navigator.pushNamed(context, AppRoutes.newSurvey);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

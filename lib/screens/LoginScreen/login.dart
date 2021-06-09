@@ -166,6 +166,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
       _isLoading = false;
     });
     // TODO: navigate sang home va xoa stack
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.mainScreen, (route) => false);
   }
 
   void submitForm() {

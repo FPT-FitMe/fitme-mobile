@@ -1,5 +1,4 @@
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/screens/ViewAllScreen/view_all.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/models/exercise.dart';
@@ -95,6 +94,9 @@ class TitleArticle extends StatelessWidget {
       Navigator.of(ctx).pushNamed(AppRoutes.practice, arguments: {
         'id': id,
       });
+    } else {
+      // TODO: navigate to meal based on id
+      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
     }
   }
 
@@ -186,7 +188,7 @@ class TitleArticle extends StatelessWidget {
               // padding: EdgeInsets.symmetric(horizontal: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                '${duration} phút - ${cal} kcals',
+                '$duration phút - $cal kcals',
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.black38,

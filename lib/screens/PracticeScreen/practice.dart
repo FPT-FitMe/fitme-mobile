@@ -18,12 +18,12 @@ class PracticeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    // final routeArgs =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     // final id = routeArgs['id'] as int;
     final id = 2;
     final Exercise exercise =
-        LIST_EXERCISE.where((element) => element.id == id).first as Exercise;
+        LIST_EXERCISE.where((element) => element.id == id).first;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
