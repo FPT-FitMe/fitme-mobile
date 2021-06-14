@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/carousel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CarouselWithIndicator extends StatefulWidget {
-  final List<String> imageList;
-  const CarouselWithIndicator({Key? key, required this.imageList})
+  final List<CarouselItem> itemList;
+  const CarouselWithIndicator({Key? key, required this.itemList})
       : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
     return Column(
       children: [
         CarouselSlider(
-          items: _createCarouselItems(widget.imageList),
+          items: _createCarouselItems(widget.itemList),
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height * 0.6,
             autoPlay: true,
@@ -34,9 +35,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.imageList.map(
+          children: widget.itemList.map(
             (url) {
-              int index = widget.imageList.indexOf(url);
+              int index = widget.itemList.indexOf(url);
               return Container(
                 width: 12.0,
                 height: 8.0,
@@ -55,8 +56,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
     );
   }
 
-  _createCarouselItems(List<String> listImages) {
-    return listImages
+  _createCarouselItems(List<CarouselItem> carouselListItems) {
+    return carouselListItems
         .map(
           (item) => Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -65,7 +66,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
               children: [
                 Expanded(
                   child: SvgPicture.asset(
-                    item,
+                    item.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -73,7 +74,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                   height: 20,
                 ),
                 Text(
-                  "Luyện tập hiệu quả hơn",
+                  item.title,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
@@ -86,8 +87,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                 Container(
                   width: 250,
                   child: Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-                    style: TextStyle(),
+                    item.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
