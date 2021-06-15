@@ -150,9 +150,10 @@ class _AccountDetailScreenState extends State<AccountDetailScreen>
             child: Text(
               "Cập nhật thông tin",
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20),
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
             ),
           ),
         ),
