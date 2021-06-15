@@ -70,11 +70,14 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.log);
+            },
             leading: Icon(
               CommunityMaterialIcons.history,
               color: AppColors.textColor,
             ),
-            title: Text('Lịch sử người dùng'),
+            title: Text('Lịch sử hoạt động'),
           ),
           ListTile(
             leading: Icon(

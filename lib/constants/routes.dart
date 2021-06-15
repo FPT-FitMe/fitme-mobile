@@ -18,4 +18,5 @@ class AppRoutes {
   static const String postScreen = '/postScreen';
   static const String detailMeal = '/detailMeal';
   static const String accountDetail = '/user/detail';
+  static const String log = "/user/log";
 }
