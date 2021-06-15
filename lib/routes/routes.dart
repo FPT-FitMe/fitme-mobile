@@ -7,6 +7,8 @@ import 'package:fitme/screens/LoginScreen/login.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PostScreen/post_screen.dart';
 import 'package:fitme/screens/PracticeScreen/practice.dart';
+import 'package:fitme/screens/PracticeScreen/practice_set.dart';
+import 'package:fitme/screens/PracticeScreen/practice_success.dart';
 import 'package:fitme/screens/RegisterScreen/register.dart';
 import 'package:fitme/screens/NewUserInfoScreen/new_user_info.dart';
 import 'package:fitme/screens/SettingScreen/setting.dart';
@@ -33,6 +35,8 @@ getRoutes() {
     AppRoutes.coachDetail: (context) => CoachScreen(),
     AppRoutes.viewAll: (context) => ViewAllScreen(),
     AppRoutes.practice: (context) => PracticeScreen(),
+    AppRoutes.practiceSet: (context) => PracticeSetScreen(),
+    AppRoutes.practiceSuccess: (context) => PracticeSuccessScreen(),
   };
 }
 

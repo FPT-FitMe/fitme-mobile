@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,7 @@ class PracticeScreen extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    _startExercise();
+                    _startExercise(context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -164,7 +165,10 @@ class PracticeScreen extends StatelessWidget {
     );
   }
 
-  void _startExercise() {}
+  void _startExercise(BuildContext ctx) {
+    //truyen list bai tap nho vo trong day
+    Navigator.pushNamed(ctx, AppRoutes.practiceSet);
+  }
 
   Widget _smallExercise(String title, String imageUrl, int numOfDoExercise) {
     return Container(

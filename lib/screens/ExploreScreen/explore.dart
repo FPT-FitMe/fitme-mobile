@@ -24,7 +24,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     fontSize: 16.0,
   );
   late Plan _selectedPlan;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
