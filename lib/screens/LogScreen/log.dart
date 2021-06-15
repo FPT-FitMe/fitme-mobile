@@ -95,7 +95,7 @@ class _LogScreenState extends State<LogScreen> {
           ),
           trailing: Text(
             "-${item.exercise.cal.toString()} kcals",
-            style: TextStyle(color: AppColors.green),
+            style: TextStyle(color: AppColors.green500),
           ),
         );
       },
