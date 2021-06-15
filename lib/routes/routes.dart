@@ -1,4 +1,5 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/AccountDetailScreen/account_detail.dart';
 import 'package:fitme/screens/AchievementScreen/achievement.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
 import 'package:fitme/screens/CoachScreen/coach.dart';
@@ -35,6 +36,7 @@ getRoutes() {
     AppRoutes.coachDetail: (context) => CoachScreen(),
     AppRoutes.viewAll: (context) => ViewAllScreen(),
     AppRoutes.practice: (context) => PracticeScreen(),
+    AppRoutes.accountDetail: (context) => AccountDetailScreen(),
   };
 }
 

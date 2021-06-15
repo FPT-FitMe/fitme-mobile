@@ -57,6 +57,9 @@ class SettingScreen extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.accountDetail);
+            },
             leading: Icon(
               CommunityMaterialIcons.account_edit_outline,
               color: AppColors.textColor,
