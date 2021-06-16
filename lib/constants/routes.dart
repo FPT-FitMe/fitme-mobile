@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const String gettingStarted = "/gettingStarted";
   static const String login = '/login';
   static const String register = '/register';
   static const String completeProfile = '/completeProfile';
@@ -19,4 +20,6 @@ class AppRoutes {
   static const String practiceSet = '/practiceSet';
   static const String practiceSuccess = '/practiceSuccess';
   static const String feedback = '/feedback';
+  static const String accountDetail = '/user/detail';
+  static const String log = "/user/log";
 }

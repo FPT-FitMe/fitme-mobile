@@ -1,9 +1,12 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/AccountDetailScreen/account_detail.dart';
 import 'package:fitme/screens/AchievementScreen/achievement.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
 import 'package:fitme/screens/CoachScreen/coach.dart';
 import 'package:fitme/screens/DetailMealScreen/detail_meal.dart';
 import 'package:fitme/screens/FeedBackScreen/feedback.dart';
+import 'package:fitme/screens/GettingStartedScreen/getting_started.dart';
+import 'package:fitme/screens/LogScreen/log.dart';
 import 'package:fitme/screens/LoginScreen/login.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PostScreen/post_screen.dart';
@@ -21,6 +24,7 @@ import 'package:flutter/material.dart';
 
 getRoutes() {
   return {
+    AppRoutes.gettingStarted: (context) => GettingStartedScreen(),
     AppRoutes.login: (context) => LoginScreen(),
     AppRoutes.register: (context) => RegisterScreen(),
     AppRoutes.newUserInfo: (context) => NewUserInfoScreen(),
@@ -39,6 +43,8 @@ getRoutes() {
     AppRoutes.practiceSet: (context) => PracticeSetScreen(),
     AppRoutes.practiceSuccess: (context) => PracticeSuccessScreen(),
     AppRoutes.feedback: (context) => FeedBackScreen(),
+    AppRoutes.accountDetail: (context) => AccountDetailScreen(),
+    AppRoutes.log: (context) => LogScreen(),
   };
 }
 
