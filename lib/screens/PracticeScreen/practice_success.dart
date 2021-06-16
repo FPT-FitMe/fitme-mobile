@@ -1,4 +1,5 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -126,5 +127,11 @@ class PracticeSuccessScreen extends StatelessWidget {
     return Duration(hours: hours, minutes: minutes, microseconds: micros);
   }
 
-  void _feedbackExercise(BuildContext context) {}
+  void _feedbackExercise(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.feedback,
+      (route) => false,
+    );
+  }
 }
