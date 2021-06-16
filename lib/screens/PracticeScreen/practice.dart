@@ -39,6 +39,7 @@ class PracticeScreen extends StatelessWidget {
                 ),
               ),
               // hình ảnh hiện tại chỉ mang tính chất tượng trưng
+              // TODO: add to favorite list
               Icon(Icons.favorite_outline),
             ],
           ),
@@ -167,7 +168,11 @@ class PracticeScreen extends StatelessWidget {
 
   void _startExercise(BuildContext ctx) {
     //truyen list bai tap nho vo trong day
-    Navigator.pushNamed(ctx, AppRoutes.practiceSet);
+    //thời gian lúc bắt đầu bài tap
+    DateTime _startTime = DateTime.now();
+    Navigator.pushNamed(ctx, AppRoutes.practiceSet, arguments: {
+      'startTime': _startTime,
+    });
   }
 
   Widget _smallExercise(String title, String imageUrl, int numOfDoExercise) {
