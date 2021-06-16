@@ -2,6 +2,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NewUserInfoCompletedScreen extends StatelessWidget {
   @override
@@ -24,12 +25,10 @@ class NewUserInfoCompletedScreen extends StatelessWidget {
               SizedBox(height: 20),
               Text("Nỗ lực để đạt mục tiêu của mình nhé",
                   style: TextStyle(fontSize: 20, color: AppColors.grayText)),
-              Image.asset(
-                'assets/images/newUserInfoCompleted.png',
-                width: 300,
-                height: 400,
-                fit: BoxFit.contain,
-              ),
+              SvgPicture.asset("assets/images/newUserInfoCompleted.svg",
+                  height: 350,
+                  width: 350,
+                  fit: BoxFit.contain),
               SizedBox(
                 height: 30,
               ),
