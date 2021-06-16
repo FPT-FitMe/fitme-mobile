@@ -79,6 +79,8 @@ class _NewSurveyScreenState extends State<NewSurveyScreen> {
       setState(() {
         questionIndex--;
       });
+    } else {
+      Navigator.of(context).pop();
     }
   }
 
@@ -90,7 +92,7 @@ class _NewSurveyScreenState extends State<NewSurveyScreen> {
     } else {
       //TODO: handle complete survey
       Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.mainScreen, (route) => false);
+          context, AppRoutes.newUserInfoCompleted, (route) => false);
     }
   }
 
@@ -106,7 +108,7 @@ class _NewSurveyScreenState extends State<NewSurveyScreen> {
   }
 
   Widget getCurrentPage(double _width) {
-    Widget selectedPage = getSelectGenderPage();
+    Widget selectedPage;
     switch (questionIndex) {
       case 0:
         if (selectedGender == 0) {
@@ -115,19 +117,16 @@ class _NewSurveyScreenState extends State<NewSurveyScreen> {
         selectedPage = getSelectGenderPage();
         break;
       case 1:
-      case 2:
-      case 3:
-      case 4:
-        if (surveys[questionIndex - 1].selectedIndex < 0) {
-          userHasAnsweredCurrentQuestion = false;
-        }
-        selectedPage = createSurvey(surveys[questionIndex - 1]);
-        break;
-      case 5:
         if (inputAge == null || inputHeight == null || inputWeight == null) {
           userHasAnsweredCurrentQuestion = false;
         }
         selectedPage = getBodyInfoFormPage();
+        break;
+      default:
+        if (surveys[questionIndex - 2].selectedIndex < 0) {
+          userHasAnsweredCurrentQuestion = false;
+        }
+        selectedPage = createSurvey(surveys[questionIndex - 2]);
         break;
     }
     return Column(
@@ -312,7 +311,7 @@ class _NewSurveyScreenState extends State<NewSurveyScreen> {
                     ),
                   ),
                   child: Text(
-                    "Hoàn tất",
+                    "Tiếp theo",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,

@@ -4,6 +4,7 @@ import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
 import 'package:fitme/screens/CoachScreen/coach.dart';
 import 'package:fitme/screens/DetailMealScreen/detail_meal.dart';
 import 'package:fitme/screens/LoginScreen/login.dart';
+import 'package:fitme/screens/NewUserInfoScreen/new_user_info_completed.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PostScreen/post_screen.dart';
 import 'package:fitme/screens/PracticeScreen/practice.dart';
@@ -21,6 +22,7 @@ getRoutes() {
     AppRoutes.login: (context) => LoginScreen(),
     AppRoutes.register: (context) => RegisterScreen(),
     AppRoutes.newUserInfo: (context) => NewUserInfoScreen(),
+    AppRoutes.newUserInfoCompleted: (context) => NewUserInfoCompletedScreen(),
     AppRoutes.survey: (context) => SurveyScreen(),
     AppRoutes.newSurvey: (context) => NewSurveyScreen(),
     AppRoutes.userProfile: (context) => UserProfileScreen(),
