@@ -176,7 +176,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
                 width: 50,
                 height: 50,
                 child: Image.asset(
-                  "assets/images/$imageFilename",
+                  "assets/images/diary/$imageFilename",
                   fit: BoxFit.contain,
                 ),
               ),
@@ -258,7 +258,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
         Container(
             height: 85,
             child: Image.asset(
-              "assets/images/$imageFileName",
+              "assets/images/diary/$imageFileName",
               fit: BoxFit.contain,
             )),
         Padding(

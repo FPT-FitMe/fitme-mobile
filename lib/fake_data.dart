@@ -1,8 +1,10 @@
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/survey.dart';
+import 'package:fitme/models/workout_log.dart';
 
 final LIST_PLAN = [
   Plan(
@@ -191,5 +193,86 @@ var listSurveys = [
       "Tăng sức bền/ dẻo dai",
       "Tinh thần thoải mái, ổn định",
     ],
+  ),
+];
+
+List<MealLog> listMealLog = [
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+];
+
+List<WorkoutLog> listWorkoutLog = [
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
   ),
 ];
