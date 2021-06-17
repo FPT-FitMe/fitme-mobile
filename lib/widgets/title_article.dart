@@ -91,7 +91,7 @@ class TitleArticle extends StatelessWidget {
   void _selectArticle(BuildContext ctx, int id, bool isWorkout, bool isMeal) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
-      Navigator.of(ctx).pushNamed(AppRoutes.practice, arguments: {
+      Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
         'id': id,
       });
     } else {
