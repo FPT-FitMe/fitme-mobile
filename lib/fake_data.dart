@@ -157,41 +157,39 @@ const LIST_GOAL2 = const [
 
 var listSurveys = [
   Survey(
-    question: "Tần suất tập của bạn ?",
+    question: "Mục tiêu của bạn là ?",
     answers: [
-      "Dưới 3 ngày / tuần",
-      "3 ngày / tuần",
-      "4 ngày / tuần",
-      "5 ngày / tuần",
-      "6 ngày / tuần",
-    ],
-  ),
-  Survey(
-    question: "Bạn tổ chức bữa ăn thế nào ?",
-    answers: [
-      "Sáng, trưa, tối",
-      "Trưa và tối",
-      "3 bữa với xế",
-      "Fasting trung hạn(18h-3 ngày)",
-      "Fasting lâu(>5 ngày)",
+      "Giảm cân",
+      "Duy trì vóc dáng hiện tại",
+      "Tăng cân",
+      "Cân bằng sức khỏe",
     ],
   ),
   Survey(
     question: "Chế độ ăn uống của bạn ?",
     answers: [
-      "Thông thường (không nguyên tắc)",
+      "Không nguyên tắc",
+      "Không tinh bột",
+      "Ăn chay hoàn toàn",
       "Không ăn thịt",
-      "Chay hoàn toàn",
-      "Keto (mỡ và thịt)",
     ],
   ),
   Survey(
-    question: "Mục tiêu của bạn ?",
+    question: "Bạn tổ chức bữa ăn thế nào ?",
     answers: [
-      "Giảm cân",
-      "Có cơ thể gọn gàng",
-      "Tăng sức bền/ dẻo dai",
-      "Tinh thần thoải mái, ổn định",
+      "Trưa và tối",
+      "Sáng, trưa, tối",
+      "Sáng, trưa, tối với xế",
+    ],
+  ),
+  Survey(
+    question: "Tần suất tập bạn mong muốn ?",
+    answers: [
+      "Dưới 3 ngày / tuần",
+      "3 ngày / tuần",
+      "4 ngày / tuần",
+      "5 ngày / tuần",
+      "6 ngày hoặc cả tuần",
     ],
   ),
 ];

@@ -4,10 +4,11 @@ import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class NewUserInfoScreen extends StatelessWidget {
+class NewUserInfoCompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
@@ -16,24 +17,30 @@ class NewUserInfoScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 50),
                   Text(
-                    "Xin chào Tùng,",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    "Kế hoạch cho bạn đã sẵn sàng",
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 20),
-                  Text("Để bắt đầu, chúng tôi cần một số thông tin của bạn",
-                      style: TextStyle(fontSize: 16, color: AppColors.grayText)),
-                  SizedBox(height: 40),
-                  SvgPicture.asset("assets/images/newUserInfo.svg",
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Nỗ lực để đạt mục tiêu của mình nhé",
+                          style: TextStyle(fontSize: 20, color: AppColors.grayText)),
+                    ],
+                  ),
+                  SvgPicture.asset("assets/images/Date picker-pana.svg",
                       height: 350,
                       width: 350,
                       fit: BoxFit.contain),
-                  SizedBox(height: 75),
+                  SizedBox(
+                    height: 75,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height: 55,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.survey);
+                        Navigator.pushNamed(context, AppRoutes.mainScreen);
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -41,7 +48,7 @@ class NewUserInfoScreen extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "Bắt đầu",
+                        "Tuyệt vời",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,

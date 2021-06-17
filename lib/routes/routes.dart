@@ -8,6 +8,7 @@ import 'package:fitme/screens/FeedBackScreen/feedback.dart';
 import 'package:fitme/screens/GettingStartedScreen/getting_started.dart';
 import 'package:fitme/screens/LogScreen/log.dart';
 import 'package:fitme/screens/LoginScreen/login.dart';
+import 'package:fitme/screens/NewUserInfoScreen/new_user_info_completed.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PostScreen/post_screen.dart';
 import 'package:fitme/screens/PracticeScreen/practice.dart';
@@ -17,7 +18,6 @@ import 'package:fitme/screens/RegisterScreen/register.dart';
 import 'package:fitme/screens/NewUserInfoScreen/new_user_info.dart';
 import 'package:fitme/screens/SettingScreen/setting.dart';
 import 'package:fitme/screens/SurveyScreen/survey.dart';
-import 'package:fitme/screens/SurveyScreen/survey_new.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
 import 'package:fitme/screens/ViewAllScreen/view_all.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ getRoutes() {
     AppRoutes.login: (context) => LoginScreen(),
     AppRoutes.register: (context) => RegisterScreen(),
     AppRoutes.newUserInfo: (context) => NewUserInfoScreen(),
+    AppRoutes.newUserInfoCompleted: (context) => NewUserInfoCompletedScreen(),
     AppRoutes.survey: (context) => SurveyScreen(),
-    AppRoutes.newSurvey: (context) => NewSurveyScreen(),
     AppRoutes.userProfile: (context) => UserProfileScreen(),
     AppRoutes.setting: (context) => SettingScreen(),
     AppRoutes.achievement: (context) => AchievementScreen(),
