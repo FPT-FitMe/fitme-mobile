@@ -1,6 +1,10 @@
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_log.dart';
+import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/survey.dart';
+import 'package:fitme/models/workout_log.dart';
 
 final LIST_PLAN = [
   Plan(
@@ -17,6 +21,28 @@ final LIST_PLAN = [
       listGoal: LIST_GOAL2,
       totalOfCaloIn: 200,
       totalOfCaloOut: 110)
+];
+const LIST_COACH = const [
+  PersonalTrainer(
+      id: 1,
+      name: 'Linh',
+      imageUrl:
+          'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg',
+      information:
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi ",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: 'Nguyễn Văn Linh'),
+  PersonalTrainer(
+      id: 2,
+      name: 'Đạt',
+      imageUrl:
+          "https://www.ffs.ie/hs-fs/hubfs/Daragh%20McDonnell_Revised.jpg?width=435&name=Daragh%20McDonnell_Revised.jpg",
+      information:
+          "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: "Hồ Hào Đạt"),
 ];
 
 const LIST_GOAL = const [
@@ -126,5 +152,125 @@ const LIST_GOAL2 = const [
     cal: 25,
     isFavorite: false,
     isPremium: false,
+  ),
+];
+
+var listSurveys = [
+  Survey(
+    question: "Mục tiêu của bạn là ?",
+    answers: [
+      "Giảm cân",
+      "Duy trì vóc dáng hiện tại",
+      "Tăng cân",
+      "Cân bằng sức khỏe",
+    ],
+  ),
+  Survey(
+    question: "Chế độ ăn uống của bạn ?",
+    answers: [
+      "Không nguyên tắc",
+      "Không tinh bột",
+      "Ăn chay hoàn toàn",
+      "Không ăn thịt",
+    ],
+  ),
+  Survey(
+    question: "Bạn tổ chức bữa ăn thế nào ?",
+    answers: [
+      "Trưa và tối",
+      "Sáng, trưa, tối",
+      "Sáng, trưa, tối với xế",
+    ],
+  ),
+  Survey(
+    question: "Tần suất tập bạn mong muốn ?",
+    answers: [
+      "Dưới 3 ngày / tuần",
+      "3 ngày / tuần",
+      "4 ngày / tuần",
+      "5 ngày / tuần",
+      "6 ngày hoặc cả tuần",
+    ],
+  ),
+];
+
+List<MealLog> listMealLog = [
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+];
+
+List<WorkoutLog> listWorkoutLog = [
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
   ),
 ];
