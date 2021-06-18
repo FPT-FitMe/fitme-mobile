@@ -1,8 +1,12 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/plan.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:fitme/widgets/title_article.dart';
+
+import 'package:fitme/fake_data.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class PraticeScreen extends StatefulWidget {
   PraticeScreen({Key? key}) : super(key: key);
@@ -12,6 +16,33 @@ class PraticeScreen extends StatefulWidget {
 }
 
 class _PraticeScreenState extends State<PraticeScreen> {
+  late Plan _selectedPlan;
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+    _selectedPlan = _getPlansForDay(_selectedDay.day);
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        _selectedPlan = _getPlansForDay(selectedDay.day);
+      });
+    }
+  }
+
+  Plan _getPlansForDay(int day) {
+    if (day < DateTime.now().day - 1 || day > DateTime.now().day)
+      day = DateTime.now().day;
+    return LIST_PLAN.where((plan) => plan.id == day).first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +72,10 @@ class _PraticeScreenState extends State<PraticeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            CarouselPage(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CarouselPage(),
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -78,9 +112,11 @@ class _PraticeScreenState extends State<PraticeScreen> {
                 ),
                 TitleArticle(
                   title: "Bài tập",
+                  listExercise: _selectedPlan.listGoal,
                 ),
                 TitleArticle(
                   title: "Bài viết",
+                  listExercise: _selectedPlan.listGoal,
                 ),
               ],
             ),
@@ -108,7 +144,7 @@ class CoachAvatar extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(imgURL),
-            radius: 45,
+            radius: 40,
           ),
           SizedBox(
             width: 10,
@@ -138,30 +174,63 @@ class CoachAvatar extends StatelessWidget {
 }
 
 class CarouselPage extends StatelessWidget {
+  final List<String> imgList = [
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    'https://images.unsplash.com/photo-1579126038374-6064e9370f0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=717&q=80',
+    'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'
+  ];
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 100,
-        enableInfiniteScroll: true,
-        reverse: false,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-      ),
-      items: [1, 2, 3, 4, 5].map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: CarouselSlider(
+        options: CarouselOptions(
+          height: 100,
+          enableInfiniteScroll: true,
+          reverse: false,
+          enlargeCenterPage: true,
+          viewportFraction: 1,
+          autoPlayAnimationDuration: Duration(milliseconds: 800),
+        ),
+        items: imgList.map((item) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(color: Colors.red[200]),
-                child: Text(
-                  'text $i',
-                  style: TextStyle(fontSize: 16.0),
-                ));
-          },
-        );
-      }).toList(),
+                child: Stack(
+                    alignment: Alignment.center,
+                    fit: StackFit.loose,
+                    children: <Widget>[
+                      Image.network(item, fit: BoxFit.cover, width: 1000),
+                      Positioned(
+                        left: 0,
+                        child: IconButton(
+                          iconSize: 20,
+                          color: Colors.white,
+                          icon: const Icon(Icons.arrow_back_ios_outlined),
+                          onPressed: () {
+                            // Search ???
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: IconButton(
+                          iconSize: 20,
+                          color: Colors.white,
+                          icon: const Icon(Icons.arrow_forward_ios_outlined),
+                          onPressed: () {
+                            // Search ???
+                          },
+                        ),
+                      ),
+                    ]),
+              );
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }
