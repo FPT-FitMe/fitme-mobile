@@ -37,7 +37,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     super.initState();
     _selectedDay = _focusedDay;
     _selectedPlan = _getPlansForDay(_selectedDay!.day);
-    ;
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
