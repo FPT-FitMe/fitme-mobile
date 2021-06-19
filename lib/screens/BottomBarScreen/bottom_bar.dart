@@ -1,3 +1,6 @@
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
+import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
@@ -15,34 +18,35 @@ class BottomBarScreen extends StatefulWidget {
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
-  final String name = "Hùng";
+  final String name = "Tùng";
 
   //title la cai hien len appbar
   final List<Map<String, dynamic>> _screens = [
     {
       'screen': ExploreScreen(),
+      'name': 'explore',
       'title': 'Chào ',
     },
     {
-      'screen': Center(
-        child: Text("Practic Screen"),
-      ),
-      'title': 'Practice',
+      'screen': PraticeExploreScreen(),
+      'name': 'feedPratice',
+      'title': 'Tập luyện',
     },
     {
       'screen': BottomDrawer(),
+      'name': 'log',
       'title': 'Log',
     },
     {
       'screen': Center(
         child: Text("Meal Screen"),
       ),
+      'name': 'meal',
       'title': 'Meal',
     },
     {
-      'screen': Center(
-        child: Text("User Screen"),
-      ),
+      'screen': UserProfileScreen(),
+      'name': 'user',
       'title': 'User',
     },
   ];
@@ -58,14 +62,62 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           isScrollControlled: true,
           builder: (BuildContext context) {
             return BottomDrawer();
-          }
-      );
+          });
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final appBar = AppBar(
+  PreferredSizeWidget getUserProfileAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Text(
+        "Lalisa Manoban",
+        style: TextStyle(fontSize: 16),
+      ),
+      leading: Row(
+        children: [
+          SizedBox(width: 15),
+          Icon(CommunityMaterialIcons.professional_hexagon),
+        ],
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.setting);
+          },
+          child: Icon(CommunityMaterialIcons.cog),
+        ),
+        SizedBox(
+          width: 15,
+        )
+      ],
+    );
+  }
+
+  PreferredSizeWidget getPracticeAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
+
+  PreferredSizeWidget getDetailAppBar() {
+    return AppBar(
+      leading: Icon(Icons.chevron_left),
+      centerTitle: false,
+      titleSpacing: 0,
+      title: Text(
+        "Quay lại",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+    );
+  }
+
+  PreferredSizeWidget getExploreAppBar() {
+    return AppBar(
       elevation: 0,
       title: Text(
         _screens[_selectedIndex]['title'] + name + ",",
@@ -73,14 +125,56 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           color: Theme.of(context).textTheme.bodyText1!.color,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
     );
-    Color? color_background = appBar.backgroundColor;
+  }
+
+  PreferredSizeWidget getFeedPraticeAppBar() {
+    return AppBar(
+      leading: Icon(CommunityMaterialIcons.bookmark_outline),
+      centerTitle: true,
+      titleSpacing: 0,
+      title: Text(
+        "Tập luyện",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      backgroundColor: Colors.white,
+      // Action để search
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.search),
+          tooltip: 'Open shopping cart',
+          onPressed: () {
+            // Search ???
+          },
+        ),
+      ],
+      shadowColor: Colors.transparent, // làm mờ cái line dưới app bar
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var appBar;
+    switch (_screens[_selectedIndex]['name']) {
+      case ('explore'):
+        appBar = getExploreAppBar();
+        break;
+      case ('user'):
+        appBar = getUserProfileAppBar();
+        break;
+      case ('feedPratice'):
+        appBar = getFeedPraticeAppBar();
+        break;
+    }
+    Color backgroundColor = Colors.white;
     return Scaffold(
       appBar: appBar,
       body: _screens[_selectedIndex]['screen'],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: color_background,
+        backgroundColor: backgroundColor,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time),
@@ -114,8 +208,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         onTap: _onScreenItemTapped,
         elevation: 0,
       ),
-      backgroundColor: color_background,
+      backgroundColor: backgroundColor,
     );
   }
-
 }
