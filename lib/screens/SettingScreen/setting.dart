@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -26,22 +27,29 @@ class SettingScreen extends StatelessWidget {
           preferredSize: Size.fromHeight(4.0),
         ),
       ),
-      bottomSheet: Container(
-        child: ListTile(
-          leading: Icon(
-            CommunityMaterialIcons.history,
-            color: AppColors.primary,
+      bottomSheet: GestureDetector(
+        onTap: () {
+          // TODO: handle logout here
+          Navigator.pushNamedAndRemoveUntil(
+              context, AppRoutes.login, (route) => false);
+        },
+        child: Container(
+          child: ListTile(
+            leading: Icon(
+              CommunityMaterialIcons.history,
+              color: AppColors.primary,
+            ),
+            title: Text(
+              'Đăng xuất',
+              style: TextStyle(color: AppColors.primary),
+            ),
           ),
-          title: Text(
-            'Đăng xuất',
-            style: TextStyle(color: AppColors.primary),
-          ),
-        ),
-        decoration: BoxDecoration(
-          border: new Border(
-            top: BorderSide(
-              color: Color(0xFFE8E8E8),
-              width: 1,
+          decoration: BoxDecoration(
+            border: new Border(
+              top: BorderSide(
+                color: Color(0xFFE8E8E8),
+                width: 1,
+              ),
             ),
           ),
         ),
@@ -49,6 +57,9 @@ class SettingScreen extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.accountDetail);
+            },
             leading: Icon(
               CommunityMaterialIcons.account_edit_outline,
               color: AppColors.textColor,
@@ -59,11 +70,14 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.log);
+            },
             leading: Icon(
               CommunityMaterialIcons.history,
               color: AppColors.textColor,
             ),
-            title: Text('Lịch sử người dùng'),
+            title: Text('Lịch sử hoạt động'),
           ),
           ListTile(
             leading: Icon(

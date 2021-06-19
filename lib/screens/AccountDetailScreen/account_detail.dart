@@ -1,19 +1,14 @@
-import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/user.dart';
 import 'package:fitme/screens/RegisterScreen/register_presenter.dart';
 import 'package:fitme/screens/RegisterScreen/register_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import 'package:fitme/constants/colors.dart';
-
-class RegisterScreen extends StatefulWidget {
+class AccountDetailScreen extends StatefulWidget {
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _AccountDetailScreenState createState() => _AccountDetailScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
+class _AccountDetailScreenState extends State<AccountDetailScreen>
     implements RegisterView {
   final _formKey = GlobalKey<FormState>();
   late RegisterPresenter _presenter;
@@ -24,7 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
-  _RegisterScreenState() {
+  _AccountDetailScreenState() {
     _presenter = new RegisterPresenter(this);
   }
 
@@ -34,19 +29,27 @@ class _RegisterScreenState extends State<RegisterScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Text(
+          "Hồ sơ người dùng",
+          style: TextStyle(),
+        ),
+        centerTitle: true,
       ),
       resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Đăng ký",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-              SizedBox(height: 5),
-              Text("Nhanh chóng và dễ dàng",
-                  style: TextStyle(fontSize: 20, color: AppColors.grayText)),
+              Center(
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage(
+                    'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+                  ),
+                ),
+              ),
               Form(
                 key: _formKey,
                 child: Column(
@@ -123,38 +126,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                     SizedBox(
                       height: 30,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          submitForm();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: _isLoading
-                            ? SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  backgroundColor: Colors.white,
-                                ),
-                              )
-                            : Text(
-                                "Đăng ký",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20),
-                              ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
                   ],
                 ),
               ),
@@ -162,60 +133,39 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Bạn đã là thành viên của FitMe ?",
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(18),
+        child: SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {
+              submitForm();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Text(
+              "Cập nhật thông tin",
               style: TextStyle(
-                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.login);
-              },
-              child: Text(
-                " Đăng nhập tại đây",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primary),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
   @override
-  void registerFail() {
-    setState(() {
-      _isLoading = false;
-    });
-  }
+  void registerFail() {}
 
   @override
-  void registerSuccess() {
-    Fluttertoast.showToast(msg: "Thành công");
-    setState(() {
-      _isLoading = false;
-    });
-    Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.newUserInfo, (routes) => false);
-  }
+  void registerSuccess() {}
 
-  void submitForm() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
-      _presenter.register(new User(email, password));
-    }
-  }
+  void submitForm() {}
 }

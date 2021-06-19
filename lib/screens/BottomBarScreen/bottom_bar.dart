@@ -32,6 +32,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'screen': PraticeExploreScreen(),
       'name': 'feedPratice',
       'title': 'Tập luyện',
+      'screen': Center(
+        child: Text("Practic Screen"),
+      ),
+      'name': 'practice',
+      'title': 'Practice',
     },
     {
       'screen': BottomDrawer(),
@@ -41,6 +46,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     {
       'screen': MealExploreScreen(),
       'name': 'feedMeal',
+      'screen': Center(
+        child: Text("Meal Screen"),
+      ),
+      'name': 'meal',
       'title': 'Meal',
     },
     {
@@ -186,6 +195,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     switch (_screens[_selectedIndex]['name']) {
       case ('explore'):
         appBar = getExploreAppBar();
+        // appBar = getExploreAppBar();
         break;
       case ('user'):
         appBar = getUserProfileAppBar();
