@@ -32,11 +32,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'screen': PraticeExploreScreen(),
       'name': 'feedPratice',
       'title': 'Tập luyện',
-      'screen': Center(
-        child: Text("Practic Screen"),
-      ),
-      'name': 'practice',
-      'title': 'Practice',
     },
     {
       'screen': BottomDrawer(),
@@ -45,11 +40,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
     {
       'screen': MealExploreScreen(),
-      'name': 'feedMeal',
-      'screen': Center(
-        child: Text("Meal Screen"),
-      ),
-      'name': 'meal',
       'title': 'Meal',
     },
     {
@@ -163,48 +153,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
-  PreferredSizeWidget getMealExploreAppBar() {
-    return AppBar(
-      leading: Icon(CommunityMaterialIcons.bookmark_outline),
-      centerTitle: true,
-      titleSpacing: 0,
-      title: Text(
-        "Bữa ăn",
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      backgroundColor: Colors.white,
-      // Action để search
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.search),
-          tooltip: 'Open shopping cart',
-          onPressed: () {
-            // Search ???
-          },
-        ),
-      ],
-      shadowColor: Colors.transparent, // làm mờ cái line dưới app bar
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var appBar;
     switch (_screens[_selectedIndex]['name']) {
       case ('explore'):
         appBar = getExploreAppBar();
-        // appBar = getExploreAppBar();
         break;
       case ('user'):
         appBar = getUserProfileAppBar();
         break;
       case ('feedPratice'):
         appBar = getFeedPraticeAppBar();
-        break;
-      case ('feedMeal'):
-        appBar = getMealExploreAppBar();
         break;
     }
     Color backgroundColor = Colors.white;

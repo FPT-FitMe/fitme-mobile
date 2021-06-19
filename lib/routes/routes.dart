@@ -12,7 +12,6 @@ import 'package:fitme/screens/MealExploreScreen/meal_explore.dart';
 import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
 import 'package:fitme/screens/NewUserInfoScreen/new_user_info_completed.dart';
-import 'package:fitme/screens/PaymentScreen/payment.dart';
 import 'package:fitme/screens/PostScreen/post_screen.dart';
 import 'package:fitme/screens/PracticeScreen/practice.dart';
 import 'package:fitme/screens/PracticeScreen/practice_set.dart';
@@ -41,7 +40,6 @@ getRoutes() {
     AppRoutes.detailMeal: (context) => DetailMealScreen(),
     AppRoutes.mainScreen: (context) => BottomBarScreen(),
     AppRoutes.feedPratice: (context) => PraticeExploreScreen(),
-    AppRoutes.feedMeal: (context) => MealExploreScreen(),
     AppRoutes.coachDetail: (context) => CoachScreen(),
     AppRoutes.viewAll: (context) => ViewAllScreen(),
     AppRoutes.practice: (context) => PracticeScreen(),
