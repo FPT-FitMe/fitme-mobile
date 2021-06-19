@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/carousel_item.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
@@ -51,19 +52,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                carouselPage(),
-                Container(
-                  margin: EdgeInsets.fromLTRB(38, 10, 0, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Pasta hải sản',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text('10 phút - 50 cal'),
-                    ],
-                  ),
-                ),
+                _carouselPage(),
                 Column(
                   children: [
                     TitleArticle(
@@ -88,27 +77,63 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
   }
 }
 
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-  'https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-  'https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80'
+final List<CarouselItem> itemList = [
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      title: "Pasta hải sản",
+      description: "10 phút - 50 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
+      title: "Phở bò",
+      description: "20 phút - 150 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
+      title: "Salad thập cẩm",
+      description: "10 phút - 60 cal")
 ];
 
-Widget carouselPage() => CarouselSlider(
+Widget _carouselPage() => CarouselSlider(
       options: CarouselOptions(
-        height: 180,
+        height: 250,
         autoPlay: true,
-        enlargeCenterPage: true,
+        aspectRatio: 1,
       ),
-      items: imgList.map((item) {
-        return Builder(
-          builder: (BuildContext context) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(item, fit: BoxFit.cover, width: 1000),
-            );
-          },
+      items: itemList.map((item) {
+        return Container(
+          margin: EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                child: Image.network(
+                  item.image,
+                  fit: BoxFit.cover,
+                  width: 1000.0,
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  item.title,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  item.description,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       }).toList(),
     );
