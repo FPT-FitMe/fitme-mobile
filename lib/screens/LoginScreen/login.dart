@@ -25,10 +25,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
@@ -55,98 +52,107 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
           ],
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Xin chào",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            SizedBox(height: 5),
-            Text("Vui lòng đăng nhập để tiếp tục",
-                style: TextStyle(fontSize: 18, color: AppColors.grayText)),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    autofocus: true,
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                    ),
-                    validator: MultiValidator([
-                      EmailValidator(errorText: "Email không hợp lệ"),
-                      RequiredValidator(errorText: "* Bắt buộc")
-                    ]),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    autofocus: true,
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                    ),
-                    validator: RequiredValidator(errorText: "* Bắt buộc"),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Quên mật khẩu",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        submitForm();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      child: _isLoading
-                          ? SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                              ),
-                            )
-                          : Text(
-                              "Đăng nhập",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16),
-                            ),
-                    ),
-                  ),
-                ],
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: Image.asset(
+                  "assets/images/fitme_icon_transparent.png",
+                  fit: BoxFit.cover,
+                  height: 100,
+                ),
               ),
-            ),
-          ],
+              Text("Xin chào",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              SizedBox(height: 5),
+              Text("Vui lòng đăng nhập để tiếp tục",
+                  style: TextStyle(fontSize: 18, color: AppColors.grayText)),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 30,
+                    ),
+                    TextFormField(
+                      autofocus: true,
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                      ),
+                      validator: MultiValidator([
+                        EmailValidator(errorText: "Email không hợp lệ"),
+                        RequiredValidator(errorText: "* Bắt buộc")
+                      ]),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      autofocus: true,
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                      ),
+                      validator: RequiredValidator(errorText: "* Bắt buộc"),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Quên mật khẩu",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          submitForm();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        child: _isLoading
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                "Đăng nhập",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -166,6 +172,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
       _isLoading = false;
     });
     // TODO: navigate sang home va xoa stack
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.mainScreen, (route) => false);
   }
 
   void submitForm() {

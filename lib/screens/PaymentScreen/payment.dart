@@ -33,7 +33,7 @@ class PaymentScreen extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     CommunityMaterialIcons.checkbox_marked_circle,
-                    color: AppColors.green,
+                    color: AppColors.green500,
                   ),
                   title: Text(
                     '100+ công thức tốt cho sức khỏe',
@@ -43,14 +43,14 @@ class PaymentScreen extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     CommunityMaterialIcons.checkbox_marked_circle,
-                    color: AppColors.green,
+                    color: AppColors.green500,
                   ),
                   title: Text('Bữa ăn dành riêng cho bạn'),
                 ),
                 ListTile(
                   leading: Icon(
                     CommunityMaterialIcons.checkbox_marked_circle,
-                    color: AppColors.green,
+                    color: AppColors.green500,
                   ),
                   title: Text(
                       '50+ bài tập nâng cao từ những huấn luyện viên chuyên nghiệp'),

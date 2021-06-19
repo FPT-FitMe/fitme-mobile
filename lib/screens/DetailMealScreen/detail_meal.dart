@@ -7,7 +7,6 @@ class DetailMealScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
         centerTitle: false,
         titleSpacing: 0,
         title: Text(

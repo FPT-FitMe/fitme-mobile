@@ -1,3 +1,6 @@
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/fake_data.dart';
+import 'package:fitme/models/survey.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
@@ -14,8 +17,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
   TextEditingController _heightController = TextEditingController();
   TextEditingController _weightController = TextEditingController();
 
+  List<Survey> surveys = listSurveys;
+
   int questionIndex = 0;
-  int numberOfQuestions = 5;
+  int numberOfQuestions = 2 + listSurveys.length;
   bool userHasAnsweredCurrentQuestion = true;
 
   int selectedGender = 0;
@@ -55,12 +60,12 @@ class _SurveyScreenState extends State<SurveyScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios), onPressed: onBackButtonPressed),
+            icon: Icon(Icons.chevron_left), onPressed: onBackButtonPressed),
         centerTitle: true,
         title: Text("${(questionIndex + 1).toString()} / $numberOfQuestions"),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
+            icon: Icon(Icons.chevron_right),
             onPressed:
                 userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
           ),
@@ -74,6 +79,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
       setState(() {
         questionIndex--;
       });
+    } else {
+      Navigator.of(context).pop();
     }
   }
 
@@ -83,7 +90,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
         questionIndex++;
       });
     } else {
-      //handle complete survey
+      //TODO: handle complete survey
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.newUserInfoCompleted, (route) => false);
     }
   }
 
@@ -99,7 +108,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
   }
 
   Widget getCurrentPage(double _width) {
-    Widget selectedPage = getSelectGenderPage();
+    Widget selectedPage;
     switch (questionIndex) {
       case 0:
         if (selectedGender == 0) {
@@ -113,23 +122,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
         }
         selectedPage = getBodyInfoFormPage();
         break;
-      case 2:
-        if (selectedExerciseFrequency == 0) {
+      default:
+        if (surveys[questionIndex - 2].selectedIndex < 0) {
           userHasAnsweredCurrentQuestion = false;
         }
-        selectedPage = getSelectExerciseFrequencyPage();
-        break;
-      case 3:
-        if (selectedBodyType == 0) {
-          userHasAnsweredCurrentQuestion = false;
-        }
-        selectedPage = getSelectBodyTypePage();
-        break;
-      case 4:
-        if (selectedTargetBodyType == 0) {
-          userHasAnsweredCurrentQuestion = false;
-        }
-        selectedPage = getSelectTargetBodyTypePage();
+        selectedPage = createSurvey(surveys[questionIndex - 2]);
         break;
     }
     return Column(
@@ -238,475 +235,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
     );
   }
 
-  Widget getSelectExerciseFrequencyPage() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [],
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Center(
-          child: Text("Tần suất tập của bạn ?",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Form(
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 70,
-                child: ElevatedButton(
-                  onPressed: () {
-                    selectedExerciseFrequency = 1;
-                    onNextButtonPressed();
-                  },
-                  style: selectedExerciseFrequency == 1
-                      ? ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: AppColors.primary)
-                      : ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: Colors.white),
-                  child: Text(
-                    "A.     3 ngày / tuần",
-                    style: selectedExerciseFrequency == 1
-                        ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16)
-                        : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 70,
-                child: ElevatedButton(
-                  onPressed: () {
-                    selectedExerciseFrequency = 2;
-                    onNextButtonPressed();
-                  },
-                  style: selectedExerciseFrequency == 2
-                      ? ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: AppColors.primary)
-                      : ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: Colors.white),
-                  child: Text(
-                    "B.     4 ngày / tuần",
-                    style: selectedExerciseFrequency == 2
-                        ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16)
-                        : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 70,
-                child: ElevatedButton(
-                  onPressed: () {
-                    selectedExerciseFrequency = 3;
-                    onNextButtonPressed();
-                  },
-                  style: selectedExerciseFrequency == 3
-                      ? ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: AppColors.primary)
-                      : ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: Colors.white),
-                  child: Text(
-                    "C.     5 ngày / tuần",
-                    style: selectedExerciseFrequency == 3
-                        ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16)
-                        : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 70,
-                child: ElevatedButton(
-                  onPressed: () {
-                    selectedExerciseFrequency = 4;
-                    onNextButtonPressed();
-                  },
-                  style: selectedExerciseFrequency == 4
-                      ? ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: AppColors.primary)
-                      : ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          primary: Colors.white),
-                  child: Text(
-                    "D.     6 ngày / tuần",
-                    style: selectedExerciseFrequency == 4
-                        ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16)
-                        : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget getSelectBodyTypePage() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [],
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Center(
-          child: Text("Cơ thể hiện tại của bạn?",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Form(
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedBodyType = 1;
-                      onNextButtonPressed();
-                    },
-                    style: selectedBodyType == 1
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Gầy",
-                          style: selectedBodyType == 1
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset("assets/images/skinnyBodyType.png"),
-                      ],
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedBodyType = 2;
-                      onNextButtonPressed();
-                    },
-                    style: selectedBodyType == 2
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Cân đối",
-                          style: selectedBodyType == 2
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset("assets/images/averageBodyType.png"),
-                      ],
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedBodyType = 3;
-                      onNextButtonPressed();
-                    },
-                    style: selectedBodyType == 3
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Thừa cân",
-                          style: selectedBodyType == 3
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset(selectedGender == 1
-                            ? "assets/images/extraBodyType.png"
-                            : "assets/images/extraFemaleBodyType.png"),
-                      ],
-                    )),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget getSelectTargetBodyTypePage() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [],
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Center(
-          child: Text("Bạn muốn cơ thể nào?",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Form(
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedTargetBodyType = 1;
-                      onNextButtonPressed();
-                    },
-                    style: selectedTargetBodyType == 1
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Cắt cơ",
-                          style: selectedTargetBodyType == 1
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset("assets/images/cutBodyType.png"),
-                      ],
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedTargetBodyType = 2;
-                      onNextButtonPressed();
-                    },
-                    style: selectedTargetBodyType == 2
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Cân đối",
-                          style: selectedTargetBodyType == 2
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset("assets/images/averageBodyType.png"),
-                      ],
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      selectedTargetBodyType = 3;
-                      onNextButtonPressed();
-                    },
-                    style: selectedTargetBodyType == 3
-                        ? ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: AppColors.primary)
-                        : ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            primary: Colors.white),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Thừa cân",
-                          style: selectedTargetBodyType == 3
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26)
-                              : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 26),
-                        ),
-                        Image.asset(selectedGender == 1
-                            ? "assets/images/extraBodyType.png"
-                            : "assets/images/extraFemaleBodyType.png"),
-                      ],
-                    )),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget getBodyInfoFormPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -791,6 +319,64 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   ),
                 ),
               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget createSurvey(Survey survey) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Text(survey.question,
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Form(
+          child: Column(
+            children: <Widget>[
+              for (int i = 0; i < survey.answers.length; i++)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 70,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        survey.selectedIndex = i;
+                        onNextButtonPressed();
+                      },
+                      style: survey.selectedIndex == i
+                          ? ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              primary: AppColors.primary)
+                          : ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              primary: Colors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(survey.answers[i],
+                              style: TextStyle(
+                                  color: survey.selectedIndex == i
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
