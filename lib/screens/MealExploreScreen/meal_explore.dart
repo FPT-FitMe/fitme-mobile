@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:flutter/material.dart';
@@ -94,47 +95,53 @@ final List<CarouselItem> itemList = [
       title: "Salad thập cẩm",
       description: "10 phút - 60 cal")
 ];
+CarouselController buttonCarouselController = CarouselController();
 
 Widget _carouselPage() => CarouselSlider(
+      carouselController: buttonCarouselController,
       options: CarouselOptions(
         height: 250,
         autoPlay: true,
         aspectRatio: 1,
       ),
       items: itemList.map((item) {
-        return Container(
-          margin: EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                child: Image.network(
-                  item.image,
-                  fit: BoxFit.cover,
-                  width: 1000.0,
-                ),
-              ),
-              Flexible(
-                child: Text(
-                  item.title,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
+        return Builder(builder: (BuildContext context) {
+          return Container(
+            margin: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.detailMeal);
+                    },
+                    child: Image.network(item.image,
+                        fit: BoxFit.cover, width: 1000),
                   ),
                 ),
-              ),
-              Flexible(
-                child: Text(
-                  item.description,
-                  style: TextStyle(
-                    fontSize: 10.0,
+                Flexible(
+                  child: Text(
+                    item.title,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
+                Flexible(
+                  child: Text(
+                    item.description,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
       }).toList(),
     );
 
