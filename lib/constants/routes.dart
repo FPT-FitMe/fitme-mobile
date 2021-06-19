@@ -13,4 +13,5 @@ class AppRoutes {
   static const String postScreen = '/postScreen';
   static const String detailMeal = '/detailMeal';
   static const String feedPratice = '/feedPratice';
+  static const String feedMeal = '/feedMeal';
 }
