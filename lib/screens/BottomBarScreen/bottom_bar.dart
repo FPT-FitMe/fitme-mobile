@@ -40,6 +40,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
     {
       'screen': MealExploreScreen(),
+      'name': 'feedMeal',
       'title': 'Meal',
     },
     {
@@ -153,6 +154,32 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
+  PreferredSizeWidget getFeedMealAppBar() {
+    return AppBar(
+      leading: Icon(CommunityMaterialIcons.bookmark_outline),
+      centerTitle: true,
+      titleSpacing: 0,
+      title: Text(
+        "Bữa ăn",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      backgroundColor: Colors.white,
+      // Action để search
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.search),
+          tooltip: 'Open shopping cart',
+          onPressed: () {
+            // Search ???
+          },
+        ),
+      ],
+      shadowColor: Colors.transparent, // làm mờ cái line dưới app bar
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var appBar;
@@ -165,6 +192,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         break;
       case ('feedPratice'):
         appBar = getFeedPraticeAppBar();
+        break;
+      case ('feedMeal'):
+        appBar = getFeedMealAppBar();
         break;
     }
     Color backgroundColor = Colors.white;

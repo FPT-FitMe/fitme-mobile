@@ -40,6 +40,7 @@ getRoutes() {
     AppRoutes.detailMeal: (context) => DetailMealScreen(),
     AppRoutes.mainScreen: (context) => BottomBarScreen(),
     AppRoutes.feedPratice: (context) => PraticeExploreScreen(),
+    AppRoutes.feedMeal: (context) => MealExploreScreen(),
     AppRoutes.coachDetail: (context) => CoachScreen(),
     AppRoutes.viewAll: (context) => ViewAllScreen(),
     AppRoutes.practice: (context) => PracticeScreen(),
