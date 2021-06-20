@@ -2,10 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
-import 'package:fitme/models/plan.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:fitme/widgets/title_article.dart';
 
 class MealExploreScreen extends StatefulWidget {
@@ -16,33 +14,6 @@ class MealExploreScreen extends StatefulWidget {
 }
 
 class _MealExploreScreenState extends State<MealExploreScreen> {
-  late Plan _selectedPlan;
-  DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay = DateTime.now();
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = _focusedDay;
-    _selectedPlan = _getPlansForDay(_selectedDay.day);
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _selectedPlan = _getPlansForDay(selectedDay.day);
-      });
-    }
-  }
-
-  Plan _getPlansForDay(int day) {
-    if (day < DateTime.now().day - 1 || day > DateTime.now().day)
-      day = DateTime.now().day;
-    return LIST_PLAN.where((plan) => plan.id == day).first;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -65,7 +36,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
                     ),
                     TitleArticle(
                       title: "Gợi ý dành cho bạn",
-                      listMeal: _selectedPlan.listMeal,
+                      listMeal: LIST_MEAL2,
                     ),
                   ],
                 ),

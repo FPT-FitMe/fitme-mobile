@@ -76,11 +76,11 @@ class TitleArticle extends StatelessWidget {
                           context,
                           post.id,
                           post.imageUrl,
-                          post.isFavorite,
-                          post.isPremium,
+                          false,
+                          false,
                           post.name,
                           post.duration,
-                          10,
+                          null,
                           false,
                           false,
                           true));
@@ -143,15 +143,12 @@ class TitleArticle extends StatelessWidget {
       bool isPremium,
       String name,
       int duration,
-      int cal,
+      int? cal,
       bool isWorkout,
       bool isMeal,
       bool isPost) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
-      // focusColor: Colors.white,
-      // hoverColor: Colors.white,
-      // splashColor: Colors.white,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -214,7 +211,7 @@ class TitleArticle extends StatelessWidget {
               // padding: EdgeInsets.symmetric(horizontal: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                '$duration phút - $cal kcals',
+                cal != null ? '$duration phút - $cal kcals' : '$duration phút',
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.black38,

@@ -89,8 +89,6 @@ const LIST_POST = const [
     imageUrl:
         'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
     duration: 10,
-    isFavorite: true,
-    isPremium: false,
   ),
   Post(
     id: 2,
@@ -98,8 +96,6 @@ const LIST_POST = const [
     imageUrl:
         'https://media.suckhoedoisong.vn/Images/nguyenkhanh/2019/06/27/uong_nuoc_sao_cho_du.jpg',
     duration: 7,
-    isFavorite: false,
-    isPremium: false,
   ),
 ];
 const LIST_EXERCISE = const [
