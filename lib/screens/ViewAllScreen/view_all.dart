@@ -2,12 +2,14 @@ import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/post.dart';
 
 import 'package:flutter/material.dart';
 
 class ViewAllScreen extends StatelessWidget {
   late List<Meal>? listMeal;
   late List<Exercise>? listExercise;
+  late List<Post>? listPost;
 
   ViewAllScreen({Key? key}) : super(key: key);
 
@@ -20,12 +22,16 @@ class ViewAllScreen extends StatelessWidget {
       listMeal = routeArgs['list_meal'] as List<Meal>;
     if (routeArgs['list_exercise'] != null)
       listExercise = routeArgs['list_exercise'] as List<Exercise>;
+    if (routeArgs['list_post'] != null)
+      listPost = routeArgs['list_post'] as List<Post>;
     String topic = routeArgs['topic'].toString();
     if (topic.contains("ăn")) {
       topic = "đồ ăn";
-    } else if (topic.contains("Bài tập") || topic.contains("Mục tiêu"))
+    } else if (topic.contains("Bài tập") || topic.contains("Mục tiêu")) {
       topic = "bài tập";
-    else
+    } else if (topic.contains("Bộ") || topic.contains("cơ thể")) {
+      topic = "bài viết";
+    } else
       topic = "chủ đề đã hoàn thành";
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,21 +51,20 @@ class ViewAllScreen extends StatelessWidget {
             )
           : SingleChildScrollView(
               child: Column(
-                children: (listMeal != null)
-                    ? listMeal!
-                        .map((meal) => _cardTitle(meal.name, meal.imageUrl,
-                            meal.duration, meal.cal, context, meal.id))
-                        .toList()
-                    : listExercise!
-                        .map((exercise) => _cardTitle(
-                            exercise.name,
-                            exercise.imageUrl,
-                            exercise.duration,
-                            exercise.cal,
-                            context,
-                            exercise.id))
-                        .toList(),
-              ),
+                  children: (listMeal != null)
+                      ? listMeal!
+                          .map((meal) => _cardTitle(meal.name, meal.imageUrl,
+                              meal.duration, meal.cal, context, meal.id))
+                          .toList()
+                      : listExercise!
+                          .map((exercise) => _cardTitle(
+                              exercise.name,
+                              exercise.imageUrl,
+                              exercise.duration,
+                              exercise.cal,
+                              context,
+                              exercise.id))
+                          .toList()),
             ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/post.dart';
 import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
@@ -12,6 +13,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
+      listPost: LIST_POST,
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
@@ -19,6 +21,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE2,
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
+      listPost: LIST_POST,
       totalOfCaloIn: 200,
       totalOfCaloOut: 110)
 ];
@@ -75,6 +78,26 @@ const LIST_MEAL = const [
         'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/aubergine-goulash_1-e33971f.jpg?webp=true&quality=90&resize=500%2C454',
     duration: 15,
     cal: 300,
+    isFavorite: false,
+    isPremium: false,
+  ),
+];
+const LIST_POST = const [
+  Post(
+    id: 1,
+    name: 'Một ngày chạy bộ cùng Linh',
+    imageUrl:
+        'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
+    duration: 10,
+    isFavorite: true,
+    isPremium: false,
+  ),
+  Post(
+    id: 2,
+    name: 'Vì cơ thể bạn cần nước',
+    imageUrl:
+        'https://media.suckhoedoisong.vn/Images/nguyenkhanh/2019/06/27/uong_nuoc_sao_cho_du.jpg',
+    duration: 7,
     isFavorite: false,
     isPremium: false,
   ),

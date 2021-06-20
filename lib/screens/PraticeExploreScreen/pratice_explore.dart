@@ -92,7 +92,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
               ),
               TitleArticle(
                 title: "Bài viết",
-                listExercise: _selectedPlan.listGoal,
+                listPost: _selectedPlan.listPost,
               ),
             ],
           ),
