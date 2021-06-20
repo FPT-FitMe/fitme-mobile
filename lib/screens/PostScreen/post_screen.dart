@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
@@ -5,7 +6,16 @@ class PostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(CommunityMaterialIcons.chevron_left),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
