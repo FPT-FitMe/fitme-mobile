@@ -63,7 +63,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 0, 10),
+              padding: const EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: Text(
                 "Chào Tùng Nguyễn,",
                 style: TextStyle(

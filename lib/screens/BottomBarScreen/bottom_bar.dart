@@ -1,4 +1,7 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/MealExploreScreen/meal_explore.dart';
+import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
+import 'package:fitme/screens/SearchScreen/search.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -27,11 +30,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Chào ',
     },
     {
-      'screen': Center(
-        child: Text("Practic Screen"),
-      ),
-      'name': 'practice',
-      'title': 'Practice',
+      'screen': PraticeExploreScreen(),
+      'name': 'feedPratice',
+      'title': 'Tập luyện',
     },
     {
       'screen': BottomDrawer(),
@@ -39,10 +40,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Log',
     },
     {
-      'screen': Center(
-        child: Text("Meal Screen"),
-      ),
-      'name': 'meal',
+      'screen': MealExploreScreen(),
+      'name': 'feedMeal',
       'title': 'Meal',
     },
     {
@@ -117,16 +116,69 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
-  PreferredSizeWidget getExploreAppBar() {
+  PreferredSizeWidget getFeedPraticeAppBar() {
     return AppBar(
-      elevation: 0,
+      leading: IconButton(
+        icon: Icon(CommunityMaterialIcons.bookmark_outline),
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.favorite);
+        },
+      ),
+      centerTitle: true,
+      titleSpacing: 0,
       title: Text(
-        _screens[_selectedIndex]['title'] + name + ",",
+        "Tập luyện",
         style: TextStyle(
-          color: Theme.of(context).textTheme.bodyText1!.color,
+          fontWeight: FontWeight.w500,
         ),
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
+      // Action để search
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: Search(true, false),
+            );
+          },
+        ),
+      ],
+      shadowColor: Colors.transparent, // làm mờ cái line dưới app bar
+    );
+  }
+
+  PreferredSizeWidget getFeedMealAppBar() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(CommunityMaterialIcons.bookmark_outline),
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.favorite);
+        },
+      ),
+      centerTitle: true,
+      titleSpacing: 0,
+      title: Text(
+        "Bữa ăn",
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      backgroundColor: Colors.white,
+      // Action để search
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: Search(false, true),
+            );
+          },
+        ),
+      ],
+      shadowColor: Colors.transparent, // làm mờ cái line dưới app bar
     );
   }
 
@@ -134,11 +186,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   Widget build(BuildContext context) {
     var appBar;
     switch (_screens[_selectedIndex]['name']) {
-      case ('explore'):
-        // appBar = getExploreAppBar();
-        break;
       case ('user'):
         appBar = getUserProfileAppBar();
+        break;
+      case ('feedPratice'):
+        appBar = getFeedPraticeAppBar();
+        break;
+      case ('feedMeal'):
+        appBar = getFeedMealAppBar();
         break;
     }
     Color backgroundColor = Colors.white;

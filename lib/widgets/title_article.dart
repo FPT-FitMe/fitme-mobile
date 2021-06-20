@@ -1,4 +1,5 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/post.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/models/exercise.dart';
@@ -9,6 +10,7 @@ import 'package:fitme/constants/colors.dart';
 class TitleArticle extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
+  final List<Post>? listPost;
   final String title;
   final String name = "Yoga buổi sáng";
   final int cal = 15;
@@ -18,7 +20,8 @@ class TitleArticle extends StatelessWidget {
   final bool isFavorite = true;
   final bool isPremium = true;
 
-  const TitleArticle({required this.title, this.listExercise, this.listMeal});
+  const TitleArticle(
+      {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +39,8 @@ class TitleArticle extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () =>
-                      _viewAllArticle(context, listMeal, listExercise, title),
+                  onTap: () => _viewAllArticle(
+                      context, listMeal, listExercise, listPost, title),
                   child: Text(
                     "Hiện tất cả",
                     style: TextStyle(fontSize: 10, color: AppColors.grayText),
@@ -62,7 +65,25 @@ class TitleArticle extends StatelessWidget {
                           exerciser.duration,
                           exerciser.cal,
                           true,
+                          false,
                           false));
+                }),
+              if (listPost != null)
+                ...listPost!.map((post) {
+                  return Flexible(
+                      fit: FlexFit.tight,
+                      child: _cardArticle(
+                          context,
+                          post.id,
+                          post.imageUrl,
+                          false,
+                          false,
+                          post.name,
+                          post.duration,
+                          null,
+                          false,
+                          false,
+                          true));
                 }),
               if (listMeal != null)
                 ...listMeal!.map((meal) {
@@ -78,7 +99,8 @@ class TitleArticle extends StatelessWidget {
                           meal.duration,
                           meal.cal,
                           false,
-                          true));
+                          true,
+                          false));
                 }),
             ],
           ),
@@ -88,24 +110,27 @@ class TitleArticle extends StatelessWidget {
   }
 
   // chuyen qua trang detail cua exercise/meal
-  void _selectArticle(BuildContext ctx, int id, bool isWorkout, bool isMeal) {
+  void _selectArticle(
+      BuildContext ctx, int id, bool isWorkout, bool isMeal, bool isPost) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
       Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
         'id': id,
       });
-    } else {
-      // TODO: navigate to meal based on id
+    } else if (isMeal) {
       Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+    } else if (isPost) {
+      Navigator.pushNamed(ctx, AppRoutes.postScreen);
     }
   }
 
 // chuyen qua trang viewAll
   void _viewAllArticle(
-      BuildContext ctx, listMeal, listExcercise, String topic) {
+      BuildContext ctx, listMeal, listExcercise, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
       'list_exercise': listExcercise,
+      'list_post': listPost,
       'topic': topic,
     });
   }
@@ -118,14 +143,12 @@ class TitleArticle extends StatelessWidget {
       bool isPremium,
       String name,
       int duration,
-      int cal,
+      int? cal,
       bool isWorkout,
-      bool isMeal) {
+      bool isMeal,
+      bool isPost) {
     return GestureDetector(
-      onTap: () => _selectArticle(context, id, isWorkout, isMeal),
-      // focusColor: Colors.white,
-      // hoverColor: Colors.white,
-      // splashColor: Colors.white,
+      onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -188,7 +211,7 @@ class TitleArticle extends StatelessWidget {
               // padding: EdgeInsets.symmetric(horizontal: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                '$duration phút - $cal kcals',
+                cal != null ? '$duration phút - $cal kcals' : '$duration phút',
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.black38,

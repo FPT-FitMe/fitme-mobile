@@ -6,12 +6,12 @@ class CardTitle extends StatelessWidget {
   final String title;
   final String imageUrl;
   final int duration;
-  final int cal;
+  final int? cal;
   final int id;
   final bool isExercise;
 
   CardTitle({
-    required this.cal,
+    this.cal,
     required this.title,
     required this.duration,
     required this.id,
@@ -41,7 +41,7 @@ class CardTitle extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          '$duration phút - $cal kcals',
+          cal != null ? '$duration phút - $cal kcals' : '$duration phút',
         ),
       ),
     );
