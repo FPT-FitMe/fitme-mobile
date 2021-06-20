@@ -1,6 +1,8 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/widgets/card_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,14 +14,15 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            _showFavorite(context);
+          },
+          icon: Icon(Icons.bookmark_outline),
+        ),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              _showFavorite(context);
-            },
-            icon: Icon(Icons.bookmark_outline),
-          ),
           IconButton(
             onPressed: () {
               showSearch(context: context, delegate: Search(isEx, isMeal));
@@ -32,7 +35,7 @@ class SearchScreen extends StatelessWidget {
   }
 
   void _showFavorite(BuildContext context) {
-    
+    Navigator.pushNamed(context, AppRoutes.favorite);
   }
 }
 
@@ -93,16 +96,27 @@ class Search extends SearchDelegate {
             ? _buildNotFoundScreen()
             : ListView(
                 children: exercistList
-                    .map((meal) => _cardTitle(meal.name, meal.imageUrl,
-                        meal.duration, meal.cal, context, meal.id))
+                    .map((exercise) => CardTitle(
+                        title: exercise.name,
+                        imageUrl: exercise.imageUrl,
+                        duration: exercise.duration,
+                        cal: exercise.cal,
+                        id: exercise.id,
+                        isExercise: true))
                     .toList(),
               ))
         : (mealList.isEmpty
             ? _buildNotFoundScreen()
             : ListView(
                 children: mealList
-                    .map((meal) => _cardTitle(meal.name, meal.imageUrl,
-                        meal.duration, meal.cal, context, meal.id))
+                    .map((meal) => CardTitle(
+                          title: meal.name,
+                          imageUrl: meal.imageUrl,
+                          duration: meal.duration,
+                          cal: meal.cal,
+                          id: meal.id,
+                          isExercise: false,
+                        ))
                     .toList(),
               ));
   }
@@ -115,10 +129,12 @@ class Search extends SearchDelegate {
   }
 
   _buildNotFoundScreen() {
-    print("not found");
     return Center(
       child: Column(
         children: [
+          SizedBox(
+            height: 50,
+          ),
           SvgPicture.asset(
             "assets/images/no_data.svg",
             fit: BoxFit.cover,
@@ -137,34 +153,4 @@ class Search extends SearchDelegate {
       ),
     );
   }
-
-  Widget _cardTitle(String title, String imageUrl, int duration, int cal,
-      BuildContext context, int id) {
-    return InkWell(
-      onTap: () => _selectArticle(context, id),
-      child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          child: Image.network(
-            imageUrl,
-            width: 45,
-            height: 45,
-            fit: BoxFit.cover,
-          ),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            color: AppColors.textColor,
-            fontSize: 16,
-          ),
-        ),
-        subtitle: Text(
-          '$duration phút - $cal kcals',
-        ),
-      ),
-    );
-  }
-
-  void _selectArticle(BuildContext ctx, int id) {}
 }

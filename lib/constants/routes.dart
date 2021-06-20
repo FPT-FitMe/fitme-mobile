@@ -23,4 +23,5 @@ class AppRoutes {
   static const String accountDetail = '/user/detail';
   static const String log = "/user/log";
   static const String search = "/search";
+  static const String favorite = "/favorite";
 }
