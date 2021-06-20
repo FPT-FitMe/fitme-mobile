@@ -17,7 +17,8 @@ class AppRoutes {
   static const String practice = '/practice';
   static const String postScreen = '/postScreen';
   static const String detailMeal = '/detailMeal';
-  static const String pratice = '/pratice';
+  static const String feedPratice = '/feedPratice';
+  static const String feedMeal = '/feedMeal';
   static const String practiceSet = '/practiceSet';
   static const String practiceSuccess = '/practiceSuccess';
   static const String feedback = '/feedback';
