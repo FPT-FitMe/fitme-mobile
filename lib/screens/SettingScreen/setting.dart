@@ -80,6 +80,9 @@ class SettingScreen extends StatelessWidget {
             title: Text('Lịch sử hoạt động'),
           ),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.favorite);
+            },
             leading: Icon(
               CommunityMaterialIcons.bookmark_outline,
               color: AppColors.textColor,

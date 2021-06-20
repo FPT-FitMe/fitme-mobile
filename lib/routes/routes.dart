@@ -51,7 +51,6 @@ getRoutes() {
     AppRoutes.feedback: (context) => FeedBackScreen(),
     AppRoutes.accountDetail: (context) => AccountDetailScreen(),
     AppRoutes.log: (context) => LogScreen(),
-    AppRoutes.search: (context) => SearchScreen(),
     AppRoutes.favorite: (context) => FavoriteScreen(),
   };
 }

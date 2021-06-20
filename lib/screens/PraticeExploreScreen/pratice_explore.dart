@@ -42,7 +42,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                     coachName: 'Rose',
                     tagName: 'Yoga, Thể hình',
                     imgURL:
-                        'https://media-cdn.laodong.vn/storage/newsportal/2021/3/24/892486/Rose-Blackpink-Sinh-.jpg?w=720&crop=auto&scale=both'),
+                        'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg'),
                 CoachAvatar(
                   coachName: 'Ariana Grande',
                   tagName: 'Boxing, Thể hình',

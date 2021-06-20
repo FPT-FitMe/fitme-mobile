@@ -1,5 +1,3 @@
-import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/widgets/card_title.dart';
@@ -7,37 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../fake_data.dart';
-
-class SearchScreen extends StatelessWidget {
-  final bool isEx = true;
-  final bool isMeal = false;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            _showFavorite(context);
-          },
-          icon: Icon(Icons.bookmark_outline),
-        ),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              showSearch(context: context, delegate: Search(isEx, isMeal));
-            },
-            icon: Icon(Icons.search),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showFavorite(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.favorite);
-  }
-}
 
 class Search extends SearchDelegate {
   final bool isEx;

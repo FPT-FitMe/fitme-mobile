@@ -1,6 +1,7 @@
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/screens/MealExploreScreen/meal_explore.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
+import 'package:fitme/screens/SearchScreen/search.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -115,22 +116,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
-  PreferredSizeWidget getExploreAppBar() {
-    return AppBar(
-      elevation: 0,
-      title: Text(
-        _screens[_selectedIndex]['title'] + name + ",",
-        style: TextStyle(
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
-      ),
-      backgroundColor: Colors.transparent,
-    );
-  }
-
   PreferredSizeWidget getFeedPraticeAppBar() {
     return AppBar(
-      leading: Icon(CommunityMaterialIcons.bookmark_outline),
+      leading: IconButton(
+        icon: Icon(CommunityMaterialIcons.bookmark_outline),
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.favorite);
+        },
+      ),
       centerTitle: true,
       titleSpacing: 0,
       title: Text(
@@ -144,9 +137,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.search),
-          tooltip: 'Open shopping cart',
           onPressed: () {
-            // Search ???
+            showSearch(
+              context: context,
+              delegate: Search(true, false),
+            );
           },
         ),
       ],
@@ -156,7 +151,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   PreferredSizeWidget getFeedMealAppBar() {
     return AppBar(
-      leading: Icon(CommunityMaterialIcons.bookmark_outline),
+      leading: IconButton(
+        icon: Icon(CommunityMaterialIcons.bookmark_outline),
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.favorite);
+        },
+      ),
       centerTitle: true,
       titleSpacing: 0,
       title: Text(
@@ -169,10 +169,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       // Action để search
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.search),
-          tooltip: 'Open shopping cart',
+          icon: Icon(Icons.search),
           onPressed: () {
-            // Search ???
+            showSearch(
+              context: context,
+              delegate: Search(false, true),
+            );
           },
         ),
       ],
@@ -184,9 +186,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   Widget build(BuildContext context) {
     var appBar;
     switch (_screens[_selectedIndex]['name']) {
-      case ('explore'):
-        appBar = getExploreAppBar();
-        break;
       case ('user'):
         appBar = getUserProfileAppBar();
         break;
