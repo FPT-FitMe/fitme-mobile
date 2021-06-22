@@ -1,8 +1,11 @@
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/post.dart';
+import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/survey.dart';
+import 'package:fitme/models/workout_log.dart';
 
 final LIST_PLAN = [
   Plan(
@@ -10,6 +13,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
+      listPost: LIST_POST,
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
@@ -17,6 +21,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE2,
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
+      listPost: LIST_POST,
       totalOfCaloIn: 200,
       totalOfCaloOut: 110)
 ];
@@ -75,6 +80,22 @@ const LIST_MEAL = const [
     cal: 300,
     isFavorite: false,
     isPremium: false,
+  ),
+];
+const LIST_POST = const [
+  Post(
+    id: 1,
+    name: 'Một ngày chạy bộ cùng Linh',
+    imageUrl:
+        'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
+    duration: 10,
+  ),
+  Post(
+    id: 2,
+    name: 'Vì cơ thể bạn cần nước',
+    imageUrl:
+        'https://media.suckhoedoisong.vn/Images/nguyenkhanh/2019/06/27/uong_nuoc_sao_cho_du.jpg',
+    duration: 7,
   ),
 ];
 const LIST_EXERCISE = const [
@@ -198,5 +219,86 @@ var listSurveys = [
       "Sáng, trưa, tối",
       "Sáng, trưa, tối với xế",
     ],
+  ),
+];
+
+List<MealLog> listMealLog = [
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  MealLog(
+    date: DateTime.now(),
+    meal: Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+];
+
+List<WorkoutLog> listWorkoutLog = [
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
+  ),
+  WorkoutLog(
+    date: DateTime.now(),
+    exercise: Exercise(
+      id: 1,
+      name: 'Yoga buổi sáng',
+      imageUrl:
+          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+      duration: 50,
+      cal: 150,
+      isFavorite: true,
+      isPremium: true,
+    ),
+    content: "",
+    traineeId: 1,
   ),
 ];

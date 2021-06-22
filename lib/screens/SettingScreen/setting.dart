@@ -57,6 +57,9 @@ class SettingScreen extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.accountDetail);
+            },
             leading: Icon(
               CommunityMaterialIcons.account_edit_outline,
               color: AppColors.textColor,
@@ -67,13 +70,19 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.log);
+            },
             leading: Icon(
               CommunityMaterialIcons.history,
               color: AppColors.textColor,
             ),
-            title: Text('Lịch sử người dùng'),
+            title: Text('Lịch sử hoạt động'),
           ),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.favorite);
+            },
             leading: Icon(
               CommunityMaterialIcons.bookmark_outline,
               color: AppColors.textColor,

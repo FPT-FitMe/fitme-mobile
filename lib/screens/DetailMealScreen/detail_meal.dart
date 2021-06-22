@@ -129,7 +129,7 @@ class DetailMealScreen extends StatelessWidget {
               color: AppColors.textColor,
               size: 30,
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 5),
             Text(
               '15 phút',
               softWrap: true,
@@ -143,9 +143,9 @@ class DetailMealScreen extends StatelessWidget {
               color: AppColors.textColor,
               size: 30,
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 5),
             Text(
-              '15 phút',
+              '150 kcals',
               softWrap: true,
               style: TextStyle(
                 fontSize: 15,

@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/widgets/custom_line_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +42,14 @@ class CaloriesCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Chi tiết",
-                    style: TextStyle(color: AppColors.primary, fontSize: 12),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.log);
+                    },
+                    child: Text(
+                      "Chi tiết",
+                      style: TextStyle(color: AppColors.primary, fontSize: 12),
+                    ),
                   ),
                   Icon(
                     CommunityMaterialIcons.chevron_right,

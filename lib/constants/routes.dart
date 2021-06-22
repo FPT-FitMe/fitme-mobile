@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const String gettingStarted = "/gettingStarted";
   static const String login = '/login';
   static const String register = '/register';
   static const String completeProfile = '/completeProfile';
@@ -13,7 +14,15 @@ class AppRoutes {
   static const String explore = '/explore';
   static const String coachDetail = '/coach';
   static const String viewAll = '/viewAll';
-  static const String practice = '/practice';
+  static const String detailPractice = '/detailPractice';
   static const String postScreen = '/postScreen';
   static const String detailMeal = '/detailMeal';
+  static const String feedPratice = '/feedPratice';
+  static const String feedMeal = '/feedMeal';
+  static const String practiceSet = '/practiceSet';
+  static const String practiceSuccess = '/practiceSuccess';
+  static const String feedback = '/feedback';
+  static const String accountDetail = '/user/detail';
+  static const String log = "/user/log";
+  static const String favorite = "/favorite";
 }

@@ -105,7 +105,7 @@ class AchievementScreen extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Icon(
               CommunityMaterialIcons.check_circle,
-              color: AppColors.green,
+              color: AppColors.green500,
             ),
           ),
         )

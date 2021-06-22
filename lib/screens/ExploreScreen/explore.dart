@@ -24,7 +24,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     fontSize: 16.0,
   );
   late Plan _selectedPlan;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -64,7 +63,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 0, 10),
+              padding: const EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: Text(
                 "Chào Tùng Nguyễn,",
                 style: TextStyle(
