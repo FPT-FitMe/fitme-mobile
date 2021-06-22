@@ -477,7 +477,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           ? Row(
                               children: [
                                 Text(
-                                  "* Nhiều người thể chất tương đương với bạn cũng chọn",
+                                  "*Người thể chất tương đương bạn hay chọn",
                                   style: TextStyle(color: AppColors.primary),
                                 )
                               ],

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 final List<CarouselItem> imgList = [
   CarouselItem(
     image: "assets/images/getting_started/fitness_tracker.svg",
-    title: "HUẤN LUYỆN VIÊN CỦA RIÊNG BẠN",
+    title: "TỔ CHỨC KẾ HOẠCH",
     description:
         "Chúng tôi sẽ đề xuất chế độ luyện tập tốt nhất dành riêng cho bạn",
   ),
