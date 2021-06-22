@@ -41,9 +41,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Size logicalSize = MediaQuery
-        .of(context)
-        .size;
+    final Size logicalSize = MediaQuery.of(context).size;
     final double _width = logicalSize.width;
     print(userHasAnsweredCurrentQuestion);
     userHasAnsweredCurrentQuestion = true;
@@ -76,7 +74,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
           IconButton(
             icon: Icon(Icons.chevron_right),
             onPressed:
-            userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
+                userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
           ),
         ],
       ),
@@ -195,8 +193,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   },
                   style: selectedGender == 1
                       ? ElevatedButton.styleFrom(
-                    primary: AppColors.primary,
-                  )
+                          primary: AppColors.primary,
+                        )
                       : ElevatedButton.styleFrom(primary: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,19 +203,19 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       Icon(
                         Icons.male,
                         color:
-                        selectedGender == 1 ? Colors.white : Colors.black,
+                            selectedGender == 1 ? Colors.white : Colors.black,
                         size: 50,
                       ),
                       Text("Nam",
                           style: selectedGender == 1
                               ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 24)
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24)
                               : TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 24)),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 24)),
                     ],
                   )),
             ),
@@ -245,13 +243,13 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     Text("Nữ",
                         style: selectedGender == 2
                             ? TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 24)
                             : TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24)),
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 24)),
                   ],
                 ),
               ),
@@ -283,14 +281,16 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   controller: _ageController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: "Tuổi",
-                  ),
+                      labelText: "Tuổi",
+                      hintText: "*",
+                      hintTextDirection: TextDirection.rtl,
+                      hintStyle: TextStyle(color: Colors.red)),
                   validator: MultiValidator([
-                    RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
                         min: 14,
                         max: 99,
-                        errorText: "Vui lòng nhập tuổi hợp lệ")
+                        errorText: "Vui lòng nhập tuổi hợp lệ"),
+                    RequiredValidator(errorText: "* Bắt buộc"),
                   ])),
               SizedBox(
                 height: 20,
@@ -298,14 +298,20 @@ class _SurveyScreenState extends State<SurveyScreen> {
               TextFormField(
                   controller: _heightController,
                   keyboardType: TextInputType.number,
-                  decoration:
-                  InputDecoration(labelText: "Chiều cao", suffixText: "cm"),
+                  decoration: InputDecoration(
+                      labelText: "Chiều cao",
+                      suffixText: "cm",
+                      hintText: "*",
+                      hintTextDirection: TextDirection.rtl,
+                      hintStyle: TextStyle(color: Colors.red),
+                    suffixStyle: TextStyle(color: Colors.black)
+                  ),
                   validator: MultiValidator([
-                    RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
                         min: 50,
                         max: 300,
-                        errorText: "Vui lòng nhập chiều cao hợp lệ")
+                        errorText: "Vui lòng nhập chiều cao hợp lệ"),
+                    RequiredValidator(errorText: "* Bắt buộc"),
                   ])),
               SizedBox(
                 height: 20,
@@ -313,8 +319,12 @@ class _SurveyScreenState extends State<SurveyScreen> {
               TextFormField(
                   controller: _weightController,
                   keyboardType: TextInputType.number,
-                  decoration:
-                  InputDecoration(labelText: "Cân nặng", suffixText: "kg"),
+                  decoration: InputDecoration(
+                      labelText: "Cân nặng",
+                      suffixText: "kg",
+                      hintText: "*",
+                      hintTextDirection: TextDirection.rtl,
+                      hintStyle: TextStyle(color: Colors.red),suffixStyle: TextStyle(color: Colors.black)),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
@@ -355,9 +365,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
 
   Widget getNumberPickerPage() {
     int minDefaultTargetWeight =
-    (Values.minNormalBMI * inputHeight! * inputHeight!).round();
+        (Values.minNormalBMI * inputHeight! * inputHeight!).round();
     int recommendedTargetWeight =
-    (Values.maxNormalBMI * inputHeight! * inputHeight!).round();
+        (Values.maxNormalBMI * inputHeight! * inputHeight!).round();
     if (inputTargetWeight == 0) {
       inputTargetWeight = recommendedTargetWeight;
     }
@@ -372,7 +382,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
         Center(
           child: Text("Trong tương lai, bạn muốn cân nặng của mình là ?",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
@@ -383,27 +392,26 @@ class _SurveyScreenState extends State<SurveyScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(width: 125,),
+            SizedBox(
+              width: 125,
+            ),
             NumberPicker(
               itemHeight: 75,
               textStyle: TextStyle(fontSize: 50),
-              selectedTextStyle:
-              (inputTargetWeight == recommendedTargetWeight)
-                  ?
-              TextStyle(fontSize: 70, color: Colors.green)
+              selectedTextStyle: (inputTargetWeight == recommendedTargetWeight)
+                  ? TextStyle(fontSize: 70, color: Colors.green)
                   : (inputTargetWeight >= minDefaultTargetWeight &&
-                  inputTargetWeight <= maxDefaultTargetWeight) ? TextStyle(
-                  fontSize: 60, color: AppColors.primary) : TextStyle(
-                  fontSize: 60, color: Colors.red),
+                          inputTargetWeight <= maxDefaultTargetWeight)
+                      ? TextStyle(fontSize: 60, color: AppColors.primary)
+                      : TextStyle(fontSize: 60, color: Colors.red),
               minValue: 20,
               maxValue: 120,
               value: inputTargetWeight == 0
                   ? recommendedTargetWeight
                   : inputTargetWeight,
-              onChanged: (value) =>
-                  setState(() {
-                    inputTargetWeight = value;
-                  }),
+              onChanged: (value) => setState(() {
+                inputTargetWeight = value;
+              }),
             ),
             SizedBox(
               width: 125,
@@ -423,12 +431,22 @@ class _SurveyScreenState extends State<SurveyScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text("•",style: TextStyle(fontSize: 40, color: Colors.green)),
-              Text("Khuyến nghị", style: TextStyle(fontSize: 15, color: Colors.green),),
-              Text("•",style: TextStyle(fontSize: 40, color: AppColors.primary)),
-              Text("Bình thường", style: TextStyle(fontSize: 15, color: AppColors.primary),),
-              Text("•",style: TextStyle(fontSize: 40, color: Colors.red)),
-              Text("Không khuyến nghị", style: TextStyle(fontSize: 15, color: Colors.red),)
+              Text("•", style: TextStyle(fontSize: 40, color: Colors.green)),
+              Text(
+                "Khuyến nghị",
+                style: TextStyle(fontSize: 15, color: Colors.green),
+              ),
+              Text("•",
+                  style: TextStyle(fontSize: 40, color: AppColors.primary)),
+              Text(
+                "Bình thường",
+                style: TextStyle(fontSize: 15, color: AppColors.primary),
+              ),
+              Text("•", style: TextStyle(fontSize: 40, color: Colors.red)),
+              Text(
+                "Không khuyến nghị",
+                style: TextStyle(fontSize: 15, color: Colors.red),
+              )
             ],
           ),
         ),
@@ -436,7 +454,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
     );
   }
 
-  Widget createSurvey(Survey survey, int ?mostSelectedIndex) {
+  Widget createSurvey(Survey survey, int? mostSelectedIndex) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -457,10 +475,13 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     children: [
                       (mostSelectedIndex != null && i == mostSelectedIndex)
                           ? Row(
-                        children: [
-                          Text("* Nhiều người thể chất tương đương với bạn cũng chọn", style: TextStyle(color: AppColors.primary),)
-                        ],
-                      )
+                              children: [
+                                Text(
+                                  "* Nhiều người thể chất tương đương với bạn cũng chọn",
+                                  style: TextStyle(color: AppColors.primary),
+                                )
+                              ],
+                            )
                           : Container(),
                       SizedBox(
                         width: double.infinity,
@@ -472,15 +493,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           },
                           style: survey.selectedIndex == i
                               ? ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              primary: AppColors.primary)
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  primary: AppColors.primary)
                               : ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              primary: Colors.white),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  primary: Colors.white),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
