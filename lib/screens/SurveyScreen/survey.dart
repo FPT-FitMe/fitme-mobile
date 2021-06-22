@@ -283,6 +283,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   decoration: InputDecoration(
                       labelText: "Tuổi",
                       hintText: "*",
+                      suffixText: ("      "),
                       hintTextDirection: TextDirection.rtl,
                       hintStyle: TextStyle(color: Colors.red)),
                   validator: MultiValidator([
@@ -321,7 +322,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: "Cân nặng",
-                      suffixText: "kg",
+                      suffixText: " kg",
                       hintText: "*",
                       hintTextDirection: TextDirection.rtl,
                       hintStyle: TextStyle(color: Colors.red),suffixStyle: TextStyle(color: Colors.black)),
@@ -400,12 +401,12 @@ class _SurveyScreenState extends State<SurveyScreen> {
               textStyle: TextStyle(fontSize: 50),
               selectedTextStyle: (inputTargetWeight == recommendedTargetWeight)
                   ? TextStyle(fontSize: 70, color: Colors.green)
-                  : (inputTargetWeight >= minDefaultTargetWeight &&
-                          inputTargetWeight <= maxDefaultTargetWeight)
+                  : (inputTargetWeight > minDefaultTargetWeight + (inputWeight! * 0.1).round() &&
+                          inputTargetWeight < maxDefaultTargetWeight - (inputWeight! * 0.1).round())
                       ? TextStyle(fontSize: 60, color: AppColors.primary)
                       : TextStyle(fontSize: 60, color: Colors.red),
-              minValue: 20,
-              maxValue: 120,
+              minValue: minDefaultTargetWeight,
+              maxValue: maxDefaultTargetWeight,
               value: inputTargetWeight == 0
                   ? recommendedTargetWeight
                   : inputTargetWeight,
@@ -448,6 +449,14 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 style: TextStyle(fontSize: 15, color: Colors.red),
               )
             ],
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        SizedBox(
+          child: Text(
+            "Chỉ số cân nặng FitMe đề xuất cho bạn dựa trên chỉ số BMI do IDI & WPRO áp dụng với thể chất hiện tại của bạn"
           ),
         ),
       ],
