@@ -148,7 +148,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
         if (surveys[questionIndex - 2].selectedIndex < 0) {
           userHasAnsweredCurrentQuestion = false;
         }
-        if (questionIndex - 2 == 4) {
+        if (questionIndex == 4 || questionIndex == 5) {
           selectedPage = createSurvey(surveys[questionIndex - 2], 2);
         } else {
           selectedPage = createSurvey(surveys[questionIndex - 2], null);
@@ -372,12 +372,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          height: 70,
-        ),
+
         Center(
-          child: Text("Trong tương lai, bạn muốn cân nặng của mình là:",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          child: Text("Trong tương lai, bạn muốn cân nặng của mình là ?",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
         ),
         SizedBox(
           height: 70,
@@ -387,15 +385,16 @@ class _SurveyScreenState extends State<SurveyScreen> {
           children: [
             SizedBox(width: 125,),
             NumberPicker(
-              textStyle: TextStyle(fontSize: 30),
+              itemHeight: 75,
+              textStyle: TextStyle(fontSize: 50),
               selectedTextStyle:
               (inputTargetWeight == recommendedTargetWeight)
                   ?
-              TextStyle(fontSize: 40, color: Colors.green)
+              TextStyle(fontSize: 70, color: Colors.green)
                   : (inputTargetWeight >= minDefaultTargetWeight &&
-                  inputTargetWeight >= maxDefaultTargetWeight) ? TextStyle(
-                  fontSize: 40, color: AppColors.primary) : TextStyle(
-                  fontSize: 40, color: Colors.red),
+                  inputTargetWeight <= maxDefaultTargetWeight) ? TextStyle(
+                  fontSize: 60, color: AppColors.primary) : TextStyle(
+                  fontSize: 60, color: Colors.red),
               minValue: 20,
               maxValue: 120,
               value: inputTargetWeight == 0
@@ -409,19 +408,27 @@ class _SurveyScreenState extends State<SurveyScreen> {
             SizedBox(
               width: 125,
               child: Text(
-                "KG",
-                style: TextStyle(),
+                "kg",
+                style: TextStyle(
+                  fontSize: 40,
+                ),
               ),
             )
           ],
         ),
         SizedBox(
-          height: 50,
+          height: 120,
         ),
         SizedBox(
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text("• Khuyến nghị", style: TextStyle(fontSize: 30, color: Colors.green),)
+              Text("•",style: TextStyle(fontSize: 40, color: Colors.green)),
+              Text("Khuyến nghị", style: TextStyle(fontSize: 15, color: Colors.green),),
+              Text("•",style: TextStyle(fontSize: 40, color: AppColors.primary)),
+              Text("Bình thường", style: TextStyle(fontSize: 15, color: AppColors.primary),),
+              Text("•",style: TextStyle(fontSize: 40, color: Colors.red)),
+              Text("Không khuyến nghị", style: TextStyle(fontSize: 15, color: Colors.red),)
             ],
           ),
         ),
@@ -449,9 +456,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   child: Column(
                     children: [
                       (mostSelectedIndex != null && i == mostSelectedIndex)
-                          ? SizedBox(
-                        child: Text(
-                            "* Nhiều người thể chất tương đương với bạn cũng chọn"),
+                          ? Row(
+                        children: [
+                          Text("* Nhiều người thể chất tương đương với bạn cũng chọn", style: TextStyle(color: AppColors.primary),)
+                        ],
                       )
                           : Container(),
                       SizedBox(
