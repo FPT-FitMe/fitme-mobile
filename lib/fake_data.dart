@@ -155,16 +155,7 @@ const LIST_GOAL2 = const [
 
 var listSurveys = [
   Survey(
-    question: "Mục tiêu của bạn là ?",
-    answers: [
-      "Giảm cân",
-      "Duy trì vóc dáng hiện tại",
-      "Tăng cân",
-      "Cân bằng sức khỏe",
-    ],
-  ),
-  Survey(
-    question: "Chế độ ăn uống của bạn ?",
+    question: "Chế độ ăn uống hiện tại của bạn ?",
     answers: [
       "Không nguyên tắc",
       "Không tinh bột",
@@ -173,11 +164,21 @@ var listSurveys = [
     ],
   ),
   Survey(
-    question: "Bạn tổ chức bữa ăn thế nào ?",
+    question: "cai nay de skip tai tao luoi lam logic",
     answers: [
-      "Trưa và tối",
-      "Sáng, trưa, tối",
-      "Sáng, trưa, tối với xế",
+      "Giảm cân",
+      "Duy trì vóc dáng hiện tại",
+      "Tăng cân",
+      "Cân bằng sức khỏe",
+    ],
+  ),
+  Survey(
+    question: "Bạn muốn đạt mục tiêu này trong khoảng thời gian bao lâu ?",
+    answers: [
+      "30 ngày",
+      "3 tháng",
+      "6 tháng",
+      "1 năm",
     ],
   ),
   Survey(
@@ -188,6 +189,14 @@ var listSurveys = [
       "4 ngày / tuần",
       "5 ngày / tuần",
       "6 ngày hoặc cả tuần",
+    ],
+  ),
+  Survey(
+    question: "Bạn muốn tổ chức bữa ăn thế nào ?",
+    answers: [
+      "Trưa và tối",
+      "Sáng, trưa, tối",
+      "Sáng, trưa, tối với xế",
     ],
   ),
 ];

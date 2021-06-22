@@ -1,10 +1,12 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/constants/values.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/survey.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class SurveyScreen extends StatefulWidget {
   @override
@@ -31,10 +33,17 @@ class _SurveyScreenState extends State<SurveyScreen> {
   int? inputAge;
   double? inputHeight;
   double? inputWeight;
+  int inputTargetWeight = 0;
+  double? inputTargetTime;
+
+  double currentBMI = Values.maxNormalBMI;
+  double recommendedBMI = Values.maxNormalBMI;
 
   @override
   Widget build(BuildContext context) {
-    final Size logicalSize = MediaQuery.of(context).size;
+    final Size logicalSize = MediaQuery
+        .of(context)
+        .size;
     final double _width = logicalSize.width;
     print(userHasAnsweredCurrentQuestion);
     userHasAnsweredCurrentQuestion = true;
@@ -67,7 +76,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
           IconButton(
             icon: Icon(Icons.chevron_right),
             onPressed:
-                userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
+            userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
           ),
         ],
       ),
@@ -96,13 +105,20 @@ class _SurveyScreenState extends State<SurveyScreen> {
     }
   }
 
+  void unlockNextButton() {
+    setState(() {
+      userHasAnsweredCurrentQuestion = true;
+    });
+  }
+
   void submitForm() {
     inputAge = int.parse(_ageController.text);
-    inputHeight = double.parse(_heightController.text);
+    inputHeight = double.parse(_heightController.text) / 100;
     inputWeight = double.parse(_weightController.text);
     if (_formKey.currentState!.validate()) {
       setState(() {
         onNextButtonPressed();
+        currentBMI = calculateBMI(inputHeight!, inputWeight!);
       });
     }
   }
@@ -122,11 +138,22 @@ class _SurveyScreenState extends State<SurveyScreen> {
         }
         selectedPage = getBodyInfoFormPage();
         break;
+      case 3:
+        if (inputTargetWeight == 0) {
+          userHasAnsweredCurrentQuestion = false;
+        }
+        selectedPage = getNumberPickerPage();
+        break;
       default:
         if (surveys[questionIndex - 2].selectedIndex < 0) {
           userHasAnsweredCurrentQuestion = false;
         }
-        selectedPage = createSurvey(surveys[questionIndex - 2]);
+        if (questionIndex - 2 == 4) {
+          selectedPage = createSurvey(surveys[questionIndex - 2], 2);
+        } else {
+          selectedPage = createSurvey(surveys[questionIndex - 2], null);
+        }
+
         break;
     }
     return Column(
@@ -164,12 +191,12 @@ class _SurveyScreenState extends State<SurveyScreen> {
               child: ElevatedButton(
                   onPressed: () {
                     selectedGender = 1;
-                    onNextButtonPressed();
+                    unlockNextButton();
                   },
                   style: selectedGender == 1
                       ? ElevatedButton.styleFrom(
-                          primary: AppColors.primary,
-                        )
+                    primary: AppColors.primary,
+                  )
                       : ElevatedButton.styleFrom(primary: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,19 +205,19 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       Icon(
                         Icons.male,
                         color:
-                            selectedGender == 1 ? Colors.white : Colors.black,
+                        selectedGender == 1 ? Colors.white : Colors.black,
                         size: 50,
                       ),
                       Text("Nam",
                           style: selectedGender == 1
                               ? TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 24)
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 24)
                               : TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 24)),
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 24)),
                     ],
                   )),
             ),
@@ -218,13 +245,13 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     Text("Nữ",
                         style: selectedGender == 2
                             ? TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 24)
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 24)
                             : TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 24)),
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 24)),
                   ],
                 ),
               ),
@@ -272,7 +299,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   controller: _heightController,
                   keyboardType: TextInputType.number,
                   decoration:
-                      InputDecoration(labelText: "Chiều cao", suffixText: "cm"),
+                  InputDecoration(labelText: "Chiều cao", suffixText: "cm"),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
@@ -287,7 +314,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   controller: _weightController,
                   keyboardType: TextInputType.number,
                   decoration:
-                      InputDecoration(labelText: "Cân nặng", suffixText: "kg"),
+                  InputDecoration(labelText: "Cân nặng", suffixText: "kg"),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
@@ -326,7 +353,83 @@ class _SurveyScreenState extends State<SurveyScreen> {
     );
   }
 
-  Widget createSurvey(Survey survey) {
+  Widget getNumberPickerPage() {
+    int minDefaultTargetWeight =
+    (Values.minNormalBMI * inputHeight! * inputHeight!).round();
+    int recommendedTargetWeight =
+    (Values.maxNormalBMI * inputHeight! * inputHeight!).round();
+    if (inputTargetWeight == 0) {
+      inputTargetWeight = recommendedTargetWeight;
+    }
+    int maxDefaultTargetWeight;
+    if (currentBMI >= recommendedBMI) {
+      maxDefaultTargetWeight = (inputWeight! * 0.9).round();
+    } else {
+      maxDefaultTargetWeight =
+          recommendedTargetWeight + (inputWeight! * 0.1).round();
+    }
+    userHasAnsweredCurrentQuestion = true;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 70,
+        ),
+        Center(
+          child: Text("Trong tương lai, bạn muốn cân nặng của mình là:",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(
+          height: 70,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(width: 125,),
+            NumberPicker(
+              textStyle: TextStyle(fontSize: 30),
+              selectedTextStyle:
+              (inputTargetWeight == recommendedTargetWeight)
+                  ?
+              TextStyle(fontSize: 40, color: Colors.green)
+                  : (inputTargetWeight >= minDefaultTargetWeight &&
+                  inputTargetWeight >= maxDefaultTargetWeight) ? TextStyle(
+                  fontSize: 40, color: AppColors.primary) : TextStyle(
+                  fontSize: 40, color: Colors.red),
+              minValue: 20,
+              maxValue: 120,
+              value: inputTargetWeight == 0
+                  ? recommendedTargetWeight
+                  : inputTargetWeight,
+              onChanged: (value) =>
+                  setState(() {
+                    inputTargetWeight = value;
+                  }),
+            ),
+            SizedBox(
+              width: 125,
+              child: Text(
+                "KG",
+                style: TextStyle(),
+              ),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        SizedBox(
+          child: Column(
+            children: [
+              Text("• Khuyến nghị", style: TextStyle(fontSize: 30, color: Colors.green),)
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget createSurvey(Survey survey, int ?mostSelectedIndex) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -343,38 +446,48 @@ class _SurveyScreenState extends State<SurveyScreen> {
               for (int i = 0; i < survey.answers.length; i++)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 70,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        survey.selectedIndex = i;
-                        onNextButtonPressed();
-                      },
-                      style: survey.selectedIndex == i
-                          ? ElevatedButton.styleFrom(
+                  child: Column(
+                    children: [
+                      (mostSelectedIndex != null && i == mostSelectedIndex)
+                          ? SizedBox(
+                        child: Text(
+                            "* Nhiều người thể chất tương đương với bạn cũng chọn"),
+                      )
+                          : Container(),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 70,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            survey.selectedIndex = i;
+                            unlockNextButton();
+                          },
+                          style: survey.selectedIndex == i
+                              ? ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               primary: AppColors.primary)
-                          : ElevatedButton.styleFrom(
+                              : ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               primary: Colors.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(survey.answers[i],
-                              style: TextStyle(
-                                  color: survey.selectedIndex == i
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18)),
-                        ],
-                      ),
-                    ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(survey.answers[i],
+                                  style: TextStyle(
+                                      color: survey.selectedIndex == i
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18)),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
             ],
@@ -382,5 +495,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
         ),
       ],
     );
+  }
+
+  double calculateBMI(double heightInMeter, double weightInKg) {
+    return weightInKg / (heightInMeter * heightInMeter);
   }
 }
