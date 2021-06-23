@@ -59,8 +59,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       controller: _firstNameController,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        labelText: "Họ",
-                      ),
+                          labelText: "Họ",
+                          hintText: "*",
+                          hintTextDirection: TextDirection.rtl,
+                          hintStyle: TextStyle(color: Colors.red)),
                       validator: MultiValidator([
                         MaxLengthValidator(20,
                             errorText: "Họ không được dài quá 20 kí tự"),
@@ -75,8 +77,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       controller: _lastNameController,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        labelText: "Tên",
-                      ),
+                          labelText: "Tên",
+                          hintText: "*",
+                          hintTextDirection: TextDirection.rtl,
+                          hintStyle: TextStyle(color: Colors.red)),
                       validator: MultiValidator([
                         MaxLengthValidator(30,
                             errorText: "Tên không được dài quá 30 kí tự"),
@@ -91,8 +95,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        labelText: "Email",
-                      ),
+                          labelText: "Email",
+                          hintText: "*",
+                          hintTextDirection: TextDirection.rtl,
+                          hintStyle: TextStyle(color: Colors.red)),
                       validator: MultiValidator(
                           [RequiredValidator(errorText: "* Bắt buộc")]),
                     ),
@@ -104,8 +110,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        labelText: "Mật khẩu",
-                      ),
+                          labelText: "Mật khẩu",
+                          hintText: "*",
+                          hintTextDirection: TextDirection.rtl,
+                          hintStyle: TextStyle(color: Colors.red)),
                       validator: RequiredValidator(errorText: "* Bắt buộc"),
                     ),
                     SizedBox(
