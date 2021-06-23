@@ -1,4 +1,6 @@
+import 'package:fitme/models/exercise.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:fitme/widgets/title_article.dart';
@@ -177,16 +179,38 @@ class _ExploreScreenState extends State<ExploreScreen> {
             //phan muc tieu bai tap do an
             Column(
               children: [
+                //check xem da hoan thanh chua
+                !_checkFinish(_selectedPlan.listGoal)
+                    ? TitleArticle(
+                        title: "Mục tiêu hôm nay",
+                        listExercise: _selectedPlan.listGoal,
+                      )
+                    : Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            alignment: Alignment.topLeft,
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              "Mục tiêu hôm nay",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SvgPicture.asset(
+                            "assets/images/winning.svg",
+                            fit: BoxFit.cover,
+                            height: 100,
+                          ),
+                          Text("Bạn đã hoàn tất mục tiêu hôm nay")
+                        ],
+                      ),
                 TitleArticle(
-                  title: "Mục tiêu hôm nay",
-                  listExercise: _selectedPlan.listGoal,
-                ),
-                TitleArticle(
-                  title: "Đồ ăn (sáng/trưa/chiều)",
+                  title: "Bữa ăn",
                   listMeal: _selectedPlan.listMeal,
                 ),
                 TitleArticle(
-                  title: "Hoàn thành",
+                  title: "Bài tập",
                   listExercise: _selectedPlan.listExercise,
                 ),
               ],
@@ -224,5 +248,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ),
       ),
     );
+  }
+
+  bool _checkFinish(List<Exercise> listGoal) {
+    if (listGoal.isEmpty) return true;
+    return false;
   }
 }
