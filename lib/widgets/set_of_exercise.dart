@@ -2,6 +2,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/widgets/time_countdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SetOfExercise extends StatefulWidget {
   // chua biet cai list kia ra sao, co gi chinh lai kieu du lieu
@@ -16,17 +17,93 @@ class SetOfExercise extends StatefulWidget {
 
 class _SetOfExerciseState extends State<SetOfExercise> {
   int _index = 0;
+  bool isBreak = false;
   @override
   Widget build(BuildContext context) {
     return Container(
+      child: isBreak
+          ? breakScreen(context)
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //image/video/
+                Image.network(
+                  widget.setOfEx[_index]['imageUrl'].toString(),
+                  height: 250,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+                //content
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    children: [
+                      Text(
+                        widget.setOfEx[_index]['content'].toString(),
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      (widget.setOfEx[_index]['numOfExercise'] as int) != 0
+                          ? Text(
+                              '${widget.setOfEx[_index]['numOfExercise']} lần',
+                              style: TextStyle(
+                                fontSize: 45,
+                                color: AppColors.textColor,
+                              ),
+                            )
+                          : TimeCountDown(
+                              time: widget.setOfEx[_index]['duration'] as int),
+                    ],
+                  ),
+                ),
+                //button
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SizedBox(
+                      width: 150,
+                      height: 45,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          (_index != widget.setOfEx.length - 1)
+                              ? setState(() {
+                                  isBreak = true;
+                                })
+                              : _nextExercise(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        child: Text(
+                          _index != (widget.setOfEx.length - 1)
+                              ? "Tiếp tục"
+                              : "Kết thúc",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16),
+                        ),
+                      )),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget breakScreen(BuildContext context) {
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //image/video/
-          Image.network(
-            widget.setOfEx[_index]['imageUrl'].toString(),
+          SvgPicture.asset(
+            "assets/images/break_between_reps.svg",
             height: 250,
-            width: double.infinity,
             fit: BoxFit.fill,
           ),
           //content
@@ -35,7 +112,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
             child: Column(
               children: [
                 Text(
-                  widget.setOfEx[_index]['content'].toString(),
+                  "Nghỉ giữa hiệp",
                   style: TextStyle(
                     fontSize: 30,
                     color: AppColors.textColor,
@@ -44,16 +121,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
                 SizedBox(
                   height: 25,
                 ),
-                (widget.setOfEx[_index]['numOfExercise'] as int) != 0
-                    ? Text(
-                        '${widget.setOfEx[_index]['numOfExercise']} lần',
-                        style: TextStyle(
-                          fontSize: 45,
-                          color: AppColors.textColor,
-                        ),
-                      )
-                    : TimeCountDown(
-                        time: widget.setOfEx[_index]['duration'] as int),
+                TimeCountDown(time: 15),
               ],
             ),
           ),
@@ -73,9 +141,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
                     ),
                   ),
                   child: Text(
-                    _index != (widget.setOfEx.length - 1)
-                        ? "Tiếp tục"
-                        : "Kết thúc",
+                    "Tiếp tục",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -102,6 +168,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
     } else {
       setState(() {
         _index += 1;
+        isBreak = false;
       });
     }
   }

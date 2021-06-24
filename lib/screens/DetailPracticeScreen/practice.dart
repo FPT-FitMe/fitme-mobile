@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 
 //hard code
 const imageUrl1 =
-    "https://www.thethaothientruong.vn/uploads/contents/gap-bung-dung-cach.jpg";
+    "https://images.unsplash.com/flagged/photo-1566063900259-8ee0cb283b3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80";
 const imageUrl2 =
-    "http://nailzone.vn/wp-content/uploads/2016/09/Screen-Shot-2014-07-15-at-4.26.13-PM.png";
+    "https://images.unsplash.com/photo-1616803824305-a07cfbc8ea60?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80";
 const imageUrl3 =
-    "http://nailzone.vn/wp-content/uploads/2016/09/NC-NP908-Step-3.jpg";
-const imageUrl4 = "http://nailzone.vn/wp-content/uploads/2016/09/ex2.jpg";
+    "https://nhathuocphuongchinh.com/images/uploaded/New-2020/Bicycle-crunch.jpg";
+const imageUrl4 =
+    "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80";
 
 class PracticeScreen extends StatelessWidget {
   const PracticeScreen({Key? key}) : super(key: key);
@@ -123,10 +124,10 @@ class PracticeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       //hardcode
-                      _smallExercise("Xoay cổ tay cổ chân", imageUrl2, 16),
-                      _smallExercise("Căng vai", imageUrl3, 16),
-                      _smallExercise("Gập người", imageUrl4, 16),
-                      _smallExercise("Gập bụng", imageUrl1, 16)
+                      _smallExercise("Lunges", imageUrl1, 16, null),
+                      _smallExercise("Gập bụng", imageUrl2, 16, null),
+                      _smallExercise("Đạp xe đạp", imageUrl3, 16, null),
+                      _smallExercise("Plank", imageUrl4, 1, 90)
                     ],
                   ),
                 ),
@@ -175,7 +176,8 @@ class PracticeScreen extends StatelessWidget {
     });
   }
 
-  Widget _smallExercise(String title, String imageUrl, int numOfDoExercise) {
+  Widget _smallExercise(
+      String title, String imageUrl, int numOfDoExercise, int? duration) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15),
       child: ListTile(
@@ -198,7 +200,9 @@ class PracticeScreen extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            Text('x${numOfDoExercise}'),
+            numOfDoExercise == 1
+                ? Text('${duration} giây')
+                : Text('x${numOfDoExercise} lần'),
           ],
         ),
       ),
