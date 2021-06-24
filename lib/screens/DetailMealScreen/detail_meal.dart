@@ -11,7 +11,7 @@ class DetailMealScreen extends StatefulWidget {
 }
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
-  Color _favIconColor = Colors.black12;
+  Color _favIconColor = Colors.black;
   Color _leftBtnColor = Colors.black12;
   Color _rightBtnColor = Colors.black12;
 
@@ -32,14 +32,14 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
           IconButton(
             color: _favIconColor,
             icon: const Icon(
-              CommunityMaterialIcons.heart,
+              CommunityMaterialIcons.heart_outline,
             ),
             onPressed: () {
               setState(() {
-                if (_favIconColor == Colors.black12) {
+                if (_favIconColor == Colors.black) {
                   _favIconColor = AppColors.primary;
                 } else {
-                  _favIconColor = Colors.black12;
+                  _favIconColor = Colors.black;
                 }
               });
             },
@@ -73,11 +73,11 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
               child: tagSection(),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: timeSection(),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
               child: ingredientSection(),
             ),
             Padding(
@@ -110,13 +110,13 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                                       topLeft: Radius.circular(25))),
                               child: Text("Bỏ qua",
                                   style: TextStyle(
-                                    color: Colors.black87,
+                                    color: Colors.black45,
                                     fontSize: 17,
                                   )),
                             ))),
                     Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Container(color: Colors.black12, width: 2)),
+                        padding: EdgeInsets.symmetric(vertical: 0),
+                        child: Container(color: Colors.black26, width: 1)),
                     Expanded(
                         child: InkWell(
                             onTap: () {
@@ -138,7 +138,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                               alignment: Alignment.center,
                               child: Text("Hoàn tất",
                                   style: TextStyle(
-                                      color: Colors.black87, fontSize: 17)),
+                                      color: Colors.black45, fontSize: 17)),
                             )))
                   ],
                 )),
@@ -151,7 +151,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
 
 Widget authorSection() => Container(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
@@ -162,9 +162,13 @@ Widget authorSection() => Container(
             width: 10,
           ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Công thức viết bởi"),
-              SizedBox(height: 5.0),
+              SizedBox(
+                height: 5,
+              ),
               Text("Lalisa Monoban",
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ],
@@ -248,7 +252,7 @@ Widget timeSection() => Container(
 // FIXME: find another widget for this please
 Widget ingredientSection() => Container(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
             title: Align(
@@ -263,7 +267,6 @@ Widget ingredientSection() => Container(
               ),
             ),
           ),
-          SizedBox(width: 10),
           ListTile(
             title: Align(
               alignment: Alignment(-1.1, 0),

@@ -69,6 +69,8 @@ class PostScreen extends StatelessWidget {
           width: 10,
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Công thức viết bởi"),
             SizedBox(height: 5.0),

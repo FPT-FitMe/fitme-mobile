@@ -97,7 +97,7 @@ class CoachAvatar extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 10,
+            height: 10,
           ),
           Text(
             coachName,
@@ -165,6 +165,9 @@ Widget carouselPage() => CarouselSlider(
                     child: Image.network(item.image,
                         fit: BoxFit.cover, width: 1000),
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Flexible(
                   child: Text(
