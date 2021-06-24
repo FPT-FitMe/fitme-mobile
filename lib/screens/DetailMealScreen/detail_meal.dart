@@ -16,13 +16,14 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   Color _leftTxtColor = Colors.black45;
 
   Icon _favIcon =
-      new Icon(CommunityMaterialIcons.heart_outline, color: Colors.black);
+      new Icon(CommunityMaterialIcons.heart_outline, color: AppColors.grayText);
   _favIconOn() {
     _favIcon = new Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
   }
 
   _favIconOff() {
-    _favIcon = Icon(CommunityMaterialIcons.heart_outline, color: Colors.black);
+    _favIcon =
+        Icon(CommunityMaterialIcons.heart_outline, color: AppColors.grayText);
   }
 
   @override
@@ -44,7 +45,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  if (_favIcon.color == Colors.black) {
+                  if (_favIcon.color == AppColors.grayText) {
                     _favIconOn();
                   } else {
                     _favIconOff();
@@ -97,64 +98,77 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             SizedBox(
               height: 10,
             ),
-            Container(
-                height: 40,
-                padding: EdgeInsets.all(3.5),
-                width: MediaQuery.of(context).size.width * 0.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: _leftBtnColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(25),
-                                      topLeft: Radius.circular(25))),
-                              child: Text("Bỏ qua",
-                                  style: TextStyle(
-                                    color: Colors.black45,
-                                    fontSize: 17,
-                                  )),
-                            ))),
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0),
-                        child: Container(color: Colors.black26, width: 1)),
-                    Expanded(
-                        child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                if (_rightBtnColor == Colors.black12) {
-                                  _rightBtnColor = AppColors.primary;
-                                  _leftTxtColor = Colors.white;
-                                } else {
-                                  _rightBtnColor = Colors.black12;
-                                  _leftTxtColor = Colors.black45;
-                                }
-                              });
-                              // TODO : backend logic code here
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: _rightBtnColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(25),
-                                      topRight: Radius.circular(25))),
-                              alignment: Alignment.center,
-                              child: Text("Hoàn tất",
-                                  style: TextStyle(
-                                      color: _leftTxtColor, fontSize: 17)),
-                            )))
-                  ],
-                )),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
+        child: Container(
+          alignment: Alignment.topCenter,
+          height: 40,
+          padding: EdgeInsets.all(3.5),
+          width: MediaQuery.of(context).size.width * 0.5,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: _leftBtnColor,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          topLeft: Radius.circular(25)),
+                    ),
+                    child: Text(
+                      "Bỏ qua",
+                      style: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 0),
+                  child: Container(color: Colors.black26, width: 1)),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      if (_rightBtnColor == Colors.black12) {
+                        _rightBtnColor = AppColors.primary;
+                        _leftTxtColor = Colors.white;
+                      } else {
+                        _rightBtnColor = Colors.black12;
+                        _leftTxtColor = Colors.black45;
+                      }
+                    });
+                    // TODO : backend logic code here
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: _rightBtnColor,
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(25),
+                            topRight: Radius.circular(25))),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Hoàn tất",
+                      style: TextStyle(color: _leftTxtColor, fontSize: 17),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
