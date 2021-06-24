@@ -381,11 +381,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
     String adviceStart = "Chỉ số BMI của bạn đang là ";
     String adviceMid;
     Color currentBMIColor;
-    if (currentBMI - Values.maxNormalBMI > 1) {
+    if (currentBMI - Values.maxNormalBMI > 0) {
       recommendedTargetWeight = maxHealthyWeight;
       minDefaultTargetWeight = minHealthyWeight;
       maxDefaultTargetWeight = inputWeight! * 1.05;
-      currentBMIColor = AppColors.red400;
+      currentBMIColor = AppColors.primary;
       adviceMid = ", vượt ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân";
     } else if ((currentBMI - Values.maxNormalBMI).floor() == 0) {
       recommendedTargetWeight =
@@ -393,23 +393,23 @@ class _SurveyScreenState extends State<SurveyScreen> {
       minDefaultTargetWeight = minHealthyWeight;
       maxDefaultTargetWeight = inputWeight! * 1.05;
       currentBMIColor = AppColors.primary;
-      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân";
+      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân một chút";
     } else if (currentBMI >= Values.minNormalBMI &&
         currentBMI <= Values.maxNormalBMI) {
       recommendedTargetWeight =
           minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
-      minDefaultTargetWeight = minHealthyWeight * 0.9;
-      maxDefaultTargetWeight = maxHealthyWeight * 1.1;
+      minDefaultTargetWeight = minHealthyWeight * 0.86;
+      maxDefaultTargetWeight = maxHealthyWeight * 1.12;
       currentBMIColor = AppColors.green500;
       adviceMid = ", chúc mừng bạn đã có thân hình cân đối. FitMe đề xuất bạn hãy duy trì thể chất ";
     } else if ((currentBMI - Values.minNormalBMI).ceil() == 0) {
       recommendedTargetWeight =
           minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
-      minDefaultTargetWeight = inputWeight! * 0.95;
+      minDefaultTargetWeight = inputWeight! * 0.86;
       maxOverweightWeight = maxHealthyWeight;
       maxDefaultTargetWeight = maxHealthyWeight;
       currentBMIColor = AppColors.primary;
-      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân";
+      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân một chút";
     } else {
       minDefaultTargetWeight = inputWeight! * 0.9;
       recommendedTargetWeight = minHealthyWeight;
@@ -467,19 +467,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
               ),
               LinearGaugeRange(
                 startValue: maxHealthyWeight.roundToDouble(),
-                endValue: maxOverweightWeight.roundToDouble(),
-                startWidth: 40,
-                midWidth: 40,
-                endWidth: 40,
-                child: Container(color: AppColors.primary),
-              ),
-              LinearGaugeRange(
-                startValue: maxOverweightWeight.roundToDouble(),
                 endValue: maxDefaultTargetWeight.roundToDouble(),
                 startWidth: 40,
                 midWidth: 40,
                 endWidth: 40,
-                child: Container(color: AppColors.red400),
+                child: Container(color: AppColors.primary),
               ),
               LinearGaugeRange(
                 startValue: minDefaultTargetWeight.roundToDouble(),
@@ -521,7 +513,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
               ),
               LinearGaugeRange(
                 startValue: maxHealthyWeight.roundToDouble(),
-                endValue: maxOverweightWeight.roundToDouble(),
+                endValue: maxDefaultTargetWeight.roundToDouble(),
                 startWidth: 40,
                 endWidth: 40,
                 color: Colors.transparent,
@@ -538,25 +530,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
                               color: Color(0xff191A1B)),
                         )))),
               ),
-              LinearGaugeRange(
-                startValue: maxOverweightWeight.roundToDouble(),
-                endValue: maxDefaultTargetWeight.roundToDouble(),
-                startWidth: 40,
-                endWidth: 40,
-                color: Colors.transparent,
-                child: RotatedBox(
-                    quarterTurns: true ? 0 : 3,
-                    child: Container(
-                        height: 20,
-                        child: const Center(
-                            child: Text(
-                          'Béo phì',
-                          style: TextStyle(
-                              fontFamily: 'Roboto-Medium',
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff191A1B)),
-                        )))),
-              )
             ],
 
             markerPointers: <LinearMarkerPointer>[
@@ -664,7 +637,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           ? Row(
                               children: [
                                 Text(
-                                  "*Người thể chất tương đương bạn hay chọn",
+                                  "*Đề xuất cho bạn",
                                   style: TextStyle(color: AppColors.primary),
                                 )
                               ],
