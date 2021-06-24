@@ -15,15 +15,15 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   Color _rightBtnColor = Colors.black12;
   Color _leftTxtColor = Colors.black45;
 
-  Icon _favIcon =
-      new Icon(CommunityMaterialIcons.heart_outline, color: AppColors.grayText);
+  Icon _favIcon = new Icon(CommunityMaterialIcons.heart_outline,
+      color: AppColors.textColor);
   _favIconOn() {
     _favIcon = new Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
   }
 
   _favIconOff() {
     _favIcon =
-        Icon(CommunityMaterialIcons.heart_outline, color: AppColors.grayText);
+        Icon(CommunityMaterialIcons.heart_outline, color: AppColors.textColor);
   }
 
   @override
@@ -45,7 +45,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  if (_favIcon.color == AppColors.grayText) {
+                  if (_favIcon.color == AppColors.textColor) {
                     _favIconOn();
                   } else {
                     _favIconOff();
