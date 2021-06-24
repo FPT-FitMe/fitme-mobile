@@ -11,9 +11,19 @@ class DetailMealScreen extends StatefulWidget {
 }
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
-  Color _favIconColor = Colors.black;
   Color _leftBtnColor = Colors.black12;
   Color _rightBtnColor = Colors.black12;
+  Color _leftTxtColor = Colors.black45;
+
+  Icon _favIcon =
+      new Icon(CommunityMaterialIcons.heart_outline, color: Colors.black);
+  _favIconOn() {
+    _favIcon = new Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
+  }
+
+  _favIconOff() {
+    _favIcon = Icon(CommunityMaterialIcons.heart_outline, color: Colors.black);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +39,20 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          IconButton(
-            color: _favIconColor,
-            icon: const Icon(
-              CommunityMaterialIcons.heart_outline,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  if (_favIcon.color == Colors.black) {
+                    _favIconOn();
+                  } else {
+                    _favIconOff();
+                  }
+                });
+              },
+              child: _favIcon,
             ),
-            onPressed: () {
-              setState(() {
-                if (_favIconColor == Colors.black) {
-                  _favIconColor = AppColors.primary;
-                } else {
-                  _favIconColor = Colors.black;
-                }
-              });
-            },
           ),
         ],
       ),
@@ -123,8 +133,10 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                               setState(() {
                                 if (_rightBtnColor == Colors.black12) {
                                   _rightBtnColor = AppColors.primary;
+                                  _leftTxtColor = Colors.white;
                                 } else {
                                   _rightBtnColor = Colors.black12;
+                                  _leftTxtColor = Colors.black45;
                                 }
                               });
                               // TODO : backend logic code here
@@ -138,7 +150,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                               alignment: Alignment.center,
                               child: Text("Hoàn tất",
                                   style: TextStyle(
-                                      color: Colors.black45, fontSize: 17)),
+                                      color: _leftTxtColor, fontSize: 17)),
                             )))
                   ],
                 )),

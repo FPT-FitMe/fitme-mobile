@@ -44,7 +44,6 @@ dependencies:
   carousel_slider: ^4.0.0-nullsafety.0
   rflutter_alert: ^2.0.2
   numberpicker: ^2.1.1
-  hexagon: ^0.2.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:

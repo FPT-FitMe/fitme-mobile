@@ -1,6 +1,7 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:hexagon/hexagon.dart';
 
 class DetailMealProScreen extends StatelessWidget {
   @override
@@ -9,33 +10,38 @@ class DetailMealProScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          HexagonWidget.pointy(
-            width: 200,
-            color: AppColors.primary,
-            child: Text('PRO',
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 5, 10, 0),
+            child: IconButton(
+                iconSize: 350,
+                color: AppColors.primary,
+                onPressed: () {},
+                icon: Icon(CommunityMaterialIcons.professional_hexagon)),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 10, 5),
+            child: Text('Nội dung này chỉ dành cho thành viên PRO',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 80,
-                    color: Colors.white)),
+                    fontSize: 17,
+                    color: AppColors.textColor)),
           ),
-          SizedBox(height: 20),
-          Text('Nội dung này chỉ dành cho thành viên PRO',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                  color: Colors.black)),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 5, 10, 0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.payment);
+              },
+              style: ElevatedButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                primary: AppColors.primary,
               ),
-              padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-              primary: AppColors.primary,
+              child: const Text('Mua gói FitMe PRO tại đây',
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            child: const Text('Mua gói FitMe PRO tại đây',
-                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
       ),
