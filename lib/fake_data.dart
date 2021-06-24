@@ -12,7 +12,7 @@ final LIST_PLAN = [
       id: DateTime.now().day,
       listExercise: LIST_EXERCISE,
       listMeal: LIST_MEAL,
-      listGoal: LIST_GOAL,
+      listGoal: LIST_GOAL,//list nay null de check hoan thanh chua
       listPost: LIST_POST,
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
@@ -48,18 +48,7 @@ const LIST_COACH = const [
       fullname: "Hồ Hào Đạt"),
 ];
 
-const LIST_GOAL = const [
-  Exercise(
-    id: 1,
-    name: 'Yoga buổi sáng',
-    imageUrl:
-        'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
-    duration: 50,
-    cal: 150,
-    isFavorite: true,
-    isPremium: true,
-  ),
-];
+const List<Exercise> LIST_GOAL = const [];
 const LIST_MEAL = const [
   Meal(
     id: 1,
@@ -70,6 +59,7 @@ const LIST_MEAL = const [
     cal: 150,
     isFavorite: true,
     isPremium: false,
+    tag: ["Sáng"],
   ),
   Meal(
     id: 2,
@@ -80,6 +70,7 @@ const LIST_MEAL = const [
     cal: 300,
     isFavorite: false,
     isPremium: false,
+    tag: ["Trưa"],
   ),
 ];
 const LIST_POST = const [
@@ -141,6 +132,7 @@ const LIST_MEAL2 = const [
     cal: 150,
     isFavorite: true,
     isPremium: false,
+    tag: ["Sáng"],
   ),
   Meal(
     id: 2,
@@ -151,6 +143,7 @@ const LIST_MEAL2 = const [
     cal: 300,
     isFavorite: false,
     isPremium: false,
+    tag: ["Tối"],
   ),
 ];
 const LIST_GOAL2 = const [
@@ -172,6 +165,27 @@ const LIST_GOAL2 = const [
     isFavorite: false,
     isPremium: false,
   ),
+];
+const LIST_FINISH = [
+  Exercise(
+    id: 2,
+    name: 'Khởi động',
+    imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
+    duration: 10,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+  ),
+  Meal(
+      id: 1,
+      name: 'Salad bắp cải',
+      imageUrl:
+          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
+      duration: 20,
+      cal: 150,
+      isFavorite: true,
+      isPremium: false,
+      tag: ["Sáng"]),
 ];
 
 var listSurveys = [
@@ -234,6 +248,7 @@ List<MealLog> listMealLog = [
       cal: 150,
       isFavorite: true,
       isPremium: false,
+      tag: ["Sáng"],
     ),
     content: "",
     traineeId: 1,
@@ -249,6 +264,7 @@ List<MealLog> listMealLog = [
       cal: 150,
       isFavorite: true,
       isPremium: false,
+      tag: ["Trưa"],
     ),
     content: "",
     traineeId: 1,

@@ -1,4 +1,5 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +13,6 @@ class TitleArticle extends StatelessWidget {
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
-  final String name = "Yoga buổi sáng";
-  final int cal = 15;
-  final String imageUrl =
-      "https://mk0mydrtest3eri40dsq.kinstacdn.com/wp-content/uploads/2019/02/AdobeStock_316584335-1-scaled-1210x700.jpg";
-  final int duration = 10;
-  final bool isFavorite = true;
-  final bool isPremium = true;
 
   const TitleArticle(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
@@ -66,7 +60,8 @@ class TitleArticle extends StatelessWidget {
                           exerciser.cal,
                           true,
                           false,
-                          false));
+                          false,
+                          null));
                 }),
               if (listPost != null)
                 ...listPost!.map((post) {
@@ -83,7 +78,8 @@ class TitleArticle extends StatelessWidget {
                           null,
                           false,
                           false,
-                          true));
+                          true,
+                          null));
                 }),
               if (listMeal != null)
                 ...listMeal!.map((meal) {
@@ -100,7 +96,8 @@ class TitleArticle extends StatelessWidget {
                           meal.cal,
                           false,
                           true,
-                          false));
+                          false,
+                          meal.tag));
                 }),
             ],
           ),
@@ -146,7 +143,8 @@ class TitleArticle extends StatelessWidget {
       int? cal,
       bool isWorkout,
       bool isMeal,
-      bool isPost) {
+      bool isPost,
+      List<String>? tag) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
@@ -191,33 +189,85 @@ class TitleArticle extends StatelessWidget {
                         size: 17,
                       ),
                     ),
-                  )
+                  ),
+                //neu la meal se co tag "sang/trua/toi"
+                if (isMeal)
+                  Positioned(
+                    top: 68,
+                    child: Container(
+                      width: 85,
+                      height: 30,
+                      child: tag!.contains("Sáng")
+                          ? Card(
+                              color: Color(0xFFFFDC5D),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(
+                                child: Text("Sáng"),
+                              ),
+                            )
+                          : tag.contains("Trưa")
+                              ? Card(
+                                  color: Color(0xFFFFAC33),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Text("Trưa"),
+                                  ),
+                                )
+                              : Card(
+                                  color: Color(0xFF0E4DA4),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Tối",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                    ),
+                  ),
               ],
             ),
             SizedBox(
               height: 8,
             ),
-            Container(
-              // padding: EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.topLeft,
-              child: Text(
-                name,
-                style: TextStyle(
-                  fontSize: 13,
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
                 ),
-              ),
-            ),
-            Container(
-              // padding: EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.topLeft,
-              child: Text(
-                cal != null ? '$duration phút - $cal kcals' : '$duration phút',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.black38,
+                Text(
+                  cal != null
+                      ? '$duration phút - $cal kcals'
+                      : '$duration phút',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.black38,
+                  ),
                 ),
-              ),
-            ),
+              ]),
+              //Icon hoan thanh
+              //check trong list hoan thanh co khong
+              //TODO: mock list_finish data hop li vao
+              if (LIST_FINISH.where((element) {
+                if (element is Exercise) {
+                  return (element as Exercise).id == id;
+                }
+                return (element as Meal).id == id;
+              }).isNotEmpty)
+                Icon(
+                  Icons.check_circle,
+                  color: AppColors.green500,
+                )
+            ]),
           ],
         ),
       ),
