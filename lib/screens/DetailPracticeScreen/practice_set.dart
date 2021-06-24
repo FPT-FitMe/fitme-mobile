@@ -8,6 +8,13 @@ class PracticeSetScreen extends StatelessWidget {
 //hardcode
   final _setOfEx = [
     {
+      'imageUrl':
+          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/766/fitgif-friday-reverse-lunge-with-pulse-slider-thumbnail-override-1504017362.gif",
+      'content': "Lunges",
+      'numOfExercise': 10,
+      'duration': 0,
+    },
+    {
       'imageUrl': "http://cdn.thehinh.com/2016/03/Bai-tap-gap-bung-co-ban.gif",
       'content': "Gập bụng",
       'numOfExercise': 10,
@@ -24,7 +31,7 @@ class PracticeSetScreen extends StatelessWidget {
           "https://s.meta.com.vn/img/thumb.ashx/Data/image/2020/05/28/plank-dung-cach-lon.jpg",
       'content': "Plank",
       'numOfExercise': 0,
-      'duration': 120,
+      'duration': 90,
     },
   ];
 
