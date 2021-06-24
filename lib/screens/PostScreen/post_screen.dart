@@ -1,3 +1,4 @@
+import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
@@ -30,7 +31,12 @@ class PostScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: authorSection,
+              child: GestureDetector(
+                child: authorSection,
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.coachDetail);
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),

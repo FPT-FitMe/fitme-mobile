@@ -1,5 +1,6 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/carousel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -20,52 +21,50 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: carouselPage(),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TitleArticle(
-                title: "Huấn luyện viên",
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                CoachAvatar(
-                  coachName: 'Lalisa',
-                  tagName: 'Boxing, Thể hình',
-                  imgURL:
-                      'https://biographymask.com/wp-content/uploads/2020/03/Blackpinks-Lisa-Manoban.jpg',
+            child: Column(
+              children: [
+                carouselPage(),
+                TitleArticle(
+                  title: "Huấn luyện viên",
                 ),
-                CoachAvatar(
-                    coachName: 'Rose',
-                    tagName: 'Yoga, Thể hình',
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  CoachAvatar(
+                    coachName: 'Lalisa',
+                    tagName: 'Boxing, Thể hình',
+                    imgURL: 'https://i.imgur.com/r0aISaS.jpeg',
+                  ),
+                  CoachAvatar(
+                      coachName: 'Rose',
+                      tagName: 'Yoga, Thể hình',
+                      imgURL: 'https://i.imgur.com/zCiPWRn.jpeg'),
+                  CoachAvatar(
+                    coachName: 'Ariana Grande',
+                    tagName: 'Boxing, Thể hình',
                     imgURL:
-                        'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg'),
-                CoachAvatar(
-                  coachName: 'Ariana Grande',
-                  tagName: 'Boxing, Thể hình',
-                  imgURL:
-                      'https://pbs.twimg.com/profile_images/1385463321789452288/trz65E6m.jpg',
+                        'https://images.unsplash.com/photo-1592621385612-4d7129426394?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+                  ),
+                ]),
+                TitleArticle(
+                  title: "Loại hình",
                 ),
-              ]),
-              TitleArticle(
-                title: "Loại hình",
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: tagSection(),
-              ),
-              TitleArticle(
-                title: "Bài tập",
-                listExercise: LIST_EXERCISE2,
-              ),
-              TitleArticle(
-                title: "Bài viết",
-                listPost: LIST_POST,
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: tagSection(),
+                ),
+                TitleArticle(
+                  title: "Bài tập",
+                  listExercise: LIST_EXERCISE2,
+                ),
+                TitleArticle(
+                  title: "Bài viết",
+                  listPost: LIST_POST,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -84,13 +83,18 @@ class CoachAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(imgURL),
-            radius: 40,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.coachDetail);
+            },
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(imgURL),
+              radius: 40,
+            ),
           ),
           SizedBox(
             width: 10,
@@ -119,67 +123,71 @@ class CoachAvatar extends StatelessWidget {
   }
 }
 
+final List<CarouselItem> itemList = [
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+      title: "Luyện cơ",
+      description: "10 phút - 50 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
+      title: "Tập cơ trước",
+      description: "20 phút - 150 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
+      title: "Tập chân",
+      description: "15 phút - 60 cal")
+];
 CarouselController buttonCarouselController = CarouselController();
 
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1579126038374-6064e9370f0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=717&q=80',
-  'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-  'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'
-];
-
-Widget carouselPage() => ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: CarouselSlider(
-        carouselController: buttonCarouselController,
-        options: CarouselOptions(
-          height: 100,
-          enableInfiniteScroll: true,
-          reverse: false,
-          enlargeCenterPage: true,
-          viewportFraction: 1,
-          autoPlayAnimationDuration: Duration(milliseconds: 800),
-        ),
-        items: imgList.map((item) {
-          return Builder(
-            builder: (BuildContext context) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                child: Stack(alignment: Alignment.center, children: <Widget>[
-                  GestureDetector(
+Widget carouselPage() => CarouselSlider(
+      carouselController: buttonCarouselController,
+      options: CarouselOptions(
+        height: 250,
+        autoPlay: true,
+        aspectRatio: 1,
+      ),
+      items: itemList.map((item) {
+        return Builder(builder: (BuildContext context) {
+          return Container(
+            margin: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  child: GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, AppRoutes.postScreen);
                     },
-                    child: Image.network(item, fit: BoxFit.cover, width: 1000),
+                    child: Image.network(item.image,
+                        fit: BoxFit.cover, width: 1000),
                   ),
-                  Positioned(
-                    left: 0,
-                    child: IconButton(
-                      iconSize: 30,
-                      color: Colors.white,
-                      icon: Icon(CommunityMaterialIcons.chevron_left),
-                      onPressed: () => buttonCarouselController.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.linear),
+                ),
+                Flexible(
+                  child: Text(
+                    item.title,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    child: IconButton(
-                      iconSize: 30,
-                      color: Colors.white,
-                      icon: Icon(CommunityMaterialIcons.chevron_right),
-                      onPressed: () => buttonCarouselController.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.linear),
+                ),
+                Flexible(
+                  child: Text(
+                    item.description,
+                    style: TextStyle(
+                      fontSize: 10.0,
                     ),
                   ),
-                ]),
-              );
-            },
+                ),
+              ],
+            ),
           );
-        }).toList(),
-      ),
+        });
+      }).toList(),
     );
 
 Widget _createCustomChip({title: String}) => Chip(
