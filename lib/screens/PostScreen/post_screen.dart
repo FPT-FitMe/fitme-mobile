@@ -1,3 +1,4 @@
+import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
@@ -30,7 +31,12 @@ class PostScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: authorSection,
+              child: GestureDetector(
+                child: authorSection,
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.coachDetail);
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -63,6 +69,8 @@ class PostScreen extends StatelessWidget {
           width: 10,
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Công thức viết bởi"),
             SizedBox(height: 5.0),

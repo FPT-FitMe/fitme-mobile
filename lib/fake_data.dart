@@ -113,11 +113,11 @@ const LIST_EXERCISE = const [
 const LIST_EXERCISE2 = const [
   Exercise(
     id: 1,
-    name: 'Yoga buổi sáng',
+    name: 'Luyện cơ',
     imageUrl:
-        'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
-    duration: 50,
-    cal: 150,
+        'https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    duration: 10,
+    cal: 50,
     isFavorite: true,
     isPremium: true,
   ),
