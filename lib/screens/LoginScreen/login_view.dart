@@ -1,4 +1,6 @@
+import 'package:fitme/models/user.dart';
+
 abstract class LoginView {
-  void loginSuccess();
-  void loginFail();
+  void loginSuccess(User user);
+  void loginFail(String errorMessage);
 }
