@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class SurveyScreen extends StatefulWidget {
   @override
@@ -35,6 +36,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
   double? inputWeight;
   int inputTargetWeight = 0;
   double? inputTargetTime;
+  double? gaugeInput;
 
   double currentBMI = Values.maxNormalBMI;
   double recommendedBMI = Values.maxNormalBMI;
@@ -45,6 +47,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
     final double _width = logicalSize.width;
     print(userHasAnsweredCurrentQuestion);
     userHasAnsweredCurrentQuestion = true;
+    print(gaugeInput);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -63,6 +66,20 @@ class _SurveyScreenState extends State<SurveyScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: questionIndex == 3 ? Padding(
+        padding: const EdgeInsets.only(bottom: 25, right: 5, left: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "* FitMe áp dụng BMI của IDI & WPRO với mức cân đối là 18.5 - 22.9",
+              style: TextStyle(
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+      ) : Padding(padding: const EdgeInsets.all(20),),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -305,8 +322,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       hintText: "*",
                       hintTextDirection: TextDirection.rtl,
                       hintStyle: TextStyle(color: Colors.red),
-                    suffixStyle: TextStyle(color: Colors.black)
-                  ),
+                      suffixStyle: TextStyle(color: Colors.black)),
                   validator: MultiValidator([
                     RangeValidator(
                         min: 50,
@@ -325,7 +341,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       suffixText: " kg",
                       hintText: "*",
                       hintTextDirection: TextDirection.rtl,
-                      hintStyle: TextStyle(color: Colors.red),suffixStyle: TextStyle(color: Colors.black)),
+                      hintStyle: TextStyle(color: Colors.red),
+                      suffixStyle: TextStyle(color: Colors.black)),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "* Bắt buộc"),
                     RangeValidator(
@@ -365,20 +382,61 @@ class _SurveyScreenState extends State<SurveyScreen> {
   }
 
   Widget getNumberPickerPage() {
-    int minDefaultTargetWeight =
-        (Values.minNormalBMI * inputHeight! * inputHeight!).round();
-    int recommendedTargetWeight =
-        (Values.maxNormalBMI * inputHeight! * inputHeight!).round();
-    if (inputTargetWeight == 0) {
-      inputTargetWeight = recommendedTargetWeight;
-    }
-    int maxDefaultTargetWeight;
-    if (currentBMI >= recommendedBMI) {
-      maxDefaultTargetWeight = (inputWeight! * 0.9).round();
+    final Brightness _brightness = Theme.of(context).brightness;
+    double minHealthyWeight =
+        (Values.minNormalBMI * inputHeight! * inputHeight!);
+    double maxHealthyWeight =
+        (Values.maxNormalBMI * inputHeight! * inputHeight!);
+    double maxOverweightWeight =
+        (Values.maxOverweightBMI * inputHeight! * inputHeight!);
+    double recommendedTargetWeight;
+    double minDefaultTargetWeight;
+    double maxDefaultTargetWeight;
+    String adviceStart = "Chỉ số BMI của bạn đang là ";
+    String adviceMid;
+    Color currentBMIColor;
+    if (currentBMI - Values.maxNormalBMI > 0) {
+      recommendedTargetWeight = maxHealthyWeight;
+      minDefaultTargetWeight = minHealthyWeight;
+      maxDefaultTargetWeight = inputWeight! * 1.05;
+      currentBMIColor = AppColors.primary;
+      adviceMid = ", vượt ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân";
+    } else if ((currentBMI - Values.maxNormalBMI).floor() == 0) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = minHealthyWeight;
+      maxDefaultTargetWeight = inputWeight! * 1.05;
+      currentBMIColor = AppColors.primary;
+      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân một chút";
+    } else if (currentBMI >= Values.minNormalBMI &&
+        currentBMI <= Values.maxNormalBMI) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = minHealthyWeight * 0.86;
+      maxDefaultTargetWeight = maxHealthyWeight * 1.12;
+      currentBMIColor = AppColors.green500;
+      adviceMid = ", chúc mừng bạn đã có thân hình cân đối. FitMe đề xuất bạn hãy duy trì thể chất ";
+    } else if ((currentBMI - Values.minNormalBMI).ceil() == 0) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = inputWeight! * 0.86;
+      maxOverweightWeight = maxHealthyWeight;
+      maxDefaultTargetWeight = maxHealthyWeight;
+      currentBMIColor = AppColors.red400;
+      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân một chút";
     } else {
-      maxDefaultTargetWeight =
-          recommendedTargetWeight + (inputWeight! * 0.1).round();
+      minDefaultTargetWeight = inputWeight! * 0.9;
+      recommendedTargetWeight = minHealthyWeight;
+      maxOverweightWeight = maxHealthyWeight;
+      maxDefaultTargetWeight = maxHealthyWeight;
+      currentBMIColor = AppColors.red400;
+      adviceMid = ", dưới ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân";
     }
+    if (gaugeInput == null) {
+      gaugeInput = recommendedTargetWeight;
+      inputTargetWeight = recommendedTargetWeight.round();
+    }
+
     userHasAnsweredCurrentQuestion = true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -388,65 +446,158 @@ class _SurveyScreenState extends State<SurveyScreen> {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
         ),
         SizedBox(
-          height: 70,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              width: 125,
-            ),
-            NumberPicker(
-              itemHeight: 75,
-              textStyle: TextStyle(fontSize: 50),
-              selectedTextStyle: (inputTargetWeight == recommendedTargetWeight)
-                  ? TextStyle(fontSize: 70, color: Colors.green)
-                  : (inputTargetWeight > minDefaultTargetWeight + (inputWeight! * 0.1).round() &&
-                          inputTargetWeight < maxDefaultTargetWeight - (inputWeight! * 0.1).round())
-                      ? TextStyle(fontSize: 60, color: AppColors.primary)
-                      : TextStyle(fontSize: 60, color: Colors.red),
-              minValue: minDefaultTargetWeight,
-              maxValue: maxDefaultTargetWeight,
-              value: inputTargetWeight == 0
-                  ? recommendedTargetWeight
-                  : inputTargetWeight,
-              onChanged: (value) => setState(() {
-                inputTargetWeight = value;
-              }),
-            ),
-            SizedBox(
-              width: 125,
-              child: Text(
-                "kg",
-                style: TextStyle(
-                  fontSize: 40,
-                ),
-              ),
-            )
-          ],
+          height: 40,
         ),
         SizedBox(
-          height: 120,
+          height: 100,
+          child: Text(
+            inputTargetWeight.toString() + "kg",
+            style: TextStyle(fontSize: 60),
+          ),
         ),
-        SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("•", style: TextStyle(fontSize: 40, color: Colors.green)),
-              Text(
-                "Khuyến nghị",
-                style: TextStyle(fontSize: 15, color: Colors.green),
+        Container(
+          child: SfLinearGauge(
+            axisTrackStyle: const LinearAxisTrackStyle(thickness: 24),
+            minimum: minDefaultTargetWeight.roundToDouble(),
+            maximum: maxDefaultTargetWeight.roundToDouble(),
+            animateAxis: true,
+
+            ranges: <LinearGaugeRange>[
+              LinearGaugeRange(
+                startValue: minDefaultTargetWeight.roundToDouble(),
+                endValue: minHealthyWeight.roundToDouble(),
+                startWidth: 40,
+                midWidth: 40,
+                endWidth: 40,
+                child: Container(color: AppColors.primary),
               ),
-              Text("•",
-                  style: TextStyle(fontSize: 40, color: AppColors.primary)),
-              Text(
-                "Bình thường",
-                style: TextStyle(fontSize: 15, color: AppColors.primary),
+              LinearGaugeRange(
+                startValue: minHealthyWeight.roundToDouble(),
+                endValue: maxHealthyWeight.roundToDouble(),
+                startWidth: 40,
+                midWidth: 40,
+                endWidth: 40,
+                child: Container(color: AppColors.green500),
               ),
-              Text("•", style: TextStyle(fontSize: 40, color: Colors.red)),
-              Text(
-                "Không khuyến nghị",
-                style: TextStyle(fontSize: 15, color: Colors.red),
+              LinearGaugeRange(
+                startValue: maxHealthyWeight.roundToDouble(),
+                endValue: maxDefaultTargetWeight.roundToDouble(),
+                startWidth: 40,
+                midWidth: 40,
+                endWidth: 40,
+                child: Container(color: AppColors.red400),
+              ),
+              LinearGaugeRange(
+                startValue: minDefaultTargetWeight.roundToDouble(),
+                endValue: minHealthyWeight.roundToDouble(),
+                startWidth: 40,
+                endWidth: 40,
+                color: Colors.transparent,
+                child: RotatedBox(
+                    quarterTurns: true ? 0 : 3,
+                    child: Container(
+                      height: 20,
+                        child: const Center(
+                            child: Text(
+                      'Thiếu cân',
+                      style: TextStyle(
+                          fontFamily: 'Roboto-Medium',
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff191A1B)),
+                    )))),
+              ),
+              LinearGaugeRange(
+                startValue: minHealthyWeight.roundToDouble(),
+                endValue: maxHealthyWeight.roundToDouble(),
+                startWidth: 40,
+                endWidth: 40,
+                color: Colors.transparent,
+                child: RotatedBox(
+                    quarterTurns: true ? 0 : 3,
+                    child: Container(
+                        height: 20,
+                        child: const Center(
+                            child: Text(
+                          'Cân đối',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Medium',
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff191A1B)),
+                        )))),
+              ),
+              LinearGaugeRange(
+                startValue: maxHealthyWeight.roundToDouble(),
+                endValue: maxDefaultTargetWeight.roundToDouble(),
+                startWidth: 40,
+                endWidth: 40,
+                color: Colors.transparent,
+                child: RotatedBox(
+                    quarterTurns: true ? 0 : 3,
+                    child: Container(
+                        height: 20,
+                        child: const Center(
+                            child: Text(
+                          'Thừa cân',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Medium',
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff191A1B)),
+                        )))),
+              ),
+            ],
+
+            markerPointers: <LinearMarkerPointer>[
+              LinearWidgetPointer(
+                value: inputWeight!,
+                offset: 40,
+                position: LinearElementPosition.outside,
+                child: Container(
+                    width: 45,
+                    height: 45,
+                    child: Center(
+                        child: Text(
+                          "Hiện tại", style: TextStyle(color: currentBMIColor, fontSize: 14),
+                        ))),
+              ),
+              LinearShapePointer(
+                offset: 40,
+                value: inputWeight!,
+                color: currentBMIColor,
+              ),
+              LinearWidgetPointer(
+                value: gaugeInput!,
+                position: LinearElementPosition.cross,
+                onValueChanged: (value) {
+                  setState(() {
+                    inputTargetWeight = gaugeInput!.round();
+                    gaugeInput = value as double;
+                  });
+                },
+                child: Container(
+                    width: 35,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: _brightness == Brightness.dark
+                            ? const Color(0xFFFFFFFF)
+                            : const Color(0xff06589C),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: _brightness == Brightness.light
+                                ? Colors.grey
+                                : Colors.black54,
+                            offset: const Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
+                          ),
+                        ],
+                        shape: BoxShape.circle),
+                    child: Center(
+                        child: Text(gaugeInput!.toStringAsFixed(0),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: _brightness == Brightness.light
+                                  ? const Color(0xFFFFFFFF)
+                                  : const Color(0xffF45656),
+                            )))),
               )
             ],
           ),
@@ -454,10 +605,17 @@ class _SurveyScreenState extends State<SurveyScreen> {
         SizedBox(
           height: 30,
         ),
-        SizedBox(
-          child: Text(
-            "Chỉ số cân nặng FitMe đề xuất cho bạn dựa trên chỉ số BMI do IDI & WPRO áp dụng với thể chất hiện tại của bạn"
+        RichText(
+          text: TextSpan(
+              children: [
+                TextSpan(text: adviceStart, style: TextStyle(color: Colors.black, fontSize: 16)),
+                TextSpan(text: currentBMI.toStringAsFixed(1), style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+                TextSpan(text: adviceMid, style: TextStyle(color: Colors.black, fontSize: 16)),
+              ]
           ),
+        ),
+        SizedBox(
+          height: 200,
         ),
       ],
     );
@@ -486,7 +644,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                           ? Row(
                               children: [
                                 Text(
-                                  "*Người thể chất tương đương bạn hay chọn",
+                                  "*Đề xuất cho bạn",
                                   style: TextStyle(color: AppColors.primary),
                                 )
                               ],

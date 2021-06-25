@@ -226,14 +226,6 @@ var listSurveys = [
       "6 ngày hoặc cả tuần",
     ],
   ),
-  Survey(
-    question: "Bạn muốn tổ chức bữa ăn thế nào ?",
-    answers: [
-      "Trưa và tối",
-      "Sáng, trưa, tối",
-      "Sáng, trưa, tối với xế",
-    ],
-  ),
 ];
 
 List<MealLog> listMealLog = [
