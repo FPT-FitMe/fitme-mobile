@@ -66,6 +66,20 @@ class _SurveyScreenState extends State<SurveyScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: questionIndex == 3 ? Padding(
+        padding: const EdgeInsets.only(bottom: 25, right: 5, left: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "* FitMe áp dụng BMI của IDI & WPRO với mức cân đối là 18.5 - 22.9",
+              style: TextStyle(
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+      ) : Padding(padding: const EdgeInsets.all(20),),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -408,14 +422,14 @@ class _SurveyScreenState extends State<SurveyScreen> {
       minDefaultTargetWeight = inputWeight! * 0.86;
       maxOverweightWeight = maxHealthyWeight;
       maxDefaultTargetWeight = maxHealthyWeight;
-      currentBMIColor = AppColors.primary;
+      currentBMIColor = AppColors.red400;
       adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân một chút";
     } else {
       minDefaultTargetWeight = inputWeight! * 0.9;
       recommendedTargetWeight = minHealthyWeight;
       maxOverweightWeight = maxHealthyWeight;
       maxDefaultTargetWeight = maxHealthyWeight;
-      currentBMIColor = AppColors.primary;
+      currentBMIColor = AppColors.red400;
       adviceMid = ", dưới ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân";
     }
     if (gaugeInput == null) {
@@ -471,7 +485,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 startWidth: 40,
                 midWidth: 40,
                 endWidth: 40,
-                child: Container(color: AppColors.primary),
+                child: Container(color: AppColors.red400),
               ),
               LinearGaugeRange(
                 startValue: minDefaultTargetWeight.roundToDouble(),
@@ -560,8 +574,8 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   });
                 },
                 child: Container(
-                    width: 45,
-                    height: 45,
+                    width: 35,
+                    height: 35,
                     decoration: BoxDecoration(
                         color: _brightness == Brightness.dark
                             ? const Color(0xFFFFFFFF)
@@ -602,13 +616,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
         ),
         SizedBox(
           height: 200,
-        ),
-
-        SizedBox(
-          child: Text(
-              "FitMe áp dụng BMI của IDI & WPRO với chỉ số cân đối là 18.5 - 22.9 ",
-            style: TextStyle(fontSize: 16),
-          ),
         ),
       ],
     );
