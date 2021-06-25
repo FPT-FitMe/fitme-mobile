@@ -1,19 +1,25 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
+import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/repository/auth_repository.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService implements AuthRepository {
-  static const url = "https://jsonplaceholder.typicode.com/users/1";
+  Dio dio = new HttpService().dio;
+  FlutterSecureStorage _storage = new FlutterSecureStorage();
 
   @override
-  Future<User> login() async {
-    // TODO: implement login
-    final response = await http.get(Uri.parse(url));
+  Future<User> login(String email, String password) async {
+    // TODO: should return user in response
+    final response = await dio.post('/authentication/login', data: {
+      'username': email,
+      'password': password,
+    });
     if (response.statusCode == 200) {
-      print(response.body);
-      return User.fromJson(jsonDecode(response.body));
+      await _storage.write(key: "userToken", value: response.data["jwt"]);
+      return User();
+    } else if (response.statusCode == 403) {
+      throw Exception("Wrong username or password");
     } else {
       throw Exception('Failed to login user');
     }

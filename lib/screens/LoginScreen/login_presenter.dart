@@ -11,13 +11,12 @@ class LoginPresenter {
   }
 
   void login(String email, String password) {
-    // TODO: add logic here
     if (email.isNotEmpty) {
       _authRepository
-          .login()
+          .login(email, password)
           .then((user) => {_loginView.loginSuccess()})
           .catchError((error) {
-        print(error);
+        _loginView.loginFail(error);
       });
     }
   }

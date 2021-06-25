@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> implements LoginView {
   final _formKey = GlobalKey<FormState>();
   late LoginPresenter _presenter;
+  String _errorMessage = "";
   bool _isLoading = false;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -85,7 +86,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                         labelText: "Email",
                       ),
                       validator: MultiValidator([
-                        EmailValidator(errorText: "Email không hợp lệ"),
+                        // TODO: Uncomment email validator when be fix
+                        // EmailValidator(errorText: "Email không hợp lệ"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -116,8 +118,14 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
+                      child: Text(
+                        _errorMessage,
+                        style: TextStyle(
+                          color: AppColors.red500,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: double.infinity,
@@ -159,9 +167,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   }
 
   @override
-  void loginFail() {
+  void loginFail(error) {
     setState(() {
       _isLoading = false;
+      // _errorMessage = error.response!.data["message"];
+      _errorMessage = "Email hoặc password không hợp lệ";
     });
   }
 
@@ -171,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     setState(() {
       _isLoading = false;
     });
-    // TODO: navigate sang home va xoa stack
     Navigator.pushNamedAndRemoveUntil(
         context, AppRoutes.mainScreen, (route) => false);
   }
