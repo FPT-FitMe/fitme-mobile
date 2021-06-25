@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
@@ -167,16 +167,15 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   }
 
   @override
-  void loginFail(error) {
+  void loginFail(errorMessage) {
     setState(() {
       _isLoading = false;
-      // _errorMessage = error.response!.data["message"];
-      _errorMessage = "Email hoặc password không hợp lệ";
+      _errorMessage = errorMessage;
     });
   }
 
   @override
-  void loginSuccess() {
+  void loginSuccess(user) {
     Fluttertoast.showToast(msg: "Thành công");
     setState(() {
       _isLoading = false;

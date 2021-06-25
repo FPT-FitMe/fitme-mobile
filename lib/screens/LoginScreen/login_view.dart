@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:fitme/models/user.dart';
 
 abstract class LoginView {
-  void loginSuccess();
-  void loginFail(DioError error);
+  void loginSuccess(User user);
+  void loginFail(String errorMessage);
 }
