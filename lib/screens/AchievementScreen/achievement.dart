@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -30,7 +31,7 @@ class AchievementScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "4",
+                        "5",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 30),
                       ),
@@ -50,15 +51,48 @@ class AchievementScreen extends StatelessWidget {
               ),
               Column(
                 children: [
-                  _buildAchievementCard(),
+                  buildAchievementCard(
+                    title: 'Biceps workout',
+                    name: 'Tập luyện cơ trước',
+                    imgURL:
+                        'https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80',
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  _buildAchievementCard(),
+                  buildAchievementCard(
+                    title: 'Triceps workout',
+                    name: 'Tập luyện cơ sau',
+                    imgURL:
+                        'https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=666&q=80',
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  _buildAchievementCard(),
+                  buildAchievementCard(
+                    title: 'Superset legs',
+                    name: 'Tập luyện toàn chân',
+                    imgURL:
+                        'https://images.unsplash.com/photo-1508215885820-4585e56135c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=667&q=80',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildAchievementCard(
+                    title: 'Upper body',
+                    name: 'Tập luyện cơ trên',
+                    imgURL:
+                        'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buildAchievementCard(
+                    title: 'Endurance training',
+                    name: 'Tập luyện sức bền',
+                    imgURL:
+                        'https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=889&q=80',
+                  ),
                 ],
               ),
             ],
@@ -67,14 +101,23 @@ class AchievementScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildAchievementCard() {
+class buildAchievementCard extends StatelessWidget {
+  final String title;
+  final String name;
+  final String imgURL;
+
+  const buildAchievementCard(
+      {required this.title, required this.name, required this.imgURL});
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: Image.network(
-            'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+            imgURL,
             width: 45,
             height: 45,
             fit: BoxFit.cover,
@@ -88,14 +131,14 @@ class AchievementScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Khởi đầu mới mẻ",
+              title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 8,
             ),
             Text(
-              "Tập một bài tập bất kỳ",
+              name,
               style: TextStyle(color: AppColors.grayText),
             ),
           ],
