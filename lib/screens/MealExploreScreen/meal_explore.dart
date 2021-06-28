@@ -64,7 +64,17 @@ final List<CarouselItem> itemList = [
       image:
           "https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
       title: "Salad thập cẩm",
-      description: "10 phút - 60 cal")
+      description: "10 phút - 60 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80",
+      title: "Cá hồi áp chảo",
+      description: "15 phút - 90 cal"),
+  CarouselItem(
+      image:
+          "https://images.unsplash.com/photo-1555243896-c709bfa0b564?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
+      title: "Cơm cá hồi rau củ",
+      description: "10 phút - 50 cal")
 ];
 CarouselController buttonCarouselController = CarouselController();
 

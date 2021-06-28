@@ -61,7 +61,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         child: Column(
           children: [
             Image.network(
-              'https://images.unsplash.com/photo-1496412705862-e0088f16f791?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+              'https://images.unsplash.com/photo-1494597564530-871f2b93ac55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
               fit: BoxFit.cover,
               width: 600,
               height: 200,
@@ -319,6 +319,45 @@ Widget ingredientSection() => Container(
             trailing: Text('100g'),
           ),
           Divider(),
+          ListTile(
+            title: Align(
+              alignment: Alignment(-1.08, 0),
+              child: Text(
+                'Yến mạch',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            trailing: Text('50g'),
+          ),
+          Divider(),
+          ListTile(
+            title: Align(
+              alignment: Alignment(-1.08, 0),
+              child: Text(
+                'Hạt sen',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            trailing: Text('20g'),
+          ),
+          Divider(),
+          ListTile(
+            title: Align(
+              alignment: Alignment(-1.08, 0),
+              child: Text(
+                'Mè đen',
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            trailing: Text('5g'),
+          ),
+          Divider(),
         ],
       ),
     );
@@ -339,7 +378,7 @@ Widget textSection() => Container(
             height: 5,
           ),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'Hạt sen và củ cây hoa lily đem rửa sạch rồi ngâm với nước khoảng 60 phút cho nở mềm rồi vớt ra để ráo và cắt nhỏ vụn. Ngâm yến mạch với nước khoảng 30 phút cho nở mềm. Cho hạt sen, củ cây hoa lily đã cắt nhỏ và yến mạch vào máy làm sữa đậu, đổ 1 lít nước vào, nhấn nút khởi động máy nấu và chờ cháo chín. Khi cháo chín thì nêm nếm sao cho vừa miệng và múc ra bát cho bé thưởng thức.',
             softWrap: true,
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 15),

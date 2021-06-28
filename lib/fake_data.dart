@@ -12,7 +12,7 @@ final LIST_PLAN = [
       id: DateTime.now().day,
       listExercise: LIST_EXERCISE,
       listMeal: LIST_MEAL,
-      listGoal: LIST_GOAL,//list nay null de check hoan thanh chua
+      listGoal: LIST_GOAL, //list nay null de check hoan thanh chua
       listPost: LIST_POST,
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
@@ -30,22 +30,22 @@ const LIST_COACH = const [
       id: 1,
       name: 'Linh',
       imageUrl:
-          'https://s3-ap-southeast-1.amazonaws.com/cmg-f8/4eb28968-66b1-11eb-a371-f2d04e0ae674/9e91e198-e796-403c-81da-a6f904f220b0-MAN_6057.jpg',
+          'https://images.unsplash.com/photo-1621890369918-521fb893180c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
       information:
           "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi ",
       listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
-      fullname: 'Nguyễn Văn Linh'),
+      fullname: 'Lalisa'),
   PersonalTrainer(
       id: 2,
-      name: 'Đạt',
+      name: '',
       imageUrl:
-          "https://www.ffs.ie/hs-fs/hubfs/Daragh%20McDonnell_Revised.jpg?width=435&name=Daragh%20McDonnell_Revised.jpg",
+          "https://images.unsplash.com/photo-1599058917727-824293170100?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGZpdG5lc3MlMjBtYW58ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
       information:
           "“Chính sức khỏe mới là sự giàu có thực sự, không phải vàng và bạc” - Mahatma Gandhi",
       listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
-      fullname: "Hồ Hào Đạt"),
+      fullname: "Tony Stark"),
 ];
 
 const List<Exercise> LIST_GOAL = const [];
@@ -76,7 +76,7 @@ const LIST_MEAL = const [
 const LIST_POST = const [
   Post(
     id: 1,
-    name: 'Một ngày chạy bộ cùng Linh',
+    name: 'Chạy bộ cùng Linh',
     imageUrl:
         'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
     duration: 10,
@@ -91,6 +91,16 @@ const LIST_POST = const [
 ];
 const LIST_EXERCISE = const [
   Exercise(
+    id: 1,
+    name: 'Luyện tay trước',
+    imageUrl:
+        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    duration: 20,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+  ),
+  Exercise(
     id: 2,
     name: 'Khởi động',
     imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
@@ -98,25 +108,26 @@ const LIST_EXERCISE = const [
     cal: 50,
     isFavorite: true,
     isPremium: false,
-  ),
-  Exercise(
-    id: 3,
-    name: 'Giãn cơ',
-    imageUrl: 'http://cdn.thehinh.com/2017/09/gian-co-la-gi-2.jpg',
-    duration: 10,
-    cal: 25,
-    isFavorite: false,
-    isPremium: false,
-  ),
+  )
 ];
 
 const LIST_EXERCISE2 = const [
   Exercise(
     id: 1,
-    name: 'Luyện cơ',
+    name: 'Luyện tay sau',
     imageUrl:
         'https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-    duration: 10,
+    duration: 20,
+    cal: 150,
+    isFavorite: true,
+    isPremium: true,
+  ),
+  Exercise(
+    id: 2,
+    name: 'Luyện tay trước',
+    imageUrl:
+        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    duration: 20,
     cal: 50,
     isFavorite: true,
     isPremium: true,
@@ -248,12 +259,12 @@ List<MealLog> listMealLog = [
   MealLog(
     date: DateTime.now(),
     meal: Meal(
-      id: 1,
-      name: 'Salad bắp cải',
+      id: 2,
+      name: 'Cháo yến mạch trái cây',
       imageUrl:
-          'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/9/10/1/FN_Sauteed-Vegetable-Medley_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1568400650030.jpeg',
-      duration: 20,
-      cal: 150,
+          'https://images.unsplash.com/photo-1494597564530-871f2b93ac55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
+      duration: 10,
+      cal: 100,
       isFavorite: true,
       isPremium: false,
       tag: ["Trưa"],
@@ -268,9 +279,9 @@ List<WorkoutLog> listWorkoutLog = [
     date: DateTime.now(),
     exercise: Exercise(
       id: 1,
-      name: 'Yoga buổi sáng',
+      name: 'Tập tay trước',
       imageUrl:
-          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+          'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
       duration: 50,
       cal: 150,
       isFavorite: true,
@@ -282,12 +293,12 @@ List<WorkoutLog> listWorkoutLog = [
   WorkoutLog(
     date: DateTime.now(),
     exercise: Exercise(
-      id: 1,
-      name: 'Yoga buổi sáng',
+      id: 2,
+      name: 'Kéo xà đơn',
       imageUrl:
-          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
-      duration: 50,
-      cal: 150,
+          'https://images.unsplash.com/photo-1597347316205-36f6c451902a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      duration: 10,
+      cal: 130,
       isFavorite: true,
       isPremium: true,
     ),
@@ -297,12 +308,12 @@ List<WorkoutLog> listWorkoutLog = [
   WorkoutLog(
     date: DateTime.now(),
     exercise: Exercise(
-      id: 1,
-      name: 'Yoga buổi sáng',
+      id: 3,
+      name: 'Tập chân trước',
       imageUrl:
-          'http://www.sido.com.vn/category/banner_20200306204724_0_Yoga_Pic_v2.jpg',
+          'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
       duration: 50,
-      cal: 150,
+      cal: 200,
       isFavorite: true,
       isPremium: true,
     ),
