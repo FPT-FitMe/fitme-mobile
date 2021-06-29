@@ -77,7 +77,7 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,
@@ -89,7 +89,31 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://cdnmedia.thethaovanhoa.vn/Upload/YSu1TgnVnIyxx9zisEumA/files/2020/01/0601/00216016.jpg',
+                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  width: 45,
+                  height: 45,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  width: 45,
+                  height: 45,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,
