@@ -31,7 +31,7 @@ class AchievementScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "5",
+                        "4",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 30),
                       ),
@@ -52,46 +52,37 @@ class AchievementScreen extends StatelessWidget {
               Column(
                 children: [
                   buildAchievementCard(
-                    title: 'Biceps workout',
-                    name: 'Tập luyện cơ trước',
+                    title: 'First workout',
+                    name: 'Hoàn thành bài tâp đầu tiên',
                     imgURL:
-                        'https://images.unsplash.com/photo-1532384816664-01b8b7238c8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80',
+                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: 'Triceps workout',
-                    name: 'Tập luyện cơ sau',
+                    title: 'Full body challenge',
+                    name: 'Hoàn thành thử thách tập fullbody',
                     imgURL:
-                        'https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=666&q=80',
+                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: 'Superset legs',
-                    name: 'Tập luyện toàn chân',
+                    title: 'First Running Workout',
+                    name: 'Hoàn thành bài chạy bộ đầu tiên',
                     imgURL:
-                        'https://images.unsplash.com/photo-1508215885820-4585e56135c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=667&q=80',
+                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: 'Upper body',
-                    name: 'Tập luyện cơ trên',
+                    title: '7-Workout Week',
+                    name: 'Hoàn thành 7 ngày tập liên tiếp',
                     imgURL:
-                        'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  buildAchievementCard(
-                    title: 'Endurance training',
-                    name: 'Tập luyện sức bền',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=889&q=80',
+                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   ),
                 ],
               ),
