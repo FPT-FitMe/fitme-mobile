@@ -40,6 +40,14 @@ class _SurveyScreenState extends State<SurveyScreen> {
 
   double currentBMI = Values.maxNormalBMI;
   double recommendedBMI = Values.maxNormalBMI;
+  late double recommendedTargetWeight;
+  late double minDefaultTargetWeight;
+  late double maxDefaultTargetWeight;
+  late double minHealthyWeight;
+  late double maxHealthyWeight;
+  late double maxOverweightWeight;
+  late RichText advice;
+  late Color currentBMIColor;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +99,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
           IconButton(
             icon: Icon(Icons.chevron_right),
             onPressed:
-                userHasAnsweredCurrentQuestion ? onNextButtonPressed : null,
+                userHasAnsweredCurrentQuestion ? ((questionIndex == 1) ? submitForm : onNextButtonPressed) : null,
           ),
         ],
       ),
@@ -132,8 +140,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
     inputWeight = double.parse(_weightController.text);
     if (_formKey.currentState!.validate()) {
       setState(() {
-        onNextButtonPressed();
         currentBMI = calculateBMI(inputHeight!, inputWeight!);
+        updateInfo();
+        onNextButtonPressed();
       });
     }
   }
@@ -154,16 +163,16 @@ class _SurveyScreenState extends State<SurveyScreen> {
         selectedPage = getBodyInfoFormPage();
         break;
       case 3:
-        if (inputTargetWeight == 0) {
-          userHasAnsweredCurrentQuestion = false;
-        }
+        selectedPage = getCurrentWeightInfoPage();
+        break;
+      case 4:
         selectedPage = getNumberPickerPage();
         break;
       default:
         if (surveys[questionIndex - 2].selectedIndex < 0) {
           userHasAnsweredCurrentQuestion = false;
         }
-        if (questionIndex == 4 || questionIndex == 5) {
+        if (questionIndex == 5 || questionIndex == 6) {
           selectedPage = createSurvey(surveys[questionIndex - 2], 2);
         } else {
           selectedPage = createSurvey(surveys[questionIndex - 2], null);
@@ -381,62 +390,35 @@ class _SurveyScreenState extends State<SurveyScreen> {
     );
   }
 
+  Widget getCurrentWeightInfoPage() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Text("Thể chất hiện tại của bạn",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(height: 80,),
+        Center(
+          child: Text("BMI",
+              style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(height: 30,),
+        Center(
+          child: Text(currentBMI.toStringAsFixed(1),
+              style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: currentBMIColor)),
+        ),
+        SizedBox(height: 80,),
+        advice,
+        SizedBox(
+          height: 200,
+        ),
+      ],
+    );
+  }
+
   Widget getNumberPickerPage() {
     final Brightness _brightness = Theme.of(context).brightness;
-    double minHealthyWeight =
-        (Values.minNormalBMI * inputHeight! * inputHeight!);
-    double maxHealthyWeight =
-        (Values.maxNormalBMI * inputHeight! * inputHeight!);
-    double maxOverweightWeight =
-        (Values.maxOverweightBMI * inputHeight! * inputHeight!);
-    double recommendedTargetWeight;
-    double minDefaultTargetWeight;
-    double maxDefaultTargetWeight;
-    String adviceStart = "Chỉ số BMI của bạn đang là ";
-    String adviceMid;
-    Color currentBMIColor;
-    if (currentBMI - Values.maxNormalBMI > 0) {
-      recommendedTargetWeight = maxHealthyWeight;
-      minDefaultTargetWeight = minHealthyWeight;
-      maxDefaultTargetWeight = inputWeight! * 1.05;
-      currentBMIColor = AppColors.primary;
-      adviceMid = ", vượt ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân";
-    } else if ((currentBMI - Values.maxNormalBMI).floor() == 0) {
-      recommendedTargetWeight =
-          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
-      minDefaultTargetWeight = minHealthyWeight;
-      maxDefaultTargetWeight = inputWeight! * 1.05;
-      currentBMIColor = AppColors.primary;
-      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy giảm cân một chút";
-    } else if (currentBMI >= Values.minNormalBMI &&
-        currentBMI <= Values.maxNormalBMI) {
-      recommendedTargetWeight =
-          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
-      minDefaultTargetWeight = minHealthyWeight * 0.86;
-      maxDefaultTargetWeight = maxHealthyWeight * 1.12;
-      currentBMIColor = AppColors.green500;
-      adviceMid = ", chúc mừng bạn đã có thân hình cân đối. FitMe đề xuất bạn hãy duy trì thể chất ";
-    } else if ((currentBMI - Values.minNormalBMI).ceil() == 0) {
-      recommendedTargetWeight =
-          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
-      minDefaultTargetWeight = inputWeight! * 0.86;
-      maxOverweightWeight = maxHealthyWeight;
-      maxDefaultTargetWeight = maxHealthyWeight;
-      currentBMIColor = AppColors.red400;
-      adviceMid = ", gần với mức BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân một chút";
-    } else {
-      minDefaultTargetWeight = inputWeight! * 0.9;
-      recommendedTargetWeight = minHealthyWeight;
-      maxOverweightWeight = maxHealthyWeight;
-      maxDefaultTargetWeight = maxHealthyWeight;
-      currentBMIColor = AppColors.red400;
-      adviceMid = ", dưới ngưỡng BMI khuyến nghị. FitMe đề xuất bạn hãy tăng cân";
-    }
-    if (gaugeInput == null) {
-      gaugeInput = recommendedTargetWeight;
-      inputTargetWeight = recommendedTargetWeight.round();
-    }
-
     userHasAnsweredCurrentQuestion = true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -603,18 +585,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
           ),
         ),
         SizedBox(
-          height: 30,
-        ),
-        RichText(
-          text: TextSpan(
-              children: [
-                TextSpan(text: adviceStart, style: TextStyle(color: Colors.black, fontSize: 16)),
-                TextSpan(text: currentBMI.toStringAsFixed(1), style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-                TextSpan(text: adviceMid, style: TextStyle(color: Colors.black, fontSize: 16)),
-              ]
-          ),
-        ),
-        SizedBox(
           height: 200,
         ),
       ],
@@ -695,5 +665,100 @@ class _SurveyScreenState extends State<SurveyScreen> {
 
   double calculateBMI(double heightInMeter, double weightInKg) {
     return weightInKg / (heightInMeter * heightInMeter);
+  }
+
+  void updateInfo() {
+    minHealthyWeight =
+    (Values.minNormalBMI * inputHeight! * inputHeight!);
+    maxHealthyWeight =
+    (Values.maxNormalBMI * inputHeight! * inputHeight!);
+    maxOverweightWeight =
+    (Values.maxOverweightBMI * inputHeight! * inputHeight!);
+    if (currentBMI - Values.maxNormalBMI > 0) {
+      recommendedTargetWeight = maxHealthyWeight;
+      minDefaultTargetWeight = minHealthyWeight;
+      maxDefaultTargetWeight = inputWeight! * 1.05;
+      currentBMIColor = AppColors.red400;
+      advice = RichText(
+        text: TextSpan(
+            children: [
+              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "thừa cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "giảm cân ít nhất là " + (inputWeight! - recommendedTargetWeight).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
+            ]
+        ),
+      );
+    } else if ((currentBMI - Values.maxNormalBMI).floor() == 0 && currentBMI > Values.maxNormalBMI) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = minHealthyWeight;
+      maxDefaultTargetWeight = inputWeight! * 1.05;
+      currentBMIColor = AppColors.red400;
+      advice = RichText(
+        text: TextSpan(
+            children: [
+              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "thừa cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "giảm " + (inputWeight! - recommendedTargetWeight).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
+            ]
+        ),
+      );
+    } else if (currentBMI >= Values.minNormalBMI &&
+        currentBMI <= Values.maxNormalBMI) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = minHealthyWeight * 0.86;
+      maxDefaultTargetWeight = maxHealthyWeight * 1.12;
+      currentBMIColor = AppColors.green500;
+      advice = RichText(
+        text: TextSpan(
+            children: [
+              TextSpan(text: "Chúc mừng bạn đã có thân hình ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "cân đối", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "duy trì thể chất.", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
+            ]
+        ),
+      );
+    } else if ((currentBMI - Values.minNormalBMI).ceil() == 0 && currentBMI < Values.minNormalBMI) {
+      recommendedTargetWeight =
+          minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
+      minDefaultTargetWeight = inputWeight! * 0.86;
+      maxOverweightWeight = maxHealthyWeight;
+      maxDefaultTargetWeight = maxHealthyWeight;
+      currentBMIColor = AppColors.primary;
+      advice = RichText(
+        text: TextSpan(
+            children: [
+              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "thiếu cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "tăng " + (recommendedTargetWeight - inputWeight!).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
+            ]
+        ),
+      );
+    } else {
+      minDefaultTargetWeight = inputWeight! * 0.9;
+      recommendedTargetWeight = minHealthyWeight;
+      maxOverweightWeight = maxHealthyWeight;
+      maxDefaultTargetWeight = maxHealthyWeight;
+      currentBMIColor = AppColors.primary;
+      advice = RichText(
+        text: TextSpan(
+            children: [
+              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "thiếu cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
+              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
+              TextSpan(text: "tăng ít nhất là " + (recommendedTargetWeight - inputWeight!).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
+            ]
+        ),
+      );
+    }
+    if (gaugeInput == null) {
+      gaugeInput = recommendedTargetWeight;
+      inputTargetWeight = recommendedTargetWeight.round();
+    }
   }
 }
