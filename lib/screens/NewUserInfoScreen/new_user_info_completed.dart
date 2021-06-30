@@ -23,7 +23,7 @@ class NewUserInfoCompletedScreen extends StatelessWidget {
               ),
             ),
             child: Text(
-              "Tuyệt vời",
+              "Hoàn tất",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

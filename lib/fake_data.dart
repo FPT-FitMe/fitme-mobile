@@ -219,6 +219,15 @@ var listSurveys = [
     ],
   ),
   Survey(
+    question: "cai nay de skip tai tao luoi lam logic",
+    answers: [
+      "Giảm cân",
+      "Duy trì vóc dáng hiện tại",
+      "Tăng cân",
+      "Cân bằng sức khỏe",
+    ],
+  ),
+  Survey(
     question: "Bạn muốn đạt mục tiêu này trong khoảng thời gian bao lâu ?",
     answers: [
       "30 ngày",
