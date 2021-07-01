@@ -3,6 +3,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/widgets/title_article_noviewall.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -185,7 +186,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               children: [
                 //check xem da hoan thanh chua
                 !_checkFinish(_selectedPlan.listGoal)
-                    ? TitleArticle(
+                    ? TitleArticleNoViewAll(
                         title: "Hôm nay tập gì 🎯",
                         listExercise: _selectedPlan.listGoal,
                       )
@@ -212,7 +213,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                TitleArticle(
+                TitleArticleNoViewAll(
                   title: "Thêm hoạt động khác",
                 ),
                 Padding(
@@ -306,7 +307,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               ],
             ),
-            TitleArticle(
+            TitleArticleNoViewAll(
               title: "Bữa ăn",
             ),
             SizedBox(

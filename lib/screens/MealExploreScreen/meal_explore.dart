@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
+import 'package:fitme/widgets/title_article_noviewall.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
@@ -28,7 +29,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
                 _carouselPage(),
                 Column(
                   children: [
-                    TitleArticle(
+                    TitleArticleNoViewAll(
                       title: "Bạn muốn ăn ?",
                     ),
                     Padding(

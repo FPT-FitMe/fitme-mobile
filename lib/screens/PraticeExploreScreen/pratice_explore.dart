@@ -1,6 +1,7 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
+import 'package:fitme/widgets/title_article_noviewall.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -29,7 +30,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
             child: Column(
               children: [
                 carouselPage(),
-                TitleArticle(
+                TitleArticleNoViewAll(
                   title: "Huấn luyện viên",
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -43,7 +44,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                     id: 2,
                   ),
                 ]),
-                TitleArticle(
+                TitleArticleNoViewAll(
                   title: "Loại hình",
                 ),
                 Padding(
