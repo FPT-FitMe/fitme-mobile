@@ -218,14 +218,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
   }
 
   Widget _getLogMealTabBarView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: MealLogForm(),
-        )
-      ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        child: MealLogForm(),
+      ),
     );
   }
 
