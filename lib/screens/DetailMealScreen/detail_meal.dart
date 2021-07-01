@@ -1,6 +1,8 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/fake_data.dart';
+import 'package:fitme/models/meal.dart';
 import 'package:flutter/material.dart';
 
 class DetailMealScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   Color _leftBtnColor = Colors.black12;
   Color _rightBtnColor = Colors.black12;
   Color _leftTxtColor = Colors.black45;
+  late int id;
 
   Icon _favIcon = new Icon(CommunityMaterialIcons.heart_outline,
       color: AppColors.textColor);
@@ -28,6 +31,10 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final map =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final id = map["id"];
+    final Meal meal = LIST_MEAL2.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -61,14 +68,14 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         child: Column(
           children: [
             Image.network(
-              'https://images.unsplash.com/photo-1494597564530-871f2b93ac55?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
+              meal.imageUrl,
               fit: BoxFit.cover,
               width: 600,
               height: 200,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
-              child: titleSection(),
+              child: titleSection(title: meal.name),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -81,15 +88,15 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: tagSection(),
+              child: tagSection(meal.tag),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: timeSection(),
+              child: timeSection(meal.duration.toString(), meal.cal.toString()),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-              child: ingredientSection(),
+              child: ingredientSection(meal.ingredients),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -203,10 +210,10 @@ Widget authorSection() => Container(
       ),
     );
 
-Widget titleSection() => Container(
+Widget titleSection({title: String}) => Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        "Cháo yến mạch trái cây",
+        title,
         softWrap: true,
         textAlign: TextAlign.justify,
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -223,25 +230,15 @@ Widget _createCustomChip({title: String}) => Chip(
       ),
     );
 
-Widget tagSection() => Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        _createCustomChip(title: "Sáng"),
-        SizedBox(
-          width: 10,
-        ),
-        _createCustomChip(title: 'Ít carb'),
-        SizedBox(
-          width: 10,
-        ),
-        _createCustomChip(title: 'Trái cây'),
-        SizedBox(
-          width: 10,
-        ),
-      ],
-    );
+Widget tagSection(List<String> tagList) =>
+    Builder(builder: (BuildContext context) {
+      return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+              tagList.map((item) => _createCustomChip(title: item)).toList());
+    });
 
-Widget timeSection() => Container(
+Widget timeSection(String duration, String cal) => Container(
       child: Row(
         children: [
           Icon(
@@ -251,7 +248,7 @@ Widget timeSection() => Container(
           ),
           SizedBox(width: 5),
           Text(
-            '15 phút',
+            duration + ' phút',
             softWrap: true,
             style: TextStyle(
               fontSize: 15,
@@ -265,7 +262,7 @@ Widget timeSection() => Container(
           ),
           SizedBox(width: 5),
           Text(
-            '150 kcals',
+            cal + ' cal',
             softWrap: true,
             style: TextStyle(
               fontSize: 15,
@@ -276,7 +273,8 @@ Widget timeSection() => Container(
     );
 
 // FIXME: find another widget for this please
-Widget ingredientSection() => Container(
+
+Widget ingredientSection(List<String> ingredientList) => Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -304,58 +302,6 @@ Widget ingredientSection() => Container(
               ),
             ),
             trailing: Text('50g'),
-          ),
-          Divider(),
-          ListTile(
-            title: Align(
-              alignment: Alignment(-1.08, 0),
-              child: Text(
-                'Bơ',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            trailing: Text('100g'),
-          ),
-          Divider(),
-          ListTile(
-            title: Align(
-              alignment: Alignment(-1.08, 0),
-              child: Text(
-                'Yến mạch',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            trailing: Text('50g'),
-          ),
-          Divider(),
-          ListTile(
-            title: Align(
-              alignment: Alignment(-1.08, 0),
-              child: Text(
-                'Hạt sen',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            trailing: Text('20g'),
-          ),
-          Divider(),
-          ListTile(
-            title: Align(
-              alignment: Alignment(-1.08, 0),
-              child: Text(
-                'Mè đen',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            trailing: Text('5g'),
           ),
           Divider(),
         ],

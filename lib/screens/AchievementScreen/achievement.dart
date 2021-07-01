@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/fake_data.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -52,37 +53,25 @@ class AchievementScreen extends StatelessWidget {
               Column(
                 children: [
                   buildAchievementCard(
-                    title: 'First workout',
-                    name: 'Hoàn thành bài tâp đầu tiên',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                    id: 0,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: 'Full body challenge',
-                    name: 'Hoàn thành thử thách tập fullbody',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                    id: 1,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: 'First Running Workout',
-                    name: 'Hoàn thành bài chạy bộ đầu tiên',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                    id: 2,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   buildAchievementCard(
-                    title: '7-Workout Week',
-                    name: 'Hoàn thành 7 ngày tập liên tiếp',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                    id: 3,
                   ),
                 ],
               ),
@@ -95,12 +84,9 @@ class AchievementScreen extends StatelessWidget {
 }
 
 class buildAchievementCard extends StatelessWidget {
-  final String title;
-  final String name;
-  final String imgURL;
+  final int id;
 
-  const buildAchievementCard(
-      {required this.title, required this.name, required this.imgURL});
+  const buildAchievementCard({required this.id});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -108,7 +94,7 @@ class buildAchievementCard extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: Image.network(
-            imgURL,
+            LIST_ACHIVEMENT[id].imageUrl,
             width: 45,
             height: 45,
             fit: BoxFit.cover,
@@ -122,14 +108,14 @@ class buildAchievementCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              LIST_ACHIVEMENT[id].title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 8,
             ),
             Text(
-              name,
+              LIST_ACHIVEMENT[id].name,
               style: TextStyle(color: AppColors.grayText),
             ),
           ],

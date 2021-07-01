@@ -4,8 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomDrawer extends StatefulWidget {
+  final int? activityType;
+  final int? tabIndex;
+
   @override
   _BottomDrawerState createState() => _BottomDrawerState();
+
+  const BottomDrawer({Key? key, this.activityType, this.tabIndex})
+      : super(key: key);
 }
 
 class _BottomDrawerState extends State<BottomDrawer> {
@@ -41,6 +47,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.activityType != null && widget.activityType != 0) {
+      currentActivityType = widget.activityType!;
+      currentPageIndex = 1;
+    }
+
     setState(() {
       activityMap = {
         runningActivityType: ["Chạy bộ", "activity_running.png"],
@@ -57,14 +68,14 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   Widget _getMenuPage() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.83,
+      height: MediaQuery.of(context).size.height * 0.75,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
       child: DefaultTabController(
         length: 3,
-        initialIndex: 0,
+        initialIndex: widget.tabIndex != null ? widget.tabIndex! : 0,
         child: Column(
           children: [
             SizedBox(
@@ -111,7 +122,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
               height: 30,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: TabBarView(
                 children: [
                   _getActivityList(),
@@ -137,7 +148,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
         break;
     }
     return Container(
-        height: MediaQuery.of(context).size.height * 0.83,
+        height: MediaQuery.of(context).size.height * 0.75,
         child: _getCreateLogForm(activityMap[currentActivityType]![0],
             activityMap[currentActivityType]![1], currentForm));
   }
@@ -207,14 +218,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
   }
 
   Widget _getLogMealTabBarView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: MealLogForm(),
-        )
-      ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        child: MealLogForm(),
+      ),
     );
   }
 

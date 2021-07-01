@@ -9,13 +9,13 @@ import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticle extends StatelessWidget {
+class TitleArticleNoViewAll extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
 
-  const TitleArticle(
+  const TitleArticleNoViewAll(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
@@ -33,14 +33,6 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                InkWell(
-                  onTap: () => _viewAllArticle(
-                      context, listMeal, listExercise, listPost, title),
-                  child: Text(
-                    "Hiện tất cả",
-                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                  ),
-                )
               ],
             ),
           ),
@@ -150,17 +142,6 @@ class TitleArticle extends StatelessWidget {
             activityType: type,
           );
         });
-  }
-
-// chuyen qua trang viewAll
-  void _viewAllArticle(
-      BuildContext ctx, listMeal, listExcercise, listPost, String topic) {
-    Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
-      'list_meal': listMeal,
-      'list_exercise': listExcercise,
-      'list_post': listPost,
-      'topic': topic,
-    });
   }
 
   Widget _cardArticle(
@@ -285,19 +266,6 @@ class TitleArticle extends StatelessWidget {
                   ),
                 ),
               ]),
-              //Icon hoan thanh
-              //check trong list hoan thanh co khong
-              //TODO: mock list_finish data hop li vao
-              if (LIST_FINISH.where((element) {
-                if (element is Exercise) {
-                  return (element as Exercise).id == id;
-                }
-                return (element as Meal).id == id;
-              }).isNotEmpty)
-                Icon(
-                  Icons.check_circle,
-                  color: AppColors.green500,
-                )
             ]),
           ],
         ),

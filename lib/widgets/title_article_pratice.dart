@@ -9,13 +9,13 @@ import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticle extends StatelessWidget {
+class TitleArticlePratice extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
 
-  const TitleArticle(
+  const TitleArticlePratice(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
@@ -285,19 +285,6 @@ class TitleArticle extends StatelessWidget {
                   ),
                 ),
               ]),
-              //Icon hoan thanh
-              //check trong list hoan thanh co khong
-              //TODO: mock list_finish data hop li vao
-              if (LIST_FINISH.where((element) {
-                if (element is Exercise) {
-                  return (element as Exercise).id == id;
-                }
-                return (element as Meal).id == id;
-              }).isNotEmpty)
-                Icon(
-                  Icons.check_circle,
-                  color: AppColors.green500,
-                )
             ]),
           ],
         ),

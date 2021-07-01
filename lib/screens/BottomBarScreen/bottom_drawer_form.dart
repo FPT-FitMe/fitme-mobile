@@ -157,9 +157,21 @@ class _WeightLogFormState extends State<WeightLogForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(onPressed: decreaseLogWeightValue, icon: Icon(Icons.remove_circle_outline_sharp), iconSize: 40, color: AppColors.primary,),
-              Text(latestWeight.toStringAsFixed(1) + " KG", style: TextStyle(fontSize: 50),),
-              IconButton(onPressed: increaseLogWeightValue, icon: Icon(Icons.add_circle_outline_sharp), iconSize: 40, color: AppColors.primary)
+              IconButton(
+                onPressed: decreaseLogWeightValue,
+                icon: Icon(Icons.remove_circle_outline_sharp),
+                iconSize: 40,
+                color: AppColors.primary,
+              ),
+              Text(
+                latestWeight.toStringAsFixed(1) + " KG",
+                style: TextStyle(fontSize: 50),
+              ),
+              IconButton(
+                  onPressed: increaseLogWeightValue,
+                  icon: Icon(Icons.add_circle_outline_sharp),
+                  iconSize: 40,
+                  color: AppColors.primary)
             ],
           ),
           SizedBox(
@@ -226,8 +238,7 @@ class _MealLogFormState extends State<MealLogForm> {
       context: context,
       builder: (BuildContext context, Widget? child) {
         return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(alwaysUse24HourFormat: false),
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
           child: child!,
         );
       },
@@ -247,7 +258,7 @@ class _MealLogFormState extends State<MealLogForm> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           TextFormField(
             controller: _mealNameController,
@@ -303,11 +314,15 @@ class _MealLogFormState extends State<MealLogForm> {
               child: Text(
                 "Thêm bữa ăn vào nhật ký",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),

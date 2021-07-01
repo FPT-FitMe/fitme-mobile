@@ -1,5 +1,6 @@
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/widgets/title_article.dart';
+import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
 
@@ -11,10 +12,11 @@ class CoachScreen extends StatelessWidget {
     // final routeArgs =
     //     ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     // final coachId = routeArgs['id'] as int;
-    final coachId = 2;
-    final PersonalTrainer pt = LIST_COACH.where((pt) {
-      return pt.id == coachId;
-    }).first;
+    final map =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final id = map["id"];
+    final PersonalTrainer pt =
+        LIST_COACH.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -57,13 +59,13 @@ class CoachScreen extends StatelessWidget {
             //phan bai tap va bua an
             Column(
               children: [
-                TitleArticle(
+                TitleArticlePratice(
                   title: "Bài tập",
                   listExercise: pt.listExcersice,
                 ),
-                TitleArticle(
+                TitleArticlePratice(
                   title: "Bữa ăn",
-                  listMeal: pt.listMeal,
+                  listMeal: LIST_MEAL,
                 ),
               ],
             ),
