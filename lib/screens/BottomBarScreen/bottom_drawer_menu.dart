@@ -4,8 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomDrawer extends StatefulWidget {
+  final int? activityType;
+  final int? tabIndex;
+
   @override
   _BottomDrawerState createState() => _BottomDrawerState();
+
+  const BottomDrawer({ Key? key, this.activityType , this.tabIndex}) : super(key : key);
 }
 
 class _BottomDrawerState extends State<BottomDrawer> {
@@ -16,6 +21,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   static const runningActivityType = 1;
   static const cyclingActivityType = 2;
+  static const yogaActivityType = 3;
 
   final TextStyle titleStyle =
       TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
@@ -41,10 +47,16 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.activityType != null && widget.activityType != 0) {
+      currentActivityType = widget.activityType!;
+      currentPageIndex = 1;
+    }
+
     setState(() {
       activityMap = {
         runningActivityType: ["Chạy bộ", "activity_running.png"],
         cyclingActivityType: ["Đạp xe", "activity_cycling.png"],
+        yogaActivityType: ["Yoga", "activity_yoga.png"]
       };
 
       pages = [_getMenuPage(), Container()];
@@ -57,14 +69,14 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   Widget _getMenuPage() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.83,
+      height: MediaQuery.of(context).size.height * 0.75,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
       child: DefaultTabController(
         length: 3,
-        initialIndex: 0,
+        initialIndex: widget.tabIndex != null ? widget.tabIndex! : 0,
         child: Column(
           children: [
             SizedBox(
@@ -111,11 +123,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
               height: 30,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: TabBarView(
                 children: [
                   _getActivityList(),
-                  _getLogMealTabBarView(),
+                  UnderDevelopmentPanel(),
                   _getWeightLogTabBarView()
                 ],
               ),
@@ -135,9 +147,12 @@ class _BottomDrawerState extends State<BottomDrawer> {
       case cyclingActivityType:
         currentForm = ActivityLogForm(hasDistanceField: true);
         break;
+      case yogaActivityType:
+        currentForm = ActivityLogForm(hasDistanceField: false);
+        break;
     }
     return Container(
-        height: MediaQuery.of(context).size.height * 0.83,
+        height: MediaQuery.of(context).size.height * 0.75,
         child: _getCreateLogForm(activityMap[currentActivityType]![0],
             activityMap[currentActivityType]![1], currentForm));
   }
@@ -151,6 +166,8 @@ class _BottomDrawerState extends State<BottomDrawer> {
               activityMap[runningActivityType]![1], runningActivityType),
           _getActivityItem(activityMap[cyclingActivityType]![0],
               activityMap[cyclingActivityType]![1], cyclingActivityType),
+          _getActivityItem(activityMap[yogaActivityType]![0],
+              activityMap[yogaActivityType]![1], yogaActivityType)
         ],
       ),
     );
@@ -201,18 +218,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
         Padding(
           padding: EdgeInsets.all(20),
           child: WeightLogForm(),
-        )
-      ],
-    );
-  }
-
-  Widget _getLogMealTabBarView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: MealLogForm(),
         )
       ],
     );
