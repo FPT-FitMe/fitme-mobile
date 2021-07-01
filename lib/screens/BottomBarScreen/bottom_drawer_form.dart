@@ -157,9 +157,9 @@ class _WeightLogFormState extends State<WeightLogForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(onPressed: decreaseLogWeightValue, icon: Icon(Icons.remove_circle_outline_sharp), iconSize: 40, color: AppColors.primary,),
+              IconButton(onPressed: decreaseLogWeightValue, icon: Icon(Icons.chevron_left), iconSize: 40, color: AppColors.primary,),
               Text(latestWeight.toStringAsFixed(1) + " KG", style: TextStyle(fontSize: 50),),
-              IconButton(onPressed: increaseLogWeightValue, icon: Icon(Icons.add_circle_outline_sharp), iconSize: 40, color: AppColors.primary)
+              IconButton(onPressed: increaseLogWeightValue, icon: Icon(Icons.chevron_right), iconSize: 40, color: AppColors.primary)
             ],
           ),
           SizedBox(
