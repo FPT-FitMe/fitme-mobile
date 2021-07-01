@@ -199,7 +199,7 @@ const LIST_ACHIVEMENT = const [
     name: 'Hoàn thành bài chạy bộ đầu tiên',
     title: 'First Running Workout',
     imageUrl:
-        'https://images.unsplash.com/photo-1564054074885-e5a7c93671d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+        'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
   ),
   Achivement(
     id: 3,
