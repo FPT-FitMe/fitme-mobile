@@ -4,8 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomDrawer extends StatefulWidget {
+  final int? activityType;
+  final int? tabIndex;
+
   @override
   _BottomDrawerState createState() => _BottomDrawerState();
+
+  const BottomDrawer({ Key? key, this.activityType , this.tabIndex}) : super(key : key);
 }
 
 class _BottomDrawerState extends State<BottomDrawer> {
@@ -42,6 +47,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.activityType != null && widget.activityType != 0) {
+      currentActivityType = widget.activityType!;
+      currentPageIndex = 1;
+    }
+
     setState(() {
       activityMap = {
         runningActivityType: ["Chạy bộ", "activity_running.png"],
@@ -66,7 +76,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
       ),
       child: DefaultTabController(
         length: 3,
-        initialIndex: 0,
+        initialIndex: widget.tabIndex != null ? widget.tabIndex! : 0,
         child: Column(
           children: [
             SizedBox(

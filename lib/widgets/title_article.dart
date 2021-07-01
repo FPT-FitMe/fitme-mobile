@@ -1,6 +1,7 @@
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/models/exercise.dart';
@@ -115,10 +116,33 @@ class TitleArticle extends StatelessWidget {
         'id': id,
       });
     } else if (isMeal) {
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+      // Them field isButton check xem phai nut chuc nang k roi goi method tao log
+      //_onLogMealTapped(ctx);
+     Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+
     } else if (isPost) {
+      //
       Navigator.pushNamed(ctx, AppRoutes.postScreen);
     }
+  }
+
+  void _onLogMealTapped(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return BottomDrawer(tabIndex: 1,);
+        });
+  }
+
+  // XAI CAI NAY CHO ACTIVITY
+  void _onLogActivityTapped(BuildContext ctx, int type) {
+    showModalBottomSheet(
+        context: ctx,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return BottomDrawer(activityType: type,);
+        });
   }
 
 // chuyen qua trang viewAll
