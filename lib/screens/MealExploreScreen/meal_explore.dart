@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
+import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/widgets/title_article.dart';
@@ -34,7 +35,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                       child: tagSection(),
                     ),
-                    TitleArticle(
+                    TitleArticlePratice(
                       title: "Gợi ý dành cho bạn",
                       listMeal: LIST_MEAL,
                     ),

@@ -1,6 +1,7 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
+import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -49,11 +50,11 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: tagSection(),
                 ),
-                TitleArticle(
+                TitleArticlePratice(
                   title: "Bài tập",
                   listExercise: LIST_EXERCISE2,
                 ),
-                TitleArticle(
+                TitleArticlePratice(
                   title: "Bài viết",
                   listPost: LIST_POST,
                 ),

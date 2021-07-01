@@ -63,7 +63,7 @@ const LIST_COACH = const [
 const List<Exercise> LIST_GOAL = const [];
 const LIST_MEAL = const [
   Meal(
-    id: 0,
+    id: 1,
     name: 'Salad bắp cải',
     imageUrl:
         'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
@@ -76,7 +76,7 @@ const LIST_MEAL = const [
     ingredients: ["Salad", "Bắp cải", "Dầu mè"],
   ),
   Meal(
-    id: 1,
+    id: 2,
     name: 'Rau củ nướng',
     imageUrl:
         'https://images.unsplash.com/photo-1523813301608-f54a198f6b5f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80',
@@ -219,7 +219,7 @@ const LIST_EXERCISE2 = const [
     duration: 20,
     cal: 150,
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     isSkipped: true,
     isFinished: false,
   ),
@@ -231,7 +231,7 @@ const LIST_EXERCISE2 = const [
     duration: 20,
     cal: 50,
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     isSkipped: false,
     isFinished: true,
   ),
