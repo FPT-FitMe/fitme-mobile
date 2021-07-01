@@ -110,14 +110,22 @@ class TitleArticlePratice extends StatelessWidget {
   // chuyen qua trang detail cua exercise/meal
   void _selectArticle(
       BuildContext ctx, int id, bool isWorkout, bool isMeal, bool isPost) {
+    // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
       Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
         'id': id,
       });
     } else if (isMeal) {
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+      // Them field isButton check xem phai nut chuc nang k roi goi method tao log
+      //_onLogMealTapped(ctx);
+      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+        'id': id,
+      });
     } else if (isPost) {
-      Navigator.pushNamed(ctx, AppRoutes.postScreen);
+      //
+      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+        'id': id,
+      });
     }
   }
 

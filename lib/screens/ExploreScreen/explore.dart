@@ -254,8 +254,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ),
                                   shape: BoxShape.circle,
                                 )),
-                            Text("Chạy bộ",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Chạy bộ"),
                           ],
                         ),
                         SizedBox(
@@ -294,8 +293,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ),
                                   shape: BoxShape.circle,
                                 )),
-                            Text("Đạp xe đạp",
-                                style: TextStyle(fontWeight: FontWeight.bold))
+                            Text("Đạp xe đạp")
                           ],
                         ),
                       ],
