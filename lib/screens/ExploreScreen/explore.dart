@@ -273,9 +273,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
               title: "Bữa ăn",
               listMeal: _selectedPlan.listMeal,
             ),
-            Row(),
             TitleArticle(
-              title: "Bài tập",
+              title: "",
+              listMeal: LIST_MEAL1,
+            ),
+            TitleArticle(
+              title: "Bài tập đã hoàn thành",
               listExercise: _selectedPlan.listExercise,
             ),
 
