@@ -16,7 +16,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   static const runningActivityType = 1;
   static const cyclingActivityType = 2;
-  static const yogaActivityType = 3;
 
   final TextStyle titleStyle =
       TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
@@ -46,7 +45,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
       activityMap = {
         runningActivityType: ["Chạy bộ", "activity_running.png"],
         cyclingActivityType: ["Đạp xe", "activity_cycling.png"],
-        yogaActivityType: ["Yoga", "activity_yoga.png"]
       };
 
       pages = [_getMenuPage(), Container()];
@@ -137,9 +135,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
       case cyclingActivityType:
         currentForm = ActivityLogForm(hasDistanceField: true);
         break;
-      case yogaActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: false);
-        break;
     }
     return Container(
         height: MediaQuery.of(context).size.height * 0.83,
@@ -156,8 +151,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
               activityMap[runningActivityType]![1], runningActivityType),
           _getActivityItem(activityMap[cyclingActivityType]![0],
               activityMap[cyclingActivityType]![1], cyclingActivityType),
-          _getActivityItem(activityMap[yogaActivityType]![0],
-              activityMap[yogaActivityType]![1], yogaActivityType)
         ],
       ),
     );
