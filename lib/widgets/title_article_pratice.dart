@@ -180,7 +180,7 @@ class TitleArticlePratice extends StatelessWidget {
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(5),
         ),
         elevation: 0,
         margin: EdgeInsets.all(10),
@@ -189,7 +189,7 @@ class TitleArticlePratice extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   child: Image.network(
                     imageUrl,
                     height: 100,
@@ -232,7 +232,7 @@ class TitleArticlePratice extends StatelessWidget {
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(18),
                               ),
                               child: Center(
                                 child: Text("Sáng"),
@@ -242,7 +242,7 @@ class TitleArticlePratice extends StatelessWidget {
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text("Trưa"),
@@ -251,7 +251,7 @@ class TitleArticlePratice extends StatelessWidget {
                               : Card(
                                   color: Color(0xFF0E4DA4),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text(

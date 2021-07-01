@@ -225,35 +225,37 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                child: InkWell(
-                                  onTap: () => showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (BuildContext context) {
-                                        return BottomDrawer(
-                                          activityType: 1,
-                                        );
-                                      }),
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    radius: 25,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/diary/activity_running.png',
-                                        fit: BoxFit.fitHeight,
-                                        width: 80,
-                                        height: 25,
-                                      ),
+                              child: InkWell(
+                                onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return BottomDrawer(
+                                        activityType: 1,
+                                      );
+                                    }),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: 25,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/diary/activity_running.png',
+                                      fit: BoxFit.fitHeight,
+                                      width: 80,
+                                      height: 25,
                                     ),
                                   ),
                                 ),
-                                decoration: new BoxDecoration(
-                                  border: new Border.all(
-                                    color: AppColors.grayText,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                )),
+                              ),
+                              decoration: new BoxDecoration(
+                                border: new Border.all(
+                                  color: AppColors.grayText.withOpacity(0.4),
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            SizedBox(height: 5),
                             Text("Chạy bộ"),
                           ],
                         ),
@@ -264,35 +266,37 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                child: InkWell(
-                                  onTap: () => showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (BuildContext context) {
-                                        return BottomDrawer(
-                                          activityType: 2,
-                                        );
-                                      }),
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    radius: 25,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/diary/activity_cycling.png',
-                                        fit: BoxFit.fitHeight,
-                                        width: 80,
-                                        height: 25,
-                                      ),
+                              child: InkWell(
+                                onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return BottomDrawer(
+                                        activityType: 2,
+                                      );
+                                    }),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: 25,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/diary/activity_cycling.png',
+                                      fit: BoxFit.fitHeight,
+                                      width: 80,
+                                      height: 25,
                                     ),
                                   ),
                                 ),
-                                decoration: new BoxDecoration(
-                                  border: new Border.all(
-                                    color: AppColors.grayText,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                )),
+                              ),
+                              decoration: new BoxDecoration(
+                                border: new Border.all(
+                                  color: AppColors.grayText.withOpacity(0.4),
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            SizedBox(height: 5),
                             Text("Đạp xe đạp")
                           ],
                         ),
@@ -311,8 +315,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   physics: new NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   primary: true,
-                  padding: const EdgeInsets.all(10),
-                  crossAxisSpacing: 5,
+                  padding: const EdgeInsets.fromLTRB(6, 5, 0, 5),
+                  crossAxisSpacing: 8,
                   mainAxisSpacing: 0,
                   crossAxisCount: 2,
                   childAspectRatio: 10 / 8.5,
@@ -397,7 +401,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       child: SizedBox(
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(5),
           ),
           elevation: 0,
           margin: EdgeInsets.all(5),
@@ -406,7 +410,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     child: Image.network(
                       LIST_MEAL1[id].imageUrl,
                       height: 100,
@@ -448,7 +452,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(18),
                               ),
                               child: Center(
                                 child: Text("Sáng"),
@@ -458,7 +462,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text("Trưa"),
@@ -467,7 +471,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               : Card(
                                   color: Color(0xFF0E4DA4),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text(
