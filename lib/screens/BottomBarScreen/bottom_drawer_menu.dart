@@ -59,7 +59,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   Widget _getMenuPage() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
+      height: MediaQuery.of(context).size.height * 0.83,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -113,11 +113,11 @@ class _BottomDrawerState extends State<BottomDrawer> {
               height: 30,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.55,
               child: TabBarView(
                 children: [
                   _getActivityList(),
-                  UnderDevelopmentPanel(),
+                  _getLogMealTabBarView(),
                   _getWeightLogTabBarView()
                 ],
               ),
@@ -142,7 +142,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
         break;
     }
     return Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: MediaQuery.of(context).size.height * 0.83,
         child: _getCreateLogForm(activityMap[currentActivityType]![0],
             activityMap[currentActivityType]![1], currentForm));
   }
@@ -208,6 +208,18 @@ class _BottomDrawerState extends State<BottomDrawer> {
         Padding(
           padding: EdgeInsets.all(20),
           child: WeightLogForm(),
+        )
+      ],
+    );
+  }
+
+  Widget _getLogMealTabBarView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: MealLogForm(),
         )
       ],
     );

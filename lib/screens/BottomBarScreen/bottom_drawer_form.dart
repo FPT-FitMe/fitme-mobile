@@ -1,18 +1,18 @@
 import 'package:duration_picker/duration_picker.dart';
+import 'package:fitme/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ActivityLogForm extends StatefulWidget {
   final bool hasDistanceField;
 
-  ActivityLogForm ({  Key ?key, required this.hasDistanceField }): super(key: key);
+  ActivityLogForm({Key? key, required this.hasDistanceField}) : super(key: key);
 
   @override
   _ActivityLogFormState createState() => _ActivityLogFormState();
 }
 
 class _ActivityLogFormState extends State<ActivityLogForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _dateController = TextEditingController();
@@ -35,23 +35,21 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
   }
 
   Future<void> _selectDuration() async {
-
     final Duration? pickedDuration = await showDurationPicker(
-      context: context,
-      initialTime: Duration(minutes: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10)
-      )
-    );
+        context: context,
+        initialTime: Duration(minutes: 5),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)));
     if (pickedDuration != null) {
       String pickedDurationString = pickedDuration.toString();
       int separatorIndex = pickedDurationString.indexOf(":", 0);
       int hours = int.parse(pickedDurationString.substring(0, separatorIndex));
-      int minutes = int.parse(pickedDurationString.substring(separatorIndex + 1, separatorIndex + 3));
+      int minutes = int.parse(pickedDurationString.substring(
+          separatorIndex + 1, separatorIndex + 3));
 
       setState(() {
-        _durationController.text = hours == 0 ? "$minutes phút" : "$hours giờ $minutes phút";
+        _durationController.text =
+            hours == 0 ? "$minutes phút" : "$hours giờ $minutes phút";
       });
     }
   }
@@ -76,14 +74,14 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
           SizedBox(
             height: 20,
           ),
-          widget.hasDistanceField ? TextFormField(
-            controller: _distanceController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: "Khoảng cách",
-              suffixText: "km"
-            ),
-          ) : Container(),
+          widget.hasDistanceField
+              ? TextFormField(
+                  controller: _distanceController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: "Khoảng cách", suffixText: "km"),
+                )
+              : Container(),
           SizedBox(
             height: 20,
           ),
@@ -103,8 +101,7 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -131,10 +128,22 @@ class WeightLogForm extends StatefulWidget {
 }
 
 class _WeightLogFormState extends State<WeightLogForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _weightController = TextEditingController();
+  double latestWeight = 55.2;
+
+  void increaseLogWeightValue() {
+    setState(() {
+      latestWeight += 0.1;
+    });
+  }
+
+  void decreaseLogWeightValue() {
+    setState(() {
+      latestWeight -= 0.1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,11 +154,137 @@ class _WeightLogFormState extends State<WeightLogForm> {
           SizedBox(
             height: 30,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(onPressed: decreaseLogWeightValue, icon: Icon(Icons.remove_circle_outline_sharp), iconSize: 40, color: AppColors.primary,),
+              Text(latestWeight.toStringAsFixed(1) + " KG", style: TextStyle(fontSize: 50),),
+              IconButton(onPressed: increaseLogWeightValue, icon: Icon(Icons.add_circle_outline_sharp), iconSize: 40, color: AppColors.primary)
+            ],
+          ),
+          SizedBox(
+            height: 80,
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: 45,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: Text(
+                "Cập nhật cân nặng",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MealLogForm extends StatefulWidget {
+  @override
+  _MealLogFormState createState() => _MealLogFormState();
+}
+
+class _MealLogFormState extends State<MealLogForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+  TextEditingController _mealNameController = TextEditingController();
+  TextEditingController _caloriesController = TextEditingController();
+
+  Future<void> _selectDate() async {
+    DateTime currentDate = DateTime.now();
+    final dateFormat = new DateFormat('dd-MM-yyyy');
+    _dateController.text = dateFormat.format(currentDate).toString();
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(2020),
+        lastDate: currentDate);
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        _dateController.text = dateFormat.format(pickedDate).toString();
+      });
+  }
+
+  Future<void> _selectTime() async {
+    TimeOfDay currentTime = TimeOfDay.now();
+    _timeController.text = currentTime.toString().substring(10, 15);
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+      initialTime: currentTime,
+    );
+    if (pickedTime != null && pickedTime != currentTime)
+      setState(() {
+        currentTime = pickedTime;
+        _timeController.text = pickedTime.toString().substring(10, 15);
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20,
+          ),
           TextFormField(
-            controller: _weightController,
+            controller: _mealNameController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: "Tên món ăn",
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            controller: _caloriesController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              suffixText: "kg"
+                labelText: "Calories ước lượng", suffixText: "calo"),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            onTap: () => _selectTime(),
+            readOnly: true,
+            controller: _timeController,
+            decoration: InputDecoration(
+              labelText: "Lúc",
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            onTap: () => _selectDate(),
+            readOnly: true,
+            controller: _dateController,
+            decoration: InputDecoration(
+              labelText: "Ngày",
             ),
           ),
           SizedBox(
@@ -159,15 +294,14 @@ class _WeightLogFormState extends State<WeightLogForm> {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               child: Text(
-                "Cập nhật cân nặng",
+                "Thêm bữa ăn vào nhật ký",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,

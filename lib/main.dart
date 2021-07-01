@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('vi', ''), // Vietnam, no country code
+        const Locale('vi', 'US'), // Vietnam, no country code
       ],
       initialRoute: AppRoutes.gettingStarted,
       routes: getRoutes(),
