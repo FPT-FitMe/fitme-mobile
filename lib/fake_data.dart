@@ -315,17 +315,6 @@ const LIST_GOAL2 = const [
     isSkipped: false,
     isFinished: true,
   ),
-  Exercise(
-    id: 3,
-    name: 'Giãn cơ',
-    imageUrl: 'http://cdn.thehinh.com/2017/09/gian-co-la-gi-2.jpg',
-    duration: 10,
-    cal: 25,
-    isFavorite: false,
-    isPremium: false,
-    isSkipped: false,
-    isFinished: true,
-  ),
 ];
 const LIST_FINISH = [
   Exercise(
