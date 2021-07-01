@@ -1,4 +1,5 @@
 import 'package:fitme/models/exercise.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -217,49 +218,67 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          // radius: 100,
-                          // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
-                          radius: 25,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/diary/activity_running.png',
-                              fit: BoxFit.fitHeight,
-                              width: 80,
-                              height: 25,
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomDrawer();
+                              }),
+                          child: CircleAvatar(
+                            // radius: 100,
+                            // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
+                            radius: 25,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/diary/activity_running.png',
+                                fit: BoxFit.fitHeight,
+                                width: 80,
+                                height: 25,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        CircleAvatar(
-                          // radius: 100,
-                          // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
-                          radius: 25,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/diary/activity_cycling.png',
-                              fit: BoxFit.fitHeight,
-                              width: 80,
-                              height: 25,
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomDrawer();
+                              }),
+                          child: CircleAvatar(
+                            // radius: 100,
+                            // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
+                            radius: 25,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/diary/activity_cycling.png',
+                                fit: BoxFit.fitHeight,
+                                width: 80,
+                                height: 25,
+                              ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
-                TitleArticle(
-                  title: "Bữa ăn",
-                  listMeal: _selectedPlan.listMeal,
-                ),
-                TitleArticle(
-                  title: "Bài tập",
-                  listExercise: _selectedPlan.listExercise,
-                ),
               ],
             ),
+            TitleArticle(
+              title: "Bữa ăn",
+              listMeal: _selectedPlan.listMeal,
+            ),
+            Row(),
+            TitleArticle(
+              title: "Bài tập",
+              listExercise: _selectedPlan.listExercise,
+            ),
+
             //phan tong ket
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
