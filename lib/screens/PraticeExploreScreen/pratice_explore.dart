@@ -33,19 +33,13 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   CoachAvatar(
-                    coachName: 'Lalisa',
-                    tagName: 'Boxing, Thể hình',
-                    imgURL: 'https://i.imgur.com/r0aISaS.jpeg',
+                    id: 0,
                   ),
                   CoachAvatar(
-                      coachName: 'Rose',
-                      tagName: 'Yoga, Thể hình',
-                      imgURL: 'https://i.imgur.com/zCiPWRn.jpeg'),
+                    id: 1,
+                  ),
                   CoachAvatar(
-                    coachName: 'Ariana Grande',
-                    tagName: 'Boxing, Thể hình',
-                    imgURL:
-                        'https://images.unsplash.com/photo-1592621385612-4d7129426394?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+                    id: 2,
                   ),
                 ]),
                 TitleArticle(
@@ -73,12 +67,9 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
 }
 
 class CoachAvatar extends StatelessWidget {
-  final String coachName;
-  final String tagName;
-  final String imgURL;
+  final int id;
 
-  const CoachAvatar(
-      {required this.coachName, required this.tagName, required this.imgURL});
+  const CoachAvatar({required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +80,12 @@ class CoachAvatar extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.coachDetail);
+              Navigator.pushNamed(context, AppRoutes.coachDetail, arguments: {
+                "id": id,
+              });
             },
             child: CircleAvatar(
-              backgroundImage: NetworkImage(imgURL),
+              backgroundImage: NetworkImage(LIST_COACH[id].imageUrl),
               radius: 40,
             ),
           ),
@@ -100,7 +93,7 @@ class CoachAvatar extends StatelessWidget {
             height: 10,
           ),
           Text(
-            coachName,
+            LIST_COACH[id].name,
             style: TextStyle(
               color: Color(0xff263238),
               fontSize: 10,
@@ -109,7 +102,7 @@ class CoachAvatar extends StatelessWidget {
             ),
           ),
           Text(
-            tagName,
+            LIST_COACH[id].tagName,
             style: TextStyle(
               color: Color(0xff5e5e5e),
               fontSize: 8,
@@ -160,7 +153,7 @@ Widget carouselPage() => CarouselSlider(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.postScreen);
+                      Navigator.pushNamed(context, AppRoutes.detailPractice);
                     },
                     child: Image.network(item.image,
                         fit: BoxFit.cover, width: 1000),

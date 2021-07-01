@@ -115,9 +115,13 @@ class TitleArticle extends StatelessWidget {
         'id': id,
       });
     } else if (isMeal) {
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+        'id': id,
+      });
     } else if (isPost) {
-      Navigator.pushNamed(ctx, AppRoutes.postScreen);
+      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+        'id': id,
+      });
     }
   }
 

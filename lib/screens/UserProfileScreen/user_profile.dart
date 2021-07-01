@@ -77,7 +77,7 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,
@@ -89,7 +89,7 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  'https://images.unsplash.com/photo-1564054074885-e5a7c93671d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,
@@ -113,7 +113,7 @@ class UserProfileScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1555848960-c881e30379c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
+                  'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
                   width: 45,
                   height: 45,
                   fit: BoxFit.cover,

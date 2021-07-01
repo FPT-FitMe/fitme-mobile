@@ -1,9 +1,15 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/fake_data.dart';
+import 'package:fitme/models/post.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final map =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final id = map["id"];
+    final Post post = LIST_POST.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -20,19 +26,19 @@ class PostScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              'https://images.unsplash.com/photo-1608138404239-d2f557515ecb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+              post.imageUrl,
               fit: BoxFit.cover,
               width: 600,
               height: 200,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
-              child: titleSection,
+              child: titleSection(post.id),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: GestureDetector(
-                child: authorSection,
+                child: authorSection(post.authorID),
                 onTap: () {
                   Navigator.pushNamed(context, AppRoutes.coachDetail);
                 },
@@ -40,15 +46,15 @@ class PostScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: timeSection,
+              child: timeSection(post.duration),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: headLineSection,
+              child: headLineSection(post.id),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: textSection,
+              child: textSection(post.id),
             ),
           ],
         ),
@@ -56,74 +62,74 @@ class PostScreen extends StatelessWidget {
     );
   }
 
-  Widget authorSection = Container(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(
-              'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
-          radius: 20,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+  Widget authorSection(int id) => Container(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Công thức viết bởi"),
-            SizedBox(height: 5.0),
-            Text("Lalisa Monoban",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            CircleAvatar(
+              backgroundImage:
+                  NetworkImage(LIST_COACH[LIST_POST[id].authorID].imageUrl),
+              radius: 20,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Công thức viết bởi"),
+                SizedBox(height: 5.0),
+                Text(LIST_COACH[LIST_POST[id].authorID].fullname,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
           ],
         ),
-      ],
-    ),
-  );
+      );
 
-  Widget titleSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      "Chạy thế nào để hiệu quả ?",
-      softWrap: true,
-      textAlign: TextAlign.justify,
-      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-    ),
-  );
-
-  Widget timeSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Row(
-      children: [
-        Icon(
-          Icons.access_time,
-          color: Colors.grey,
-        ),
-        SizedBox(width: 10),
-        Text(
-          '15 phút',
+  Widget titleSection(int id) => Container(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          LIST_POST[id].name,
           softWrap: true,
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
-      ],
-    ),
-  );
+      );
 
-  Widget headLineSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Text('Chạy bộ đúng cách và những lợi ích không tưởng',
-        softWrap: true,
-        textAlign: TextAlign.left,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-  );
+  Widget timeSection(int duration) => Container(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: [
+            Icon(
+              Icons.access_time,
+              color: Colors.grey,
+            ),
+            SizedBox(width: 10),
+            Text(
+              duration.toString() + ' phút',
+              softWrap: true,
+            ),
+          ],
+        ),
+      );
 
-  Widget textSection = Container(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      'Chạy bộ đúng cách và những lợi ích không tưởng Không nhiều hơn mà cũng không ít hơn, với 30 phút chạy bộ đúng cách mỗi ngày đã đủ giúp bạn cải thiện sức khỏe cho cơ thể, giảm các bệnh về huyết áp, tim mạch, giảm cân và kéo dài tuổi thọ. Các nghiên cứu khoa học chỉ ra rằng trong vòng nửa tiếng chạy bộ, cơ thể sẽ đốt cháy từ 300-500 calo (trung bình 10 calo/phút) tùy theo mức độ tập luyện.',
-      softWrap: true,
-      textAlign: TextAlign.justify,
-      style: TextStyle(fontSize: 15),
-    ),
-  );
+  Widget headLineSection(int id) => Container(
+        alignment: Alignment.centerLeft,
+        child: Text(LIST_POST[id].headline,
+            softWrap: true,
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      );
+
+  Widget textSection(int id) => Container(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          LIST_POST[id].content,
+          softWrap: true,
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 15),
+        ),
+      );
 }

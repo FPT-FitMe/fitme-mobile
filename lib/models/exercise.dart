@@ -6,6 +6,8 @@ class Exercise {
   final int cal;
   final bool isFavorite;
   final bool isPremium;
+  final bool isSkipped;
+  final bool isFinished;
 
   const Exercise({
     required this.id,
@@ -15,7 +17,7 @@ class Exercise {
     required this.cal,
     required this.isFavorite,
     required this.isPremium,
+    required this.isSkipped,
+    required this.isFinished,
   });
-
-  
 }

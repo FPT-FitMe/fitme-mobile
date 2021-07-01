@@ -182,7 +182,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 //check xem da hoan thanh chua
                 !_checkFinish(_selectedPlan.listGoal)
                     ? TitleArticle(
-                        title: "Mục tiêu hôm nay",
+                        title: "Hôm nay tập gì 🎯",
                         listExercise: _selectedPlan.listGoal,
                       )
                     : Column(
@@ -192,7 +192,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             alignment: Alignment.topLeft,
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              "Mục tiêu hôm nay",
+                              "Hôm nay tập gì 🎯",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -205,6 +205,51 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           Text("Bạn đã hoàn tất mục tiêu hôm nay")
                         ],
                       ),
+                SizedBox(
+                  height: 10,
+                ),
+                TitleArticle(
+                  title: "Thêm hoạt động khác",
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          // radius: 100,
+                          // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
+                          radius: 25,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/diary/activity_running.png',
+                              fit: BoxFit.fitHeight,
+                              width: 80,
+                              height: 25,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        CircleAvatar(
+                          // radius: 100,
+                          // backgroundImage: AssetImage('assets/images/diary/activity_cycling.png'),
+                          radius: 25,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/diary/activity_cycling.png',
+                              fit: BoxFit.fitHeight,
+                              width: 80,
+                              height: 25,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 TitleArticle(
                   title: "Bữa ăn",
                   listMeal: _selectedPlan.listMeal,
