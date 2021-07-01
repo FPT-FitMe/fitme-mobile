@@ -289,12 +289,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        IconButton(
-                          iconSize: 50.0,
-                          icon: const Icon(
-                              CommunityMaterialIcons.plus_circle_outline),
-                          onPressed: () {},
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomDrawer(tabIndex: 1);
+                              }),
+                          child: Icon(
+                              CommunityMaterialIcons.plus_circle_outline,
+                              size: 50),
                         ),
+                        SizedBox(height: 10),
                         Text("Thêm bữa ăn"),
                       ],
                     )

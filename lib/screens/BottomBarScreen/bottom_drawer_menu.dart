@@ -126,7 +126,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
               child: TabBarView(
                 children: [
                   _getActivityList(),
-                  UnderDevelopmentPanel(),
+                  _getLogMealTabBarView(),
                   _getWeightLogTabBarView()
                 ],
               ),
@@ -212,6 +212,18 @@ class _BottomDrawerState extends State<BottomDrawer> {
         Padding(
           padding: EdgeInsets.all(20),
           child: WeightLogForm(),
+        )
+      ],
+    );
+  }
+
+  Widget _getLogMealTabBarView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: MealLogForm(),
         )
       ],
     );
