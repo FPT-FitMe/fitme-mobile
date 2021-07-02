@@ -1,5 +1,8 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/fake_data.dart';
 import 'package:flutter/material.dart';
 
 class CardTitle extends StatelessWidget {
@@ -20,12 +23,33 @@ class CardTitle extends StatelessWidget {
     required this.imageUrl,
     required this.isExercise,
   });
+  Widget getTick(id) {
+    if (LIST_MEAL1[id].status == MealStatus.complete) {
+      return Icon(
+        Icons.check_circle,
+        color: AppColors.green500,
+        size: 17,
+      );
+    } else if (LIST_MEAL1[id].status == MealStatus.skip) {
+      return Icon(
+        CommunityMaterialIcons.minus_circle_outline,
+        color: AppColors.grayText,
+        size: 17,
+      );
+    }
+    return Icon(
+      CommunityMaterialIcons.minus_circle_outline,
+      color: Colors.transparent,
+      size: 17,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => _selectArticle(context, id),
       child: ListTile(
+        trailing: getTick(id),
         leading: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: Image.network(
@@ -60,6 +84,8 @@ class CardTitle extends StatelessWidget {
   void _selectArticle(BuildContext ctx, int id) {
     isExercise
         ? Navigator.pushNamed(ctx, AppRoutes.detailPractice)
-        : Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+        : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+            'id': id + 1,
+          });
   }
 }

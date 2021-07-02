@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal.dart';
@@ -13,28 +14,30 @@ class DetailMealScreen extends StatefulWidget {
 }
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
-  Color _leftBtnColor = Colors.black12;
-  Color _rightBtnColor = Colors.black12;
-  Color _leftTxtColor = Colors.black45;
-  late int id;
+  var isSelected = [false, false];
+  bool isFavorite = false;
+  late final map;
+  late final id;
+  late final Meal meal;
 
-  Icon _favIcon = new Icon(CommunityMaterialIcons.heart_outline,
-      color: AppColors.textColor);
-  _favIconOn() {
-    _favIcon = new Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
-  }
-
-  _favIconOff() {
-    _favIcon =
-        Icon(CommunityMaterialIcons.heart_outline, color: AppColors.textColor);
+  @override
+  void didChangeDependencies() {
+    // TODO: should fix this
+    map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    id = map["id"];
+    meal = LIST_MEAL2.where((element) => element.id == id).first;
+    setState(() {
+      if (meal.status == MealStatus.complete) {
+        isSelected[1] = true;
+      } else if (meal.status == MealStatus.skip) {
+        isSelected[0] = true;
+      }
+    });
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final map =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final id = map["id"];
-    final Meal meal = LIST_MEAL2.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -47,21 +50,16 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
+          IconButton(
+              icon: isFavorite
+                  ? Icon(CommunityMaterialIcons.heart)
+                  : Icon(CommunityMaterialIcons.heart_outline),
+              color: isFavorite ? AppColors.primary : AppColors.grayText,
+              onPressed: () {
                 setState(() {
-                  if (_favIcon.color == AppColors.textColor) {
-                    _favIconOn();
-                  } else {
-                    _favIconOff();
-                  }
+                  isFavorite = !isFavorite;
                 });
-              },
-              child: _favIcon,
-            ),
-          ),
+              })
         ],
       ),
       body: SingleChildScrollView(
@@ -118,63 +116,43 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          child: Row(
+          child: ToggleButtons(
             children: <Widget>[
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: _leftBtnColor,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25),
-                          topLeft: Radius.circular(25)),
-                    ),
-                    child: Text(
-                      "Bỏ qua",
-                      style: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 17,
-                      ),
-                    ),
-                  ),
+              Text(
+                "Bỏ qua",
+                style: TextStyle(
+                  fontSize: 17,
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 0),
-                  child: Container(color: Colors.black26, width: 1)),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (_rightBtnColor == Colors.black12) {
-                        _rightBtnColor = AppColors.primary;
-                        _leftTxtColor = Colors.white;
-                      } else {
-                        _rightBtnColor = Colors.black12;
-                        _leftTxtColor = Colors.black45;
-                      }
-                    });
-                    // TODO : backend logic code here
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: _rightBtnColor,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(25),
-                            topRight: Radius.circular(25))),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Hoàn tất",
-                      style: TextStyle(color: _leftTxtColor, fontSize: 17),
-                    ),
-                  ),
-                ),
-              )
+              Text(
+                "Hoàn tất",
+                style: TextStyle(fontSize: 17),
+              ),
             ],
+            onPressed: (int index) {
+              setState(() {
+                for (int buttonIndex = 0;
+                    buttonIndex < isSelected.length;
+                    buttonIndex++) {
+                  if (buttonIndex == index) {
+                    isSelected[buttonIndex] = true;
+                  } else {
+                    isSelected[buttonIndex] = false;
+                  }
+                }
+              });
+            },
+            color: AppColors.grayText,
+            selectedColor: Colors.white,
+            fillColor: AppColors.primary,
+            isSelected: isSelected,
+            borderColor: AppColors.primary,
+            selectedBorderColor: AppColors.primary,
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            constraints: BoxConstraints.tightFor(
+              width: 100,
+              height: 30,
+            ),
           ),
         ),
       ),

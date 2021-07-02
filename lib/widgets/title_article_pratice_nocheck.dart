@@ -9,13 +9,13 @@ import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticlePratice extends StatelessWidget {
+class TitleArticleNoCheck extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
 
-  const TitleArticlePratice(
+  const TitleArticleNoCheck(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
@@ -119,7 +119,7 @@ class TitleArticlePratice extends StatelessWidget {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id + 1,
+        'id': id,
       });
     } else if (isPost) {
       //

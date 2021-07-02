@@ -4,18 +4,20 @@ import 'package:fitme/models/post.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';
 
+import 'package:badges/badges.dart';
+
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticlePratice extends StatelessWidget {
+class TitleArticleBadge extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
 
-  const TitleArticlePratice(
+  const TitleArticleBadge(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
@@ -25,7 +27,7 @@ class TitleArticlePratice extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.fromLTRB(10, 5, 12, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -36,9 +38,15 @@ class TitleArticlePratice extends StatelessWidget {
                 InkWell(
                   onTap: () => _viewAllArticle(
                       context, listMeal, listExercise, listPost, title),
-                  child: Text(
-                    "Hiện tất cả",
-                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                  child: Badge(
+                    padding: EdgeInsets.all(2.5),
+                    badgeColor: AppColors.primary,
+                    elevation: 0,
+                    position: BadgePosition(top: -4, end: -6),
+                    child: Text(
+                      "Hiện tất cả",
+                      style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                    ),
                   ),
                 )
               ],
@@ -119,7 +127,7 @@ class TitleArticlePratice extends StatelessWidget {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id + 1,
+        'id': id,
       });
     } else if (isPost) {
       //
@@ -156,7 +164,7 @@ class TitleArticlePratice extends StatelessWidget {
   void _viewAllArticle(
       BuildContext ctx, listMeal, listExcercise, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
-      'list_meal': listMeal,
+      'list_meal': LIST_MEAL1,
       'list_exercise': listExcercise,
       'list_post': listPost,
       'topic': topic,
@@ -285,6 +293,16 @@ class TitleArticlePratice extends StatelessWidget {
                   ),
                 ),
               ]),
+              //Icon hoan thanh
+              //check trong list hoan thanh co khong
+              //TODO: mock list_finish data hop li vao
+              if (LIST_FINISH.where((element) {
+                return (element as Meal).id == id;
+              }).isNotEmpty)
+                Icon(
+                  Icons.check_circle,
+                  color: AppColors.green500,
+                )
             ]),
           ],
         ),
