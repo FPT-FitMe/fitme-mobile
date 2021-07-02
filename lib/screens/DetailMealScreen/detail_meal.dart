@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/mealStatus.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal.dart';
@@ -13,10 +14,21 @@ class DetailMealScreen extends StatefulWidget {
 }
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
-  Color _leftBtnColor = Colors.black12;
-  Color _rightBtnColor = Colors.black12;
-  Color _leftTxtColor = Colors.black45;
+  var isSelected = [false, false];
+
   late int id;
+
+  Icon getFavorite(Meal meal) {
+    if (meal.status == MealStatus.isExpired) {
+      isSelected = [false, true];
+    }
+    if (meal.isFavorite) {
+      return Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
+    } else {
+      return Icon(CommunityMaterialIcons.heart_outline,
+          color: AppColors.textColor);
+    }
+  }
 
   Icon _favIcon = new Icon(CommunityMaterialIcons.heart_outline,
       color: AppColors.textColor);
@@ -59,7 +71,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                   }
                 });
               },
-              child: _favIcon,
+              child: getFavorite(meal),
             ),
           ),
         ],
@@ -118,63 +130,40 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          child: Row(
+          child: ToggleButtons(
             children: <Widget>[
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: _leftBtnColor,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25),
-                          topLeft: Radius.circular(25)),
-                    ),
-                    child: Text(
-                      "Bỏ qua",
-                      style: TextStyle(
-                        color: Colors.black45,
-                        fontSize: 17,
-                      ),
-                    ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Bỏ qua",
+                  style: TextStyle(
+                    fontSize: 17,
                   ),
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 0),
-                  child: Container(color: Colors.black26, width: 1)),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (_rightBtnColor == Colors.black12) {
-                        _rightBtnColor = AppColors.primary;
-                        _leftTxtColor = Colors.white;
-                      } else {
-                        _rightBtnColor = Colors.black12;
-                        _leftTxtColor = Colors.black45;
-                      }
-                    });
-                    // TODO : backend logic code here
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: _rightBtnColor,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(25),
-                            topRight: Radius.circular(25))),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Hoàn tất",
-                      style: TextStyle(color: _leftTxtColor, fontSize: 17),
-                    ),
-                  ),
-                ),
-              )
+              Text(
+                "Hoàn tất",
+                style: TextStyle(fontSize: 17),
+              ),
             ],
+            onPressed: (int index) {
+              setState(() {
+                isSelected[index] = !isSelected[index];
+              });
+            },
+            color: AppColors.grayText,
+            selectedColor: Colors.white,
+            fillColor: AppColors.primary,
+            isSelected: isSelected,
+            borderColor: AppColors.primary,
+            selectedBorderColor: AppColors.primary,
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+            constraints: BoxConstraints.tightFor(
+              width: 100,
+              height: 30,
+            ),
           ),
         ),
       ),

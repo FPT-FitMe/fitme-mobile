@@ -5,6 +5,7 @@ class Meal {
   final String description;
   final int duration;
   final int cal;
+  final int status;
   final bool isFavorite;
   final bool isPremium;
   final List<String> tag;
@@ -17,6 +18,7 @@ class Meal {
       required this.description,
       required this.duration,
       required this.cal,
+      required this.status,
       required this.isFavorite,
       required this.isPremium,
       required this.tag,

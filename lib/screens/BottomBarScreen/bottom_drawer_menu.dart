@@ -255,7 +255,9 @@ class _BottomDrawerState extends State<BottomDrawer> {
           children: [
             IconButton(
                 onPressed: _onBackButtonTapped,
-                icon: Icon(Icons.arrow_back_ios)),
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                )),
             Text(
               title!,
               style: titleStyle,
