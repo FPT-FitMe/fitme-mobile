@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class BottomDrawer extends StatefulWidget {
   final int? activityType;
   final int? tabIndex;
+  final bool? isToday;
 
   @override
   _BottomDrawerState createState() => _BottomDrawerState();
 
-  const BottomDrawer({ Key? key, this.activityType , this.tabIndex}) : super(key : key);
+  const BottomDrawer({Key? key, this.activityType, this.tabIndex, this.isToday})
+      : super(key: key);
 }
 
 class _BottomDrawerState extends State<BottomDrawer> {
@@ -21,7 +23,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   static const runningActivityType = 1;
   static const cyclingActivityType = 2;
-  static const yogaActivityType = 3;
 
   final TextStyle titleStyle =
       TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
@@ -56,7 +57,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
       activityMap = {
         runningActivityType: ["Chạy bộ", "activity_running.png"],
         cyclingActivityType: ["Đạp xe", "activity_cycling.png"],
-        yogaActivityType: ["Yoga", "activity_yoga.png"]
       };
 
       pages = [_getMenuPage(), Container()];
@@ -127,7 +127,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
               child: TabBarView(
                 children: [
                   _getActivityList(),
-                  UnderDevelopmentPanel(),
+                  _getLogMealTabBarView(),
                   _getWeightLogTabBarView()
                 ],
               ),
@@ -140,15 +140,16 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   Widget _getCreateLogPage() {
     Widget currentForm = Container();
+    bool hideInputDate = false;
+    if (widget.isToday != null) {
+      hideInputDate = widget.isToday!;
+    }
     switch (currentActivityType) {
       case runningActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true);
+        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
         break;
       case cyclingActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true);
-        break;
-      case yogaActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: false);
+        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
         break;
     }
     return Container(
@@ -166,8 +167,6 @@ class _BottomDrawerState extends State<BottomDrawer> {
               activityMap[runningActivityType]![1], runningActivityType),
           _getActivityItem(activityMap[cyclingActivityType]![0],
               activityMap[cyclingActivityType]![1], cyclingActivityType),
-          _getActivityItem(activityMap[yogaActivityType]![0],
-              activityMap[yogaActivityType]![1], yogaActivityType)
         ],
       ),
     );
@@ -220,6 +219,19 @@ class _BottomDrawerState extends State<BottomDrawer> {
           child: WeightLogForm(),
         )
       ],
+    );
+  }
+
+  Widget _getLogMealTabBarView() {
+    bool hideInputDate = false;
+    if (widget.isToday != null) {
+      hideInputDate = widget.isToday!;
+    }
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(left: 20, right: 20),
+        child: MealLogForm(showInputDate: !hideInputDate,),
+      ),
     );
   }
 
