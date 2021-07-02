@@ -27,7 +27,7 @@ class TitleArticleBadge extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 20, 0),
+            padding: EdgeInsets.fromLTRB(10, 5, 12, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -39,9 +39,10 @@ class TitleArticleBadge extends StatelessWidget {
                   onTap: () => _viewAllArticle(
                       context, listMeal, listExercise, listPost, title),
                   child: Badge(
+                    padding: EdgeInsets.all(2.5),
                     badgeColor: AppColors.primary,
                     elevation: 0,
-                    position: BadgePosition.topEnd(),
+                    position: BadgePosition(top: -4, end: -6),
                     child: Text(
                       "Hiện tất cả",
                       style: TextStyle(fontSize: 10, color: AppColors.grayText),

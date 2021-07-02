@@ -119,7 +119,7 @@ class TitleArticlePratice extends StatelessWidget {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id,
+        'id': id + 1,
       });
     } else if (isPost) {
       //

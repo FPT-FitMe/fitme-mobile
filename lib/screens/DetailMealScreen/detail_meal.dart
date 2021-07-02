@@ -21,6 +21,10 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   Icon getIcon(Meal meal) {
     if (meal.status == MealStatus.isExpired) {
       isSelected = [false, true];
+    } else if (meal.status == MealStatus.nonExpired) {
+      isSelected = [true, false];
+    } else if (meal.status == MealStatus.empty) {
+      isSelected = [false, false];
     }
     if (meal.isFavorite) {
       isSelected1 = [true];
@@ -121,9 +125,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
           child: ToggleButtons(
             children: <Widget>[
               InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () {},
                 child: Text(
                   "Bỏ qua",
                   style: TextStyle(
