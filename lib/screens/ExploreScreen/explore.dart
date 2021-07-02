@@ -1,4 +1,9 @@
+import 'package:community_material_icon/community_material_icon.dart';
+import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/widgets/title_article_noviewall.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -181,8 +186,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
               children: [
                 //check xem da hoan thanh chua
                 !_checkFinish(_selectedPlan.listGoal)
-                    ? TitleArticle(
-                        title: "Mục tiêu hôm nay",
+                    ? TitleArticleNoViewAll(
+                        title: "Hôm nay tập gì 🎯",
                         listExercise: _selectedPlan.listGoal,
                       )
                     : Column(
@@ -192,7 +197,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             alignment: Alignment.topLeft,
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              "Mục tiêu hôm nay",
+                              "Hôm nay tập gì 🎯",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -205,15 +210,147 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           Text("Bạn đã hoàn tất mục tiêu hôm nay")
                         ],
                       ),
-                TitleArticle(
-                  title: "Bữa ăn",
-                  listMeal: _selectedPlan.listMeal,
+                SizedBox(
+                  height: 10,
                 ),
-                TitleArticle(
-                  title: "Bài tập",
-                  listExercise: _selectedPlan.listExercise,
+                TitleArticleNoViewAll(
+                  title: "Thêm hoạt động khác",
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 10, 5),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: InkWell(
+                                onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return BottomDrawer(
+                                        activityType: 1,
+                                        isToday: true,
+                                      );
+                                    }),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: 25,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/diary/activity_running.png',
+                                      fit: BoxFit.fitHeight,
+                                      width: 80,
+                                      height: 25,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              decoration: new BoxDecoration(
+                                border: new Border.all(
+                                  color: AppColors.grayText.withOpacity(0.4),
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text("Chạy bộ"),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: InkWell(
+                                onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return BottomDrawer(
+                                        activityType: 2,
+                                        isToday: true,
+                                      );
+                                    }),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  radius: 25,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/diary/activity_cycling.png',
+                                      fit: BoxFit.fitHeight,
+                                      width: 80,
+                                      height: 25,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              decoration: new BoxDecoration(
+                                border: new Border.all(
+                                  color: AppColors.grayText.withOpacity(0.4),
+                                  width: 1,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text("Đạp xe đạp")
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
+            ),
+            TitleArticleNoViewAll(
+              title: "Bữa ăn",
+            ),
+            SizedBox(
+                height: 320,
+                child: GridView.count(
+                  physics: new NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  primary: true,
+                  padding: const EdgeInsets.fromLTRB(6, 5, 0, 5),
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 0,
+                  crossAxisCount: 2,
+                  childAspectRatio: 10 / 8.5,
+                  children: <Widget>[
+                    _cardArticle(context, 0),
+                    _cardArticle(context, 1),
+                    _cardArticle(context, 2),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 20),
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomDrawer(tabIndex: 1, isToday: true,);
+                              }),
+                          child: Icon(
+                              CommunityMaterialIcons.plus_circle_outline,
+                              size: 50),
+                        ),
+                        SizedBox(height: 10),
+                        Text("Thêm bữa ăn"),
+                      ],
+                    )
+                  ],
+                )),
+            TitleArticle(
+              title: "Bài tập đã hoàn thành",
+              listExercise: _selectedPlan.listExercise,
             ),
             //phan tong ket
             Container(
@@ -253,5 +390,132 @@ class _ExploreScreenState extends State<ExploreScreen> {
   bool _checkFinish(List<Exercise> listGoal) {
     if (listGoal.isEmpty) return true;
     return false;
+  }
+
+  Widget _cardArticle(
+    BuildContext context,
+    int id,
+  ) {
+    return GestureDetector(
+      onTap: () =>
+          Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
+        'id': id + 1,
+      }),
+      child: SizedBox(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          elevation: 0,
+          margin: EdgeInsets.all(5),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    child: Image.network(
+                      LIST_MEAL1[id].imageUrl,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  if (LIST_MEAL1[id].isFavorite)
+                    Positioned(
+                      bottom: 70,
+                      right: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  if (LIST_MEAL1[id].isPremium)
+                    Positioned(
+                      bottom: 70,
+                      left: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  //neu la meal se co tag "sang/trua/toi"
+                  Positioned(
+                    top: 68,
+                    child: Container(
+                      width: 85,
+                      height: 30,
+                      child: LIST_MEAL1[id].tag.contains("Sáng")
+                          ? Card(
+                              color: Color(0xFFFFDC5D),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Center(
+                                child: Text("Sáng"),
+                              ),
+                            )
+                          : LIST_MEAL1[id].tag.contains("Trưa")
+                              ? Card(
+                                  color: Color(0xFFFFAC33),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  child: Center(
+                                    child: Text("Trưa"),
+                                  ),
+                                )
+                              : Card(
+                                  color: Color(0xFF0E4DA4),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Tối",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    LIST_MEAL1[id].name,
+                    style: TextStyle(
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    LIST_MEAL1[id].cal != null
+                        ? LIST_MEAL1[id].duration.toString() +
+                            ' phút - ' +
+                            LIST_MEAL1[id].cal.toString() +
+                            ' cal'
+                        : LIST_MEAL1[id].duration.toString() + ' phút',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.black38,
+                    ),
+                  ),
+                ]),
+              ]),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Tập luyện',
     },
     {
-      'screen': BottomDrawer(activityType: 0,),
+      'screen': BottomDrawer(isToday: false,),
       'name': 'log',
       'title': 'Log',
     },
@@ -61,7 +61,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {
-            return BottomDrawer(activityType: 0,);
+            return BottomDrawer();
           });
     }
   }
