@@ -15,30 +15,18 @@ class DetailMealScreen extends StatefulWidget {
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
   var isSelected = [false, false];
-
+  var isSelected1 = [false];
   late int id;
 
-  Icon getFavorite(Meal meal) {
+  Icon getIcon(Meal meal) {
     if (meal.status == MealStatus.isExpired) {
       isSelected = [false, true];
     }
     if (meal.isFavorite) {
-      return Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
-    } else {
-      return Icon(CommunityMaterialIcons.heart_outline,
-          color: AppColors.textColor);
-    }
-  }
-
-  Icon _favIcon = new Icon(CommunityMaterialIcons.heart_outline,
-      color: AppColors.textColor);
-  _favIconOn() {
-    _favIcon = new Icon(CommunityMaterialIcons.heart, color: AppColors.primary);
-  }
-
-  _favIconOff() {
-    _favIcon =
-        Icon(CommunityMaterialIcons.heart_outline, color: AppColors.textColor);
+      isSelected1 = [true];
+      return Icon(CommunityMaterialIcons.heart_outline);
+    } else
+      return Icon(CommunityMaterialIcons.heart_outline);
   }
 
   @override
@@ -59,20 +47,20 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  if (_favIcon.color == AppColors.textColor) {
-                    _favIconOn();
-                  } else {
-                    _favIconOff();
-                  }
-                });
-              },
-              child: getFavorite(meal),
-            ),
+          ToggleButtons(
+            children: <Widget>[
+              getIcon(meal),
+            ],
+            onPressed: (int index) {
+              setState(() {
+                isSelected1[index] = !isSelected1[index];
+              });
+            },
+            isSelected: isSelected1,
+            color: AppColors.grayText,
+            selectedColor: AppColors.primary,
+            fillColor: Colors.transparent,
+            renderBorder: false,
           ),
         ],
       ),
@@ -143,9 +131,12 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                   ),
                 ),
               ),
-              Text(
-                "Hoàn tất",
-                style: TextStyle(fontSize: 17),
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  "Hoàn tất",
+                  style: TextStyle(fontSize: 17),
+                ),
               ),
             ],
             onPressed: (int index) {

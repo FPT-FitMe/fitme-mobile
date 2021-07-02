@@ -84,6 +84,8 @@ class CardTitle extends StatelessWidget {
   void _selectArticle(BuildContext ctx, int id) {
     isExercise
         ? Navigator.pushNamed(ctx, AppRoutes.detailPractice)
-        : Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+        : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+            'id': id + 1,
+          });
   }
 }

@@ -27,7 +27,7 @@ class TitleArticleBadge extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.fromLTRB(10, 5, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -41,7 +41,7 @@ class TitleArticleBadge extends StatelessWidget {
                   child: Badge(
                     badgeColor: AppColors.primary,
                     elevation: 0,
-                    position: BadgePosition.topStart(),
+                    position: BadgePosition.topEnd(),
                     child: Text(
                       "Hiện tất cả",
                       style: TextStyle(fontSize: 10, color: AppColors.grayText),
