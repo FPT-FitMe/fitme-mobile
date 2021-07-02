@@ -1,6 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/mealStatus.dart';
+import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal.dart';
@@ -15,30 +15,29 @@ class DetailMealScreen extends StatefulWidget {
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
   var isSelected = [false, false];
-  var isSelected1 = [false];
-  late int id;
+  bool isFavorite = false;
+  late final map;
+  late final id;
+  late final Meal meal;
 
-  Icon getIcon(Meal meal) {
-    if (meal.status == MealStatus.isExpired) {
-      isSelected = [false, true];
-    } else if (meal.status == MealStatus.nonExpired) {
-      isSelected = [true, false];
-    } else if (meal.status == MealStatus.empty) {
-      isSelected = [false, false];
-    }
-    if (meal.isFavorite) {
-      isSelected1 = [true];
-      return Icon(CommunityMaterialIcons.heart_outline);
-    } else
-      return Icon(CommunityMaterialIcons.heart_outline);
+  @override
+  void didChangeDependencies() {
+    // TODO: should fix this
+    map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    id = map["id"];
+    meal = LIST_MEAL2.where((element) => element.id == id).first;
+    setState(() {
+      if (meal.status == MealStatus.complete) {
+        isSelected[1] = true;
+      } else if (meal.status == MealStatus.skip) {
+        isSelected[0] = true;
+      }
+    });
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final map =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final id = map["id"];
-    final Meal meal = LIST_MEAL2.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -51,21 +50,16 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          ToggleButtons(
-            children: <Widget>[
-              getIcon(meal),
-            ],
-            onPressed: (int index) {
-              setState(() {
-                isSelected1[index] = !isSelected1[index];
-              });
-            },
-            isSelected: isSelected1,
-            color: AppColors.grayText,
-            selectedColor: AppColors.primary,
-            fillColor: Colors.transparent,
-            renderBorder: false,
-          ),
+          IconButton(
+              icon: isFavorite
+                  ? Icon(CommunityMaterialIcons.heart)
+                  : Icon(CommunityMaterialIcons.heart_outline),
+              color: isFavorite ? AppColors.primary : AppColors.grayText,
+              onPressed: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              })
         ],
       ),
       body: SingleChildScrollView(
@@ -124,26 +118,28 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
           ),
           child: ToggleButtons(
             children: <Widget>[
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  "Bỏ qua",
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
+              Text(
+                "Bỏ qua",
+                style: TextStyle(
+                  fontSize: 17,
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  "Hoàn tất",
-                  style: TextStyle(fontSize: 17),
-                ),
+              Text(
+                "Hoàn tất",
+                style: TextStyle(fontSize: 17),
               ),
             ],
             onPressed: (int index) {
               setState(() {
-                isSelected[index] = !isSelected[index];
+                for (int buttonIndex = 0;
+                    buttonIndex < isSelected.length;
+                    buttonIndex++) {
+                  if (buttonIndex == index) {
+                    isSelected[buttonIndex] = true;
+                  } else {
+                    isSelected[buttonIndex] = false;
+                  }
+                }
               });
             },
             color: AppColors.grayText,

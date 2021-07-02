@@ -1,6 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/mealStatus.dart';
+import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
@@ -524,13 +524,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
 }
 
 Widget getTick(id) {
-  if (LIST_MEAL1[id].status == MealStatus.isExpired) {
+  if (LIST_MEAL1[id].status == MealStatus.complete) {
     return Icon(
       Icons.check_circle,
       color: AppColors.green500,
       size: 17,
     );
-  } else if (LIST_MEAL1[id].status == MealStatus.nonExpired) {
+  } else if (LIST_MEAL1[id].status == MealStatus.skip) {
     return Icon(
       CommunityMaterialIcons.minus_circle_outline,
       color: AppColors.grayText,
