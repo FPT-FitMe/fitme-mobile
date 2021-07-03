@@ -136,6 +136,7 @@ class TitleArticle extends StatelessWidget {
         builder: (BuildContext context) {
           return BottomDrawer(
             tabIndex: 1,
+
           );
         });
   }

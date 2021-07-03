@@ -236,6 +236,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                     builder: (BuildContext context) {
                                       return BottomDrawer(
                                         activityType: 1,
+                                        isToday: true,
                                       );
                                     }),
                                 child: CircleAvatar(
@@ -277,6 +278,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                     builder: (BuildContext context) {
                                       return BottomDrawer(
                                         activityType: 2,
+                                        isToday: true,
                                       );
                                     }),
                                 child: CircleAvatar(
@@ -337,7 +339,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               context: context,
                               isScrollControlled: true,
                               builder: (BuildContext context) {
-                                return BottomDrawer(tabIndex: 1);
+                                return BottomDrawer(tabIndex: 1, isToday: true,);
                               }),
                           child: Icon(
                               CommunityMaterialIcons.plus_circle_outline,
