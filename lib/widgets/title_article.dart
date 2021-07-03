@@ -125,14 +125,11 @@ class TitleArticle extends StatelessWidget {
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id,
-      });
+     Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+
     } else if (isPost) {
       //
-      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
-        'id': id,
-      });
+      Navigator.pushNamed(ctx, AppRoutes.postScreen);
     }
   }
 
@@ -141,9 +138,7 @@ class TitleArticle extends StatelessWidget {
         context: ctx,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return BottomDrawer(
-            tabIndex: 1,
-          );
+          return BottomDrawer(tabIndex: 1,);
         });
   }
 
@@ -153,9 +148,7 @@ class TitleArticle extends StatelessWidget {
         context: ctx,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return BottomDrawer(
-            activityType: type,
-          );
+          return BottomDrawer(activityType: type,);
         });
   }
 
@@ -189,7 +182,7 @@ class TitleArticle extends StatelessWidget {
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
         elevation: 0,
         margin: EdgeInsets.all(10),
@@ -198,7 +191,7 @@ class TitleArticle extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: Image.network(
                     imageUrl,
                     height: 100,
@@ -241,7 +234,7 @@ class TitleArticle extends StatelessWidget {
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Center(
                                 child: Text("Sáng"),
@@ -251,7 +244,7 @@ class TitleArticle extends StatelessWidget {
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Center(
                                     child: Text("Trưa"),
@@ -260,7 +253,7 @@ class TitleArticle extends StatelessWidget {
                               : Card(
                                   color: Color(0xFF0E4DA4),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Center(
                                     child: Text(

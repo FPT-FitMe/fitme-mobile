@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ActivityLogForm extends StatefulWidget {
-  final bool hasDistanceField;
+  final bool? hasDistanceField;
+  final bool? showInputDate;
 
-  ActivityLogForm({Key? key, required this.hasDistanceField}) : super(key: key);
+  ActivityLogForm({Key? key, this.hasDistanceField, this.showInputDate}) : super(key: key);
 
   @override
   _ActivityLogFormState createState() => _ActivityLogFormState();
@@ -56,6 +57,14 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool showDistanceField = false;
+    if (widget.hasDistanceField != null) {
+      showDistanceField = widget.hasDistanceField!;
+    }
+    bool showDateField = false;
+    if (widget.showInputDate != null) {
+      showDateField = widget.showInputDate!;
+    }
     return Form(
       key: _formKey,
       child: Column(
@@ -63,6 +72,7 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
           SizedBox(
             height: 30,
           ),
+          showDateField ?
           TextFormField(
             onTap: () => _selectDate(),
             readOnly: true,
@@ -70,11 +80,11 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
             decoration: InputDecoration(
               labelText: "Ngày thực hiện",
             ),
-          ),
+          ) : Container(),
           SizedBox(
             height: 20,
           ),
-          widget.hasDistanceField
+          showDistanceField
               ? TextFormField(
                   controller: _distanceController,
                   keyboardType: TextInputType.number,
@@ -203,6 +213,10 @@ class _WeightLogFormState extends State<WeightLogForm> {
 }
 
 class MealLogForm extends StatefulWidget {
+  final bool? showInputDate;
+
+  MealLogForm({Key? key, this.showInputDate}) : super(key: key);
+
   @override
   _MealLogFormState createState() => _MealLogFormState();
 }
@@ -233,7 +247,6 @@ class _MealLogFormState extends State<MealLogForm> {
 
   Future<void> _selectTime() async {
     TimeOfDay currentTime = TimeOfDay.now();
-    _timeController.text = currentTime.toString().substring(10, 15);
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       builder: (BuildContext context, Widget? child) {
@@ -253,6 +266,12 @@ class _MealLogFormState extends State<MealLogForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool showDateField = false;
+    if (widget.showInputDate != null) {
+      showDateField = widget.showInputDate!;
+    }
+    TimeOfDay currentTime = TimeOfDay.now();
+    _timeController.text = currentTime.toString().substring(10, 15);
     return Form(
       key: _formKey,
       child: Column(
@@ -290,6 +309,7 @@ class _MealLogFormState extends State<MealLogForm> {
           SizedBox(
             height: 20,
           ),
+          showDateField ?
           TextFormField(
             onTap: () => _selectDate(),
             readOnly: true,
@@ -297,7 +317,7 @@ class _MealLogFormState extends State<MealLogForm> {
             decoration: InputDecoration(
               labelText: "Ngày",
             ),
-          ),
+          ) : Container(),
           SizedBox(
             height: 30,
           ),
