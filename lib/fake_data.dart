@@ -206,7 +206,7 @@ const LIST_EXERCISE = const [
     isFavorite: true,
     isPremium: false,
     isSkipped: false,
-    isFinished: false,
+    isFinished: true,
   ),
   Exercise(
     id: 1,
@@ -218,7 +218,7 @@ const LIST_EXERCISE = const [
     isFavorite: true,
     isPremium: false,
     isSkipped: false,
-    isFinished: false,
+    isFinished: true,
   ),
 ];
 const LIST_ACHIVEMENT = const [
@@ -262,8 +262,8 @@ const LIST_EXERCISE2 = const [
     cal: 150,
     isFavorite: true,
     isPremium: false,
-    isSkipped: true,
-    isFinished: false,
+    isSkipped: false,
+    isFinished: true,
   ),
   Exercise(
     id: 3,

@@ -34,14 +34,17 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                InkWell(
-                  onTap: () => _viewAllArticle(
-                      context, listMeal, listExercise, listPost, title),
-                  child: Text(
-                    "Hiện tất cả",
-                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                  ),
-                )
+                listExercise!.length > 1
+                    ? InkWell(
+                        onTap: () => _viewAllArticle(
+                            context, listMeal, listExercise, listPost, title),
+                        child: Text(
+                          "Hiện tất cả",
+                          style: TextStyle(
+                              fontSize: 10, color: AppColors.grayText),
+                        ),
+                      )
+                    : Text(""),
               ],
             ),
           ),
@@ -125,8 +128,7 @@ class TitleArticle extends StatelessWidget {
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
-     Navigator.pushNamed(ctx, AppRoutes.detailMeal);
-
+      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
     } else if (isPost) {
       //
       Navigator.pushNamed(ctx, AppRoutes.postScreen);
@@ -138,7 +140,9 @@ class TitleArticle extends StatelessWidget {
         context: ctx,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return BottomDrawer(tabIndex: 1,);
+          return BottomDrawer(
+            tabIndex: 1,
+          );
         });
   }
 
@@ -148,7 +152,9 @@ class TitleArticle extends StatelessWidget {
         context: ctx,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return BottomDrawer(activityType: type,);
+          return BottomDrawer(
+            activityType: type,
+          );
         });
   }
 

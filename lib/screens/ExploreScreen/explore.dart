@@ -1,10 +1,13 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_noviewall.dart';
+import 'package:fitme/widgets/title_article_pratice_nocheck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -313,7 +316,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               ],
             ),
-            TitleArticleNoViewAll(
+            TitleArticleBadge(
               title: "Bữa ăn",
             ),
             SizedBox(
@@ -340,7 +343,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               context: context,
                               isScrollControlled: true,
                               builder: (BuildContext context) {
-                                return BottomDrawer(tabIndex: 1, isToday: true,);
+                                return BottomDrawer(
+                                  tabIndex: 1,
+                                  isToday: true,
+                                );
                               }),
                           child: Icon(
                               CommunityMaterialIcons.plus_circle_outline,
@@ -532,6 +538,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 }
+
 Widget getTick(List<Meal> list, id) {
   if (list.elementAt(id).status == MealStatus.complete) {
     return Icon(
