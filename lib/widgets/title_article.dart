@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
@@ -62,6 +63,8 @@ class TitleArticle extends StatelessWidget {
                           true,
                           false,
                           false,
+                          exerciser.isSkipped,
+                          exerciser.isFinished,
                           null));
                 }),
               if (listPost != null)
@@ -80,6 +83,8 @@ class TitleArticle extends StatelessWidget {
                           false,
                           false,
                           true,
+                          false,
+                          false,
                           null));
                 }),
               if (listMeal != null)
@@ -97,6 +102,8 @@ class TitleArticle extends StatelessWidget {
                           meal.cal,
                           false,
                           true,
+                          false,
+                          false,
                           false,
                           meal.tag));
                 }),
@@ -175,6 +182,8 @@ class TitleArticle extends StatelessWidget {
       bool isWorkout,
       bool isMeal,
       bool isPost,
+      bool isSkip,
+      bool isDone,
       List<String>? tag) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
@@ -288,16 +297,29 @@ class TitleArticle extends StatelessWidget {
               //Icon hoan thanh
               //check trong list hoan thanh co khong
               //TODO: mock list_finish data hop li vao
-              if (LIST_FINISH.where((element) {
-                if (element is Exercise) {
-                  return (element as Exercise).id == id;
-                }
-                return (element as Meal).id == id;
-              }).isNotEmpty)
-                Icon(
-                  Icons.check_circle,
-                  color: AppColors.green500,
-                )
+              // if (LIST_FINISH.where((element) {
+              //   if (element is Exercise) {
+              //     return (element as Exercise).id == id;
+              //   }
+              //   return (element as Meal).id == id;
+              // }).isNotEmpty)
+              //   Icon(
+              //     Icons.check_circle,
+              //     color: AppColors.green500,
+              //   )
+              isDone
+                  ? Icon(
+                      Icons.check_circle,
+                      color: AppColors.green500,
+                      size: 17,
+                    )
+                  : isSkip
+                      ? Icon(
+                          CommunityMaterialIcons.minus_circle_outline,
+                          color: AppColors.grayText,
+                          size: 17,
+                        )
+                      : Text("")
             ]),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/meal.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_noviewall.dart';
@@ -60,8 +61,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   //cai nay phai viet get data Plan
   Plan _getPlansForDay(int day) {
-    if (day < DateTime.now().day - 1 || day > DateTime.now().day)
-      day = DateTime.now().day;
+    if (day < DateTime.now().day - 1) {
+      day = DateTime.now().day - 1;
+    } else if (day > DateTime.now().day) {
+      day = DateTime.now().day + 1;
+    }
     return LIST_PLAN.where((plan) => plan.id == day).first;
   }
 
@@ -187,10 +191,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
             //phan muc tieu bai tap do an
             Column(
               children: [
-                //check xem da hoan thanh chua
+                // check xem da hoan thanh chua
                 !_checkFinish(_selectedPlan.listGoal)
-                    ? TitleArticleNoViewAll(
-                        title: "Hôm nay tập gì 🎯",
+                    ? TitleArticle(
+                        title: "Kế hoạch tập 🎯",
                         listExercise: _selectedPlan.listGoal,
                       )
                     : Column(
@@ -200,7 +204,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             alignment: Alignment.topLeft,
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              "Hôm nay tập gì 🎯",
+                              "Kế hoạch tập 🎯",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -325,9 +329,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   crossAxisCount: 2,
                   childAspectRatio: 10 / 8.5,
                   children: <Widget>[
-                    _cardArticle(context, 0),
-                    _cardArticle(context, 1),
-                    _cardArticle(context, 2),
+                    _cardArticle(context, _selectedPlan.listMeal, 0),
+                    _cardArticle(context, _selectedPlan.listMeal, 1),
+                    _cardArticle(context, _selectedPlan.listMeal, 2),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -349,36 +353,42 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     )
                   ],
                 )),
-            TitleArticleNoCheck(
-              title: "Bài tập đã hoàn thành",
-              listExercise: _selectedPlan.listExercise,
-            ),
-            //phan tong ket
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              // margin: EdgeInsets.symmetric(vertical: 15),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Tổng kết",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                      "  - Lượng calo tiêu thụ: ${_selectedPlan.totalOfCaloOut} kcals"),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                      "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
-                ],
-              ),
-            ),
+            _selectedPlan.listExercise.isNotEmpty
+                ? Column(
+                    children: [
+                      TitleArticleNoCheck(
+                        title: "Bài tập đã hoàn thành",
+                        listExercise: _selectedPlan.listExercise,
+                      ),
+                      //phan tong ket
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        // margin: EdgeInsets.symmetric(vertical: 15),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Tổng kết",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                                "  - Lượng calo tiêu thụ: ${_selectedPlan.totalOfCaloOut} kcals"),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                                "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Text(""),
             SizedBox(
               height: 30,
             ),
@@ -395,6 +405,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   Widget _cardArticle(
     BuildContext context,
+    List<Meal> listMeal,
     int id,
   ) {
     return GestureDetector(
@@ -416,13 +427,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     child: Image.network(
-                      LIST_MEAL1[id].imageUrl,
+                      listMeal[id].imageUrl,
                       height: 100,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  if (LIST_MEAL1[id].isFavorite)
+                  if (listMeal[id].isFavorite)
                     Positioned(
                       bottom: 70,
                       right: 10,
@@ -434,7 +445,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                       ),
                     ),
-                  if (LIST_MEAL1[id].isPremium)
+                  if (listMeal[id].isPremium)
                     Positioned(
                       bottom: 70,
                       left: 10,
@@ -452,7 +463,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     child: Container(
                       width: 85,
                       height: 30,
-                      child: LIST_MEAL1[id].tag.contains("Sáng")
+                      child: listMeal[id].tag.contains("Sáng")
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
@@ -462,7 +473,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 child: Text("Sáng"),
                               ),
                             )
-                          : LIST_MEAL1[id].tag.contains("Trưa")
+                          : listMeal[id].tag.contains("Trưa")
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
@@ -494,26 +505,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    LIST_MEAL1[id].name,
+                    listMeal[id].name,
                     style: TextStyle(
                       fontSize: 13,
                     ),
                   ),
                   Text(
                     // ignore: unnecessary_null_comparison
-                    LIST_MEAL1[id].cal != null
-                        ? LIST_MEAL1[id].duration.toString() +
+                    listMeal[id].cal != null
+                        ? listMeal[id].duration.toString() +
                             ' phút - ' +
-                            LIST_MEAL1[id].cal.toString() +
+                            listMeal[id].cal.toString() +
                             ' cal'
-                        : LIST_MEAL1[id].duration.toString() + ' phút',
+                        : listMeal[id].duration.toString() + ' phút',
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.black38,
                     ),
                   ),
                 ]),
-                getTick(id),
+                getTick(listMeal, id),
               ]),
             ],
           ),
@@ -523,14 +534,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 }
 
-Widget getTick(id) {
-  if (LIST_MEAL1[id].status == MealStatus.complete) {
+Widget getTick(List<Meal> list, id) {
+  if (list.elementAt(id).status == MealStatus.complete) {
     return Icon(
       Icons.check_circle,
       color: AppColors.green500,
       size: 17,
     );
-  } else if (LIST_MEAL1[id].status == MealStatus.skip) {
+  } else if (list.elementAt(id).status == MealStatus.skip) {
     return Icon(
       CommunityMaterialIcons.minus_circle_outline,
       color: AppColors.grayText,

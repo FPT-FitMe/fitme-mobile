@@ -142,7 +142,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                 }
               });
             },
-            color: AppColors.grayText,
+            color: AppColors.primary,
             selectedColor: Colors.white,
             fillColor: AppColors.primary,
             isSelected: isSelected,
