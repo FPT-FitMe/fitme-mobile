@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Tập luyện',
     },
     {
-      'screen': BottomDrawer(),
+      'screen': BottomDrawer(isToday: false,),
       'name': 'log',
       'title': 'Log',
     },

@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 class BottomDrawer extends StatefulWidget {
   final int? activityType;
   final int? tabIndex;
+  final bool? isToday;
 
   @override
   _BottomDrawerState createState() => _BottomDrawerState();
 
-  const BottomDrawer({Key? key, this.activityType, this.tabIndex})
+  const BottomDrawer({Key? key, this.activityType, this.tabIndex, this.isToday})
       : super(key: key);
 }
 
@@ -139,12 +140,16 @@ class _BottomDrawerState extends State<BottomDrawer> {
 
   Widget _getCreateLogPage() {
     Widget currentForm = Container();
+    bool hideInputDate = false;
+    if (widget.isToday != null) {
+      hideInputDate = widget.isToday!;
+    }
     switch (currentActivityType) {
       case runningActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true);
+        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
         break;
       case cyclingActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true);
+        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
         break;
     }
     return Container(
@@ -218,10 +223,14 @@ class _BottomDrawerState extends State<BottomDrawer> {
   }
 
   Widget _getLogMealTabBarView() {
+    bool hideInputDate = false;
+    if (widget.isToday != null) {
+      hideInputDate = widget.isToday!;
+    }
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
-        child: MealLogForm(),
+        child: MealLogForm(showInputDate: !hideInputDate,),
       ),
     );
   }
@@ -255,9 +264,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
           children: [
             IconButton(
                 onPressed: _onBackButtonTapped,
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                )),
+                icon: Icon(Icons.arrow_back_ios)),
             Text(
               title!,
               style: titleStyle,
