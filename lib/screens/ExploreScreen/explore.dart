@@ -1,12 +1,9 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/exercise.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
-import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_noviewall.dart';
-import 'package:fitme/widgets/title_article_pratice_nocheck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -312,7 +309,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               ],
             ),
-            TitleArticleBadge(
+            TitleArticleNoViewAll(
               title: "Bữa ăn",
             ),
             SizedBox(
@@ -351,7 +348,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     )
                   ],
                 )),
-            TitleArticleNoCheck(
+            TitleArticle(
               title: "Bài tập đã hoàn thành",
               listExercise: _selectedPlan.listExercise,
             ),
@@ -502,7 +499,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                   ),
                   Text(
-                    // ignore: unnecessary_null_comparison
                     LIST_MEAL1[id].cal != null
                         ? LIST_MEAL1[id].duration.toString() +
                             ' phút - ' +
@@ -515,7 +511,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                   ),
                 ]),
-                getTick(id),
               ]),
             ],
           ),
@@ -523,25 +518,4 @@ class _ExploreScreenState extends State<ExploreScreen> {
       ),
     );
   }
-}
-
-Widget getTick(id) {
-  if (LIST_MEAL1[id].status == MealStatus.complete) {
-    return Icon(
-      Icons.check_circle,
-      color: AppColors.green500,
-      size: 17,
-    );
-  } else if (LIST_MEAL1[id].status == MealStatus.skip) {
-    return Icon(
-      CommunityMaterialIcons.minus_circle_outline,
-      color: AppColors.grayText,
-      size: 17,
-    );
-  }
-  return Icon(
-    CommunityMaterialIcons.minus_circle_outline,
-    color: Colors.transparent,
-    size: 17,
-  );
 }
