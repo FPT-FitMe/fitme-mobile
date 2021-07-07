@@ -128,7 +128,10 @@ class TitleArticle extends StatelessWidget {
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal);
+      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+        'id': id,
+        'listMeal': listMeal,
+      });
     } else if (isPost) {
       //
       Navigator.pushNamed(ctx, AppRoutes.postScreen);
@@ -293,32 +296,19 @@ class TitleArticle extends StatelessWidget {
                   ),
                 ),
               ]),
-              //Icon hoan thanh
-              //check trong list hoan thanh co khong
-              //TODO: mock list_finish data hop li vao
-              // if (LIST_FINISH.where((element) {
-              //   if (element is Exercise) {
-              //     return (element as Exercise).id == id;
-              //   }
-              //   return (element as Meal).id == id;
-              // }).isNotEmpty)
-              //   Icon(
-              //     Icons.check_circle,
-              //     color: AppColors.green500,
-              //   )
-              isDone
-                  ? Icon(
-                      Icons.check_circle,
-                      color: AppColors.green500,
-                      size: 17,
-                    )
-                  : isSkip
-                      ? Icon(
-                          CommunityMaterialIcons.minus_circle_outline,
-                          color: AppColors.grayText,
-                          size: 17,
-                        )
-                      : Text("")
+              // isDone
+              //     ? Icon(
+              //         Icons.check_circle,
+              //         color: AppColors.green500,
+              //         size: 17,
+              //       )
+              //     : isSkip
+              //         ? Icon(
+              //             CommunityMaterialIcons.minus_circle_outline,
+              //             color: AppColors.grayText,
+              //             size: 17,
+              //           )
+              //         : Text("")
             ]),
           ],
         ),

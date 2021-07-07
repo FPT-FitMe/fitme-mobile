@@ -19,13 +19,15 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   late final map;
   late final id;
   late final Meal meal;
+  late final List<Meal> listMeal;
 
   @override
   void didChangeDependencies() {
     // TODO: should fix this
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     id = map["id"];
-    meal = LIST_MEAL2.where((element) => element.id == id).first;
+    listMeal = map["listMeal"];
+    meal = listMeal.where((element) => element.id == id).first;
     setState(() {
       if (meal.status == MealStatus.complete) {
         isSelected[1] = true;

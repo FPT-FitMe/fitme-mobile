@@ -83,94 +83,7 @@ const List<Exercise> LIST_GOAL = const [
     isFinished: true,
   ),
 ];
-const LIST_MEAL = const [
-  Meal(
-    id: 0,
-    name: 'Salad bắp cải',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    description: "20 phút - 150 cal",
-    duration: 20,
-    cal: 150,
-    status: MealStatus.complete,
-    isFavorite: true,
-    isPremium: false,
-    tag: ["Sáng"],
-    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
-  ),
-  Meal(
-    id: 1,
-    name: 'Rau củ nướng',
-    imageUrl:
-        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-    description: "15 phút - 300 cal",
-    duration: 15,
-    cal: 300,
-    status: MealStatus.empty,
-    isFavorite: false,
-    isPremium: false,
-    tag: ["Trưa"],
-    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
-  ),
-  Meal(
-    id: 2,
-    name: 'Pasta hải sản',
-    imageUrl:
-        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    description: "10 phút - 300 cal",
-    duration: 10,
-    cal: 300,
-    status: MealStatus.empty,
-    isFavorite: false,
-    isPremium: false,
-    tag: ["Tối"],
-    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
-  ),
-];
-const LIST_MEAL1 = const [
-  Meal(
-    id: 0,
-    name: 'Salad bắp cải',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    description: "20 phút - 150 cal",
-    duration: 20,
-    cal: 150,
-    status: MealStatus.complete,
-    isFavorite: true,
-    isPremium: false,
-    tag: ["Sáng"],
-    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
-  ),
-  Meal(
-    id: 1,
-    name: 'Rau củ nướng',
-    imageUrl:
-        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-    description: "15 phút - 300 cal",
-    duration: 15,
-    cal: 300,
-    status: MealStatus.skip,
-    isFavorite: false,
-    isPremium: false,
-    tag: ["Trưa"],
-    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
-  ),
-  Meal(
-    id: 2,
-    name: 'Pasta hải sản',
-    imageUrl:
-        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    description: "10 phút - 300 cal",
-    duration: 10,
-    cal: 300,
-    status: MealStatus.empty,
-    isFavorite: false,
-    isPremium: false,
-    tag: ["Tối"],
-    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
-  ),
-];
+
 const LIST_POST = const [
   Post(
     id: 0,
@@ -197,7 +110,7 @@ const LIST_POST = const [
 ];
 const LIST_EXERCISE = const [
   Exercise(
-    id: 2,
+    id: 1,
     name: 'Tập bụng',
     imageUrl:
         'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
@@ -209,7 +122,7 @@ const LIST_EXERCISE = const [
     isFinished: true,
   ),
   Exercise(
-    id: 1,
+    id: 2,
     name: 'Luyện tay trước',
     imageUrl:
         'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
@@ -279,7 +192,183 @@ const LIST_EXERCISE2 = const [
   ),
 ];
 const List<Exercise> LIST_EXERCISE3 = const [];
+const LIST_MEAL = const [
+  Meal(
+    id: 0,
+    name: 'Salad bắp cải',
+    imageUrl:
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
+    duration: 20,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Rau củ nướng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Pasta hải sản',
+    imageUrl:
+        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    description: "10 phút - 300 cal",
+    duration: 10,
+    cal: 300,
+    status: MealStatus.empty,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
+  ),
+];
+const LIST_MEAL1 = const [
+  Meal(
+    id: 0,
+    name: 'Salad bắp cải',
+    imageUrl:
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
+    duration: 20,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Rau củ nướng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Pasta hải sản',
+    imageUrl:
+        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    description: "10 phút - 300 cal",
+    duration: 10,
+    cal: 300,
+    status: MealStatus.empty,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
+  ),
+];
 const LIST_MEAL2 = const [
+  Meal(
+    id: 0,
+    name: 'Salad bắp cải',
+    imageUrl:
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
+    duration: 20,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Rau củ nướng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Phở bò',
+    imageUrl:
+        'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 250 cal",
+    duration: 20,
+    cal: 250,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Sợi phở", "Thịt bò"],
+  ),
+];
+const LIST_MEAL3 = const [
+  Meal(
+    id: 0,
+    name: 'Phở bò',
+    imageUrl:
+        'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 250 cal",
+    duration: 20,
+    cal: 250,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Sợi phở", "Thịt bò"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Salad thập cẩm',
+    imageUrl:
+        'https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "10 phút - 120 cal",
+    duration: 10,
+    cal: 120,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Salad", "Trái cây", "Sốt mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Pasta hải sản',
+    imageUrl:
+        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    description: "10 phút - 300 cal",
+    duration: 10,
+    cal: 300,
+    status: MealStatus.empty,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
+  ),
+];
+const LIST_MEAL4 = const [
   Meal(
     id: 0,
     name: 'Salad bắp cải',
@@ -351,50 +440,37 @@ const LIST_MEAL2 = const [
     ingredients: ["Salad", "Trái cây", "Sốt mè"],
   ),
 ];
-const LIST_MEAL3 = const [
+const LIST_MEAL5 = const [
   Meal(
     id: 0,
-    name: 'Phở bò',
+    name: 'Salad bắp cải',
     imageUrl:
-        'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    description: "20 phút - 250 cal",
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
     duration: 20,
-    cal: 250,
-    status: MealStatus.empty,
-    isFavorite: false,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
     isPremium: false,
     tag: ["Sáng"],
-    ingredients: ["Sợi phở", "Thịt bò"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
   ),
   Meal(
     id: 1,
-    name: 'Salad thập cẩm',
+    name: 'Rau củ nướng',
     imageUrl:
-        'https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    description: "10 phút - 120 cal",
-    duration: 10,
-    cal: 120,
-    status: MealStatus.empty,
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
     isFavorite: false,
     isPremium: false,
     tag: ["Trưa"],
-    ingredients: ["Salad", "Trái cây", "Sốt mè"],
-  ),
-  Meal(
-    id: 2,
-    name: 'Pasta hải sản',
-    imageUrl:
-        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    description: "10 phút - 300 cal",
-    duration: 10,
-    cal: 300,
-    status: MealStatus.empty,
-    isFavorite: false,
-    isPremium: false,
-    tag: ["Tối"],
-    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
   ),
 ];
+
 const LIST_GOAL2 = const [
   Exercise(
     id: 2,
@@ -409,6 +485,7 @@ const LIST_GOAL2 = const [
     isFinished: false,
   ),
 ];
+
 const LIST_GOAL3 = const [
   Exercise(
     id: 2,
@@ -423,6 +500,7 @@ const LIST_GOAL3 = const [
     isFinished: false,
   ),
 ];
+
 const LIST_FINISH = [
   Exercise(
     id: 2,
@@ -531,7 +609,7 @@ List<MealLog> listMealLog = [
       description: "15 phút - 300 cal",
       duration: 15,
       cal: 300,
-      status: MealStatus.complete,
+      status: MealStatus.skip,
       isFavorite: false,
       isPremium: false,
       tag: ["Trưa"],
