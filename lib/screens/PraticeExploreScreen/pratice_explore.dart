@@ -1,13 +1,10 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
-import 'package:fitme/widgets/title_article_noviewall.dart';
+import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:community_material_icon/community_material_icon.dart';
-
-import 'package:fitme/widgets/title_article.dart';
 
 import 'package:fitme/fake_data.dart';
 
@@ -30,7 +27,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
             child: Column(
               children: [
                 carouselPage(),
-                TitleArticleNoViewAll(
+                TitleArticleBadge(
                   title: "Huấn luyện viên",
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -44,7 +41,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                     id: 2,
                   ),
                 ]),
-                TitleArticleNoViewAll(
+                TitleArticleBadge(
                   title: "Loại hình",
                 ),
                 Padding(
@@ -53,7 +50,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
                 ),
                 TitleArticlePratice(
                   title: "Bài tập",
-                  listExercise: LIST_EXERCISE2,
+                  listExercise: LIST_EXERCISE,
                 ),
                 TitleArticlePratice(
                   title: "Bài viết",

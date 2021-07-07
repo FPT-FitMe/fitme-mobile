@@ -11,7 +11,7 @@ class AuthService implements AuthRepository {
   @override
   Future<User> login(String email, String password) async {
     final response = await dio.post('/authentication/login', data: {
-      'username': email,
+      'email': email,
       'password': password,
     });
     await _storage.write(key: "userToken", value: response.data["jwt"]);

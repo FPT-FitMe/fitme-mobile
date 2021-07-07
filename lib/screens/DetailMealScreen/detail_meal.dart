@@ -2,7 +2,6 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +18,15 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   late final map;
   late final id;
   late final Meal meal;
+  late final List<Meal> listMeal;
 
   @override
   void didChangeDependencies() {
     // TODO: should fix this
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     id = map["id"];
-    meal = LIST_MEAL2.where((element) => element.id == id).first;
+    listMeal = map["listMeal"];
+    meal = listMeal.where((element) => element.id == id).first;
     setState(() {
       if (meal.status == MealStatus.complete) {
         isSelected[1] = true;
@@ -142,7 +143,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
                 }
               });
             },
-            color: AppColors.grayText,
+            color: AppColors.primary,
             selectedColor: Colors.white,
             fillColor: AppColors.primary,
             isSelected: isSelected,

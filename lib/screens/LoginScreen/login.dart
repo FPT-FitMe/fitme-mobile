@@ -86,8 +86,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                         labelText: "Email",
                       ),
                       validator: MultiValidator([
-                        // TODO: Uncomment email validator when be fix
-                        // EmailValidator(errorText: "Email không hợp lệ"),
+                        EmailValidator(errorText: "Email không hợp lệ"),
                         RequiredValidator(errorText: "* Bắt buộc")
                       ]),
                     ),
@@ -176,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
 
   @override
   void loginSuccess(user) {
-    Fluttertoast.showToast(msg: "Thành công");
+    Fluttertoast.showToast(msg: "Đăng nhập thành công");
     setState(() {
       _isLoading = false;
     });
