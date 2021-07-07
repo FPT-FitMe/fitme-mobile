@@ -1,5 +1,4 @@
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_form.dart';
-import 'package:fitme/widgets/under_development.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -146,10 +145,16 @@ class _BottomDrawerState extends State<BottomDrawer> {
     }
     switch (currentActivityType) {
       case runningActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
+        currentForm = ActivityLogForm(
+          hasDistanceField: true,
+          showInputDate: !hideInputDate,
+        );
         break;
       case cyclingActivityType:
-        currentForm = ActivityLogForm(hasDistanceField: true, showInputDate: !hideInputDate,);
+        currentForm = ActivityLogForm(
+          hasDistanceField: true,
+          showInputDate: !hideInputDate,
+        );
         break;
     }
     return Container(
@@ -230,7 +235,9 @@ class _BottomDrawerState extends State<BottomDrawer> {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
-        child: MealLogForm(showInputDate: !hideInputDate,),
+        child: MealLogForm(
+          showInputDate: !hideInputDate,
+        ),
       ),
     );
   }
