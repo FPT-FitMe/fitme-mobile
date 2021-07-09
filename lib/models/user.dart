@@ -10,9 +10,9 @@ class User {
   final String firstName;
   final String lastName;
   final String email;
-  final String phone;
-  final int age;
-  final int gender;
+  final String? phone;
+  final int? age;
+  final int? gender;
   final Role? role;
   final List<Workout> traineeFavoriteWorkouts;
   final List<Meal> traineeFavoriteMeals;
@@ -28,13 +28,13 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phone,
-    required this.age,
-    required this.gender,
+    this.phone,
+    this.age,
+    this.gender,
     this.role,
     required this.traineeFavoriteMeals,
     required this.traineeFavoriteWorkouts,
-    required this.profileImageUrl,
+    this.profileImageUrl,
     this.height,
     this.dietPreferenceType,
     this.exerciseFrequencyType,

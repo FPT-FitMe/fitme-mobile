@@ -25,6 +25,7 @@ class RegisterPresenter {
           lastName.isNotEmpty) {
         User user = await _authRepository.register(
             email, password, firstName, lastName);
+        _registerView.registerSuccess(user);
       }
     } on DioError {
       _registerView.registerFail("Đăng ký không hợp lệ");

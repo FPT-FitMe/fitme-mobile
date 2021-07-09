@@ -162,6 +162,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                       ),
                     ),
                     SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      _errorMessage,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    SizedBox(
                       height: 50,
                     ),
                   ],

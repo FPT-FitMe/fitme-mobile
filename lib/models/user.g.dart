@@ -12,9 +12,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
     firstName: json['firstName'] as String,
     lastName: json['lastName'] as String,
     email: json['email'] as String,
-    phone: json['phone'] as String,
-    age: json['age'] as int,
-    gender: json['gender'] as int,
+    phone: json['phone'] as String?,
+    age: json['age'] as int?,
+    gender: json['gender'] as int?,
     role: json['role'] == null
         ? null
         : Role.fromJson(json['role'] as Map<String, dynamic>),
