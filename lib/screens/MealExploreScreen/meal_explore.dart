@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/carousel_item.dart';
-import 'package:fitme/widgets/title_article_noviewall.dart';
+import 'package:fitme/widgets/title_article.dart';
+import 'package:fitme/widgets/title_article_badge.dart';
+import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
-import 'package:fitme/widgets/title_article.dart';
 
 class MealExploreScreen extends StatefulWidget {
   MealExploreScreen({Key? key}) : super(key: key);
@@ -29,16 +29,16 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
                 _carouselPage(),
                 Column(
                   children: [
-                    TitleArticleNoViewAll(
+                    TitleArticleBadge(
                       title: "Bạn muốn ăn ?",
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                       child: tagSection(),
                     ),
-                    TitleArticlePratice(
+                    TitleArticleMeal(
                       title: "Gợi ý dành cho bạn",
-                      listMeal: LIST_MEAL,
+                      listMeal: LIST_MEAL5,
                     ),
                   ],
                 ),
@@ -57,7 +57,7 @@ Widget _carouselPage() => CarouselSlider(
         autoPlay: true,
         aspectRatio: 1,
       ),
-      items: LIST_MEAL2.map((item) {
+      items: LIST_MEAL4.map((item) {
         return Builder(builder: (BuildContext context) {
           return Container(
             margin: EdgeInsets.all(10.0),
@@ -71,6 +71,7 @@ Widget _carouselPage() => CarouselSlider(
                       Navigator.pushNamed(context, AppRoutes.detailMeal,
                           arguments: {
                             'id': item.id,
+                            'listMeal': LIST_MEAL4,
                           });
                     },
                     child: Image.network(item.imageUrl,

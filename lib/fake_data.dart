@@ -12,20 +12,28 @@ import 'package:fitme/models/workout_log.dart';
 final LIST_PLAN = [
   Plan(
       id: DateTime.now().day,
-      listExercise: LIST_EXERCISE,
+      listExercise: LIST_EXERCISE, //now
       listMeal: LIST_MEAL,
-      listGoal: LIST_GOAL, //list nay null de check hoan thanh chua
+      listGoal: LIST_GOAL,
       listPost: LIST_POST,
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
       id: DateTime.now().day - 1,
-      listExercise: LIST_EXERCISE2,
+      listExercise: LIST_EXERCISE2, //old
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
       listPost: LIST_POST,
       totalOfCaloIn: 200,
-      totalOfCaloOut: 110)
+      totalOfCaloOut: 110),
+  Plan(
+      id: DateTime.now().day + 1,
+      listExercise: LIST_EXERCISE3, //new
+      listMeal: LIST_MEAL3,
+      listGoal: LIST_GOAL3,
+      listPost: LIST_POST,
+      totalOfCaloIn: 200,
+      totalOfCaloOut: 110),
 ];
 const LIST_COACH = const [
   PersonalTrainer(
@@ -64,16 +72,126 @@ const LIST_COACH = const [
 const List<Exercise> LIST_GOAL = const [
   Exercise(
     id: 2,
-    name: 'Khởi động',
-    imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
+    name: 'Tập bụng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
     duration: 10,
     cal: 50,
     isFavorite: true,
     isPremium: false,
     isSkipped: false,
-    isFinished: false,
+    isFinished: true,
   ),
 ];
+
+const LIST_POST = const [
+  Post(
+    id: 0,
+    name: 'Chạy bộ cùng Linh',
+    imageUrl:
+        'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
+    headline: "Chạy bộ và những lợi ích không tưởng",
+    content:
+        "Bottom sheet is a nice component given by Material design. It like a dialog which is open from the bottom. Most of the apps use this bottom sheet to add some extra setting kind of things. May be you have seen this is a app called Tasks created by google. In there when we try to create a new task it show a bottom sheet with text input field and the several buttons.",
+    duration: 10,
+    authorID: 1,
+  ),
+  Post(
+    id: 1,
+    name: 'Vì cơ thể bạn cần nước',
+    imageUrl:
+        'https://media.suckhoedoisong.vn/Images/nguyenkhanh/2019/06/27/uong_nuoc_sao_cho_du.jpg',
+    headline: "Nước vô cùng quan trọng với cơ thể",
+    content:
+        "Bottom sheet is a nice component given by Material design. It like a dialog which is open from the bottom. Most of the apps use this bottom sheet to add some extra setting kind of things. May be you have seen this is a app called Tasks created by google. In there when we try to create a new task it show a bottom sheet with text input field and the several buttons.",
+    duration: 7,
+    authorID: 0,
+  ),
+];
+const LIST_EXERCISE = const [
+  Exercise(
+    id: 1,
+    name: 'Tập bụng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    duration: 10,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+    isSkipped: false,
+    isFinished: true,
+  ),
+  Exercise(
+    id: 2,
+    name: 'Luyện tay trước',
+    imageUrl:
+        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    duration: 20,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+    isSkipped: false,
+    isFinished: true,
+  ),
+];
+const LIST_ACHIVEMENT = const [
+  Achivement(
+    id: 0,
+    name: 'Hoàn thành bài tâp đầu tiên',
+    title: 'First workout',
+    imageUrl:
+        'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
+  ),
+  Achivement(
+    id: 1,
+    name: 'Hoàn thành thử thách tập fullbody',
+    title: 'Full body challenge',
+    imageUrl:
+        'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
+  ),
+  Achivement(
+    id: 2,
+    name: 'Hoàn thành bài chạy bộ đầu tiên',
+    title: 'First Running Workout',
+    imageUrl:
+        'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
+  ),
+  Achivement(
+    id: 3,
+    name: 'Hoàn thành 7 ngày tập liên tiếp',
+    title: '7-Workout Week',
+    imageUrl:
+        'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
+  ),
+];
+
+const LIST_EXERCISE2 = const [
+  Exercise(
+    id: 1,
+    name: 'Luyện tay sau',
+    imageUrl:
+        'https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    duration: 20,
+    cal: 150,
+    isFavorite: true,
+    isPremium: false,
+    isSkipped: false,
+    isFinished: true,
+  ),
+  Exercise(
+    id: 3,
+    name: 'Luyện tay trước',
+    imageUrl:
+        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    duration: 20,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+    isSkipped: false,
+    isFinished: true,
+  ),
+];
+const List<Exercise> LIST_EXERCISE3 = const [];
 const LIST_MEAL = const [
   Meal(
     id: 0,
@@ -102,6 +220,20 @@ const LIST_MEAL = const [
     isPremium: false,
     tag: ["Trưa"],
     ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Pasta hải sản',
+    imageUrl:
+        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    description: "10 phút - 300 cal",
+    duration: 10,
+    cal: 300,
+    status: MealStatus.empty,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
   ),
 ];
 const LIST_MEAL1 = const [
@@ -148,115 +280,9 @@ const LIST_MEAL1 = const [
     ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
   ),
 ];
-const LIST_POST = const [
-  Post(
-    id: 0,
-    name: 'Chạy bộ cùng Linh',
-    imageUrl:
-        'https://vnn-imgs-f.vgcloud.vn/2018/05/02/08/di-bo-co-thuc-su-la-cach-tap-the-duc-hoan-hao.jpg',
-    headline: "Chạy bộ và những lợi ích không tưởng",
-    content:
-        "Bottom sheet is a nice component given by Material design. It like a dialog which is open from the bottom. Most of the apps use this bottom sheet to add some extra setting kind of things. May be you have seen this is a app called Tasks created by google. In there when we try to create a new task it show a bottom sheet with text input field and the several buttons.",
-    duration: 10,
-    authorID: 1,
-  ),
-  Post(
-    id: 1,
-    name: 'Vì cơ thể bạn cần nước',
-    imageUrl:
-        'https://media.suckhoedoisong.vn/Images/nguyenkhanh/2019/06/27/uong_nuoc_sao_cho_du.jpg',
-    headline: "Nước vô cùng quan trọng với cơ thể",
-    content:
-        "Bottom sheet is a nice component given by Material design. It like a dialog which is open from the bottom. Most of the apps use this bottom sheet to add some extra setting kind of things. May be you have seen this is a app called Tasks created by google. In there when we try to create a new task it show a bottom sheet with text input field and the several buttons.",
-    duration: 7,
-    authorID: 0,
-  ),
-];
-const LIST_EXERCISE = const [
-  Exercise(
-    id: 1,
-    name: 'Luyện tay trước',
-    imageUrl:
-        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    duration: 20,
-    cal: 50,
-    isFavorite: true,
-    isPremium: false,
-    isSkipped: false,
-    isFinished: false,
-  ),
-  Exercise(
-    id: 2,
-    name: 'Khởi động',
-    imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
-    duration: 10,
-    cal: 50,
-    isFavorite: true,
-    isPremium: false,
-    isSkipped: false,
-    isFinished: false,
-  )
-];
-const LIST_ACHIVEMENT = const [
-  Achivement(
-    id: 0,
-    name: 'Hoàn thành bài tâp đầu tiên',
-    title: 'First workout',
-    imageUrl:
-        'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
-  ),
-  Achivement(
-    id: 1,
-    name: 'Hoàn thành thử thách tập fullbody',
-    title: 'Full body challenge',
-    imageUrl:
-        'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
-  ),
-  Achivement(
-    id: 2,
-    name: 'Hoàn thành bài chạy bộ đầu tiên',
-    title: 'First Running Workout',
-    imageUrl:
-        'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
-  ),
-  Achivement(
-    id: 3,
-    name: 'Hoàn thành 7 ngày tập liên tiếp',
-    title: '7-Workout Week',
-    imageUrl:
-        'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
-  ),
-];
-
-const LIST_EXERCISE2 = const [
-  Exercise(
-    id: 1,
-    name: 'Luyện tay sau',
-    imageUrl:
-        'https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-    duration: 20,
-    cal: 150,
-    isFavorite: true,
-    isPremium: false,
-    isSkipped: true,
-    isFinished: false,
-  ),
-  Exercise(
-    id: 2,
-    name: 'Luyện tay trước',
-    imageUrl:
-        'https://images.unsplash.com/photo-1532384661798-58b53a4fbe37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
-    duration: 20,
-    cal: 50,
-    isFavorite: true,
-    isPremium: false,
-    isSkipped: false,
-    isFinished: true,
-  ),
-];
 const LIST_MEAL2 = const [
   Meal(
-    id: 1,
+    id: 0,
     name: 'Salad bắp cải',
     imageUrl:
         'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
@@ -265,12 +291,12 @@ const LIST_MEAL2 = const [
     cal: 150,
     status: MealStatus.complete,
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     tag: ["Sáng"],
     ingredients: ["Salad", "Bắp cải", "Dầu mè"],
   ),
   Meal(
-    id: 2,
+    id: 1,
     name: 'Rau củ nướng',
     imageUrl:
         'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
@@ -279,12 +305,56 @@ const LIST_MEAL2 = const [
     cal: 300,
     status: MealStatus.skip,
     isFavorite: false,
-    isPremium: true,
+    isPremium: false,
     tag: ["Trưa"],
     ingredients: ["Rau củ", "Sốt", "Dầu mè"],
   ),
   Meal(
-    id: 3,
+    id: 2,
+    name: 'Phở bò',
+    imageUrl:
+        'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 250 cal",
+    duration: 20,
+    cal: 250,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Sợi phở", "Thịt bò"],
+  ),
+];
+const LIST_MEAL3 = const [
+  Meal(
+    id: 0,
+    name: 'Phở bò',
+    imageUrl:
+        'https://images.unsplash.com/photo-1568096889942-6eedde686635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 250 cal",
+    duration: 20,
+    cal: 250,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Sợi phở", "Thịt bò"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Salad thập cẩm',
+    imageUrl:
+        'https://images.unsplash.com/photo-1533622597524-a1215e26c0a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "10 phút - 120 cal",
+    duration: 10,
+    cal: 120,
+    status: MealStatus.complete,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Salad", "Trái cây", "Sốt mè"],
+  ),
+  Meal(
+    id: 2,
     name: 'Pasta hải sản',
     imageUrl:
         'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
@@ -293,7 +363,51 @@ const LIST_MEAL2 = const [
     cal: 300,
     status: MealStatus.empty,
     isFavorite: false,
-    isPremium: true,
+    isPremium: false,
+    tag: ["Tối"],
+    ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
+  ),
+];
+const LIST_MEAL4 = const [
+  Meal(
+    id: 0,
+    name: 'Salad bắp cải',
+    imageUrl:
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
+    duration: 20,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Rau củ nướng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+  Meal(
+    id: 2,
+    name: 'Pasta hải sản',
+    imageUrl:
+        'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    description: "10 phút - 300 cal",
+    duration: 10,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
     tag: ["Tối"],
     ingredients: ["Mì pasta", "Hải sản", "Sốt kem"],
   ),
@@ -307,7 +421,7 @@ const LIST_MEAL2 = const [
     cal: 250,
     status: MealStatus.complete,
     isFavorite: false,
-    isPremium: true,
+    isPremium: false,
     tag: ["Sáng"],
     ingredients: ["Sợi phở", "Thịt bò"],
   ),
@@ -321,33 +435,82 @@ const LIST_MEAL2 = const [
     cal: 120,
     status: MealStatus.complete,
     isFavorite: false,
-    isPremium: true,
+    isPremium: false,
     tag: ["Trưa"],
     ingredients: ["Salad", "Trái cây", "Sốt mè"],
   ),
 ];
+const LIST_MEAL5 = const [
+  Meal(
+    id: 0,
+    name: 'Salad bắp cải',
+    imageUrl:
+        'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80',
+    description: "20 phút - 150 cal",
+    duration: 20,
+    cal: 150,
+    status: MealStatus.complete,
+    isFavorite: true,
+    isPremium: false,
+    tag: ["Sáng"],
+    ingredients: ["Salad", "Bắp cải", "Dầu mè"],
+  ),
+  Meal(
+    id: 1,
+    name: 'Rau củ nướng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1461530927168-44328109da52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    description: "15 phút - 300 cal",
+    duration: 15,
+    cal: 300,
+    status: MealStatus.skip,
+    isFavorite: false,
+    isPremium: false,
+    tag: ["Trưa"],
+    ingredients: ["Rau củ", "Sốt", "Dầu mè"],
+  ),
+];
+
 const LIST_GOAL2 = const [
   Exercise(
     id: 2,
-    name: 'Khởi động',
-    imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
+    name: 'Tập bụng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
     duration: 10,
     cal: 50,
     isFavorite: true,
-    isPremium: true,
-    isSkipped: false,
-    isFinished: true,
+    isPremium: false,
+    isSkipped: true,
+    isFinished: false,
   ),
 ];
+
+const LIST_GOAL3 = const [
+  Exercise(
+    id: 2,
+    name: 'Tập bụng',
+    imageUrl:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    duration: 10,
+    cal: 50,
+    isFavorite: true,
+    isPremium: false,
+    isSkipped: false,
+    isFinished: false,
+  ),
+];
+
 const LIST_FINISH = [
   Exercise(
     id: 2,
     name: 'Khởi động',
-    imageUrl: 'https://boidapchay.com/wp-content/uploads/2019/01/cover.jpg',
+    imageUrl:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
     duration: 10,
     cal: 50,
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     isSkipped: false,
     isFinished: true,
   ),
@@ -361,7 +524,7 @@ const LIST_FINISH = [
     cal: 150,
     status: MealStatus.complete,
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     tag: ["Sáng"],
     ingredients: ["Salad", "Bắp cải", "Dầu mè"],
   ),
@@ -446,7 +609,7 @@ List<MealLog> listMealLog = [
       description: "15 phút - 300 cal",
       duration: 15,
       cal: 300,
-      status: MealStatus.complete,
+      status: MealStatus.skip,
       isFavorite: false,
       isPremium: false,
       tag: ["Trưa"],
@@ -468,7 +631,7 @@ List<WorkoutLog> listWorkoutLog = [
       duration: 50,
       cal: 150,
       isFavorite: true,
-      isPremium: true,
+      isPremium: false,
       isSkipped: false,
       isFinished: true,
     ),
@@ -485,7 +648,7 @@ List<WorkoutLog> listWorkoutLog = [
       duration: 10,
       cal: 130,
       isFavorite: true,
-      isPremium: true,
+      isPremium: false,
       isSkipped: false,
       isFinished: true,
     ),
@@ -502,7 +665,7 @@ List<WorkoutLog> listWorkoutLog = [
       duration: 50,
       cal: 200,
       isFavorite: true,
-      isPremium: true,
+      isPremium: false,
       isSkipped: false,
       isFinished: true,
     ),

@@ -61,6 +61,7 @@ class ViewAllScreen extends StatelessWidget {
                               id: meal.id,
                               isExercise: false,
                               tag: meal.tag,
+                              listMeal: listMeal,
                             ))
                         .toList()
                     : (listExercise != null)

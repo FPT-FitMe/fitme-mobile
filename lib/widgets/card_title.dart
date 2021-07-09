@@ -3,6 +3,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
+import 'package:fitme/models/meal.dart';
 import 'package:flutter/material.dart';
 
 class CardTitle extends StatelessWidget {
@@ -13,10 +14,12 @@ class CardTitle extends StatelessWidget {
   final int id;
   final List<String>? tag;
   final bool isExercise;
+  final List<Meal>? listMeal;
 
   CardTitle({
     this.cal,
     this.tag,
+    this.listMeal,
     required this.title,
     required this.duration,
     required this.id,
@@ -85,7 +88,8 @@ class CardTitle extends StatelessWidget {
     isExercise
         ? Navigator.pushNamed(ctx, AppRoutes.detailPractice)
         : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-            'id': id + 1,
+            'id': id,
+            'listMeal': listMeal,
           });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
@@ -33,14 +34,17 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                InkWell(
-                  onTap: () => _viewAllArticle(
-                      context, listMeal, listExercise, listPost, title),
-                  child: Text(
-                    "Hiện tất cả",
-                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                  ),
-                )
+                listExercise!.length > 1
+                    ? InkWell(
+                        onTap: () => _viewAllArticle(
+                            context, listMeal, listExercise, listPost, title),
+                        child: Text(
+                          "Hiện tất cả",
+                          style: TextStyle(
+                              fontSize: 10, color: AppColors.grayText),
+                        ),
+                      )
+                    : Text(""),
               ],
             ),
           ),
@@ -62,6 +66,8 @@ class TitleArticle extends StatelessWidget {
                           true,
                           false,
                           false,
+                          exerciser.isSkipped,
+                          exerciser.isFinished,
                           null));
                 }),
               if (listPost != null)
@@ -80,6 +86,8 @@ class TitleArticle extends StatelessWidget {
                           false,
                           false,
                           true,
+                          false,
+                          false,
                           null));
                 }),
               if (listMeal != null)
@@ -97,6 +105,8 @@ class TitleArticle extends StatelessWidget {
                           meal.cal,
                           false,
                           true,
+                          false,
+                          false,
                           false,
                           meal.tag));
                 }),
@@ -120,12 +130,11 @@ class TitleArticle extends StatelessWidget {
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
         'id': id,
+        'listMeal': listMeal,
       });
     } else if (isPost) {
       //
-      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
-        'id': id,
-      });
+      Navigator.pushNamed(ctx, AppRoutes.postScreen);
     }
   }
 
@@ -175,12 +184,14 @@ class TitleArticle extends StatelessWidget {
       bool isWorkout,
       bool isMeal,
       bool isPost,
+      bool isSkip,
+      bool isDone,
       List<String>? tag) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
         elevation: 0,
         margin: EdgeInsets.all(10),
@@ -189,7 +200,7 @@ class TitleArticle extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: Image.network(
                     imageUrl,
                     height: 100,
@@ -232,7 +243,7 @@ class TitleArticle extends StatelessWidget {
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Center(
                                 child: Text("Sáng"),
@@ -242,7 +253,7 @@ class TitleArticle extends StatelessWidget {
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Center(
                                     child: Text("Trưa"),
@@ -251,7 +262,7 @@ class TitleArticle extends StatelessWidget {
                               : Card(
                                   color: Color(0xFF0E4DA4),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Center(
                                     child: Text(
@@ -285,19 +296,19 @@ class TitleArticle extends StatelessWidget {
                   ),
                 ),
               ]),
-              //Icon hoan thanh
-              //check trong list hoan thanh co khong
-              //TODO: mock list_finish data hop li vao
-              if (LIST_FINISH.where((element) {
-                if (element is Exercise) {
-                  return (element as Exercise).id == id;
-                }
-                return (element as Meal).id == id;
-              }).isNotEmpty)
-                Icon(
-                  Icons.check_circle,
-                  color: AppColors.green500,
-                )
+              // isDone
+              //     ? Icon(
+              //         Icons.check_circle,
+              //         color: AppColors.green500,
+              //         size: 17,
+              //       )
+              //     : isSkip
+              //         ? Icon(
+              //             CommunityMaterialIcons.minus_circle_outline,
+              //             color: AppColors.grayText,
+              //             size: 17,
+              //           )
+              //         : Text("")
             ]),
           ],
         ),

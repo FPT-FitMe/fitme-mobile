@@ -1,5 +1,4 @@
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';

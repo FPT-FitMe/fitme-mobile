@@ -1,5 +1,4 @@
 import 'package:fitme/models/personal_trainer.dart';
-import 'package:fitme/widgets/title_article.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
