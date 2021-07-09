@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/models/auth_user.dart';
+import 'package:fitme/models/errors/AuthUserException.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/repository/auth_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -15,8 +16,13 @@ class AuthService implements AuthRepository {
       'email': email,
       'password': password,
     });
-    await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     final AuthUser user = AuthUser.fromJson(response.data["user"]);
+    if (user.role != "ROLE_MEMBER") {
+      throw new AuthUserException(
+        message: "Tài khoản không phải của user. Vui lòng đăng nhập lại",
+      );
+    }
+    await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     return user;
   }
 

@@ -179,8 +179,19 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     setState(() {
       _isLoading = false;
     });
-    Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.mainScreen, (route) => false);
+    if (user.gender != null) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.mainScreen, (route) => false);
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.newUserInfo,
+        (routes) => false,
+        arguments: {
+          'user': user,
+        },
+      );
+    }
   }
 
   void submitForm() {
