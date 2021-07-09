@@ -10,7 +10,7 @@ class CaloriesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
+      height: 310,
       padding: EdgeInsets.fromLTRB(16, 16, 32, 16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -33,11 +33,12 @@ class CaloriesCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Năng lượng tiêu hao",
+                "Tiến độ luyện tập",
                 style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    color: AppColors.primary),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: AppColors.primary,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,38 +62,46 @@ class CaloriesCard extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 6,
-          ),
-          Row(
-            children: [
-              Text(
-                "260",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              Text(
-                " kcal",
-              )
-            ],
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          Text(
-            "Tương đương lượng calo của 1,5 chén cơm",
-            style: TextStyle(
-              fontSize: 11,
-              color: AppColors.grayText,
-            ),
-          ),
-          SizedBox(
-            height: 20,
+            height: 40,
           ),
           Expanded(
             child: CustomLineChart(),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.primary,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text("Mục tiêu"),
+              SizedBox(
+                width: 15,
+              ),
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.blue[700],
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text("Cân nặng"),
+            ],
+          )
         ],
       ),
     );
