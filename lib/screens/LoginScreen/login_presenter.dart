@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/di/injection.dart';
 import 'package:fitme/models/auth_user.dart';
+import 'package:fitme/models/errors/AuthUserException.dart';
 import 'package:fitme/repository/auth_repository.dart';
 import 'package:fitme/screens/LoginScreen/login_view.dart';
 
@@ -19,9 +20,14 @@ class LoginPresenter {
         _loginView.loginSuccess(user);
       }
     } on DioError catch (e) {
+      print(e);
       _loginView.loginFail("Email hoặc password không hợp lệ");
+    } on AuthUserException catch (e) {
+      print(e);
+      _loginView.loginFail(e.message.toString());
     } catch (e) {
-      _loginView.loginFail("Unexpected errors");
+      print(e);
+      _loginView.loginFail("Lỗi không xác định");
     }
   }
 }
