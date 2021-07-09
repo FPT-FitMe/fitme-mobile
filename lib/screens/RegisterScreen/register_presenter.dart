@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/di/injection.dart';
+import 'package:fitme/models/auth_user.dart';
 import 'package:fitme/repository/auth_repository.dart';
 import 'package:fitme/screens/RegisterScreen/register_view.dart';
 
@@ -23,9 +24,8 @@ class RegisterPresenter {
           password.isNotEmpty &&
           firstName.isNotEmpty &&
           lastName.isNotEmpty) {
-        User user = await _authRepository.register(
-            email, password, firstName, lastName);
-        await _authRepository.login(email, password);
+        await _authRepository.register(email, password, firstName, lastName);
+        AuthUser user = await _authRepository.login(email, password);
         _registerView.registerSuccess(user);
       }
     } on DioError {

@@ -1,6 +1,6 @@
-import 'package:fitme/models/user.dart';
+import 'package:fitme/models/auth_user.dart';
 
 abstract class RegisterView {
-  void registerSuccess(User user);
+  void registerSuccess(AuthUser user);
   void registerFail(String errorrMessage);
 }
