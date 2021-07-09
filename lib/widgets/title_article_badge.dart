@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart';
 
-import 'package:fitme/models/exercise.dart';
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/meal_old.dart';
 
 import 'package:fitme/constants/colors.dart';
 

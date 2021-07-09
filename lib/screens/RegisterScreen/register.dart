@@ -18,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   final _formKey = GlobalKey<FormState>();
   late RegisterPresenter _presenter;
   bool _isLoading = false;
+  String _errorMessage = "";
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -200,14 +201,15 @@ class _RegisterScreenState extends State<RegisterScreen>
   }
 
   @override
-  void registerFail() {
+  void registerFail(errorMessage) {
     setState(() {
       _isLoading = false;
+      _errorMessage = errorMessage;
     });
   }
 
   @override
-  void registerSuccess() {
+  void registerSuccess(user) {
     Fluttertoast.showToast(msg: "Thành công");
     setState(() {
       _isLoading = false;
@@ -219,11 +221,13 @@ class _RegisterScreenState extends State<RegisterScreen>
   void submitForm() {
     String email = _emailController.text;
     String password = _passwordController.text;
+    String firstName = _firstNameController.text;
+    String lastName = _lastNameController.text;
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      _presenter.register(new User());
+      _presenter.register(email, password, firstName, lastName);
     }
   }
 }

@@ -1,23 +1,40 @@
-class Exercise {
-  final int id;
-  final String name;
-  final String imageUrl;
-  final int duration;
-  final int cal;
-  final bool isFavorite;
-  final bool isPremium;
-  final bool isSkipped;
-  final bool isFinished;
+import 'package:fitme/models/tag.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'exercise.g.dart';
 
-  const Exercise({
-    required this.id,
-    required this.name,
+@JsonSerializable()
+class Exercise {
+  int? exerciseID;
+  int baseDuration;
+  int baseRepPerRound;
+  int baseKcal;
+  String description;
+  int? exerciseOrder;
+  String imageUrl;
+  String name;
+  String videoUrl;
+  bool? isChecked; // fe params
+  List<Tag> tags;
+  DateTime? createdDate;
+  DateTime? lastModifiedDate;
+
+  Exercise({
+    required this.exerciseID,
+    required this.baseDuration,
+    required this.baseKcal,
+    required this.baseRepPerRound,
+    required this.description,
+    this.exerciseOrder,
     required this.imageUrl,
-    required this.duration,
-    required this.cal,
-    required this.isFavorite,
-    required this.isPremium,
-    required this.isSkipped,
-    required this.isFinished,
+    required this.name,
+    required this.videoUrl,
+    required this.tags,
+    this.createdDate,
+    this.lastModifiedDate,
+    this.isChecked = false,
   });
+
+  factory Exercise.fromJson(Map<String, dynamic> json) =>
+      _$ExerciseFromJson(json);
+  Map<String, dynamic> toJson() => _$ExerciseToJson(this);
 }

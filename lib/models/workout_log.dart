@@ -1,4 +1,4 @@
-import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/exercise_old.dart';
 
 class WorkoutLog {
   int traineeId;

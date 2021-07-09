@@ -16,6 +16,28 @@ class AuthService implements AuthRepository {
     });
     await _storage.write(key: "userToken", value: response.data["jwt"]);
     // TODO: should return user in response
-    return User();
+    final User user = User.fromJson(response.data);
+    return user;
+  }
+
+  @override
+  Future<User> register(
+      String email, String password, String firstName, String lastName) async {
+    final response = await dio.post('/authentication/register', data: {
+      'email': email,
+      'password': password,
+      'firstName': firstName,
+      'lastName': lastName,
+    });
+    final User user = User.fromJson(response.data);
+    await _storage.write(key: "userToken", value: response.data["jwt"]);
+    return user;
+  }
+
+  @override
+  Future<String?> refreshToken() async {
+    final response = await dio.get('/authentication/refreshToken');
+    await _storage.write(key: "userToken", value: response.data["jwt"]);
+    return response.data["jwt"];
   }
 }

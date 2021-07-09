@@ -2,7 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_noviewall.dart';

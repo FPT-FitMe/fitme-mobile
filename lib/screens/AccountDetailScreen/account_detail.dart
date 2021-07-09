@@ -162,10 +162,10 @@ class _AccountDetailScreenState extends State<AccountDetailScreen>
   }
 
   @override
-  void registerFail() {}
+  void registerFail(errorMessage) {}
 
   @override
-  void registerSuccess() {}
+  void registerSuccess(user) {}
 
   void submitForm() {}
 }
