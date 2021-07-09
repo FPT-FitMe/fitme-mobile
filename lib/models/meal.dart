@@ -1,26 +1,36 @@
-class Meal {
-  final int id;
-  final String name;
-  final String imageUrl;
-  final String description;
-  final int duration;
-  final int cal;
-  final int status;
-  final bool isFavorite;
-  final bool isPremium;
-  final List<String> tag;
-  final List<String> ingredients;
+import 'package:fitme/models/coach.dart';
+import 'package:fitme/models/tag.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'meal.g.dart';
 
-  const Meal(
-      {required this.id,
-      required this.name,
-      required this.imageUrl,
-      required this.description,
-      required this.duration,
-      required this.cal,
-      required this.status,
-      required this.isFavorite,
-      required this.isPremium,
-      required this.tag,
-      required this.ingredients});
+@JsonSerializable()
+class Meal {
+  int? mealID;
+  Coach? coachProfile;
+  double calories;
+  double carbAmount;
+  int cookingTime;
+  String description;
+  double fatAmount;
+  String imageUrl;
+  bool isPremium;
+  String name;
+  List<Tag> tags;
+
+  Meal({
+    this.mealID,
+    this.coachProfile,
+    required this.calories,
+    required this.carbAmount,
+    required this.cookingTime,
+    required this.description,
+    required this.fatAmount,
+    required this.isPremium,
+    required this.imageUrl,
+    required this.name,
+    required this.tags,
+  });
+
+  factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
+  Map<String, dynamic> toJson() => _$MealToJson(this);
 }

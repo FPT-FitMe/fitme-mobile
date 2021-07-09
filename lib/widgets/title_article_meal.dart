@@ -1,7 +1,7 @@
 import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_old.dart';
 
 import 'package:fitme/constants/colors.dart';
 

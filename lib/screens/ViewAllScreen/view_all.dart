@@ -1,5 +1,5 @@
-import 'package:fitme/models/exercise.dart';
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/meal_old.dart';
 
 import 'package:fitme/widgets/card_title.dart';
 import 'package:fitme/models/post.dart';

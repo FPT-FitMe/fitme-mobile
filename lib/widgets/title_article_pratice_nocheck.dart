@@ -8,13 +8,13 @@ import 'package:fitme/models/meal_old.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticle extends StatelessWidget {
+class TitleArticleNoCheck extends StatelessWidget {
   final List<Exercise>? listExercise;
   final List<Meal>? listMeal;
   final List<Post>? listPost;
   final String title;
 
-  const TitleArticle(
+  const TitleArticleNoCheck(
       {required this.title, this.listExercise, this.listMeal, this.listPost});
 
   @override
@@ -32,17 +32,14 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                listExercise!.length > 1
-                    ? InkWell(
-                        onTap: () => _viewAllArticle(
-                            context, listMeal, listExercise, listPost, title),
-                        child: Text(
-                          "Hiện tất cả",
-                          style: TextStyle(
-                              fontSize: 10, color: AppColors.grayText),
-                        ),
-                      )
-                    : Text(""),
+                InkWell(
+                  onTap: () => _viewAllArticle(
+                      context, listMeal, listExercise, listPost, title),
+                  child: Text(
+                    "Hiện tất cả",
+                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                  ),
+                )
               ],
             ),
           ),
@@ -64,8 +61,6 @@ class TitleArticle extends StatelessWidget {
                           true,
                           false,
                           false,
-                          exerciser.isSkipped,
-                          exerciser.isFinished,
                           null));
                 }),
               if (listPost != null)
@@ -84,8 +79,6 @@ class TitleArticle extends StatelessWidget {
                           false,
                           false,
                           true,
-                          false,
-                          false,
                           null));
                 }),
               if (listMeal != null)
@@ -103,8 +96,6 @@ class TitleArticle extends StatelessWidget {
                           meal.cal,
                           false,
                           true,
-                          false,
-                          false,
                           false,
                           meal.tag));
                 }),
@@ -128,11 +119,12 @@ class TitleArticle extends StatelessWidget {
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
         'id': id,
-        'listMeal': listMeal,
       });
     } else if (isPost) {
       //
-      Navigator.pushNamed(ctx, AppRoutes.postScreen);
+      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+        'id': id,
+      });
     }
   }
 
@@ -182,14 +174,12 @@ class TitleArticle extends StatelessWidget {
       bool isWorkout,
       bool isMeal,
       bool isPost,
-      bool isSkip,
-      bool isDone,
       List<String>? tag) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(5),
         ),
         elevation: 0,
         margin: EdgeInsets.all(10),
@@ -198,7 +188,7 @@ class TitleArticle extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   child: Image.network(
                     imageUrl,
                     height: 100,
@@ -241,7 +231,7 @@ class TitleArticle extends StatelessWidget {
                           ? Card(
                               color: Color(0xFFFFDC5D),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(18),
                               ),
                               child: Center(
                                 child: Text("Sáng"),
@@ -251,7 +241,7 @@ class TitleArticle extends StatelessWidget {
                               ? Card(
                                   color: Color(0xFFFFAC33),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text("Trưa"),
@@ -260,7 +250,7 @@ class TitleArticle extends StatelessWidget {
                               : Card(
                                   color: Color(0xFF0E4DA4),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
                                   child: Center(
                                     child: Text(
@@ -294,19 +284,6 @@ class TitleArticle extends StatelessWidget {
                   ),
                 ),
               ]),
-              // isDone
-              //     ? Icon(
-              //         Icons.check_circle,
-              //         color: AppColors.green500,
-              //         size: 17,
-              //       )
-              //     : isSkip
-              //         ? Icon(
-              //             CommunityMaterialIcons.minus_circle_outline,
-              //             color: AppColors.grayText,
-              //             size: 17,
-              //           )
-              //         : Text("")
             ]),
           ],
         ),
