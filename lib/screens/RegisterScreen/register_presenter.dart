@@ -25,13 +25,14 @@ class RegisterPresenter {
           lastName.isNotEmpty) {
         User user = await _authRepository.register(
             email, password, firstName, lastName);
+        await _authRepository.login(email, password);
         _registerView.registerSuccess(user);
-        _authRepository.login(email, password);
       }
     } on DioError {
       _registerView.registerFail("Email đã tồn tại");
     } catch (e) {
-      _registerView.registerFail("Lỗi không các định");
+      print(e);
+      _registerView.registerFail("Lỗi không xác định");
     }
   }
 }

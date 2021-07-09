@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/repository/trainee_repository.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TraineeService implements TraineeRepository {
   Dio dio = new HttpService().dio;

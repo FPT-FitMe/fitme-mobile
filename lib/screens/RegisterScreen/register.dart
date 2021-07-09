@@ -127,7 +127,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       decoration: InputDecoration(
                         labelText: "Xác nhận mật khẩu",
                       ),
-                      validator: RequiredValidator(errorText: "* Bắt buộc"),
+                      validator: (val) =>
+                          MatchValidator(errorText: "Mật khẩu không trùng khớp")
+                              .validateMatch(
+                                  val.toString(), _passwordController.text),
                     ),
                     SizedBox(
                       height: 30,

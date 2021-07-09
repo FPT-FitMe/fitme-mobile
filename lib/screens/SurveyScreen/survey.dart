@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class SurveyScreen extends StatefulWidget {

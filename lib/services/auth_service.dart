@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
+import 'package:fitme/models/auth_user.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/repository/auth_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -9,14 +10,13 @@ class AuthService implements AuthRepository {
   FlutterSecureStorage _storage = new FlutterSecureStorage();
 
   @override
-  Future<User> login(String email, String password) async {
+  Future<AuthUser> login(String email, String password) async {
     final response = await dio.post('/authentication/login', data: {
       'email': email,
       'password': password,
     });
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
-    // TODO: should return user in response
-    final User user = User.fromJson(response.data);
+    final AuthUser user = AuthUser.fromJson(response.data["user"]);
     return user;
   }
 
