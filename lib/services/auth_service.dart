@@ -19,7 +19,7 @@ class AuthService implements AuthRepository {
     final AuthUser user = AuthUser.fromJson(response.data["user"]);
     if (user.role != "ROLE_MEMBER") {
       throw new AuthUserException(
-        message: "Tài khoản không phải của user. Vui lòng đăng nhập lại",
+        message: "Tài khoản không phải của người dùng. Vui lòng đăng nhập lại",
       );
     }
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
