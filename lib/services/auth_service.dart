@@ -14,7 +14,7 @@ class AuthService implements AuthRepository {
       'email': email,
       'password': password,
     });
-    await _storage.write(key: "userToken", value: response.data["jwt"]);
+    await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     // TODO: should return user in response
     final User user = User.fromJson(response.data);
     return user;
@@ -30,7 +30,6 @@ class AuthService implements AuthRepository {
       'lastName': lastName,
     });
     final User user = User.fromJson(response.data);
-    await _storage.write(key: "userToken", value: response.data["jwt"]);
     return user;
   }
 

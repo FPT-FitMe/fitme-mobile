@@ -222,7 +222,10 @@ class _RegisterScreenState extends State<RegisterScreen>
       _isLoading = false;
     });
     Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.newUserInfo, (routes) => false);
+        context, AppRoutes.newUserInfo, (routes) => false,
+        arguments: {
+          'user': user,
+        });
   }
 
   void submitForm() {

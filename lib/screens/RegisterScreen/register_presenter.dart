@@ -26,9 +26,10 @@ class RegisterPresenter {
         User user = await _authRepository.register(
             email, password, firstName, lastName);
         _registerView.registerSuccess(user);
+        _authRepository.login(email, password);
       }
     } on DioError {
-      _registerView.registerFail("Đăng ký không hợp lệ");
+      _registerView.registerFail("Email đã tồn tại");
     } catch (e) {
       _registerView.registerFail("Lỗi không các định");
     }
