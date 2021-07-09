@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:duration_picker/duration_picker.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ActivityLogForm extends StatefulWidget {
   final bool? hasDistanceField;
   final bool? showInputDate;
 
-  ActivityLogForm({Key? key, this.hasDistanceField, this.showInputDate}) : super(key: key);
+  ActivityLogForm({Key? key, this.hasDistanceField, this.showInputDate})
+      : super(key: key);
 
   @override
   _ActivityLogFormState createState() => _ActivityLogFormState();
@@ -72,15 +76,16 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
           SizedBox(
             height: 30,
           ),
-          showDateField ?
-          TextFormField(
-            onTap: () => _selectDate(),
-            readOnly: true,
-            controller: _dateController,
-            decoration: InputDecoration(
-              labelText: "Ngày thực hiện",
-            ),
-          ) : Container(),
+          showDateField
+              ? TextFormField(
+                  onTap: () => _selectDate(),
+                  readOnly: true,
+                  controller: _dateController,
+                  decoration: InputDecoration(
+                    labelText: "Ngày thực hiện",
+                  ),
+                )
+              : Container(),
           SizedBox(
             height: 20,
           ),
@@ -223,6 +228,7 @@ class MealLogForm extends StatefulWidget {
 
 class _MealLogFormState extends State<MealLogForm> {
   final _formKey = GlobalKey<FormState>();
+  var _mealImage = null;
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
@@ -276,8 +282,21 @@ class _MealLogFormState extends State<MealLogForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                _showImagePicker();
+              },
+              child: CircleAvatar(
+                radius: 40,
+                child: _mealImage != null
+                    ? Image.file(_mealImage)
+                    : Icon(Icons.add_a_photo),
+              ),
+            ),
+          ),
           SizedBox(
-            height: 10,
+            height: 30,
           ),
           TextFormField(
             controller: _mealNameController,
@@ -309,15 +328,16 @@ class _MealLogFormState extends State<MealLogForm> {
           SizedBox(
             height: 20,
           ),
-          showDateField ?
-          TextFormField(
-            onTap: () => _selectDate(),
-            readOnly: true,
-            controller: _dateController,
-            decoration: InputDecoration(
-              labelText: "Ngày",
-            ),
-          ) : Container(),
+          showDateField
+              ? TextFormField(
+                  onTap: () => _selectDate(),
+                  readOnly: true,
+                  controller: _dateController,
+                  decoration: InputDecoration(
+                    labelText: "Ngày",
+                  ),
+                )
+              : Container(),
           SizedBox(
             height: 30,
           ),
@@ -347,5 +367,16 @@ class _MealLogFormState extends State<MealLogForm> {
         ],
       ),
     );
+  }
+
+  void _showImagePicker() async {
+    PickedFile? image =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (image != null) {
+      File selectedImage = File(image.path);
+      setState(() {
+        _mealImage = selectedImage;
+      });
+    }
   }
 }
