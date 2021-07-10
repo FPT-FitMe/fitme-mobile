@@ -2,7 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal_log.dart';
-import 'package:fitme/models/workout_log.dart';
+import 'package:fitme/models/workout_log_old.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';

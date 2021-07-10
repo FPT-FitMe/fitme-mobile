@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/models/plan_workout.dart';
 import 'package:fitme/models/target.dart';
@@ -8,7 +10,7 @@ part 'plan.g.dart';
 class Plan {
   final int planID;
   final Target target;
-  final List<PlanMeal> planMeals;
+  final Map<int, PlanMeal> planMeals;
   final List<PlanWorkout> planWorkouts;
   final DateTime date;
 

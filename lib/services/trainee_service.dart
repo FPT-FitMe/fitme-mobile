@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
+import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/repository/trainee_repository.dart';
+import 'package:intl/intl.dart';
 
 class TraineeService implements TraineeRepository {
   Dio dio = new HttpService().dio;
@@ -26,5 +28,16 @@ class TraineeService implements TraineeRepository {
       "exerciseFrequencyType": exerciseFrequencyType,
     });
     return response.statusCode == 200 ? true : false;
+  }
+
+  @override
+  Future<List<WorkoutLog>> getWorkoutLog(DateTime dateTime) async {
+    // /trainee/log/workout/09-07-2021
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String date = formatter.format(dateTime);
+    final response = await dio.get("/trainee/log/workout/$date");
+    return (response.data as List)
+        .map((workoutLog) => WorkoutLog.fromJson(workoutLog))
+        .toList();
   }
 }

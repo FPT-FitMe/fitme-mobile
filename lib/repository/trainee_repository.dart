@@ -1,3 +1,5 @@
+import 'package:fitme/models/workout_log.dart';
+
 abstract class TraineeRepository {
   Future<bool> doSurvey(
       //success=true
@@ -9,4 +11,6 @@ abstract class TraineeRepository {
       int targetWeightInKg,
       int durationInDays,
       int exerciseFrequencyType);
+
+  Future<List<WorkoutLog>> getWorkoutLog(DateTime dateTime);
 }

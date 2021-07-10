@@ -10,9 +10,10 @@ Plan _$PlanFromJson(Map<String, dynamic> json) {
   return Plan(
     planID: json['planID'] as int,
     target: Target.fromJson(json['target'] as Map<String, dynamic>),
-    planMeals: (json['planMeals'] as List<dynamic>)
-        .map((e) => PlanMeal.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    planMeals: (json['planMeals'] as Map<String, dynamic>).map(
+      (k, e) =>
+          MapEntry(int.parse(k), PlanMeal.fromJson(e as Map<String, dynamic>)),
+    ),
     planWorkouts: (json['planWorkouts'] as List<dynamic>)
         .map((e) => PlanWorkout.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -23,7 +24,7 @@ Plan _$PlanFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$PlanToJson(Plan instance) => <String, dynamic>{
       'planID': instance.planID,
       'target': instance.target,
-      'planMeals': instance.planMeals,
+      'planMeals': instance.planMeals.map((k, e) => MapEntry(k.toString(), e)),
       'planWorkouts': instance.planWorkouts,
       'date': instance.date.toIso8601String(),
     };

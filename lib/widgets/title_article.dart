@@ -6,6 +6,7 @@ import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/models/plan_workout.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/tag.dart';
+import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -13,15 +14,17 @@ import 'package:fitme/constants/colors.dart';
 
 class TitleArticle extends StatelessWidget {
   final List<PlanWorkout>? listPlanWorkout;
-  final List<PlanMeal>? listPlanMeal;
+  final Map<int, PlanMeal>? listPlanMeal;
   final List<Post>? listPost;
+  final List<Workout>? listWorkout;
   final String title;
 
   const TitleArticle(
       {required this.title,
       this.listPlanWorkout,
       this.listPlanMeal,
-      this.listPost});
+      this.listPost,
+      this.listWorkout});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +68,9 @@ class TitleArticle extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 10 / 8.5,
                   children: <Widget>[
-                    _cardArticleMeal(context, listPlanMeal!.elementAt(0)),
-                    _cardArticleMeal(context, listPlanMeal!.elementAt(1)),
-                    _cardArticleMeal(context, listPlanMeal!.elementAt(2)),
+                    _cardArticleMeal(context, listPlanMeal![0]),
+                    _cardArticleMeal(context, listPlanMeal![1]),
+                    _cardArticleMeal(context, listPlanMeal![2]),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -109,6 +112,23 @@ class TitleArticle extends StatelessWidget {
                         true,
                         false,
                         planWorkout.status,
+                      ));
+                }),
+              if (listWorkout != null)
+                ...listWorkout!.map((workout) {
+                  return Flexible(
+                      fit: FlexFit.tight,
+                      child: _cardArticle(
+                        context,
+                        workout.workoutID,
+                        workout.imageUrl,
+                        workout.isPremium,
+                        workout.name,
+                        workout.estimatedDuration,
+                        workout.estimatedCalories,
+                        true,
+                        false,
+                        null,
                       ));
                 }),
               if (listPost != null)
@@ -192,10 +212,10 @@ class TitleArticle extends StatelessWidget {
 
   Widget _cardArticleMeal(
     BuildContext context,
-    PlanMeal planMeal,
+    PlanMeal? planMeal,
   ) {
     //checkfavorite
-    bool isSkipped = planMeal.status == "skipped";
+    bool isSkipped = planMeal!.status == "skipped";
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
