@@ -1,6 +1,10 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
+import 'package:fitme/models/coach.dart';
+import 'package:fitme/models/exercise.dart';
+import 'package:fitme/screens/PraticeExploreScreen/exercise_explore_presenter.dart';
+import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +19,19 @@ class PraticeExploreScreen extends StatefulWidget {
   _PraticeExploreScreenState createState() => _PraticeExploreScreenState();
 }
 
-class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
+class _PraticeExploreScreenState extends State<PraticeExploreScreen>
+    implements PraticeExploreView {
+  bool _isLoading = true;
+  late PraticePresenter _presenter;
+  List<Exercise> listExercise = [];
+  List<Coach> listCoaches = [];
+
+  _PraticeExploreScreenState() {
+    _presenter = new PraticePresenter(this);
+    _presenter.loadAllExercise();
+    _presenter.loadAllCoaches();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -26,20 +42,14 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                carouselPage(),
+                carouselPage(listExercise),
                 TitleArticleBadge(
                   title: "Huấn luyện viên",
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  CoachAvatar(
-                    id: 0,
-                  ),
-                  CoachAvatar(
-                    id: 1,
-                  ),
-                  CoachAvatar(
-                    id: 2,
-                  ),
+                  CoachAvatar(context, listCoaches[0]),
+                  CoachAvatar(context, listCoaches[1]),
+                  CoachAvatar(context, listCoaches[2]),
                 ]),
                 TitleArticleBadge(
                   title: "Loại hình",
@@ -63,16 +73,30 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen> {
       ),
     );
   }
-}
-
-class CoachAvatar extends StatelessWidget {
-  final int id;
-
-  const CoachAvatar({required this.id});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  void loadAllExercise(List<Exercise> listExercise) {
+    setState(() {
+      _isLoading = false;
+      this.listExercise = listExercise;
+    });
+  }
+
+  @override
+  void showEmptyList() {
+    // TODO: implement showEmptyList
+  }
+
+  @override
+  void loadAllCoaches(List<Coach> listCoaches) {
+    setState(() {
+      _isLoading = false;
+      this.listCoaches = listCoaches;
+    });
+  }
+}
+
+Widget CoachAvatar(BuildContext context, Coach coach) => Container(
       padding: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,11 +104,11 @@ class CoachAvatar extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.coachDetail, arguments: {
-                "id": id,
+                "id": coach.coachID,
               });
             },
             child: CircleAvatar(
-              backgroundImage: NetworkImage(LIST_COACH[id].imageUrl),
+              backgroundImage: NetworkImage(coach.imageUrl),
               radius: 40,
             ),
           ),
@@ -92,7 +116,7 @@ class CoachAvatar extends StatelessWidget {
             height: 10,
           ),
           Text(
-            LIST_COACH[id].name,
+            coach.name,
             style: TextStyle(
               color: Color(0xff263238),
               fontSize: 10,
@@ -101,7 +125,7 @@ class CoachAvatar extends StatelessWidget {
             ),
           ),
           Text(
-            LIST_COACH[id].tagName,
+            coach.introduction,
             style: TextStyle(
               color: Color(0xff5e5e5e),
               fontSize: 8,
@@ -112,8 +136,6 @@ class CoachAvatar extends StatelessWidget {
         ],
       ),
     );
-  }
-}
 
 final List<CarouselItem> itemList = [
   CarouselItem(
@@ -134,14 +156,14 @@ final List<CarouselItem> itemList = [
 ];
 CarouselController buttonCarouselController = CarouselController();
 
-Widget carouselPage() => CarouselSlider(
+Widget carouselPage(List<Exercise> listExercise) => CarouselSlider(
       carouselController: buttonCarouselController,
       options: CarouselOptions(
         height: 250,
         autoPlay: true,
         aspectRatio: 1,
       ),
-      items: itemList.map((item) {
+      items: listExercise.map((item) {
         return Builder(builder: (BuildContext context) {
           return Container(
             margin: EdgeInsets.all(10.0),
@@ -154,7 +176,7 @@ Widget carouselPage() => CarouselSlider(
                     onTap: () {
                       Navigator.pushNamed(context, AppRoutes.detailPractice);
                     },
-                    child: Image.network(item.image,
+                    child: Image.network(item.imageUrl,
                         fit: BoxFit.cover, width: 1000),
                   ),
                 ),
@@ -163,7 +185,7 @@ Widget carouselPage() => CarouselSlider(
                 ),
                 Flexible(
                   child: Text(
-                    item.title,
+                    item.name,
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
@@ -172,7 +194,7 @@ Widget carouselPage() => CarouselSlider(
                 ),
                 Flexible(
                   child: Text(
-                    item.description,
+                    '${item.baseDuration} phút - ${item.baseKcal} cals',
                     style: TextStyle(
                       fontSize: 10.0,
                     ),

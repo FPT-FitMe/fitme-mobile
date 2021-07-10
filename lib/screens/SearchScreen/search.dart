@@ -67,7 +67,7 @@ class Search extends SearchDelegate {
                         title: exercise.name,
                         imageUrl: exercise.imageUrl,
                         duration: exercise.duration,
-                        cal: exercise.cal,
+                        calories: 1,
                         id: exercise.id,
                         isExercise: true))
                     .toList(),
@@ -80,7 +80,7 @@ class Search extends SearchDelegate {
                           title: meal.name,
                           imageUrl: meal.imageUrl,
                           duration: meal.duration,
-                          cal: meal.cal,
+                          calories: 1,
                           id: meal.id,
                           isExercise: false,
                         ))

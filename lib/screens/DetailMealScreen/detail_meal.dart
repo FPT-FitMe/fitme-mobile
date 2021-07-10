@@ -2,7 +2,8 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/tag.dart';
 import 'package:flutter/material.dart';
 
 class DetailMealScreen extends StatefulWidget {
@@ -26,14 +27,14 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     id = map["id"];
     listMeal = map["listMeal"];
-    meal = listMeal.where((element) => element.id == id).first;
-    setState(() {
-      if (meal.status == MealStatus.complete) {
-        isSelected[1] = true;
-      } else if (meal.status == MealStatus.skip) {
-        isSelected[0] = true;
-      }
-    });
+    meal = listMeal.where((element) => element.mealID == id).first;
+    // setState(() {
+    //   if (meal.status == MealStatus.complete) {
+    //     isSelected[1] = true;
+    //   } else if (meal.status == MealStatus.skip) {
+    //     isSelected[0] = true;
+    //   }
+    // });
     super.didChangeDependencies();
   }
 
@@ -79,7 +80,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: GestureDetector(
-                child: authorSection(),
+                child: authorSection(meal),
                 onTap: () {
                   Navigator.pushNamed(context, AppRoutes.coachDetail);
                 },
@@ -87,16 +88,17 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: tagSection(meal.tag),
+              child: tagSection(meal.tags),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: timeSection(meal.duration.toString(), meal.cal.toString()),
+              child: timeSection(
+                  meal.cookingTime.toString(), meal.calories.toString()),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-              child: ingredientSection(meal.ingredients),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+            //   child: ingredientSection(meal.ingredients),
+            // ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: textSection(),
@@ -161,13 +163,12 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
   }
 }
 
-Widget authorSection() => Container(
+Widget authorSection(Meal meal) => Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png'),
+            backgroundImage: NetworkImage(meal.coachProfile!.imageUrl),
             radius: 22,
           ),
           SizedBox(
@@ -181,7 +182,7 @@ Widget authorSection() => Container(
               SizedBox(
                 height: 5,
               ),
-              Text("Lalisa Monoban",
+              Text("${meal.coachProfile!.name}",
                   style: TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
@@ -209,12 +210,19 @@ Widget _createCustomChip({title: String}) => Chip(
       ),
     );
 
-Widget tagSection(List<String> tagList) =>
-    Builder(builder: (BuildContext context) {
+Widget tagSection(List<Tag> tags) => Builder(builder: (BuildContext context) {
       return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:
-              tagList.map((item) => _createCustomChip(title: item)).toList());
+          children: tags
+              .map((item) => Row(
+                    children: [
+                      _createCustomChip(title: item.name),
+                      SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  ))
+              .toList());
     });
 
 Widget timeSection(String duration, String cal) => Container(
@@ -241,7 +249,7 @@ Widget timeSection(String duration, String cal) => Container(
           ),
           SizedBox(width: 5),
           Text(
-            cal + ' cal',
+            cal + ' cals',
             softWrap: true,
             style: TextStyle(
               fontSize: 15,

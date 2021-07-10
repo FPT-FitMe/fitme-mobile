@@ -1,5 +1,5 @@
 import 'package:fitme/models/exercise_old.dart';
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/widgets/card_title.dart';
 import 'package:fitme/models/post.dart';
@@ -56,11 +56,11 @@ class ViewAllScreen extends StatelessWidget {
                         .map((meal) => CardTitle(
                               title: meal.name,
                               imageUrl: meal.imageUrl,
-                              duration: meal.duration,
-                              cal: meal.cal,
-                              id: meal.id,
+                              duration: meal.cookingTime,
+                              calories: meal.calories,
+                              id: meal.mealID,
                               isExercise: false,
-                              tag: meal.tag,
+                              tags: meal.tags,
                               listMeal: listMeal,
                             ))
                         .toList()
@@ -70,7 +70,6 @@ class ViewAllScreen extends StatelessWidget {
                                   title: exercise.name,
                                   imageUrl: exercise.imageUrl,
                                   duration: exercise.duration,
-                                  cal: exercise.cal,
                                   id: exercise.id,
                                   isExercise: true,
                                 ))

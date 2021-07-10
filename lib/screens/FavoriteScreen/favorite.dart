@@ -45,7 +45,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               title: meal.name,
                               imageUrl: meal.imageUrl,
                               duration: meal.duration,
-                              cal: meal.cal,
+                              calories: 1,
                               id: meal.id,
                               isExercise: false,
                             ))
@@ -57,7 +57,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               title: exercise.name,
                               imageUrl: exercise.imageUrl,
                               duration: exercise.duration,
-                              cal: exercise.cal,
+                              calories: 1,
                               id: exercise.id,
                               isExercise: true,
                             ))
