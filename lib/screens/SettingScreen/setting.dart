@@ -31,7 +31,7 @@ class SettingScreen extends StatelessWidget {
       bottomSheet: GestureDetector(
         onTap: () async {
           FlutterSecureStorage _storage = new FlutterSecureStorage();
-          await _storage.delete(key: "userToken");
+          await _storage.deleteAll();
           Navigator.pushNamedAndRemoveUntil(
               context, AppRoutes.login, (route) => false);
         },

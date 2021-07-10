@@ -23,6 +23,7 @@ class AuthService implements AuthRepository {
       );
     }
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
+    await _storage.write(key: "isSurveyAnswered", value: user.gender);
     return user;
   }
 

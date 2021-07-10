@@ -1,5 +1,6 @@
 import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
 import 'package:fitme/screens/GettingStartedScreen/getting_started.dart';
+import 'package:fitme/screens/LoginScreen/login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'configs/themes.dart';
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
         future: _checkUserLogin(),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            return BottomBarScreen();
+            if (snapshot.data.toString() == "taken")
+              return BottomBarScreen();
+            else
+              return LoginScreen();
           } else {
             return GettingStartedScreen();
           }
@@ -47,6 +51,13 @@ class MyApp extends StatelessWidget {
   Future<String?> _checkUserLogin() async {
     FlutterSecureStorage _storage = new FlutterSecureStorage();
     var userToken = await _storage.read(key: "userToken");
-    return userToken;
+    if (userToken != null) {
+      String? isAnsweredSurvey = await _storage.read(key: "isSurveyAnswered");
+      if (isAnsweredSurvey != null) {
+        return "taken";
+      }
+      return "notTaken";
+    }
+    return null;
   }
 }
