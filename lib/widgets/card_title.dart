@@ -1,26 +1,24 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/fake_data.dart';
-import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/tag.dart';
 import 'package:flutter/material.dart';
 
 class CardTitle extends StatelessWidget {
   final String title;
   final String imageUrl;
   final int duration;
-  final double? cal;
-  final int id;
-  final List<String>? tag;
+  final double? calories;
+  final int? id;
+  final List<Tag>? tags;
   final bool isWorkout;
   final List<Meal>? listMeal;
   final bool isShowStatus;
 
   CardTitle({
-    this.cal,
-    this.tag,
+    this.calories,
+    this.tags,
     this.listMeal,
     this.isShowStatus = true,
     required this.title,
@@ -53,8 +51,9 @@ class CardTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _selectArticle(context, id),
+      onTap: () => _selectArticle(context, int.parse(id.toString())),
       child: ListTile(
+        // trailing: getTick(id),
         leading: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: Image.network(
@@ -73,18 +72,18 @@ class CardTitle extends StatelessWidget {
         ),
         subtitle: isWorkout
             ? Text(
-                cal != null
-                    ? convertDurationAndCalories(cal, duration)
+                calories != null
+                    ? convertDurationAndCalories(calories, duration)
                     : '$duration phút',
               )
             : Text(
-                tag == null
-                    ? '$duration phút - $cal kcals '
-                    : tag!.contains("Sáng")
-                        ? '$duration phút - $cal kcals - Sáng'
-                        : tag!.contains("Trưa")
-                            ? '$duration phút - $cal kcals - Trưa'
-                            : '$duration phút - $cal kcals - Tối',
+                tags == null
+                    ? '$duration phút - $calories kcals '
+                    : tags!.contains("Sáng")
+                        ? '$duration phút - $calories kcals - Sáng'
+                        : tags!.contains("Trưa")
+                            ? '$duration phút - $calories kcals - Trưa'
+                            : '$duration phút - $calories kcals - Tối',
               ),
       ),
     );

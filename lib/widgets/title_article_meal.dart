@@ -1,15 +1,16 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/tag.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
 
 class TitleArticleMeal extends StatelessWidget {
-  final List<Meal>? listMeal;
+  final List<Meal> listMeal;
   final String title;
 
-  const TitleArticleMeal({required this.title, this.listMeal});
+  const TitleArticleMeal({required this.title, required this.listMeal});
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +39,19 @@ class TitleArticleMeal extends StatelessWidget {
           ),
           Row(
             children: [
-              if (listMeal != null)
-                ...listMeal!.map((meal) {
-                  return Flexible(
-                      fit: FlexFit.tight,
-                      child: _cardArticle(
-                          context,
-                          meal.id,
-                          meal.imageUrl,
-                          meal.isFavorite,
-                          meal.isPremium,
-                          meal.name,
-                          meal.duration,
-                          meal.cal,
-                          meal.tag));
-                }),
+              ...listMeal.map((meal) {
+                return Flexible(
+                    fit: FlexFit.tight,
+                    child: _cardArticle(
+                        context,
+                        meal.mealID,
+                        meal.imageUrl,
+                        meal.isPremium,
+                        meal.name,
+                        meal.cookingTime,
+                        meal.calories,
+                        meal.tags));
+              }),
             ],
           ),
         ],
@@ -61,7 +60,7 @@ class TitleArticleMeal extends StatelessWidget {
   }
 
   // chuyen qua trang detail cua meal
-  void _selectArticle(BuildContext ctx, int id) {
+  void _selectArticle(BuildContext ctx, int? id) {
     Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
       'id': id,
       'listMeal': listMeal,
@@ -75,16 +74,8 @@ class TitleArticleMeal extends StatelessWidget {
     });
   }
 
-  Widget _cardArticle(
-      BuildContext context,
-      int id,
-      String imageUrl,
-      bool isFavorite,
-      bool isPremium,
-      String name,
-      int duration,
-      int? cal,
-      List<String>? tag) {
+  Widget _cardArticle(BuildContext context, int? id, String imageUrl,
+      bool isPremium, String name, int duration, double? cal, List<Tag>? tags) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id),
       child: Card(
@@ -111,7 +102,7 @@ class TitleArticleMeal extends StatelessWidget {
                   child: Container(
                     width: 85,
                     height: 30,
-                    child: tag!.contains("Sáng")
+                    child: tags!.contains("Sáng")
                         ? Card(
                             color: Color(0xFFFFDC5D),
                             shape: RoundedRectangleBorder(
@@ -121,7 +112,7 @@ class TitleArticleMeal extends StatelessWidget {
                               child: Text("Sáng"),
                             ),
                           )
-                        : tag.contains("Trưa")
+                        : tags.contains("Trưa")
                             ? Card(
                                 color: Color(0xFFFFAC33),
                                 shape: RoundedRectangleBorder(
@@ -159,9 +150,7 @@ class TitleArticleMeal extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  cal != null
-                      ? '$duration phút - $cal kcals'
-                      : '$duration phút',
+                  cal != null ? '$duration phút - $cal cals' : '$duration phút',
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.black38,

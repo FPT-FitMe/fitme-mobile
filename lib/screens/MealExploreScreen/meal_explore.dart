@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/screens/MealExploreScreen/meal_explore_presenter.dart';
+import 'package:fitme/screens/MealExploreScreen/meal_explore_view.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:flutter/material.dart';
-import 'package:fitme/fake_data.dart';
 
 class MealExploreScreen extends StatefulWidget {
   MealExploreScreen({Key? key}) : super(key: key);
@@ -13,7 +15,18 @@ class MealExploreScreen extends StatefulWidget {
   _MealExploreScreenState createState() => _MealExploreScreenState();
 }
 
-class _MealExploreScreenState extends State<MealExploreScreen> {
+class _MealExploreScreenState extends State<MealExploreScreen>
+    implements MealExploreView {
+  late MealPresenter _presenter;
+  bool _isLoading = true;
+  List<Meal> listMeal = [];
+  List<Meal> listRecommended = [];
+
+  _MealExploreScreenState() {
+    _presenter = new MealPresenter(this);
+    _presenter.loadAllMeals();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,7 +37,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _carouselPage(),
+                _carouselPage(listMeal),
                 Column(
                   children: [
                     TitleArticleBadge(
@@ -36,7 +49,7 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
                     ),
                     TitleArticleMeal(
                       title: "Gợi ý dành cho bạn",
-                      listMeal: LIST_MEAL5,
+                      listMeal: listRecommended,
                     ),
                   ],
                 ),
@@ -47,15 +60,29 @@ class _MealExploreScreenState extends State<MealExploreScreen> {
       ),
     );
   }
+
+  @override
+  void loadAllMeals(List<Meal> listMeal) {
+    setState(() {
+      _isLoading = false;
+      this.listMeal = listMeal;
+      listRecommended = [listMeal[1], listMeal[2]];
+    });
+  }
+
+  @override
+  void showEmptyList() {
+    // TODO: implement showEmptyList
+  }
 }
 
-Widget _carouselPage() => CarouselSlider(
+Widget _carouselPage(List<Meal> listMeal) => CarouselSlider(
       options: CarouselOptions(
         height: 250,
         autoPlay: true,
         aspectRatio: 1,
       ),
-      items: LIST_MEAL4.map((item) {
+      items: listMeal.map((item) {
         return Builder(builder: (BuildContext context) {
           return Container(
             margin: EdgeInsets.all(10.0),
@@ -68,8 +95,8 @@ Widget _carouselPage() => CarouselSlider(
                     onTap: () {
                       Navigator.pushNamed(context, AppRoutes.detailMeal,
                           arguments: {
-                            'id': item.id,
-                            'listMeal': LIST_MEAL4,
+                            'id': item.mealID,
+                            'listMeal': listMeal,
                           });
                     },
                     child: Image.network(item.imageUrl,
@@ -90,7 +117,7 @@ Widget _carouselPage() => CarouselSlider(
                 ),
                 Flexible(
                   child: Text(
-                    item.description,
+                    '${item.cookingTime} phút - ${item.calories} cals',
                     style: TextStyle(
                       fontSize: 10.0,
                     ),
