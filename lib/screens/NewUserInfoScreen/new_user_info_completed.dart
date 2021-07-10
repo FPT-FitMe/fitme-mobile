@@ -15,7 +15,8 @@ class NewUserInfoCompletedScreen extends StatelessWidget {
           height: 55,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.mainScreen);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AppRoutes.mainScreen, (route) => false);
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(

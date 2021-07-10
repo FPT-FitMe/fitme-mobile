@@ -3,6 +3,7 @@ part 'auth_user.g.dart';
 
 @JsonSerializable()
 class AuthUser {
+  final int? id;
   final String email;
   final String firstName;
   final String lastName;
@@ -13,6 +14,7 @@ class AuthUser {
   final bool? premium;
 
   AuthUser({
+    this.id,
     required this.email,
     required this.firstName,
     required this.lastName,

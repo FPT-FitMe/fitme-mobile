@@ -27,4 +27,10 @@ class TraineeService implements TraineeRepository {
     });
     return response.statusCode == 200 ? true : false;
   }
+
+  @override
+  Future<bool> buySubscription() async {
+    final response = await dio.post("/trainee/buySubscription");
+    return response.statusCode == 200 ? true : false;
+  }
 }

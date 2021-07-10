@@ -9,4 +9,6 @@ abstract class TraineeRepository {
       int targetWeightInKg,
       int durationInDays,
       int exerciseFrequencyType);
+
+  Future<bool> buySubscription();
 }
