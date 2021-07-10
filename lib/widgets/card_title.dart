@@ -55,6 +55,7 @@ class CardTitle extends StatelessWidget {
     return InkWell(
       onTap: () => _selectArticle(context, id),
       child: ListTile(
+        // trailing: getTick(id),
         leading: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: Image.network(
@@ -90,10 +91,7 @@ class CardTitle extends StatelessWidget {
     );
   }
 
-  void _selectArticle(
-    BuildContext ctx,
-    int id,
-  ) {
+  void _selectArticle(BuildContext ctx, int? id) {
     isWorkout
         ? Navigator.push(
             ctx,

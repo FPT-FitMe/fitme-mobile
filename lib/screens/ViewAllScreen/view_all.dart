@@ -60,7 +60,6 @@ class ViewAllScreen extends StatelessWidget {
                               cal: double.parse(meal.cal.toString()),
                               id: meal.id,
                               isWorkout: false,
-                              tag: meal.tag,
                               listMeal: listMeal,
                             ))
                         .toList()

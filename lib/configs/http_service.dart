@@ -10,7 +10,7 @@ class HttpService {
   // if you run emulator
   final baseUrl = "http://10.0.2.2:8080";
   // if you run on real device, run ipconfig and paste your ip here
-  final baseUrlOnRealDevice = "http://192.168.0.11:8080";
+  final baseUrlOnRealDevice = "http://192.168.0.193:8080";
 
   HttpService() {
     _storage = new FlutterSecureStorage();
