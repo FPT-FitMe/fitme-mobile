@@ -1,23 +1,25 @@
-import 'package:fitme/models/exercise_old.dart';
-import 'package:fitme/models/meal_old.dart';
-import 'package:fitme/models/post.dart';
+import 'package:fitme/models/plan_meal.dart';
+import 'package:fitme/models/plan_workout.dart';
+import 'package:fitme/models/target.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'plan.g.dart';
 
+@JsonSerializable()
 class Plan {
-  final int id;
-  final List<Exercise> listExercise;
-  final List<Meal> listMeal;
-  final List<Exercise> listGoal; //cai nay de tam thoi
-  final List<Post> listPost;
-  final int totalOfCaloOut;
-  final int totalOfCaloIn;
+  final int planID;
+  final Target target;
+  final List<PlanMeal> planMeals;
+  final List<PlanWorkout> planWorkouts;
+  final DateTime date;
 
-  const Plan({
-    required this.id,
-    required this.listExercise,
-    required this.listMeal,
-    required this.listPost,
-    required this.totalOfCaloIn,
-    required this.totalOfCaloOut,
-    required this.listGoal,
+  Plan({
+    required this.planID,
+    required this.target,
+    required this.planMeals,
+    required this.planWorkouts,
+    required this.date,
   });
+
+  factory Plan.fromJson(Map<String, dynamic> json) => _$PlanFromJson(json);
+  Map<String, dynamic> toJson() => _$PlanToJson(this);
 }

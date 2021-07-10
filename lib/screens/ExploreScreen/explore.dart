@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:fitme/widgets/title_article.dart';
-import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/plan_old.dart';
 
 import 'package:fitme/fake_data.dart';
 
