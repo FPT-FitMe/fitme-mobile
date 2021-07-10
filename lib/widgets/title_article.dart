@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/plan_meal.dart';
@@ -193,6 +195,7 @@ class TitleArticle extends StatelessWidget {
     PlanMeal planMeal,
   ) {
     //checkfavorite
+    bool isSkipped = planMeal.status == "skipped";
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
@@ -200,123 +203,135 @@ class TitleArticle extends StatelessWidget {
         // 'listMeal': listMeal,
       }),
       child: SizedBox(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          elevation: 0,
-          margin: EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    child: Image.network(
-                      planMeal.meal.imageUrl,
-                      height: 100,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  //TODO: check favorite
-                  if (true)
-                    Positioned(
-                      bottom: 70,
-                      right: 10,
-                      child: Container(
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.white,
-                          size: 17,
-                        ),
+        child: Container(
+          foregroundDecoration: isSkipped
+              ? BoxDecoration(
+                  color: Colors.grey,
+                  backgroundBlendMode: BlendMode.saturation,
+                )
+              : BoxDecoration(),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            elevation: 0,
+            margin: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      child: Image.network(
+                        planMeal.meal.imageUrl,
+                        height: 100,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  if (planMeal.meal.isPremium)
-                    Positioned(
-                      bottom: 70,
-                      left: 10,
-                      child: Container(
-                        child: Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                          size: 17,
+                    //TODO: check favorite
+                    if (true)
+                      Positioned(
+                        bottom: 70,
+                        right: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 17,
+                          ),
                         ),
                       ),
-                    ),
-                  //neu la meal se co tag "sang/trua/toi"
-                  Positioned(
-                    top: 68,
-                    child: Container(
-                      width: 85,
-                      height: 30,
-                      child: planMeal.meal.tags.contains(
-                              Tag(id: 4, name: "Bữa sáng", type: "meal"))
-                          ? Card(
-                              color: Color(0xFFFFDC5D),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Text("Sáng"),
-                              ),
-                            )
-                          : planMeal.meal.tags.contains(
-                                  Tag(id: 5, name: "Bữa trưa", type: "meal"))
-                              ? Card(
-                                  color: Color(0xFFFFAC33),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text("Trưa"),
-                                  ),
-                                )
-                              : Card(
-                                  color: Color(0xFF0E4DA4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Tối",
-                                      style: TextStyle(color: Colors.white),
+                    if (planMeal.meal.isPremium)
+                      Positioned(
+                        bottom: 70,
+                        left: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ),
+                      ),
+                    //neu la meal se co tag "sang/trua/toi"
+                    Positioned(
+                      top: 68,
+                      child: Container(
+                        width: 85,
+                        height: 30,
+                        child: planMeal.meal.tags.contains(
+                                Tag(id: 4, name: "Bữa sáng", type: "meal"))
+                            ? Card(
+                                color: Color(0xFFFFDC5D),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Text("Sáng"),
+                                ),
+                              )
+                            : planMeal.meal.tags.contains(
+                                    Tag(id: 5, name: "Bữa trưa", type: "meal"))
+                                ? Card(
+                                    color: Color(0xFFFFAC33),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text("Trưa"),
+                                    ),
+                                  )
+                                : Card(
+                                    color: Color(0xFF0E4DA4),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Tối",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
-                                ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    planMeal.meal.name,
-                    style: TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
-                  Text(
-                    convertDurationAndCalories(
-                        planMeal.meal.calories, planMeal.meal.cookingTime),
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.black38,
-                    ),
-                  ),
-                ]),
-                planMeal.status == "done"
-                    ? Icon(
-                        Icons.check_circle,
-                        color: AppColors.green500,
-                        size: 17,
-                      )
-                    : Text(""),
-              ]),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              planMeal.meal.name,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              convertDurationAndCalories(planMeal.meal.calories,
+                                  planMeal.meal.cookingTime),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          ]),
+                      planMeal.status == "done"
+                          ? Icon(
+                              Icons.check_circle,
+                              color: AppColors.green500,
+                              size: 17,
+                            )
+                          : Text(""),
+                    ]),
+              ],
+            ),
           ),
         ),
       ),
@@ -336,84 +351,93 @@ class TitleArticle extends StatelessWidget {
     String? status,
   ) {
     bool isFavorite = false;
+    bool isSkipped = status == "skipped";
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, false, isPost),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 0,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  child: Image.network(
-                    imageUrl,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                if (isPremium)
-                  Positioned(
-                    bottom: 70,
-                    left: 10,
-                    child: Container(
-                      child: Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                        size: 17,
-                      ),
+      child: Container(
+        foregroundDecoration: isSkipped
+            ? BoxDecoration(
+                color: Colors.grey,
+                backgroundBlendMode: BlendMode.saturation,
+              )
+            : BoxDecoration(),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 0,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: Image.network(
+                      imageUrl,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                // if (isFavorite)
-                //   Positioned(
-                //     bottom: 70,
-                //     right: 10,
-                //     child: Container(
-                //       child: Icon(
-                //         Icons.favorite,
-                //         color: Colors.white,
-                //         size: 17,
-                //       ),
-                //     ),
-                //   ),
-                //neu la meal se co tag "sang/trua/toi"
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 13,
+                  if (isPremium)
+                    Positioned(
+                      bottom: 70,
+                      left: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  // if (isFavorite)
+                  //   Positioned(
+                  //     bottom: 70,
+                  //     right: 10,
+                  //     child: Container(
+                  //       child: Icon(
+                  //         Icons.favorite,
+                  //         color: Colors.white,
+                  //         size: 17,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //neu la meal se co tag "sang/trua/toi"
+                ],
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 13,
+                    ),
                   ),
-                ),
-                Text(
-                  cal != null
-                      ? convertDurationAndCalories(cal, duration)
-                      : convertDuration(duration),
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.black38,
+                  Text(
+                    cal != null
+                        ? convertDurationAndCalories(cal, duration)
+                        : convertDuration(duration),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.black38,
+                    ),
                   ),
-                ),
+                ]),
+                status == "done"
+                    ? Icon(
+                        Icons.check_circle,
+                        color: AppColors.green500,
+                        size: 17,
+                      )
+                    : Text("")
               ]),
-              status == "done"
-                  ? Icon(
-                      Icons.check_circle,
-                      color: AppColors.green500,
-                      size: 17,
-                    )
-                  : Text("")
-            ]),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -423,7 +447,7 @@ class TitleArticle extends StatelessWidget {
 String convertDurationAndCalories(dynamic cal, int duration) {
   var d = Duration(minutes: duration);
   List<String> parts = d.toString().split(':');
-  int calories = cal as int;
+  int calories = cal.toInt();
   return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
 }
 

@@ -11,7 +11,7 @@ class ExplorePresenter {
     _planRepository = new Injector().planRepository;
   }
 
-  void loadPlan(DateTime dateTime) async {
+  Future<void> loadPlan(DateTime dateTime) async {
     try {
       Plan plan = await _planRepository.getPlan(dateTime);
       print(plan);

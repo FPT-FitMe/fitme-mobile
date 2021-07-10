@@ -35,7 +35,14 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
-    _presenter.loadPlan(_selectedDay);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _presenter.loadPlan(_selectedDay).whenComplete(() {
+      setState(() {});
+    });
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
