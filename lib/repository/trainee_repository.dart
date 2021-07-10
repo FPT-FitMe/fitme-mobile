@@ -1,3 +1,6 @@
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/workout.dart';
+
 abstract class TraineeRepository {
   Future<bool> doSurvey(
       //success=true
@@ -11,4 +14,6 @@ abstract class TraineeRepository {
       int exerciseFrequencyType);
 
   Future<bool> buySubscription();
+  Future<List<Meal>> getFavouriteMeals();
+  Future<List<Workout>> getFavouriteWorkouts();
 }
