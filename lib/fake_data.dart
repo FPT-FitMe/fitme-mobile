@@ -1,7 +1,7 @@
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/models/achivement.dart';
-import 'package:fitme/models/exercise.dart';
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/personal_trainer.dart';

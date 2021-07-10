@@ -10,9 +10,9 @@ class CustomLineChart extends StatelessWidget {
     return LineChart(
       LineChartData(
         minX: 0,
-        maxX: 24,
-        minY: 0,
-        maxY: 60,
+        maxX: 7,
+        minY: 60,
+        maxY: 65,
         titlesData: _getTilesData(),
         gridData: _getGridData(),
         borderData: _getBorderData(),
@@ -25,16 +25,31 @@ class CustomLineChart extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: [
-              FlSpot(0, 0),
-              FlSpot(6, 24),
-              FlSpot(12, 40),
-              FlSpot(14.5, 60),
-              FlSpot(18, 24),
-              FlSpot(24, 24),
+              FlSpot(0, 65),
+              FlSpot(1, 65),
+              FlSpot(2, 65),
+              FlSpot(3, 65),
+              FlSpot(4, 65),
+              FlSpot(5, 65),
+              FlSpot(6, 65),
             ],
-            isCurved: true,
             colors: [AppColors.primary],
-            dotData: FlDotData(show: false),
+            dotData: FlDotData(
+              show: true,
+            ),
+          ),
+          LineChartBarData(
+            spots: [
+              FlSpot(0, 60),
+              FlSpot(1, 61),
+              FlSpot(2, 61.5),
+              FlSpot(3, 61),
+              FlSpot(4, 62),
+              FlSpot(5, 63),
+              FlSpot(6, 64.5),
+            ],
+            colors: [Colors.blue[700] as Color],
+            dotData: FlDotData(show: true),
           ),
         ],
       ),
@@ -45,41 +60,42 @@ class CustomLineChart extends StatelessWidget {
     return FlTitlesData(
       bottomTitles: SideTitles(
         showTitles: true,
-        interval: 6,
+        interval: 1,
         getTextStyles: (value) => TextStyle(
-            fontFamily: 'SF-Pro-Display',
-            color: AppColors.grayText,
-            fontSize: 10),
+          fontFamily: 'SF-Pro-Display',
+          color: AppColors.grayText,
+          fontSize: 10,
+        ),
         getTitles: (value) {
-          String hour = value.toInt().toString();
-          if (value == 0) {
-            return "";
-          } else if (value > 0 && value < 10) {
-            return "0$hour:00";
+          if (value > 0 && value < 7) {
+            var today = DateTime.now();
+            var date = today
+                .subtract(Duration(days: 49))
+                .add(Duration(days: (value * 7).toInt()));
+            return "${date.day}/${date.month}";
+          } else if (value == 7) {
+            return "Tuần";
           }
-          return "$hour:00";
+          return "";
         },
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        interval: 20,
+        interval: 1,
         getTextStyles: (value) => TextStyle(
             fontFamily: 'SF-Pro-Display',
             color: AppColors.grayText,
             fontSize: 10),
-        getTitles: (value) {
-          if (value == 0) {
-            return "";
-          }
-          return value.toInt().toString();
-        },
       ),
     );
   }
 
   _getGridData() {
     return FlGridData(
-      show: false,
+      drawHorizontalLine: true,
+      drawVerticalLine: true,
+      horizontalInterval: 1,
+      verticalInterval: 1,
     );
   }
 

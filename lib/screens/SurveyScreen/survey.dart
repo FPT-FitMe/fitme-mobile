@@ -2,11 +2,13 @@ import 'package:fitme/constants/routes.dart';
 import 'package:fitme/constants/values.dart';
 import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/survey.dart';
+import 'package:fitme/screens/SurveyScreen/survey_presenter.dart';
+import 'package:fitme/screens/SurveyScreen/survey_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class SurveyScreen extends StatefulWidget {
@@ -14,8 +16,9 @@ class SurveyScreen extends StatefulWidget {
   _SurveyScreenState createState() => _SurveyScreenState();
 }
 
-class _SurveyScreenState extends State<SurveyScreen> {
+class _SurveyScreenState extends State<SurveyScreen> implements SurveyView {
   final _formKey = GlobalKey<FormState>();
+  late SurveyPresenter _presenter;
   TextEditingController _ageController = TextEditingController();
   TextEditingController _heightController = TextEditingController();
   TextEditingController _weightController = TextEditingController();
@@ -26,7 +29,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
   int numberOfQuestions = 2 + listSurveys.length;
   bool userHasAnsweredCurrentQuestion = true;
 
-  int selectedGender = 0;
+  int selectedGender = 2;
   int selectedExerciseFrequency = 0; // 0. null 1.A 2.B 3.C 4.D
   int selectedBodyType = 0; // 0 1 2 3
   int selectedTargetBodyType = 0;
@@ -48,6 +51,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
   late double maxOverweightWeight;
   late RichText advice;
   late Color currentBMIColor;
+
+  _SurveyScreenState() {
+    _presenter = new SurveyPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,20 +81,24 @@ class _SurveyScreenState extends State<SurveyScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: questionIndex == 3 ? Padding(
-        padding: const EdgeInsets.only(bottom: 25, right: 5, left: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "* FitMe áp dụng BMI của IDI & WPRO với mức cân đối là 18.5 - 22.9",
-              style: TextStyle(
-                fontSize: 13,
+      bottomNavigationBar: questionIndex == 3
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 25, right: 5, left: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "* FitMe áp dụng BMI của IDI & WPRO với mức cân đối là 18.5 - 22.9",
+                    style: TextStyle(
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
               ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(20),
             ),
-          ],
-        ),
-      ) : Padding(padding: const EdgeInsets.all(20),),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -98,8 +109,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.chevron_right),
-            onPressed:
-                userHasAnsweredCurrentQuestion ? ((questionIndex == 1) ? submitForm : onNextButtonPressed) : null,
+            onPressed: userHasAnsweredCurrentQuestion
+                ? ((questionIndex == 1) ? submitForm : onNextButtonPressed)
+                : null,
           ),
         ],
       ),
@@ -122,9 +134,29 @@ class _SurveyScreenState extends State<SurveyScreen> {
         questionIndex++;
       });
     } else {
-      //TODO: handle complete survey
-      Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.newUserInfoCompleted, (route) => false);
+      int gender = selectedGender;
+      int age = int.parse(_ageController.text);
+      double heightInCm = double.parse(_heightController.text);
+      double weightInKg = double.parse(_weightController.text);
+      int dietPreferenceType = surveys[0].selectedIndex;
+      int targetWeightInKg = inputTargetWeight;
+      int durationInDays = surveys[3].selectedIndex == 0
+          ? 30
+          : surveys[3].selectedIndex == 1
+              ? (30 * 3)
+              : surveys[3].selectedIndex == 2
+                  ? 30 * 6
+                  : 365;
+      int exerciseFrequencyType = surveys[4].selectedIndex;
+      _presenter.doSurvey(
+          gender,
+          age,
+          heightInCm,
+          weightInKg,
+          dietPreferenceType,
+          targetWeightInKg,
+          durationInDays,
+          exerciseFrequencyType);
     }
   }
 
@@ -151,7 +183,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
     Widget selectedPage;
     switch (questionIndex) {
       case 0:
-        if (selectedGender == 0) {
+        if (selectedGender == 2) {
           userHasAnsweredCurrentQuestion = false;
         }
         selectedPage = getSelectGenderPage();
@@ -214,10 +246,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
               height: 140,
               child: ElevatedButton(
                   onPressed: () {
-                    selectedGender = 1;
+                    selectedGender = 0;
                     unlockNextButton();
                   },
-                  style: selectedGender == 1
+                  style: selectedGender == 0
                       ? ElevatedButton.styleFrom(
                           primary: AppColors.primary,
                         )
@@ -229,11 +261,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
                       Icon(
                         Icons.male,
                         color:
-                            selectedGender == 1 ? Colors.white : Colors.black,
+                            selectedGender == 0 ? Colors.white : Colors.black,
                         size: 50,
                       ),
                       Text("Nam",
-                          style: selectedGender == 1
+                          style: selectedGender == 0
                               ? TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.normal,
@@ -251,10 +283,10 @@ class _SurveyScreenState extends State<SurveyScreen> {
               height: 140,
               child: ElevatedButton(
                 onPressed: () {
-                  selectedGender = 2;
+                  selectedGender = 1;
                   onNextButtonPressed();
                 },
-                style: selectedGender == 2
+                style: selectedGender == 1
                     ? ElevatedButton.styleFrom(primary: AppColors.primary)
                     : ElevatedButton.styleFrom(primary: Colors.white),
                 child: Column(
@@ -263,11 +295,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   children: [
                     Icon(
                       Icons.female,
-                      color: selectedGender == 2 ? Colors.white : Colors.black,
+                      color: selectedGender == 1 ? Colors.white : Colors.black,
                       size: 50,
                     ),
                     Text("Nữ",
-                        style: selectedGender == 2
+                        style: selectedGender == 1
                             ? TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.normal,
@@ -398,17 +430,26 @@ class _SurveyScreenState extends State<SurveyScreen> {
           child: Text("Thể chất hiện tại của bạn",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
         ),
-        SizedBox(height: 80,),
+        SizedBox(
+          height: 80,
+        ),
         Center(
           child: Text("BMI",
               style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold)),
         ),
-        SizedBox(height: 30,),
+        SizedBox(
+          height: 30,
+        ),
         Center(
           child: Text(currentBMI.toStringAsFixed(1),
-              style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: currentBMIColor)),
+              style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor)),
         ),
-        SizedBox(height: 80,),
+        SizedBox(
+          height: 80,
+        ),
         advice,
         SizedBox(
           height: 200,
@@ -443,7 +484,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
             minimum: minDefaultTargetWeight.roundToDouble(),
             maximum: maxDefaultTargetWeight.roundToDouble(),
             animateAxis: true,
-
             ranges: <LinearGaugeRange>[
               LinearGaugeRange(
                 startValue: minDefaultTargetWeight.roundToDouble(),
@@ -478,15 +518,15 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 child: RotatedBox(
                     quarterTurns: true ? 0 : 3,
                     child: Container(
-                      height: 20,
+                        height: 20,
                         child: const Center(
                             child: Text(
-                      'Thiếu cân',
-                      style: TextStyle(
-                          fontFamily: 'Roboto-Medium',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff191A1B)),
-                    )))),
+                          'Thiếu cân',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Medium',
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff191A1B)),
+                        )))),
               ),
               LinearGaugeRange(
                 startValue: minHealthyWeight.roundToDouble(),
@@ -527,7 +567,6 @@ class _SurveyScreenState extends State<SurveyScreen> {
                         )))),
               ),
             ],
-
             markerPointers: <LinearMarkerPointer>[
               LinearWidgetPointer(
                 value: inputWeight!,
@@ -538,8 +577,9 @@ class _SurveyScreenState extends State<SurveyScreen> {
                     height: 45,
                     child: Center(
                         child: Text(
-                          "Hiện tại", style: TextStyle(color: currentBMIColor, fontSize: 14),
-                        ))),
+                      "Hiện tại",
+                      style: TextStyle(color: currentBMIColor, fontSize: 14),
+                    ))),
               ),
               LinearShapePointer(
                 offset: 40,
@@ -668,42 +708,73 @@ class _SurveyScreenState extends State<SurveyScreen> {
   }
 
   void updateInfo() {
-    minHealthyWeight =
-    (Values.minNormalBMI * inputHeight! * inputHeight!);
-    maxHealthyWeight =
-    (Values.maxNormalBMI * inputHeight! * inputHeight!);
+    minHealthyWeight = (Values.minNormalBMI * inputHeight! * inputHeight!);
+    maxHealthyWeight = (Values.maxNormalBMI * inputHeight! * inputHeight!);
     maxOverweightWeight =
-    (Values.maxOverweightBMI * inputHeight! * inputHeight!);
+        (Values.maxOverweightBMI * inputHeight! * inputHeight!);
     if (currentBMI - Values.maxNormalBMI > 0) {
       recommendedTargetWeight = maxHealthyWeight;
       minDefaultTargetWeight = minHealthyWeight;
       maxDefaultTargetWeight = inputWeight! * 1.05;
       currentBMIColor = AppColors.red400;
       advice = RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "thừa cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "giảm cân ít nhất là " + (inputWeight! - recommendedTargetWeight).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
-            ]
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Thể chất của bạn đang ở mức ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "thừa cân",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor,
+                  fontSize: 16)),
+          TextSpan(
+              text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "giảm cân ít nhất là " +
+                  (inputWeight! - recommendedTargetWeight)
+                      .roundToDouble()
+                      .toString() +
+                  "kg",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green500,
+                  fontSize: 16)),
+        ]),
       );
-    } else if ((currentBMI - Values.maxNormalBMI).floor() == 0 && currentBMI > Values.maxNormalBMI) {
+    } else if ((currentBMI - Values.maxNormalBMI).floor() == 0 &&
+        currentBMI > Values.maxNormalBMI) {
       recommendedTargetWeight =
           minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
       minDefaultTargetWeight = minHealthyWeight;
       maxDefaultTargetWeight = inputWeight! * 1.05;
       currentBMIColor = AppColors.red400;
       advice = RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "thừa cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "giảm " + (inputWeight! - recommendedTargetWeight).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
-            ]
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Thể chất của bạn đang ở mức ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "thừa cân",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor,
+                  fontSize: 16)),
+          TextSpan(
+              text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "giảm " +
+                  (inputWeight! - recommendedTargetWeight)
+                      .roundToDouble()
+                      .toString() +
+                  "kg",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green500,
+                  fontSize: 16)),
+        ]),
       );
     } else if (currentBMI >= Values.minNormalBMI &&
         currentBMI <= Values.maxNormalBMI) {
@@ -713,16 +784,29 @@ class _SurveyScreenState extends State<SurveyScreen> {
       maxDefaultTargetWeight = maxHealthyWeight * 1.12;
       currentBMIColor = AppColors.green500;
       advice = RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(text: "Chúc mừng bạn đã có thân hình ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "cân đối", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "duy trì thể chất.", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
-            ]
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Chúc mừng bạn đã có thân hình ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "cân đối",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor,
+                  fontSize: 16)),
+          TextSpan(
+              text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "duy trì thể chất.",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green500,
+                  fontSize: 16)),
+        ]),
       );
-    } else if ((currentBMI - Values.minNormalBMI).ceil() == 0 && currentBMI < Values.minNormalBMI) {
+    } else if ((currentBMI - Values.minNormalBMI).ceil() == 0 &&
+        currentBMI < Values.minNormalBMI) {
       recommendedTargetWeight =
           minHealthyWeight + (maxHealthyWeight - minHealthyWeight) / 2;
       minDefaultTargetWeight = inputWeight! * 0.86;
@@ -730,14 +814,30 @@ class _SurveyScreenState extends State<SurveyScreen> {
       maxDefaultTargetWeight = maxHealthyWeight;
       currentBMIColor = AppColors.primary;
       advice = RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "thiếu cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "tăng " + (recommendedTargetWeight - inputWeight!).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
-            ]
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Thể chất của bạn đang ở mức ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "thiếu cân",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor,
+                  fontSize: 16)),
+          TextSpan(
+              text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "tăng " +
+                  (recommendedTargetWeight - inputWeight!)
+                      .roundToDouble()
+                      .toString() +
+                  "kg",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green500,
+                  fontSize: 16)),
+        ]),
       );
     } else {
       minDefaultTargetWeight = inputWeight! * 0.9;
@@ -746,19 +846,46 @@ class _SurveyScreenState extends State<SurveyScreen> {
       maxDefaultTargetWeight = maxHealthyWeight;
       currentBMIColor = AppColors.primary;
       advice = RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(text: "Thể chất của bạn đang ở mức ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "thiếu cân", style: TextStyle(fontWeight: FontWeight.bold, color: currentBMIColor, fontSize: 16)),
-              TextSpan(text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ", style: TextStyle(color: Colors.black, fontSize: 16)),
-              TextSpan(text: "tăng ít nhất là " + (recommendedTargetWeight - inputWeight!).roundToDouble().toString() + "kg", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.green500, fontSize: 16)),
-            ]
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Thể chất của bạn đang ở mức ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "thiếu cân",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: currentBMIColor,
+                  fontSize: 16)),
+          TextSpan(
+              text: " so với chỉ số BMI khuyến nghị. FitMe đề xuất bạn hãy ",
+              style: TextStyle(color: Colors.black, fontSize: 16)),
+          TextSpan(
+              text: "tăng ít nhất là " +
+                  (recommendedTargetWeight - inputWeight!)
+                      .roundToDouble()
+                      .toString() +
+                  "kg",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green500,
+                  fontSize: 16)),
+        ]),
       );
     }
     if (gaugeInput == null) {
       gaugeInput = recommendedTargetWeight;
       inputTargetWeight = recommendedTargetWeight.round();
     }
+  }
+
+  @override
+  void doSurveyFail(String errorMessage) {
+    Fluttertoast.showToast(msg: errorMessage);
+  }
+
+  @override
+  void doSurveySuccess() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.newUserInfoCompleted, (route) => false);
   }
 }

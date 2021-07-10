@@ -35,7 +35,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'title': 'Tập luyện',
     },
     {
-      'screen': BottomDrawer(isToday: false,),
+      'screen': BottomDrawer(
+        isToday: false,
+      ),
       'name': 'log',
       'title': 'Log',
     },
@@ -71,14 +73,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: Text(
-        "Lalisa Manoban",
-        style: TextStyle(fontSize: 16),
-      ),
-      leading: Row(
-        children: [
-          SizedBox(width: 15),
-          Icon(CommunityMaterialIcons.professional_hexagon),
-        ],
+        "Người dùng",
       ),
       actions: [
         GestureDetector(

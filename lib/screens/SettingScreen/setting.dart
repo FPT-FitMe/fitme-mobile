@@ -2,6 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -28,8 +29,9 @@ class SettingScreen extends StatelessWidget {
         ),
       ),
       bottomSheet: GestureDetector(
-        onTap: () {
-          // TODO: handle logout here
+        onTap: () async {
+          FlutterSecureStorage _storage = new FlutterSecureStorage();
+          await _storage.deleteAll();
           Navigator.pushNamedAndRemoveUntil(
               context, AppRoutes.login, (route) => false);
         },

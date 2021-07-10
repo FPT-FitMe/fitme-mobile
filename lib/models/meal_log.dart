@@ -1,4 +1,4 @@
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_old.dart';
 
 class MealLog {
   int traineeId;

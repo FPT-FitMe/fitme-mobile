@@ -1,5 +1,6 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/auth_user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class NewUserInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final map =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final AuthUser user = map["user"];
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(25.0),
@@ -40,7 +44,7 @@ class NewUserInfoScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 50),
                 Text(
-                  "Xin chào Tùng,",
+                  "Xin chào " + user.lastName + ",",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),

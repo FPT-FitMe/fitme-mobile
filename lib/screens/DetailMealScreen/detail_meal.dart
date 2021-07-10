@@ -2,7 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_old.dart';
 import 'package:flutter/material.dart';
 
 class DetailMealScreen extends StatefulWidget {

@@ -18,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   final _formKey = GlobalKey<FormState>();
   late RegisterPresenter _presenter;
   bool _isLoading = false;
+  String _errorMessage = "";
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -126,7 +127,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                       decoration: InputDecoration(
                         labelText: "Xác nhận mật khẩu",
                       ),
-                      validator: RequiredValidator(errorText: "* Bắt buộc"),
+                      validator: (val) =>
+                          MatchValidator(errorText: "Mật khẩu không trùng khớp")
+                              .validateMatch(
+                                  val.toString(), _passwordController.text),
                     ),
                     SizedBox(
                       height: 30,
@@ -159,6 +163,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     fontSize: 20),
                               ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      _errorMessage,
+                      style: TextStyle(color: Colors.red),
                     ),
                     SizedBox(
                       height: 50,
@@ -200,30 +211,36 @@ class _RegisterScreenState extends State<RegisterScreen>
   }
 
   @override
-  void registerFail() {
+  void registerFail(errorMessage) {
     setState(() {
       _isLoading = false;
+      _errorMessage = errorMessage;
     });
   }
 
   @override
-  void registerSuccess() {
+  void registerSuccess(user) {
     Fluttertoast.showToast(msg: "Thành công");
     setState(() {
       _isLoading = false;
     });
     Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.newUserInfo, (routes) => false);
+        context, AppRoutes.newUserInfo, (routes) => false,
+        arguments: {
+          'user': user,
+        });
   }
 
   void submitForm() {
     String email = _emailController.text;
     String password = _passwordController.text;
+    String firstName = _firstNameController.text;
+    String lastName = _lastNameController.text;
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      _presenter.register(new User());
+      _presenter.register(email, password, firstName, lastName);
     }
   }
 }

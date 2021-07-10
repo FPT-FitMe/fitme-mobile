@@ -1,12 +1,10 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fitme/models/exercise.dart';
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/meal_old.dart';
 
 import 'package:fitme/constants/colors.dart';
 
