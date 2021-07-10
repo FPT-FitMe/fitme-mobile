@@ -1,8 +1,8 @@
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/post.dart';
 import 'package:fitme/models/workout.dart';
+import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/widgets/card_title.dart';
-import 'package:fitme/models/post_old.dart';
 
 import 'package:flutter/material.dart';
 
@@ -56,9 +56,9 @@ class ViewAllScreen extends StatelessWidget {
                         .map((meal) => CardTitle(
                               title: meal.name,
                               imageUrl: meal.imageUrl,
-                              duration: meal.duration,
-                              cal: double.parse(meal.cal.toString()),
-                              id: meal.id,
+                              duration: meal.cookingTime,
+                              calories: meal.calories,
+                              id: meal.mealID,
                               isWorkout: false,
                               listMeal: listMeal,
                             ))
@@ -70,7 +70,7 @@ class ViewAllScreen extends StatelessWidget {
                                   imageUrl: workout.imageUrl,
                                   duration: int.parse(
                                       workout.estimatedDuration.toString()),
-                                  cal: double.parse(
+                                  calories: double.parse(
                                       workout.estimatedCalories.toString()),
                                   id: int.parse(workout.workoutID.toString()),
                                   isWorkout: true,
@@ -80,8 +80,8 @@ class ViewAllScreen extends StatelessWidget {
                             .map((post) => CardTitle(
                                   title: post.name,
                                   imageUrl: post.imageUrl,
-                                  duration: post.duration,
-                                  id: post.id,
+                                  duration: post.readingTime,
+                                  id: int.parse(post.postID.toString()),
                                   isWorkout: false,
                                 ))
                             .toList(),

@@ -2,10 +2,10 @@ import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/models/achivement.dart';
 import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
-import 'package:fitme/models/post.dart';
 import 'package:fitme/models/meal_log_old.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan_old.dart';
+import 'package:fitme/models/post_old.dart';
 import 'package:fitme/models/survey.dart';
 import 'package:fitme/models/workout_log_old.dart';
 
@@ -15,7 +15,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE, //now
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
@@ -23,7 +23,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE2, //old
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
   Plan(
@@ -31,7 +31,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE3, //new
       listMeal: LIST_MEAL3,
       listGoal: LIST_GOAL3,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
 ];
