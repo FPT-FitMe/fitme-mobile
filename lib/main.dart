@@ -1,5 +1,8 @@
+import 'package:fitme/screens/BottomBarScreen/bottom_bar.dart';
+import 'package:fitme/screens/GettingStartedScreen/getting_started.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'configs/themes.dart';
-import 'constants/routes.dart';
 import 'routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,11 +27,26 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         const Locale('vi', ''), // Vietnam, no country code
       ],
-      initialRoute: AppRoutes.gettingStarted,
+      home: FutureBuilder(
+        future: _checkUserLogin(),
+        builder: (context, snapshot) {
+          if (snapshot.data != null) {
+            return BottomBarScreen();
+          } else {
+            return GettingStartedScreen();
+          }
+        },
+      ),
       routes: getRoutes(),
       onGenerateRoute: (settings) {
         generateRoutes(settings);
       },
     );
+  }
+
+  Future<String?> _checkUserLogin() async {
+    FlutterSecureStorage _storage = new FlutterSecureStorage();
+    var userToken = await _storage.read(key: "userToken");
+    return userToken;
   }
 }
