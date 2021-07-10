@@ -10,7 +10,7 @@ class CaloriesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310,
+      height: 350,
       padding: EdgeInsets.fromLTRB(16, 16, 32, 16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -40,25 +40,6 @@ class CaloriesCard extends StatelessWidget {
                   color: AppColors.primary,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.log);
-                    },
-                    child: Text(
-                      "Chi tiết",
-                      style: TextStyle(color: AppColors.primary, fontSize: 12),
-                    ),
-                  ),
-                  Icon(
-                    CommunityMaterialIcons.chevron_right,
-                    size: 14,
-                    color: AppColors.primary,
-                  ),
-                ],
-              ),
             ],
           ),
           SizedBox(
@@ -84,7 +65,10 @@ class CaloriesCard extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              Text("Mục tiêu"),
+              Text(
+                "Mục tiêu",
+                style: TextStyle(fontSize: 12),
+              ),
               SizedBox(
                 width: 15,
               ),
@@ -99,7 +83,10 @@ class CaloriesCard extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              Text("Cân nặng"),
+              Text(
+                "Cân nặng đã giảm",
+                style: TextStyle(fontSize: 12),
+              ),
             ],
           )
         ],
