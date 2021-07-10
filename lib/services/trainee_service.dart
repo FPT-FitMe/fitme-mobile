@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/workout.dart';
+import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/repository/trainee_repository.dart';
 
 class TraineeService implements TraineeRepository {
@@ -47,6 +49,24 @@ class TraineeService implements TraineeRepository {
     final response = await dio.get("/trainee/favorite/workout");
     return (response.data as List)
         .map((workout) => Workout.fromJson(workout))
+        .toList();
+  }
+
+  @override
+  Future<List<MealLog>> getMealLogs(DateTime date) async {
+    final response = await dio
+        .get("/trainee/log/meal/${date.day}-${date.month}-${date.year}");
+    return (response.data as List)
+        .map((workoutLog) => MealLog.fromJson(workoutLog))
+        .toList();
+  }
+
+  @override
+  Future<List<WorkoutLog>> getWorkoutLogs(DateTime date) async {
+    final response = await dio
+        .get("/trainee/log/workout/${date.day}-${date.month}-${date.year}");
+    return (response.data as List)
+        .map((workoutLog) => WorkoutLog.fromJson(workoutLog))
         .toList();
   }
 }

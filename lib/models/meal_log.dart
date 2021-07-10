@@ -1,15 +1,20 @@
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'meal_log.g.dart';
 
+@JsonSerializable()
 class MealLog {
-  int traineeId;
-  Meal meal;
-  DateTime date;
-  String content;
+  final int mealLogID;
+  final Meal meal;
+  final DateTime createdAt;
 
   MealLog({
-    required this.traineeId,
+    required this.mealLogID,
     required this.meal,
-    required this.date,
-    required this.content,
+    required this.createdAt,
   });
+
+  factory MealLog.fromJson(Map<String, dynamic> json) =>
+      _$MealLogFromJson(json);
+  Map<String, dynamic> toJson() => _$MealLogToJson(this);
 }

@@ -7,6 +7,7 @@ import 'package:fitme/screens/UserProfileScreen/user_profile_presenter.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile_view.dart';
 import 'package:fitme/widgets/calories_card.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -18,6 +19,8 @@ class _UserProfileScreenState extends State<UserProfileScreen>
     implements UserProfileView {
   User? user;
   late UserProfilePresenter _presenter;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   _UserProfileScreenState() {
     _presenter = new UserProfilePresenter(this);
@@ -29,127 +32,132 @@ class _UserProfileScreenState extends State<UserProfileScreen>
     if (user == null) {
       return LoadingScreen();
     } else {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-        child: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildUserStats(user!),
-            SizedBox(
-              height: 20,
-            ),
-            if (user!.isPremium == false)
-              Center(
-                child: SizedBox(
-                  width: 250,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.payment);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+      return SmartRefresher(
+        controller: _refreshController,
+        onRefresh: refresh,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+          child: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              _buildUserStats(user!),
+              SizedBox(
+                height: 20,
+              ),
+              if (user!.isPremium == false)
+                Center(
+                  child: SizedBox(
+                    width: 250,
+                    height: 45,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.payment);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      child: Text(
+                        "Mua gói FitMe PRO",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
                       ),
                     ),
-                    child: Text(
-                      "Mua gói FitMe PRO",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16),
+                  ),
+                ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Hoạt động của bạn",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CaloriesCard(),
+              SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.achievement);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Thành tựu của bạn",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "Hiện tất cả",
+                      style: TextStyle(fontSize: 10, color: AppColors.grayText),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
+                      width: 45,
+                      height: 45,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-              ),
-            SizedBox(
-              height: 30,
-            ),
-            Text(
-              "Hoạt động của bạn",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            CaloriesCard(),
-            SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.achievement);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Thành tựu của bạn",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  SizedBox(
+                    width: 10,
                   ),
-                  Text(
-                    "Hiện tất cả",
-                    style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                  )
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
+                      width: 45,
+                      height: 45,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
+                      width: 45,
+                      height: 45,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
+                      width: 45,
+                      height: 45,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
-                    width: 45,
-                    height: 45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
-                    width: 45,
-                    height: 45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
-                    width: 45,
-                    height: 45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
-                    width: 45,
-                    height: 45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ]),
+              SizedBox(
+                height: 20,
+              ),
+            ]),
+          ),
         ),
       );
     }
@@ -186,6 +194,12 @@ class _UserProfileScreenState extends State<UserProfileScreen>
         ],
       ),
     );
+  }
+
+  void refresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _presenter.loadUserProfile();
+    _refreshController.refreshCompleted();
   }
 
   _showSuccessModal(BuildContext context) {

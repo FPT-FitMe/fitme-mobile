@@ -66,6 +66,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   cal: double.parse("${meal.calories}"),
                   id: int.parse(meal.mealID.toString()),
                   isExercise: false,
+                  isShowStatus: false,
                 ),
               )
               .toList()
@@ -81,6 +82,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   cal: double.parse("${workout.estimatedCalories}"),
                   id: int.parse(workout.workoutID.toString()),
                   isExercise: true,
+                  isShowStatus: false,
                 ),
               )
               .toList()
