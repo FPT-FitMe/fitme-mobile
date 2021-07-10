@@ -10,7 +10,7 @@ PlanWorkout _$PlanWorkoutFromJson(Map<String, dynamic> json) {
   return PlanWorkout(
     id: json['id'] as int,
     workout: Workout.fromJson(json['workout'] as Map<String, dynamic>),
-    status: json['status'] as String,
+    status: json['status'] as String?,
   );
 }
 

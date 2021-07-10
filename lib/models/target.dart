@@ -1,4 +1,4 @@
-import 'package:fitme/models/user.dart';
+import 'package:fitme/models/user_lazy.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'target.g.dart';
 

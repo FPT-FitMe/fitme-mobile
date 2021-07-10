@@ -1,6 +1,8 @@
 import 'package:fitme/repository/auth_repository.dart';
+import 'package:fitme/repository/plan_repository.dart';
 import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/services/auth_service.dart';
+import 'package:fitme/services/plan_service.dart';
 import 'package:fitme/services/trainee_service.dart';
 
 class Injector {
@@ -17,4 +19,6 @@ class Injector {
   }
 
   TraineeRepository get traineeRepository => new TraineeService();
+
+  PlanRepository get planRepository => new PlanService();
 }

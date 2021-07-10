@@ -6,12 +6,12 @@ part 'plan_meal.g.dart';
 class PlanMeal {
   final int id;
   final Meal meal;
-  final String status;
+  final String? status;
 
   PlanMeal({
     required this.id,
     required this.meal,
-    required this.status,
+    this.status,
   });
 
   factory PlanMeal.fromJson(Map<String, dynamic> json) =>

@@ -5,12 +5,12 @@ part 'meal.g.dart';
 
 @JsonSerializable()
 class Meal {
-  int? mealID;
+  int mealID;
   Coach? coachProfile;
   double calories;
   double carbAmount;
   int cookingTime;
-  String description;
+  String? description;
   double fatAmount;
   String imageUrl;
   bool isPremium;
@@ -18,12 +18,12 @@ class Meal {
   List<Tag> tags;
 
   Meal({
-    this.mealID,
+    required this.mealID,
     this.coachProfile,
     required this.calories,
     required this.carbAmount,
     required this.cookingTime,
-    required this.description,
+    this.description,
     required this.fatAmount,
     required this.isPremium,
     required this.imageUrl,

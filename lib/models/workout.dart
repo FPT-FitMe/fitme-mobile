@@ -1,5 +1,6 @@
 import 'package:fitme/models/coach.dart';
-import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/tag.dart';
+import 'package:fitme/models/workout_exercise.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'workout.g.dart';
 
@@ -7,27 +8,32 @@ part 'workout.g.dart';
 class Workout {
   int workoutID;
   String description;
-  double estimatedCalories;
+  int estimatedCalories;
   int estimatedDuration;
   String imageUrl;
   bool isPremium;
   int level;
   String name;
-  Coach coach;
-  List<Exercise> exercises;
+  Coach? coachProfile;
+  List<Tag> tags;
+  List<WorkoutExercise> workoutExercises;
+  DateTime? createdDate;
+  DateTime? lastModifiedDate;
 
   Workout({
     required this.workoutID,
     required this.description,
     required this.estimatedCalories,
     required this.estimatedDuration,
-    this.imageUrl =
-        'https://images.unsplash.com/photo-1569913486515-b74bf7751574?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=635&q=80',
+    required this.imageUrl,
     required this.isPremium,
     required this.level,
     required this.name,
-    required this.coach,
-    required this.exercises,
+    this.coachProfile,
+    required this.tags,
+    required this.workoutExercises,
+    this.createdDate,
+    this.lastModifiedDate,
   });
 
   factory Workout.fromJson(Map<String, dynamic> json) =>
