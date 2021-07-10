@@ -419,119 +419,131 @@ class _ExploreScreenState extends State<ExploreScreen> {
         'listMeal': listMeal,
       }),
       child: SizedBox(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          elevation: 0,
-          margin: EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    child: Image.network(
-                      listMeal[id].imageUrl,
-                      height: 100,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  if (listMeal[id].isFavorite)
-                    Positioned(
-                      bottom: 70,
-                      right: 10,
-                      child: Container(
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.white,
-                          size: 17,
-                        ),
+        child: Container(
+          foregroundDecoration: listMeal[id].status == MealStatus.skip
+              ? BoxDecoration(
+                  color: Colors.grey,
+                  backgroundBlendMode: BlendMode.saturation,
+                )
+              : BoxDecoration(),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            elevation: 0,
+            margin: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      child: Image.network(
+                        listMeal[id].imageUrl,
+                        height: 100,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  if (listMeal[id].isPremium)
-                    Positioned(
-                      bottom: 70,
-                      left: 10,
-                      child: Container(
-                        child: Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                          size: 17,
+                    if (listMeal[id].isFavorite)
+                      Positioned(
+                        bottom: 70,
+                        right: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 17,
+                          ),
                         ),
                       ),
-                    ),
-                  //neu la meal se co tag "sang/trua/toi"
-                  Positioned(
-                    top: 68,
-                    child: Container(
-                      width: 85,
-                      height: 30,
-                      child: listMeal[id].tag.contains("Sáng")
-                          ? Card(
-                              color: Color(0xFFFFDC5D),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              child: Center(
-                                child: Text("Sáng"),
-                              ),
-                            )
-                          : listMeal[id].tag.contains("Trưa")
-                              ? Card(
-                                  color: Color(0xFFFFAC33),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  child: Center(
-                                    child: Text("Trưa"),
-                                  ),
-                                )
-                              : Card(
-                                  color: Color(0xFF0E4DA4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Tối",
-                                      style: TextStyle(color: Colors.white),
+                    if (listMeal[id].isPremium)
+                      Positioned(
+                        bottom: 70,
+                        left: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ),
+                      ),
+                    //neu la meal se co tag "sang/trua/toi"
+                    Positioned(
+                      top: 68,
+                      child: Container(
+                        width: 85,
+                        height: 30,
+                        child: listMeal[id].tag.contains("Sáng")
+                            ? Card(
+                                color: Color(0xFFFFDC5D),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                                child: Center(
+                                  child: Text("Sáng"),
+                                ),
+                              )
+                            : listMeal[id].tag.contains("Trưa")
+                                ? Card(
+                                    color: Color(0xFFFFAC33),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    child: Center(
+                                      child: Text("Trưa"),
+                                    ),
+                                  )
+                                : Card(
+                                    color: Color(0xFF0E4DA4),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Tối",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
-                                ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    listMeal[id].name,
-                    style: TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
-                  Text(
-                    // ignore: unnecessary_null_comparison
-                    listMeal[id].cal != null
-                        ? listMeal[id].duration.toString() +
-                            ' phút - ' +
-                            listMeal[id].cal.toString() +
-                            ' cal'
-                        : listMeal[id].duration.toString() + ' phút',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.black38,
-                    ),
-                  ),
-                ]),
-                getTick(listMeal, id),
-              ]),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              listMeal[id].name,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              // ignore: unnecessary_null_comparison
+                              listMeal[id].cal != null
+                                  ? listMeal[id].duration.toString() +
+                                      ' phút - ' +
+                                      listMeal[id].cal.toString() +
+                                      ' cal'
+                                  : listMeal[id].duration.toString() + ' phút',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          ]),
+                      getTick(listMeal, id),
+                    ]),
+              ],
+            ),
           ),
         ),
       ),
@@ -544,12 +556,6 @@ Widget getTick(List<Meal> list, id) {
     return Icon(
       Icons.check_circle,
       color: AppColors.green500,
-      size: 17,
-    );
-  } else if (list.elementAt(id).status == MealStatus.skip) {
-    return Icon(
-      CommunityMaterialIcons.minus_circle_outline,
-      color: AppColors.grayText,
       size: 17,
     );
   }

@@ -187,128 +187,130 @@ class TitleArticle extends StatelessWidget {
       List<String>? tag) {
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 0,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  child: Image.network(
-                    imageUrl,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                if (isFavorite)
-                  Positioned(
-                    bottom: 70,
-                    right: 10,
-                    child: Container(
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 17,
-                      ),
+      child: Container(
+        foregroundDecoration: isSkip
+            ? BoxDecoration(
+                color: Colors.grey,
+                backgroundBlendMode: BlendMode.saturation,
+              )
+            : BoxDecoration(),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 0,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: Image.network(
+                      imageUrl,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                if (isPremium)
-                  Positioned(
-                    bottom: 70,
-                    left: 10,
-                    child: Container(
-                      child: Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                        size: 17,
+                  if (isFavorite)
+                    Positioned(
+                      bottom: 70,
+                      right: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                          size: 17,
+                        ),
                       ),
                     ),
-                  ),
-                //neu la meal se co tag "sang/trua/toi"
-                if (isMeal)
-                  Positioned(
-                    top: 68,
-                    child: Container(
-                      width: 85,
-                      height: 30,
-                      child: tag!.contains("Sáng")
-                          ? Card(
-                              color: Color(0xFFFFDC5D),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Text("Sáng"),
-                              ),
-                            )
-                          : tag.contains("Trưa")
-                              ? Card(
-                                  color: Color(0xFFFFAC33),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text("Trưa"),
-                                  ),
-                                )
-                              : Card(
-                                  color: Color(0xFF0E4DA4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Tối",
-                                      style: TextStyle(color: Colors.white),
+                  if (isPremium)
+                    Positioned(
+                      bottom: 70,
+                      left: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  //neu la meal se co tag "sang/trua/toi"
+                  if (isMeal)
+                    Positioned(
+                      top: 68,
+                      child: Container(
+                        width: 85,
+                        height: 30,
+                        child: tag!.contains("Sáng")
+                            ? Card(
+                                color: Color(0xFFFFDC5D),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Text("Sáng"),
+                                ),
+                              )
+                            : tag.contains("Trưa")
+                                ? Card(
+                                    color: Color(0xFFFFAC33),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text("Trưa"),
+                                    ),
+                                  )
+                                : Card(
+                                    color: Color(0xFF0E4DA4),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Tối",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
-                                ),
+                      ),
+                    ),
+                ],
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 13,
                     ),
                   ),
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 13,
+                  Text(
+                    cal != null
+                        ? '$duration phút - $cal kcals'
+                        : '$duration phút',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.black38,
+                    ),
                   ),
-                ),
-                Text(
-                  cal != null
-                      ? '$duration phút - $cal kcals'
-                      : '$duration phút',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.black38,
-                  ),
-                ),
+                ]),
+                isDone
+                    ? Icon(
+                        Icons.check_circle,
+                        color: AppColors.green500,
+                        size: 17,
+                      )
+                    : Text("")
               ]),
-              // isDone
-              //     ? Icon(
-              //         Icons.check_circle,
-              //         color: AppColors.green500,
-              //         size: 17,
-              //       )
-              //     : isSkip
-              //         ? Icon(
-              //             CommunityMaterialIcons.minus_circle_outline,
-              //             color: AppColors.grayText,
-              //             size: 17,
-              //           )
-              //         : Text("")
-            ]),
-          ],
+            ],
+          ),
         ),
       ),
     );
