@@ -8,6 +8,7 @@ import 'package:fitme/models/post.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
@@ -160,9 +161,16 @@ class TitleArticle extends StatelessWidget {
       BuildContext ctx, int id, bool isWorkout, bool isMeal, bool isPost) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
-      Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
-        'id': id,
-      });
+      Navigator.push(
+          ctx,
+          MaterialPageRoute(
+            builder: (context) => PracticeScreen(
+              workoutID: id,
+            ),
+          ));
+      // Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
+      //   'workoutID': id,
+      // });
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);

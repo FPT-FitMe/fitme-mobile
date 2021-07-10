@@ -37,7 +37,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   bool _showEmpty = false;
   bool _isLoading = true;
   late ExplorePresenter _presenter;
-  Plan? _selectedPlan;
+  late Plan? _selectedPlan;
   List<WorkoutLog> listWorkoutLog = [];
   List<Workout> listWorkout = [];
   DateTime _focusedDay = DateTime.now();
