@@ -1,15 +1,28 @@
-import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'workout_log.g.dart';
 
+@JsonSerializable()
 class WorkoutLog {
-  int traineeId;
-  Exercise exercise;
-  DateTime date;
-  String content;
+  final int workoutLogID;
+  final Workout workout;
+  final int duration;
+  final int totalCalories;
+  final DateTime createdAt;
+  final int difficultFeedback;
+  final int experienceFeedback;
 
   WorkoutLog({
-    required this.traineeId,
-    required this.exercise,
-    required this.date,
-    required this.content,
+    required this.workoutLogID,
+    required this.workout,
+    required this.duration,
+    required this.totalCalories,
+    required this.createdAt,
+    required this.difficultFeedback,
+    required this.experienceFeedback,
   });
+
+  factory WorkoutLog.fromJson(Map<String, dynamic> json) =>
+      _$WorkoutLogFromJson(json);
+  Map<String, dynamic> toJson() => _$WorkoutLogToJson(this);
 }

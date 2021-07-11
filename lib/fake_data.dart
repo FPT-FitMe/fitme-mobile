@@ -3,11 +3,11 @@ import 'package:fitme/models/achivement.dart';
 import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/models/post.dart';
-import 'package:fitme/models/meal_log.dart';
+import 'package:fitme/models/meal_log_old.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/survey.dart';
-import 'package:fitme/models/workout_log.dart';
+import 'package:fitme/models/workout_log_old.dart';
 
 final LIST_PLAN = [
   Plan(
@@ -579,8 +579,8 @@ var listSurveys = [
   ),
 ];
 
-List<MealLog> listMealLog = [
-  MealLog(
+List<MealLogOld> listMealLog = [
+  MealLogOld(
     date: DateTime.now(),
     meal: Meal(
       id: 1,
@@ -599,7 +599,7 @@ List<MealLog> listMealLog = [
     content: "",
     traineeId: 1,
   ),
-  MealLog(
+  MealLogOld(
     date: DateTime.now(),
     meal: Meal(
       id: 2,
@@ -620,8 +620,8 @@ List<MealLog> listMealLog = [
   ),
 ];
 
-List<WorkoutLog> listWorkoutLog = [
-  WorkoutLog(
+List<WorkoutLogOld> listWorkoutLog = [
+  WorkoutLogOld(
     date: DateTime.now(),
     exercise: Exercise(
       id: 1,
@@ -638,7 +638,7 @@ List<WorkoutLog> listWorkoutLog = [
     content: "",
     traineeId: 1,
   ),
-  WorkoutLog(
+  WorkoutLogOld(
     date: DateTime.now(),
     exercise: Exercise(
       id: 2,
@@ -655,7 +655,7 @@ List<WorkoutLog> listWorkoutLog = [
     content: "",
     traineeId: 1,
   ),
-  WorkoutLog(
+  WorkoutLogOld(
     date: DateTime.now(),
     exercise: Exercise(
       id: 3,

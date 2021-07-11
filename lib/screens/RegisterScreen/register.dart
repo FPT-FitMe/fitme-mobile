@@ -1,5 +1,4 @@
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/user.dart';
 import 'package:fitme/screens/RegisterScreen/register_presenter.dart';
 import 'package:fitme/screens/RegisterScreen/register_view.dart';
 import 'package:flutter/material.dart';
@@ -100,8 +99,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                           hintText: "*",
                           hintTextDirection: TextDirection.rtl,
                           hintStyle: TextStyle(color: Colors.red)),
-                      validator: MultiValidator(
-                          [RequiredValidator(errorText: "* Bắt buộc")]),
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "* Bắt buộc"),
+                        EmailValidator(errorText: "Email không hợp lệ")
+                      ]),
                     ),
                     SizedBox(
                       height: 20,

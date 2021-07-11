@@ -57,7 +57,7 @@ class ViewAllScreen extends StatelessWidget {
                               title: meal.name,
                               imageUrl: meal.imageUrl,
                               duration: meal.duration,
-                              cal: meal.cal,
+                              cal: double.parse(meal.cal.toString()),
                               id: meal.id,
                               isExercise: false,
                               tag: meal.tag,
@@ -70,7 +70,7 @@ class ViewAllScreen extends StatelessWidget {
                                   title: exercise.name,
                                   imageUrl: exercise.imageUrl,
                                   duration: exercise.duration,
-                                  cal: exercise.cal,
+                                  cal: double.parse(exercise.cal.toString()),
                                   id: exercise.id,
                                   isExercise: true,
                                 ))

@@ -6,8 +6,6 @@ import 'package:fitme/screens/RegisterScreen/register_view.dart';
 
 import 'register_view.dart';
 
-import 'package:fitme/models/user.dart';
-
 class RegisterPresenter {
   RegisterView _registerView;
   late AuthRepository _authRepository;
