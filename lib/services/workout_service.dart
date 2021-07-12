@@ -12,4 +12,12 @@ class WorkoutService implements WorkoutRepository {
     final response = await dio.get("/workouts/$id");
     return Workout.fromJson(response.data);
   }
+
+  @override
+  Future<List<Workout>> getAllWorkout() async {
+    final response = await dio.get("/workouts");
+    return (response.data as List)
+        .map((workout) => Workout.fromJson(workout))
+        .toList();
+  }
 }

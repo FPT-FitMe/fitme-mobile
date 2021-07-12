@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
+import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/repository/trainee_repository.dart';
 import 'package:intl/intl.dart';
@@ -39,5 +40,19 @@ class TraineeService implements TraineeRepository {
     return (response.data as List)
         .map((workoutLog) => WorkoutLog.fromJson(workoutLog))
         .toList();
+  }
+
+  @override
+  Future<WorkoutLog> logWorkout(Workout workout, int duration,
+      int? difficultFeedback, int? experienceFeedback) async {
+    // TODO: implement logWorkout
+    final id = workout.workoutID;
+    final response = await dio.post("/trainee/logWorkout/$id", data: {
+      "duration": duration,
+      "totalCalories": workout.estimatedCalories,
+      "difficultFeedback": difficultFeedback,
+      "experienceFeedback": experienceFeedback
+    });
+    return WorkoutLog.fromJson(response.data);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 
 abstract class TraineeRepository {
@@ -13,4 +14,6 @@ abstract class TraineeRepository {
       int exerciseFrequencyType);
 
   Future<List<WorkoutLog>> getWorkoutLog(DateTime dateTime);
+  Future<WorkoutLog> logWorkout(Workout workout, int duration,
+      int? difficultFeedback, int? experienceFeedback);
 }

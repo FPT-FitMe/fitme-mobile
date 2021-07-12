@@ -1,10 +1,13 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/screens/FeedBackScreen/feedback_presenter.dart';
+import 'package:fitme/screens/FeedBackScreen/feedback_view.dart';
 import 'package:fitme/widgets/set_of_feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class FeedBackScreen extends StatelessWidget {
+class FeedBackScreen extends StatelessWidget implements FeedbackView {
   static const listIconFeedBack = [
     {
       'icon': "😎",
@@ -34,9 +37,20 @@ class FeedBackScreen extends StatelessWidget {
       'nameIcon': "Rất thích",
     },
   ];
+  late FeedbackPresenter _presenter;
+  late BuildContext _context;
+  FeedBackScreen() {
+    _presenter = new FeedbackPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+    final routeArgs =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Duration _realDurationWorkout =
+        parseDuration(routeArgs['realDurationWorkout'].toString());
+    final Workout workout = routeArgs['workout'] as Workout;
     final _setOfFeedback = SetOfFeedback(listIconFeedBack);
     final _setOfFeedbackFavorite = SetOfFeedback(listIconFavorite);
     return Scaffold(
@@ -46,7 +60,7 @@ class FeedBackScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             GestureDetector(
-              onTap: () => _backToMainScreen(context),
+              onTap: () => _backToMainScreen(workout, _realDurationWorkout),
               child: const Text(
                 "Bỏ qua",
                 style: TextStyle(
@@ -156,7 +170,10 @@ class FeedBackScreen extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  _sendFeedback(context, _setOfFeedback.indexChoice,
+                  _sendFeedback(
+                      workout,
+                      _realDurationWorkout,
+                      _setOfFeedback.indexChoice,
                       _setOfFeedbackFavorite.indexChoice);
                 },
                 style: ElevatedButton.styleFrom(
@@ -179,24 +196,63 @@ class FeedBackScreen extends StatelessWidget {
     );
   }
 
-  void _backToMainScreen(BuildContext context) {
+  //backToMain nhung van phai log Workout
+  void _backToMainScreen(Workout workout, Duration realDuration) {
+    _presenter.logWorkout(workout, realDuration);
+  }
+
+  //log Workout voi feedback
+  //hai index để lấy phản hồi
+  void _sendFeedback(Workout workout, Duration realDuration, int indexFeedback,
+      int indexFavorite) {
+    _presenter.logWorkoutWithFeedBack(
+        workout, realDuration, indexFeedback, indexFavorite);
+  }
+
+  @override
+  void feedBackFailed() {
+    Fluttertoast.showToast(msg: "Gửi đánh giá thất bại");
+  }
+
+  @override
+  void feedBackSuccess() {
+    Fluttertoast.showToast(msg: "Cảm ơn đánh giá của bạn");
+    //log thanh cong xong check xem co trong plan khong -> co thi set status -> khong thi thoi
     Navigator.pushNamedAndRemoveUntil(
-      context,
+      _context,
       AppRoutes.mainScreen,
       (route) => false,
     );
   }
 
-  //hai index để lấy phản hồi
-  void _sendFeedback(
-      BuildContext context, int indexFeedback, int indexFavorite) {
-    print(listIconFeedBack[indexFeedback]['nameIcon']);
-    print(listIconFavorite[indexFavorite]['nameIcon']);
-    Fluttertoast.showToast(msg: "Cảm ơn đánh giá của bạn");
+  @override
+  void logWorkoutFailed() {
+    Fluttertoast.showToast(msg: "Log Workout thất bại");
+  }
+
+  @override
+  void logWorkoutSuccess() {
+    Fluttertoast.showToast(msg: "Log Workout thành công");
+    //log thanh cong xong check xem co trong plan khong -> co thi set status -> khong thi thoi
     Navigator.pushNamedAndRemoveUntil(
-      context,
+      _context,
       AppRoutes.mainScreen,
       (route) => false,
     );
+  }
+
+  Duration parseDuration(String s) {
+    int hours = 0;
+    int minutes = 0;
+    int micros;
+    List<String> parts = s.split(':');
+    if (parts.length > 2) {
+      hours = int.parse(parts[parts.length - 3]);
+    }
+    if (parts.length > 1) {
+      minutes = int.parse(parts[parts.length - 2]);
+    }
+    micros = (double.parse(parts[parts.length - 1]) * 1000000).round();
+    return Duration(hours: hours, minutes: minutes, microseconds: micros);
   }
 }

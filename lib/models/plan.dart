@@ -1,6 +1,4 @@
-import 'dart:collection';
-
-import 'package:fitme/models/plan_meal.dart';
+ import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/models/plan_workout.dart';
 import 'package:fitme/models/target.dart';
 import 'package:json_annotation/json_annotation.dart';

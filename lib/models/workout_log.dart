@@ -6,24 +6,24 @@ part 'workout_log.g.dart';
 
 @JsonSerializable()
 class WorkoutLog {
-  final int id;
+  final int workoutLogID;
   final User trainee;
   final Workout workout;
   final int duration;
   final int totalCalories;
   final DateTime createdAt;
-  final int difficultFeedback;
-  final int experienceFeedback;
+  final int? difficultFeedback;
+  final int? experienceFeedback;
 
   WorkoutLog({
-    required this.id,
+    required this.workoutLogID,
     required this.trainee,
     required this.workout,
     required this.duration,
     required this.totalCalories,
     required this.createdAt,
-    required this.difficultFeedback,
-    required this.experienceFeedback,
+    this.difficultFeedback,
+    this.experienceFeedback,
   });
 
   factory WorkoutLog.fromJson(Map<String, dynamic> json) =>

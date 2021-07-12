@@ -208,6 +208,7 @@ class _PracticeScreenState extends State<PracticeScreen>
     DateTime _startTime = DateTime.now();
     Navigator.pushNamed(ctx, AppRoutes.practiceSet, arguments: {
       'startTime': _startTime,
+      'workout': _workout,
     });
   }
 

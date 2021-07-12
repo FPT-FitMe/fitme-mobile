@@ -145,7 +145,7 @@ class WeightLogForm extends StatefulWidget {
 class _WeightLogFormState extends State<WeightLogForm> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _weightController = TextEditingController();
+  // TextEditingController _weightController = TextEditingController();
   double latestWeight = 55.2;
 
   void increaseLogWeightValue() {
