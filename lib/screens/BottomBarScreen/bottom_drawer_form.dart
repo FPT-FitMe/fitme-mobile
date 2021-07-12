@@ -20,6 +20,8 @@ class ActivityLogForm extends StatefulWidget {
 class _ActivityLogFormState extends State<ActivityLogForm> {
   final _formKey = GlobalKey<FormState>();
 
+  late int _durationInMinutes;
+
   TextEditingController _dateController = TextEditingController();
   TextEditingController _distanceController = TextEditingController();
   TextEditingController _durationController = TextEditingController();
@@ -53,6 +55,7 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
           separatorIndex + 1, separatorIndex + 3));
 
       setState(() {
+        _durationInMinutes = hours * 60 + minutes;
         _durationController.text =
             hours == 0 ? "$minutes phút" : "$hours giờ $minutes phút";
       });
@@ -69,10 +72,13 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
     if (widget.showInputDate != null) {
       showDateField = widget.showInputDate!;
     }
+    bool isInputData = (_durationController.text.isNotEmpty && _distanceController.text.isNotEmpty);
     return Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
+          isInputData
+          ? Text("Ước lượng: " + calculateCalo(_durationInMinutes, double.parse(_distanceController.text)).toStringAsFixed(0) + " calo", style: TextStyle(fontSize: 16),) : Container(),
           SizedBox(
             height: 30,
           ),
@@ -134,6 +140,11 @@ class _ActivityLogFormState extends State<ActivityLogForm> {
         ],
       ),
     );
+  }
+
+  double calculateCalo(int duration, double distance) {
+    //
+    return distance * 80.4;
   }
 }
 
