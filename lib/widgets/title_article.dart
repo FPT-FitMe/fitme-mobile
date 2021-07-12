@@ -29,6 +29,13 @@ class TitleArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int indexMaxListSuccess = 0;
+    if (listWorkout != null) {
+      indexMaxListSuccess = listWorkout!.length;
+      if (indexMaxListSuccess > 2) {
+        indexMaxListSuccess = 2;
+      }
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
       child: Column(
@@ -42,17 +49,18 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                (listPlanWorkout != null && listPlanWorkout!.length > 1)
-                    ? InkWell(
+                (listPlanWorkout != null)
+                    ? Text("")
+                    : InkWell(
+                        //TODO: viewall cua Meal ???
                         onTap: () => _viewAllArticle(context, listPlanMeal,
-                            listPlanWorkout, listPost, title),
+                            listWorkout, listPost, title),
                         child: Text(
                           "Hiện tất cả",
                           style: TextStyle(
                               fontSize: 10, color: AppColors.grayText),
                         ),
-                      )
-                    : Text(""),
+                      ),
               ],
             ),
           ),
@@ -116,7 +124,7 @@ class TitleArticle extends StatelessWidget {
                       ));
                 }),
               if (listWorkout != null)
-                ...listWorkout!.map((workout) {
+                ...listWorkout!.sublist(0, indexMaxListSuccess).map((workout) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
@@ -209,10 +217,10 @@ class TitleArticle extends StatelessWidget {
 
 // chuyen qua trang viewAll
   void _viewAllArticle(
-      BuildContext ctx, listMeal, listExcercise, listPost, String topic) {
+      BuildContext ctx, listMeal, listWorkout, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
-      'list_exercise': listExcercise,
+      'listWorkout': listWorkout,
       'list_post': listPost,
       'topic': topic,
     });

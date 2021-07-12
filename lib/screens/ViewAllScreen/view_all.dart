@@ -1,5 +1,5 @@
-import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/workout.dart';
 
 import 'package:fitme/widgets/card_title.dart';
 import 'package:fitme/models/post.dart';
@@ -13,14 +13,14 @@ class ViewAllScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Meal>? listMeal;
-    List<Exercise>? listExercise;
+    List<Workout>? listWorkout;
     List<Post>? listPost;
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     if (routeArgs['list_meal'] != null)
       listMeal = routeArgs['list_meal'] as List<Meal>;
-    if (routeArgs['list_exercise'] != null)
-      listExercise = routeArgs['list_exercise'] as List<Exercise>;
+    if (routeArgs['listWorkout'] != null)
+      listWorkout = routeArgs['listWorkout'] as List<Workout>;
     if (routeArgs['list_post'] != null)
       listPost = routeArgs['list_post'] as List<Post>;
     String topic = routeArgs['topic'].toString();
@@ -45,7 +45,7 @@ class ViewAllScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
       ),
-      body: (listMeal == null && listExercise == null && listPost == null)
+      body: (listMeal == null && listWorkout == null && listPost == null)
           ? Center(
               child: Text("Trống"),
             )
@@ -59,20 +59,20 @@ class ViewAllScreen extends StatelessWidget {
                               duration: meal.duration,
                               cal: meal.cal,
                               id: meal.id,
-                              isExercise: false,
+                              isWorkout: false,
                               tag: meal.tag,
                               listMeal: listMeal,
                             ))
                         .toList()
-                    : (listExercise != null)
-                        ? listExercise
-                            .map((exercise) => CardTitle(
-                                  title: exercise.name,
-                                  imageUrl: exercise.imageUrl,
-                                  duration: exercise.duration,
-                                  cal: exercise.cal,
-                                  id: exercise.id,
-                                  isExercise: true,
+                    : (listWorkout != null)
+                        ? listWorkout
+                            .map((workout) => CardTitle(
+                                  title: workout.name,
+                                  imageUrl: workout.imageUrl,
+                                  duration: workout.estimatedDuration,
+                                  cal: workout.estimatedCalories,
+                                  id: workout.workoutID,
+                                  isWorkout: true,
                                 ))
                             .toList()
                         : listPost!
@@ -81,11 +81,13 @@ class ViewAllScreen extends StatelessWidget {
                                   imageUrl: post.imageUrl,
                                   duration: post.duration,
                                   id: post.id,
-                                  isExercise: false,
+                                  isWorkout: false,
                                 ))
                             .toList(),
               ),
             ),
     );
   }
+
+
 }

@@ -47,7 +47,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               duration: meal.duration,
                               cal: meal.cal,
                               id: meal.id,
-                              isExercise: false,
+                              isWorkout: false,
                             ))
                         .toList()
                     : _buildNotFoundScreen()
@@ -59,7 +59,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               duration: exercise.duration,
                               cal: exercise.cal,
                               id: exercise.id,
-                              isExercise: true,
+                              isWorkout: true,
                             ))
                         .toList()
                     : _buildNotFoundScreen(),

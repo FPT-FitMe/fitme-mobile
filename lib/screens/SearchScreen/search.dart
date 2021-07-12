@@ -69,7 +69,7 @@ class Search extends SearchDelegate {
                         duration: exercise.duration,
                         cal: exercise.cal,
                         id: exercise.id,
-                        isExercise: true))
+                        isWorkout: true))
                     .toList(),
               ))
         : (mealList.isEmpty
@@ -82,7 +82,7 @@ class Search extends SearchDelegate {
                           duration: meal.duration,
                           cal: meal.cal,
                           id: meal.id,
-                          isExercise: false,
+                          isWorkout: false,
                         ))
                     .toList(),
               ));
