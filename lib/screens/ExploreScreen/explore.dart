@@ -37,7 +37,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   bool _showEmpty = false;
   bool _isLoading = true;
   late ExplorePresenter _presenter;
-  late Plan? _selectedPlan;
+  Plan? _selectedPlan;
   List<WorkoutLog> listWorkoutLog = [];
   List<Workout> listWorkout = [];
   DateTime _focusedDay = DateTime.now();
@@ -134,7 +134,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                       ],
                     ),
                     //phan muc tieu bai tap do an
-                    _showEmpty
+                    _showEmpty || _selectedPlan == null
                         ? _buildNotFoundScreen()
                         : Container(
                             child: Column(
