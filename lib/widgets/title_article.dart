@@ -1,24 +1,41 @@
-import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/post.dart';
-import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
-import 'package:fitme/models/exercise_old.dart';
-import 'package:fitme/models/meal_old.dart';
+import 'package:community_material_icon/community_material_icon.dart';
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/plan_meal.dart';
+import 'package:fitme/models/plan_workout.dart';
+import 'package:fitme/models/post.dart';
+import 'package:fitme/models/tag.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
+import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
 
 class TitleArticle extends StatelessWidget {
-  final List<Exercise>? listExercise;
-  final List<Meal>? listMeal;
+  final List<PlanWorkout>? listPlanWorkout;
+  final Map<int, PlanMeal>? listPlanMeal;
   final List<Post>? listPost;
+  final List<Workout>? listWorkout;
   final String title;
 
   const TitleArticle(
-      {required this.title, this.listExercise, this.listMeal, this.listPost});
+      {required this.title,
+      this.listPlanWorkout,
+      this.listPlanMeal,
+      this.listPost,
+      this.listWorkout});
 
   @override
   Widget build(BuildContext context) {
+    int indexMaxListSuccess = 0;
+    if (listWorkout != null) {
+      indexMaxListSuccess = listWorkout!.length;
+      if (indexMaxListSuccess > 2) {
+        indexMaxListSuccess = 2;
+      }
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
       child: Column(
@@ -32,81 +49,115 @@ class TitleArticle extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                listExercise!.length > 1
-                    ? InkWell(
-                        onTap: () => _viewAllArticle(
-                            context, listMeal, listExercise, listPost, title),
+                (listPlanWorkout != null)
+                    ? Text("")
+                    : InkWell(
+                        //TODO: viewall cua Meal ???
+                        onTap: () => _viewAllArticle(context, listPlanMeal,
+                            listWorkout, listPost, title),
                         child: Text(
                           "Hiện tất cả",
                           style: TextStyle(
                               fontSize: 10, color: AppColors.grayText),
                         ),
-                      )
-                    : Text(""),
+                      ),
               ],
             ),
           ),
+          if (listPlanMeal != null)
+            SizedBox(
+                height: 320,
+                child: GridView.count(
+                  physics: new NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  primary: true,
+                  padding: const EdgeInsets.fromLTRB(6, 5, 0, 5),
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 0,
+                  crossAxisCount: 2,
+                  childAspectRatio: 10 / 8.5,
+                  children: <Widget>[
+                    _cardArticleMeal(context, listPlanMeal![0]),
+                    _cardArticleMeal(context, listPlanMeal![1]),
+                    _cardArticleMeal(context, listPlanMeal![2]),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 20),
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomDrawer(
+                                  tabIndex: 1,
+                                  isToday: true,
+                                );
+                              }),
+                          child: Icon(
+                              CommunityMaterialIcons.plus_circle_outline,
+                              size: 50),
+                        ),
+                        SizedBox(height: 10),
+                        Text("Thêm bữa ăn"),
+                      ],
+                    )
+                  ],
+                )),
           Row(
             children: [
-              if (listExercise != null)
-                ...listExercise!.map((exerciser) {
+              if (listPlanWorkout != null)
+                ...listPlanWorkout!.map((planWorkout) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
-                          context,
-                          exerciser.id,
-                          exerciser.imageUrl,
-                          exerciser.isFavorite,
-                          exerciser.isPremium,
-                          exerciser.name,
-                          exerciser.duration,
-                          exerciser.cal,
-                          true,
-                          false,
-                          false,
-                          exerciser.isSkipped,
-                          exerciser.isFinished,
-                          null));
+                        context,
+                        int.parse(planWorkout.workout.workoutID.toString()),
+                        planWorkout.workout.imageUrl,
+                        planWorkout.workout.isPremium,
+                        planWorkout.workout.name,
+                        int.parse(
+                            planWorkout.workout.estimatedDuration.toString()),
+                        int.parse(
+                            planWorkout.workout.estimatedCalories.toString()),
+                        true,
+                        false,
+                        planWorkout.status,
+                      ));
+                }),
+              if (listWorkout != null)
+                ...listWorkout!.sublist(0, indexMaxListSuccess).map((workout) {
+                  return Flexible(
+                      fit: FlexFit.tight,
+                      child: _cardArticle(
+                        context,
+                        int.parse(workout.workoutID.toString()),
+                        workout.imageUrl,
+                        workout.isPremium,
+                        workout.name,
+                        int.parse(workout.estimatedDuration.toString()),
+                        workout.estimatedCalories,
+                        true,
+                        false,
+                        null,
+                      ));
                 }),
               if (listPost != null)
                 ...listPost!.map((post) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
-                          context,
-                          post.id,
-                          post.imageUrl,
-                          false,
-                          false,
-                          post.name,
-                          post.duration,
-                          null,
-                          false,
-                          false,
-                          true,
-                          false,
-                          false,
-                          null));
-                }),
-              if (listMeal != null)
-                ...listMeal!.map((meal) {
-                  return Flexible(
-                      fit: FlexFit.tight,
-                      child: _cardArticle(
-                          context,
-                          meal.id,
-                          meal.imageUrl,
-                          meal.isFavorite,
-                          meal.isPremium,
-                          meal.name,
-                          meal.duration,
-                          meal.cal,
-                          false,
-                          true,
-                          false,
-                          false,
-                          false,
-                          meal.tag));
+                        context,
+                        post.id,
+                        post.imageUrl,
+                        false,
+                        post.name,
+                        post.duration,
+                        null,
+                        false,
+                        false,
+                        null,
+                      ));
                 }),
             ],
           ),
@@ -120,15 +171,22 @@ class TitleArticle extends StatelessWidget {
       BuildContext ctx, int id, bool isWorkout, bool isMeal, bool isPost) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
-      Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
-        'id': id,
-      });
+      Navigator.push(
+          ctx,
+          MaterialPageRoute(
+            builder: (context) => PracticeScreen(
+              workoutID: id,
+            ),
+          ));
+      // Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
+      //   'workoutID': id,
+      // });
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
       Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
         'id': id,
-        'listMeal': listMeal,
+        'listMeal': listPlanMeal,
       });
     } else if (isPost) {
       //
@@ -161,156 +219,278 @@ class TitleArticle extends StatelessWidget {
 
 // chuyen qua trang viewAll
   void _viewAllArticle(
-      BuildContext ctx, listMeal, listExcercise, listPost, String topic) {
+      BuildContext ctx, listMeal, listWorkout, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
-      'list_exercise': listExcercise,
+      'listWorkout': listWorkout,
       'list_post': listPost,
       'topic': topic,
     });
   }
 
-  Widget _cardArticle(
-      BuildContext context,
-      int id,
-      String imageUrl,
-      bool isFavorite,
-      bool isPremium,
-      String name,
-      int duration,
-      int? cal,
-      bool isWorkout,
-      bool isMeal,
-      bool isPost,
-      bool isSkip,
-      bool isDone,
-      List<String>? tag) {
+  Widget _cardArticleMeal(
+    BuildContext context,
+    PlanMeal? planMeal,
+  ) {
+    //checkfavorite
+    bool isSkipped = planMeal!.status == "skipped";
     return GestureDetector(
-      onTap: () => _selectArticle(context, id, isWorkout, isMeal, isPost),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 0,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Stack(
+      onTap: () =>
+          Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
+        'id': planMeal.meal.mealID,
+        // 'listMeal': listMeal,
+      }),
+      child: SizedBox(
+        child: Container(
+          foregroundDecoration: isSkipped
+              ? BoxDecoration(
+                  color: Colors.grey,
+                  backgroundBlendMode: BlendMode.saturation,
+                )
+              : BoxDecoration(),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            elevation: 0,
+            margin: EdgeInsets.all(5),
+            child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  child: Image.network(
-                    imageUrl,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                if (isFavorite)
-                  Positioned(
-                    bottom: 70,
-                    right: 10,
-                    child: Container(
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 17,
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      child: Image.network(
+                        planMeal.meal.imageUrl,
+                        height: 100,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                if (isPremium)
-                  Positioned(
-                    bottom: 70,
-                    left: 10,
-                    child: Container(
-                      child: Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                        size: 17,
+                    //TODO: check favorite
+                    if (true)
+                      Positioned(
+                        bottom: 70,
+                        right: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                //neu la meal se co tag "sang/trua/toi"
-                if (isMeal)
-                  Positioned(
-                    top: 68,
-                    child: Container(
-                      width: 85,
-                      height: 30,
-                      child: tag!.contains("Sáng")
-                          ? Card(
-                              color: Color(0xFFFFDC5D),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Text("Sáng"),
-                              ),
-                            )
-                          : tag.contains("Trưa")
-                              ? Card(
-                                  color: Color(0xFFFFAC33),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text("Trưa"),
-                                  ),
-                                )
-                              : Card(
-                                  color: Color(0xFF0E4DA4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Tối",
-                                      style: TextStyle(color: Colors.white),
+                    if (planMeal.meal.isPremium)
+                      Positioned(
+                        bottom: 70,
+                        left: 10,
+                        child: Container(
+                          child: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                            size: 17,
+                          ),
+                        ),
+                      ),
+                    //neu la meal se co tag "sang/trua/toi"
+                    Positioned(
+                      top: 68,
+                      child: Container(
+                        width: 85,
+                        height: 30,
+                        child: planMeal.meal.tags.contains(
+                                Tag(id: 4, name: "Bữa sáng", type: "meal"))
+                            ? Card(
+                                color: Color(0xFFFFDC5D),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Text("Sáng"),
+                                ),
+                              )
+                            : planMeal.meal.tags.contains(
+                                    Tag(id: 5, name: "Bữa trưa", type: "meal"))
+                                ? Card(
+                                    color: Color(0xFFFFAC33),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text("Trưa"),
+                                    ),
+                                  )
+                                : Card(
+                                    color: Color(0xFF0E4DA4),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Tối",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
-                                ),
+                      ),
                     ),
-                  ),
+                  ],
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              planMeal.meal.name,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              convertDurationAndCalories(planMeal.meal.calories,
+                                  planMeal.meal.cookingTime),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          ]),
+                      planMeal.status == "done"
+                          ? Icon(
+                              Icons.check_circle,
+                              color: AppColors.green500,
+                              size: 17,
+                            )
+                          : Text(""),
+                    ]),
               ],
             ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 13,
-                  ),
-                ),
-                Text(
-                  cal != null
-                      ? '$duration phút - $cal kcals'
-                      : '$duration phút',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.black38,
-                  ),
-                ),
-              ]),
-              // isDone
-              //     ? Icon(
-              //         Icons.check_circle,
-              //         color: AppColors.green500,
-              //         size: 17,
-              //       )
-              //     : isSkip
-              //         ? Icon(
-              //             CommunityMaterialIcons.minus_circle_outline,
-              //             color: AppColors.grayText,
-              //             size: 17,
-              //           )
-              //         : Text("")
-            ]),
-          ],
+          ),
         ),
       ),
     );
   }
+
+  Widget _cardArticle(
+    BuildContext context,
+    int id,
+    String imageUrl,
+    bool isPremium,
+    String name,
+    int duration,
+    int? cal,
+    bool isWorkout,
+    bool isPost,
+    String? status,
+  ) {
+    bool isFavorite = false;
+    bool isSkipped = status == "skipped";
+    return GestureDetector(
+      onTap: () => _selectArticle(context, id, isWorkout, false, isPost),
+      child: Container(
+        foregroundDecoration: isSkipped
+            ? BoxDecoration(
+                color: Colors.grey,
+                backgroundBlendMode: BlendMode.saturation,
+              )
+            : BoxDecoration(),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 0,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    child: Image.network(
+                      imageUrl,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  if (isPremium)
+                    Positioned(
+                      bottom: 70,
+                      left: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  // if (isFavorite)
+                  //   Positioned(
+                  //     bottom: 70,
+                  //     right: 10,
+                  //     child: Container(
+                  //       child: Icon(
+                  //         Icons.favorite,
+                  //         color: Colors.white,
+                  //         size: 17,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //neu la meal se co tag "sang/trua/toi"
+                ],
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    cal != null
+                        ? convertDurationAndCalories(cal, duration)
+                        : convertDuration(duration),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.black38,
+                    ),
+                  ),
+                ]),
+                status == "done"
+                    ? Icon(
+                        Icons.check_circle,
+                        color: AppColors.green500,
+                        size: 17,
+                      )
+                    : Text("")
+              ]),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+String convertDurationAndCalories(dynamic cal, int duration) {
+  var d = Duration(minutes: duration);
+  List<String> parts = d.toString().split(':');
+  int calories = cal.toInt();
+  return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
+}
+
+String convertDuration(int duration) {
+  var d = Duration(minutes: duration);
+  List<String> parts = d.toString().split(':');
+  return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút';
 }

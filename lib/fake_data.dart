@@ -5,7 +5,7 @@ import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/meal_log_old.dart';
 import 'package:fitme/models/personal_trainer.dart';
-import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/plan_old.dart';
 import 'package:fitme/models/survey.dart';
 import 'package:fitme/models/workout_log_old.dart';
 

@@ -13,8 +13,8 @@ WorkoutLog _$WorkoutLogFromJson(Map<String, dynamic> json) {
     duration: json['duration'] as int,
     totalCalories: json['totalCalories'] as int,
     createdAt: DateTime.parse(json['createdAt'] as String),
-    difficultFeedback: json['difficultFeedback'] as int,
-    experienceFeedback: json['experienceFeedback'] as int,
+    difficultFeedback: json['difficultFeedback'] as int?,
+    experienceFeedback: json['experienceFeedback'] as int?,
   );
 }
 

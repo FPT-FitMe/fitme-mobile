@@ -1,14 +1,21 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/models/workout_exercise.dart';
 import 'package:fitme/widgets/time_countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SetOfExercise extends StatefulWidget {
   // chua biet cai list kia ra sao, co gi chinh lai kieu du lieu
-  final List<Map<String, Object>> setOfEx;
+  final List<WorkoutExercise> setOfEx;
+  final Workout workout;
   final DateTime startTime;
-  SetOfExercise({Key? key, required this.setOfEx, required this.startTime})
+  SetOfExercise(
+      {Key? key,
+      required this.setOfEx,
+      required this.startTime,
+      required this.workout})
       : super(key: key);
 
   @override
@@ -28,7 +35,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
               children: [
                 //image/video/
                 Image.network(
-                  widget.setOfEx[_index]['imageUrl'].toString(),
+                  widget.setOfEx[_index].exerciseID.videoUrl,
                   height: 250,
                   width: double.infinity,
                   fit: BoxFit.fill,
@@ -39,7 +46,7 @@ class _SetOfExerciseState extends State<SetOfExercise> {
                   child: Column(
                     children: [
                       Text(
-                        widget.setOfEx[_index]['content'].toString(),
+                        widget.setOfEx[_index].exerciseID.name,
                         style: TextStyle(
                           fontSize: 30,
                           color: AppColors.textColor,
@@ -48,16 +55,17 @@ class _SetOfExerciseState extends State<SetOfExercise> {
                       SizedBox(
                         height: 25,
                       ),
-                      (widget.setOfEx[_index]['numOfExercise'] as int) != 0
+                      (widget.setOfEx[_index].exerciseID.baseRepPerRound) != 0
                           ? Text(
-                              '${widget.setOfEx[_index]['numOfExercise']} lần',
+                              '${widget.setOfEx[_index].exerciseID.baseRepPerRound} lần',
                               style: TextStyle(
                                 fontSize: 45,
                                 color: AppColors.textColor,
                               ),
                             )
                           : TimeCountDown(
-                              time: widget.setOfEx[_index]['duration'] as int),
+                              time: widget
+                                  .setOfEx[_index].exerciseID.baseDuration),
                     ],
                   ),
                 ),
@@ -161,10 +169,10 @@ class _SetOfExerciseState extends State<SetOfExercise> {
       Duration _realDurationWorkout =
           widget.startTime.difference(DateTime.now());
       Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.practiceSuccess, (route) => false,
-          arguments: {
-            'realDurationWorkout': _realDurationWorkout,
-          });
+          context, AppRoutes.practiceSuccess, (route) => false, arguments: {
+        'realDurationWorkout': _realDurationWorkout,
+        'workout': widget.workout
+      });
     } else {
       setState(() {
         _index += 1;

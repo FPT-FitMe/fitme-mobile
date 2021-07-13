@@ -20,4 +20,6 @@ abstract class TraineeRepository {
   Future<List<Workout>> getFavouriteWorkouts();
   Future<List<WorkoutLog>> getWorkoutLogs(DateTime date);
   Future<List<MealLog>> getMealLogs(DateTime date);
+  Future<WorkoutLog> logWorkout(Workout workout, int duration,
+      int? difficultFeedback, int? experienceFeedback);
 }

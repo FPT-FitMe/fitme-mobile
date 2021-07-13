@@ -1,10 +1,14 @@
 import 'package:fitme/repository/auth_repository.dart';
-import 'package:fitme/repository/image_repository.dart';
+import 'package:fitme/repository/plan_repository.dart';
 import 'package:fitme/repository/trainee_repository.dart';
-import 'package:fitme/repository/user_repository.dart';
+import 'package:fitme/repository/workout_repository.dart';
 import 'package:fitme/services/auth_service.dart';
-import 'package:fitme/services/cloudinary_service.dart';
+import 'package:fitme/services/plan_service.dart';
 import 'package:fitme/services/trainee_service.dart';
+import 'package:fitme/services/workout_service.dart';
+import 'package:fitme/repository/image_repository.dart';
+import 'package:fitme/repository/user_repository.dart';
+import 'package:fitme/services/cloudinary_service.dart';
 import 'package:fitme/services/user_service.dart';
 
 class Injector {
@@ -19,6 +23,10 @@ class Injector {
   AuthRepository get authRepository => new AuthService();
 
   TraineeRepository get traineeRepository => new TraineeService();
+
+  PlanRepository get planRepository => new PlanService();
+
+  WorkoutRepository get workoutRepository => new WorkoutService();
 
   UserRepository get userRepository => new UserService();
 

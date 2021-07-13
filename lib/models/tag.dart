@@ -10,7 +10,7 @@ class Tag {
   Tag({
     this.id,
     required this.name,
-    required this.type,
+    this.type,
   });
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);

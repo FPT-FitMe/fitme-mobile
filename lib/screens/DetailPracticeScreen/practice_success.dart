@@ -1,5 +1,6 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,14 +11,16 @@ class PracticeSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    Duration _realDurationWorkout =
+    final Duration _realDurationWorkout =
         parseDuration(routeArgs['realDurationWorkout'].toString());
-    // routeArgs['realDurationWorkout'] as Duration;
+    final Workout workout = routeArgs['workout'] as Workout;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // TODO: delete ???
-        title: Icon(Icons.delete_outline),
+        title: GestureDetector(
+          onTap: () => _backToMainScreen(context),
+          child: Icon(Icons.delete_outline),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
       ),
@@ -52,9 +55,11 @@ class PracticeSuccessScreen extends StatelessWidget {
                   children: [
                     //hardcode
                     //bai tap
-                    _setOfResult("3", "Bài tập"),
+                    _setOfResult(
+                        (workout.workoutExercises.length + 1).toString(),
+                        "Bài tập"),
                     //kcals
-                    _setOfResult("100", "Kcals"),
+                    _setOfResult(workout.estimatedCalories.toString(), "cals"),
                     //luyen tap time
                     _setOfResult(
                         '${_realDurationWorkout.inMinutes.remainder(60).toString().padLeft(2, '0')}:${_realDurationWorkout.inSeconds.remainder(60).toString().padLeft(2, '0')}',
@@ -71,7 +76,7 @@ class PracticeSuccessScreen extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  _feedbackExercise(context);
+                  _feedbackExercise(context, _realDurationWorkout, workout);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -127,11 +132,24 @@ class PracticeSuccessScreen extends StatelessWidget {
     return Duration(hours: hours, minutes: minutes, microseconds: micros);
   }
 
-  void _feedbackExercise(BuildContext context) {
+  void _backToMainScreen(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.mainScreen,
+      (route) => false,
+    );
+  }
+
+  void _feedbackExercise(
+      BuildContext context, Duration realDurationWorkout, Workout workout) {
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutes.feedback,
       (route) => false,
+      arguments: {
+        'realDurationWorkout': realDurationWorkout,
+        'workout': workout
+      },
     );
   }
 }

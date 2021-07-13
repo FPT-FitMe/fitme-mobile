@@ -8,14 +8,14 @@ part of 'meal.dart';
 
 Meal _$MealFromJson(Map<String, dynamic> json) {
   return Meal(
-    mealID: json['mealID'] as int?,
+    mealID: json['mealID'] as int,
     coachProfile: json['coachProfile'] == null
         ? null
         : Coach.fromJson(json['coachProfile'] as Map<String, dynamic>),
     calories: (json['calories'] as num).toDouble(),
     carbAmount: (json['carbAmount'] as num).toDouble(),
     cookingTime: json['cookingTime'] as int,
-    description: json['description'] as String,
+    description: json['description'] as String?,
     fatAmount: (json['fatAmount'] as num).toDouble(),
     isPremium: json['isPremium'] as bool,
     imageUrl: json['imageUrl'] as String,

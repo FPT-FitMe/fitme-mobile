@@ -5,6 +5,7 @@ import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/repository/trainee_repository.dart';
+import 'package:intl/intl.dart';
 
 class TraineeService implements TraineeRepository {
   Dio dio = new HttpService().dio;
@@ -33,6 +34,16 @@ class TraineeService implements TraineeRepository {
   }
 
   @override
+  Future<List<WorkoutLog>> getWorkoutLogs(DateTime dateTime) async {
+    // /trainee/log/workout/09-07-2021
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String date = formatter.format(dateTime);
+    final response = await dio.get("/trainee/log/workout/$date");
+    return (response.data as List)
+        .map((workoutLog) => WorkoutLog.fromJson(workoutLog))
+        .toList();
+  }
+
   Future<bool> buySubscription() async {
     final response = await dio.post("/trainee/buySubscription");
     return response.statusCode == 200 ? true : false;
@@ -53,20 +64,24 @@ class TraineeService implements TraineeRepository {
   }
 
   @override
+  Future<WorkoutLog> logWorkout(Workout workout, int duration,
+      int? difficultFeedback, int? experienceFeedback) async {
+    // TODO: implement logWorkout
+    final id = workout.workoutID;
+    final response = await dio.post("/trainee/logWorkout/$id", data: {
+      "duration": duration,
+      "totalCalories": workout.estimatedCalories,
+      "difficultFeedback": difficultFeedback,
+      "experienceFeedback": experienceFeedback
+    });
+    return WorkoutLog.fromJson(response.data);
+  }
+
   Future<List<MealLog>> getMealLogs(DateTime date) async {
     final response = await dio
         .get("/trainee/log/meal/${date.day}-${date.month}-${date.year}");
     return (response.data as List)
         .map((workoutLog) => MealLog.fromJson(workoutLog))
-        .toList();
-  }
-
-  @override
-  Future<List<WorkoutLog>> getWorkoutLogs(DateTime date) async {
-    final response = await dio
-        .get("/trainee/log/workout/${date.day}-${date.month}-${date.year}");
-    return (response.data as List)
-        .map((workoutLog) => WorkoutLog.fromJson(workoutLog))
         .toList();
   }
 }
