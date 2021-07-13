@@ -8,6 +8,7 @@ import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:fitme/widgets/title_article.dart';
@@ -33,6 +34,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     fontSize: 16.0,
   );
   late Plan _selectedPlan;
+  bool hideCaloStat = false;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -59,16 +61,27 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   //cai nay phai viet get data Plan
   Plan _getPlansForDay(int day) {
+    hideCaloStat = false;
     if (day < DateTime.now().day - 1) {
       day = DateTime.now().day - 1;
     } else if (day > DateTime.now().day) {
       day = DateTime.now().day + 1;
+      hideCaloStat = true;
     }
     return LIST_PLAN.where((plan) => plan.id == day).first;
   }
 
   @override
   Widget build(BuildContext context) {
+    final Brightness _brightness = Theme.of(context).brightness;
+    final int caloAllowance = 1920;
+    final bool isOverCalo = caloAllowance - _selectedPlan.totalOfCaloIn + _selectedPlan.totalOfCaloOut < 0;
+    final int caloDiff = isOverCalo ? ((_selectedPlan.totalOfCaloIn - _selectedPlan.totalOfCaloOut) - caloAllowance) :
+    (caloAllowance - (_selectedPlan.totalOfCaloIn - _selectedPlan.totalOfCaloOut));
+    // cai calo per tick nghia la moi 1% cua gauge tuong ung voi bao nhieu calo
+    // chu y la caloAllow chi chiem 80% cua gauge, vuot qua thi thanh mau do max 100%
+    final double gaugeDiff = isOverCalo ? (caloDiff / (caloAllowance / 80)) : 0;
+    final double gaugeCurrent = (_selectedPlan.totalOfCaloIn - _selectedPlan.totalOfCaloOut) / (caloAllowance / 80);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -186,6 +199,102 @@ class _ExploreScreenState extends State<ExploreScreen> {
             // SizedBox(
             //   height: 10,
             // ),
+            //phần thể hiện calories allowance với calo ăn - calo tập = linear gauge
+            hideCaloStat ? Container() :
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Chỉ số calo trong ngày"),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        height: 30,
+                        child: SfLinearGauge(
+                            orientation: LinearGaugeOrientation.horizontal,
+                            minimum: 0.0,
+                            maximum: 100,
+                            showTicks: false,
+                            showLabels: false,
+                            labelPosition: LinearLabelPosition.outside,
+                            tickPosition: LinearElementPosition.outside,
+                          axisTrackStyle: LinearAxisTrackStyle(
+                            thickness: 16,
+                            edgeStyle: LinearEdgeStyle.bothCurve,
+                            borderWidth: 1,
+                            borderColor: _brightness == Brightness.dark
+                                ? const Color(0xff898989)
+                                : Colors.grey[350],
+                            color: _brightness == Brightness.dark
+                                ? Colors.transparent
+                                : Colors.grey[350],
+                          ),
+                            ranges: <LinearGaugeRange>[
+                              LinearGaugeRange(
+                                startValue: 80,
+                                midValue: 0,
+                                endValue: 80.5 + gaugeDiff,
+                                startWidth: 16,
+                                midWidth: 16,
+                                endWidth: 16,
+                                position: LinearElementPosition.cross,
+                                color: AppColors.red400,
+                              ),
+                            ],
+                            barPointers: <LinearBarPointer>[
+                              LinearBarPointer(
+                                  value: isOverCalo ? 80 : gaugeCurrent,
+                                  thickness: 16,
+                                  edgeStyle: LinearEdgeStyle.startCurve,
+                                  color: AppColors.primary),
+                            ],
+                           ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text("Giới hạn"),
+                            Text(caloAllowance.toString()),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text("Ăn"),
+                            Text(_selectedPlan.totalOfCaloIn.toString()),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text("Tập"),
+                            Text(_selectedPlan.totalOfCaloOut.toString()),
+                          ],
+                        ),
+                        isOverCalo ?
+                        Column(
+                          children: [
+                            Text("Vượt"),
+                            Text(caloDiff.toString(), style: TextStyle(color: AppColors.red400),),
+                          ],
+                        ) : Column(
+                          children: [
+                          Text("Dưới"),
+                          Text(caloDiff.toString(), style: TextStyle(color: AppColors.green500),),
+                        ]),
+                        Column(
+                          children: [
+                            Text(""),
+                            Text("(calo)"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ]),
+            ),
+
             //phan muc tieu bai tap do an
             Column(
               children: [
@@ -365,6 +474,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         listExercise: _selectedPlan.listExercise,
                       ),
                       //phan tong ket
+                      /*
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         // margin: EdgeInsets.symmetric(vertical: 15),
@@ -389,7 +499,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
                           ],
                         ),
-                      ),
+                      ),*/
                     ],
                   )
                 : Text(""),

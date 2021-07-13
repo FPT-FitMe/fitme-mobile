@@ -16,7 +16,7 @@ final LIST_PLAN = [
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
       listPost: LIST_POST,
-      totalOfCaloIn: 325,
+      totalOfCaloIn: 2400,
       totalOfCaloOut: 250),
   Plan(
       id: DateTime.now().day - 1,
@@ -24,16 +24,16 @@ final LIST_PLAN = [
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
       listPost: LIST_POST,
-      totalOfCaloIn: 200,
-      totalOfCaloOut: 110),
+      totalOfCaloIn: 1800,
+      totalOfCaloOut: 0),
   Plan(
       id: DateTime.now().day + 1,
       listExercise: LIST_EXERCISE3, //new
       listMeal: LIST_MEAL3,
       listGoal: LIST_GOAL3,
       listPost: LIST_POST,
-      totalOfCaloIn: 200,
-      totalOfCaloOut: 110),
+      totalOfCaloIn: 0,
+      totalOfCaloOut: 0),
 ];
 const LIST_COACH = const [
   PersonalTrainer(
@@ -333,7 +333,7 @@ const LIST_MEAL3 = const [
     description: "20 phút - 250 cal",
     duration: 20,
     cal: 250,
-    status: MealStatus.complete,
+    status: MealStatus.empty,
     isFavorite: false,
     isPremium: false,
     tag: ["Sáng"],
@@ -347,7 +347,7 @@ const LIST_MEAL3 = const [
     description: "10 phút - 120 cal",
     duration: 10,
     cal: 120,
-    status: MealStatus.complete,
+    status: MealStatus.empty,
     isFavorite: false,
     isPremium: false,
     tag: ["Trưa"],
