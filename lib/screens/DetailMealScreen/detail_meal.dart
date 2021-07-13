@@ -23,7 +23,6 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
 
   @override
   void didChangeDependencies() {
-    // TODO: should fix this
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     id = map["id"];
     listMeal = map["listMeal"];

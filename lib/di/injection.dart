@@ -2,9 +2,11 @@ import 'package:fitme/repository/auth_repository.dart';
 import 'package:fitme/repository/coach_repository.dart';
 import 'package:fitme/repository/exercise_repository.dart';
 import 'package:fitme/repository/meal_repository.dart';
+import 'package:fitme/repository/post_repository.dart';
 import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/services/auth_service.dart';
 import 'package:fitme/services/exercise_service.dart';
+import 'package:fitme/services/post_service.dart';
 import 'package:fitme/services/trainee_service.dart';
 import 'package:fitme/services/coach_service.dart';
 import 'package:fitme/services/meal_service.dart';
@@ -29,4 +31,6 @@ class Injector {
   ExerciseRepository get exerciseRepository => new ExerciseService();
 
   CoachRepository get coachRepository => new CoachService();
+
+  PostRepository get postRepository => new PostService();
 }

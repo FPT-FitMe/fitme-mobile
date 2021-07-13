@@ -2,15 +2,15 @@ import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/post.dart';
 
 import 'package:fitme/constants/colors.dart';
 
-class TitleArticleMeal extends StatelessWidget {
-  final List<Meal> listMeal;
+class TitleArticlePost extends StatelessWidget {
+  final List<Post> listPost;
   final String title;
 
-  const TitleArticleMeal({required this.title, required this.listMeal});
+  const TitleArticlePost({required this.title, required this.listPost});
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +39,11 @@ class TitleArticleMeal extends StatelessWidget {
           ),
           Row(
             children: [
-              ...listMeal.map((meal) {
+              ...listPost.map((post) {
                 return Flexible(
                     fit: FlexFit.tight,
-                    child: _cardArticle(
-                        context,
-                        meal.mealID,
-                        meal.imageUrl,
-                        meal.isPremium,
-                        meal.name,
-                        meal.cookingTime,
-                        meal.calories,
-                        meal.tags));
+                    child: _cardArticle(context, post.postID, post.imageUrl,
+                        true, post.name, post.readingTime));
               }),
             ],
           ),
@@ -60,24 +53,24 @@ class TitleArticleMeal extends StatelessWidget {
   }
 
   // chuyen qua trang detail cua meal
-  void _selectArticle(BuildContext ctx, int? id) {
+  void _selectArticle(BuildContext ctx, int? id, List<Post> listPost) {
     Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
       'id': id,
-      'listMeal': listMeal,
+      'listPost': listPost,
     });
   }
 
 // chuyen qua trang viewAll
   void _viewAllArticle(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
-      'list_meal': listMeal,
+      'list_post': listPost,
     });
   }
 
   Widget _cardArticle(BuildContext context, int? id, String imageUrl,
-      bool isPremium, String name, int duration, double? cal, List<Tag>? tags) {
+      bool isPremium, String name, int duration) {
     return GestureDetector(
-      onTap: () => _selectArticle(context, id),
+      onTap: () => _selectArticle(context, id, listPost),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
@@ -97,45 +90,6 @@ class TitleArticleMeal extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: 68,
-                  child: Container(
-                    width: 85,
-                    height: 30,
-                    child: tags!.contains("Sáng")
-                        ? Card(
-                            color: Color(0xFFFFDC5D),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Center(
-                              child: Text("Sáng"),
-                            ),
-                          )
-                        : tags.contains("Trưa")
-                            ? Card(
-                                color: Color(0xFFFFAC33),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                child: Center(
-                                  child: Text("Trưa"),
-                                ),
-                              )
-                            : Card(
-                                color: Color(0xFF0E4DA4),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Tối",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                  ),
-                ),
               ],
             ),
             SizedBox(
@@ -150,7 +104,7 @@ class TitleArticleMeal extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  cal != null ? '$duration phút - $cal cals' : '$duration phút',
+                  '$duration phút',
                   style: TextStyle(
                     fontSize: 11,
                     color: Colors.black38,
