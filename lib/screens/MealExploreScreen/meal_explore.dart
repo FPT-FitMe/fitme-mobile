@@ -20,7 +20,6 @@ class _MealExploreScreenState extends State<MealExploreScreen>
   late MealPresenter _presenter;
   bool _isLoading = true;
   List<Meal> listMeal = [];
-  List<Meal> listRecommended = [];
 
   _MealExploreScreenState() {
     _presenter = new MealPresenter(this);
@@ -49,7 +48,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
                     ),
                     TitleArticleMeal(
                       title: "Gợi ý dành cho bạn",
-                      listMeal: listRecommended,
+                      listMeal: listMeal,
                     ),
                   ],
                 ),
@@ -66,7 +65,6 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     setState(() {
       _isLoading = false;
       this.listMeal = listMeal;
-      listRecommended = [listMeal[1], listMeal[2]];
     });
   }
 

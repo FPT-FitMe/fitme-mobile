@@ -8,8 +8,8 @@ part 'workout.g.dart';
 class Workout {
   int? workoutID;
   String description;
-  int? estimatedCalories;
-  int? estimatedDuration;
+  int estimatedCalories;
+  int estimatedDuration;
   String imageUrl;
   bool isPremium;
   int level;
@@ -23,8 +23,8 @@ class Workout {
   Workout({
     this.workoutID,
     required this.description,
-    this.estimatedCalories,
-    this.estimatedDuration,
+    required this.estimatedCalories,
+    required this.estimatedDuration,
     required this.imageUrl,
     required this.isPremium,
     required this.level,

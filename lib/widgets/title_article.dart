@@ -29,11 +29,18 @@ class TitleArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int indexMaxListSuccess = 0;
-    if (listWorkout != null) {
-      indexMaxListSuccess = listWorkout!.length;
-      if (indexMaxListSuccess > 2) {
-        indexMaxListSuccess = 2;
+    int indexMaxListWorkout = 0;
+    int indexMaxListPost = 0;
+    if (listWorkout != null && listWorkout!.isNotEmpty) {
+      indexMaxListWorkout = listWorkout!.length;
+      if (indexMaxListWorkout > 2) {
+        indexMaxListWorkout = 2;
+      }
+    }
+    if (listPost != null && listPost!.isNotEmpty) {
+      indexMaxListPost = listPost!.length;
+      if (indexMaxListPost > 2) {
+        indexMaxListPost = 2;
       }
     }
     return Container(
@@ -126,7 +133,7 @@ class TitleArticle extends StatelessWidget {
                       ));
                 }),
               if (listWorkout != null)
-                ...listWorkout!.sublist(0, indexMaxListSuccess).map((workout) {
+                ...listWorkout!.sublist(0, indexMaxListWorkout).map((workout) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
@@ -143,7 +150,7 @@ class TitleArticle extends StatelessWidget {
                       ));
                 }),
               if (listPost != null)
-                ...listPost!.map((post) {
+                ...listPost!.sublist(0, indexMaxListPost).map((post) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(

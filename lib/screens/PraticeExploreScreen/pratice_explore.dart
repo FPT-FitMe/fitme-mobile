@@ -1,17 +1,14 @@
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/models/carousel_item.dart';
 import 'package:fitme/models/coach.dart';
-import 'package:fitme/models/exercise.dart';
 import 'package:fitme/models/post.dart';
+import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_presenter.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
+import 'package:fitme/widgets/title_article.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
-import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-import 'package:fitme/fake_data.dart';
 
 class PraticeExploreScreen extends StatefulWidget {
   PraticeExploreScreen({Key? key}) : super(key: key);
@@ -23,20 +20,26 @@ class PraticeExploreScreen extends StatefulWidget {
 class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     implements PraticeExploreView {
   late PraticePresenter _presenter;
-  List<Exercise> listExercise = [];
-  List<Exercise> listExercise2 = [];
+  List<Workout> listWorkout = [];
   List<Coach> listCoaches = [];
   List<Post> listPosts = [];
 
   _PraticeExploreScreenState() {
     _presenter = new PraticePresenter(this);
-    _presenter.loadAllExercise();
+    _presenter.getAllWorkouts();
     _presenter.loadAllCoaches();
     _presenter.loadAllPosts();
   }
 
   @override
   Widget build(BuildContext context) {
+    int maxListCoach = 0;
+    if (listCoaches.isNotEmpty) {
+      maxListCoach = listCoaches.length;
+      if (maxListCoach > 3) {
+        maxListCoach = 3;
+      }
+    }
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +48,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                carouselPage(listExercise),
+                carouselPage(listWorkout),
                 TitleArticleBadge(
                   title: "Huấn luyện viên",
                 ),
@@ -54,9 +57,9 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                            CoachAvatar(context, listCoaches[0]),
-                            CoachAvatar(context, listCoaches[1]),
-                            CoachAvatar(context, listCoaches[2]),
+                            ...listCoaches.map((coach) {
+                              return coachAvatar(context, coach);
+                            }),
                           ]),
                 TitleArticleBadge(
                   title: "Loại hình",
@@ -65,14 +68,18 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                   padding: const EdgeInsets.all(8.0),
                   child: tagSection(),
                 ),
-                TitleArticlePratice(
-                  title: "Bài tập",
-                  listExercise: LIST_EXERCISE,
-                ),
-                TitleArticlePratice(
-                  title: "Bài viết",
-                  listPost: LIST_POST,
-                ),
+                listWorkout.isNotEmpty
+                    ? TitleArticle(
+                        title: "Bài tập",
+                        listWorkout: listWorkout,
+                      )
+                    : Text(""),
+                listPosts.isNotEmpty
+                    ? TitleArticle(
+                        title: "Bài viết",
+                        listPost: listPosts,
+                      )
+                    : Text(""),
               ],
             ),
           ),
@@ -81,20 +88,23 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     );
   }
 
-  @override
-  void loadAllExercise(List<Exercise> listExercise) {
-    setState(() {
-      this.listExercise = listExercise;
-      listExercise2 = [
-        listExercise[0],
-        listExercise[1],
-      ];
-    });
-  }
+  // @override
+  // void loadAllExercise(List<Exercise> listExercise) {
+  //   setState(() {
+  //     this.listExercise = listExercise;
+  //     listExercise2 = [
+  //       listExercise[0],
+  //       listExercise[1],
+  //     ];
+  //   });
+  // }
 
   @override
   void showEmptyList() {
     // TODO: implement showEmptyList
+    setState(() {
+      this.listWorkout = [];
+    });
   }
 
   @override
@@ -110,9 +120,26 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
       this.listPosts = listPosts;
     });
   }
+
+  @override
+  void loadAllWorkout(List<Workout> listWorkout) {
+    setState(() {
+      this.listWorkout = listWorkout;
+    });
+  }
+
+  @override
+  void refesh() {
+    // TODO: implement refesh
+  }
+
+  @override
+  void showFailedModal(String message) {
+    // TODO: implement showFailedModal
+  }
 }
 
-Widget CoachAvatar(BuildContext context, Coach coach) => Container(
+Widget coachAvatar(BuildContext context, Coach coach) => Container(
       padding: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -153,33 +180,16 @@ Widget CoachAvatar(BuildContext context, Coach coach) => Container(
       ),
     );
 
-final List<CarouselItem> itemList = [
-  CarouselItem(
-      image:
-          "https://images.unsplash.com/photo-1581009137042-c552e485697a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
-      title: "Luyện cơ",
-      description: "10 phút - 50 cal"),
-  CarouselItem(
-      image:
-          "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
-      title: "Tập cơ trước",
-      description: "20 phút - 150 cal"),
-  CarouselItem(
-      image:
-          "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
-      title: "Tập chân",
-      description: "15 phút - 60 cal")
-];
 CarouselController buttonCarouselController = CarouselController();
 
-Widget carouselPage(List<Exercise> listExercise) => CarouselSlider(
+Widget carouselPage(List<Workout> listWorkout) => CarouselSlider(
       carouselController: buttonCarouselController,
       options: CarouselOptions(
         height: 250,
         autoPlay: true,
         aspectRatio: 1,
       ),
-      items: listExercise.map((item) {
+      items: listWorkout.map((item) {
         return Builder(builder: (BuildContext context) {
           return Container(
             margin: EdgeInsets.all(10.0),
@@ -210,7 +220,8 @@ Widget carouselPage(List<Exercise> listExercise) => CarouselSlider(
                 ),
                 Flexible(
                   child: Text(
-                    '${item.baseDuration} phút - ${item.baseKcal} cals',
+                    convertDurationAndCalories(
+                        item.estimatedCalories, item.estimatedDuration),
                     style: TextStyle(
                       fontSize: 10.0,
                     ),
@@ -222,6 +233,13 @@ Widget carouselPage(List<Exercise> listExercise) => CarouselSlider(
         });
       }).toList(),
     );
+
+String convertDurationAndCalories(dynamic cal, int duration) {
+  var d = Duration(minutes: duration);
+  List<String> parts = d.toString().split(':');
+  int calories = cal.toInt();
+  return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
+}
 
 Widget _createCustomChip({title: String}) => Chip(
       label: Text(title),

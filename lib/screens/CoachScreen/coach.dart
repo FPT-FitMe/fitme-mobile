@@ -1,5 +1,6 @@
 import 'package:fitme/models/personal_trainer.dart';
-import 'package:fitme/widgets/title_article_pratice.dart';
+import 'package:fitme/widgets/title_article.dart';
+import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
 
@@ -56,18 +57,19 @@ class CoachScreen extends StatelessWidget {
               ),
             ),
             //phan bai tap va bua an
-            Column(
-              children: [
-                TitleArticlePratice(
-                  title: "Bài tập",
-                  listExercise: pt.listExcersice,
-                ),
-                TitleArticlePratice(
-                  title: "Bữa ăn",
-                  listMeal: LIST_MEAL,
-                ),
-              ],
-            ),
+            //TODO: merge di r t lam phan coach
+            // Column(
+            //   children: [
+            //     TitleArticle(
+            //       title: "Bài tập",
+            //       listWorkout: pt.,
+            //     ),
+            //     TitleArticleMeal(
+            //       title: "Bữa ăn",
+            //       listMeal: LIST_MEAL,
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

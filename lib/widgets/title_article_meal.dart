@@ -14,6 +14,13 @@ class TitleArticleMeal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int indexMaxListMeal = 0;
+    if (listMeal.isNotEmpty) {
+      indexMaxListMeal = listMeal.length;
+      if (indexMaxListMeal > 2) {
+        indexMaxListMeal = 2;
+      }
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
       child: Column(
@@ -39,7 +46,7 @@ class TitleArticleMeal extends StatelessWidget {
           ),
           Row(
             children: [
-              ...listMeal.map((meal) {
+              ...listMeal.sublist(0, indexMaxListMeal).map((meal) {
                 return Flexible(
                     fit: FlexFit.tight,
                     child: _cardArticle(
