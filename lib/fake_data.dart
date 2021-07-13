@@ -38,6 +38,16 @@ final LIST_PLAN = [
 const LIST_COACH = const [
   PersonalTrainer(
       id: 0,
+      name: 'Ariana Grande',
+      imageUrl: "https://i.imgur.com/u4EVYZC.jpg",
+      tagName: 'Boxing, Thể hình',
+      information:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: "Ariana Grande"),
+  PersonalTrainer(
+      id: 1,
       name: 'Lalisa',
       imageUrl:
           'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png',
@@ -48,7 +58,7 @@ const LIST_COACH = const [
       listMeal: LIST_MEAL,
       fullname: 'Lalisa Monoban'),
   PersonalTrainer(
-      id: 1,
+      id: 2,
       name: 'Rose',
       imageUrl: "https://i.imgur.com/zCiPWRn.jpeg",
       tagName: 'Yoga, Thể hình',
@@ -57,16 +67,6 @@ const LIST_COACH = const [
       listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       fullname: "Rose"),
-  PersonalTrainer(
-      id: 2,
-      name: 'Ariana Grande',
-      imageUrl: "https://i.imgur.com/u4EVYZC.jpg",
-      tagName: 'Boxing, Thể hình',
-      information:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      listExcersice: LIST_EXERCISE,
-      listMeal: LIST_MEAL,
-      fullname: "Ariana Grande"),
 ];
 
 const List<Exercise> LIST_GOAL = const [
