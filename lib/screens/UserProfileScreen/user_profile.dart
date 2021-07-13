@@ -53,11 +53,6 @@ class UserProfileScreen extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          Text(
-            "Mục tiêu của bạn",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 5,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -73,33 +68,6 @@ class UserProfileScreen extends StatelessWidget {
                   Text("68.5kg", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                 ],
               )
-            ],
-          ),
-          SizedBox(height: 5,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Ngày bắt đầu: 10/6/2021"),
-              Text("Ngày kết thúc dự kiến: 10/9/2021 (3 tháng)"),
-              Text("BMI bắt đầu: 24.4"),
-              Text("BMI mục tiêu: 21.2"),
-
-              Text("Lượng calo tối đa trong ngày: 1920 (calo)"),
-            ],
-          ),
-          SizedBox(height: 10,),
-          Text(
-            "Điều chỉnh của bạn",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 5,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Chế độ ăn: Không nguyên tắc"),
-              Text("Tần suất tập luyện: 4 buổi / tuần"),
             ],
           ),
           SizedBox(height: 20,),
