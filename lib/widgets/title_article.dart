@@ -112,12 +112,14 @@ class TitleArticle extends StatelessWidget {
                       fit: FlexFit.tight,
                       child: _cardArticle(
                         context,
-                        planWorkout.workout.workoutID,
+                        int.parse(planWorkout.workout.workoutID.toString()),
                         planWorkout.workout.imageUrl,
                         planWorkout.workout.isPremium,
                         planWorkout.workout.name,
-                        planWorkout.workout.estimatedDuration,
-                        planWorkout.workout.estimatedCalories,
+                        int.parse(
+                            planWorkout.workout.estimatedDuration.toString()),
+                        int.parse(
+                            planWorkout.workout.estimatedCalories.toString()),
                         true,
                         false,
                         planWorkout.status,
@@ -129,11 +131,11 @@ class TitleArticle extends StatelessWidget {
                       fit: FlexFit.tight,
                       child: _cardArticle(
                         context,
-                        workout.workoutID,
+                        int.parse(workout.workoutID.toString()),
                         workout.imageUrl,
                         workout.isPremium,
                         workout.name,
-                        workout.estimatedDuration,
+                        int.parse(workout.estimatedDuration.toString()),
                         workout.estimatedCalories,
                         true,
                         false,

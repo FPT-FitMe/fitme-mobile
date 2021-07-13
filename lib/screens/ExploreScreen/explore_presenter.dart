@@ -29,7 +29,7 @@ class ExplorePresenter {
   Future<void> getListWorkoutComplete(DateTime dateTime) async {
     try {
       List<WorkoutLog> listWorkoutLog =
-          await _traineeRepository.getWorkoutLog(dateTime);
+          await _traineeRepository.getWorkoutLogs(dateTime);
       List<Workout> listWorkout = [];
       for (WorkoutLog wL in listWorkoutLog) {
         listWorkout.add(wL.workout);

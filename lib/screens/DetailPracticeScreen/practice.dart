@@ -115,8 +115,9 @@ class _PracticeScreenState extends State<PracticeScreen>
                                   Icon(CommunityMaterialIcons
                                       .clock_time_three_outline),
                                   Text(
-                                    convertDuration(
-                                        _workout!.estimatedDuration),
+                                    convertDuration(int.parse(_workout!
+                                        .estimatedDuration
+                                        .toString())),
                                     style: TextStyle(fontSize: 13),
                                   ),
                                 ],
