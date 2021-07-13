@@ -79,7 +79,7 @@ class _CaloriesCardState extends State<CaloriesCard>
           SizedBox(
             height: 10,
           ),
-          !_isLoading
+          !_isLoading && _listWeightLogs.isNotEmpty
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

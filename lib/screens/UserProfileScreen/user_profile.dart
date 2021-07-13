@@ -82,80 +82,80 @@ class _UserProfileScreenState extends State<UserProfileScreen>
               SizedBox(
                 height: 30,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.achievement);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Thành tựu của bạn",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "Hiện tất cả",
-                      style: TextStyle(fontSize: 10, color: AppColors.grayText),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
-                      width: 45,
-                      height: 45,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
-                      width: 45,
-                      height: 45,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
-                      width: 45,
-                      height: 45,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
-                      width: 45,
-                      height: 45,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              //   GestureDetector(
+              //     onTap: () {
+              //       Navigator.pushNamed(context, AppRoutes.achievement);
+              //     },
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Text(
+              //           "Thành tựu của bạn",
+              //           style:
+              //               TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              //         ),
+              //         Text(
+              //           "Hiện tất cả",
+              //           style: TextStyle(fontSize: 10, color: AppColors.grayText),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              //   SizedBox(
+              //     height: 10,
+              //   ),
+              //   Row(
+              //     children: [
+              //       ClipRRect(
+              //         borderRadius: BorderRadius.all(Radius.circular(8)),
+              //         child: Image.network(
+              //           'https://images.unsplash.com/photo-1587986174328-47e12c4d1e60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=537&q=80',
+              //           width: 45,
+              //           height: 45,
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       ClipRRect(
+              //         borderRadius: BorderRadius.all(Radius.circular(8)),
+              //         child: Image.network(
+              //           'https://images.unsplash.com/photo-1587652990204-1671eeaac77e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=533&q=80',
+              //           width: 45,
+              //           height: 45,
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       ClipRRect(
+              //         borderRadius: BorderRadius.all(Radius.circular(8)),
+              //         child: Image.network(
+              //           'https://images.unsplash.com/photo-1587653559430-aadd3ac46e3f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=519&q=80',
+              //           width: 45,
+              //           height: 45,
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       ClipRRect(
+              //         borderRadius: BorderRadius.all(Radius.circular(8)),
+              //         child: Image.network(
+              //           'https://images.unsplash.com/photo-1587567711116-272a3a927415?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=531&q=80',
+              //           width: 45,
+              //           height: 45,
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              //   SizedBox(
+              //     height: 20,
+              //   ),
             ]),
           ),
         ),
