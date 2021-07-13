@@ -148,11 +148,11 @@ class TitleArticle extends StatelessWidget {
                       fit: FlexFit.tight,
                       child: _cardArticle(
                         context,
-                        post.id,
+                        int.parse(post.postID.toString()),
                         post.imageUrl,
                         false,
                         post.name,
-                        post.duration,
+                        post.readingTime,
                         null,
                         false,
                         false,

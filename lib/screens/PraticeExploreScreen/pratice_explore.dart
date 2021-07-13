@@ -3,7 +3,8 @@ import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/carousel_item.dart';
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/exercise.dart';
-import 'package:fitme/screens/PraticeExploreScreen/exercise_explore_presenter.dart';
+import 'package:fitme/models/post.dart';
+import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_presenter.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_pratice.dart';
@@ -21,15 +22,17 @@ class PraticeExploreScreen extends StatefulWidget {
 
 class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     implements PraticeExploreView {
-  bool _isLoading = true;
   late PraticePresenter _presenter;
   List<Exercise> listExercise = [];
+  List<Exercise> listExercise2 = [];
   List<Coach> listCoaches = [];
+  List<Post> listPosts = [];
 
   _PraticeExploreScreenState() {
     _presenter = new PraticePresenter(this);
     _presenter.loadAllExercise();
     _presenter.loadAllCoaches();
+    _presenter.loadAllPosts();
   }
 
   @override
@@ -46,11 +49,15 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                 TitleArticleBadge(
                   title: "Huấn luyện viên",
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  CoachAvatar(context, listCoaches[0]),
-                  CoachAvatar(context, listCoaches[1]),
-                  CoachAvatar(context, listCoaches[2]),
-                ]),
+                listCoaches.isEmpty
+                    ? SizedBox(height: 10)
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                            CoachAvatar(context, listCoaches[0]),
+                            // CoachAvatar(context, listCoaches[1]),
+                            // CoachAvatar(context, listCoaches[2]),
+                          ]),
                 TitleArticleBadge(
                   title: "Loại hình",
                 ),
@@ -77,8 +84,11 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   @override
   void loadAllExercise(List<Exercise> listExercise) {
     setState(() {
-      _isLoading = false;
       this.listExercise = listExercise;
+      listExercise2 = [
+        listExercise[0],
+        listExercise[1],
+      ];
     });
   }
 
@@ -90,8 +100,14 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   @override
   void loadAllCoaches(List<Coach> listCoaches) {
     setState(() {
-      _isLoading = false;
       this.listCoaches = listCoaches;
+    });
+  }
+
+  @override
+  void loadPosts(List<Post> listPosts) {
+    setState(() {
+      this.listPosts = listPosts;
     });
   }
 }

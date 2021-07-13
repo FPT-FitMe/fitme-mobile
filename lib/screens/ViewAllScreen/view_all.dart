@@ -1,8 +1,8 @@
 import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/post.dart';
 import 'package:fitme/models/workout.dart';
 
 import 'package:fitme/widgets/card_title.dart';
-import 'package:fitme/models/post.dart';
 
 import 'package:flutter/material.dart';
 
@@ -81,8 +81,8 @@ class ViewAllScreen extends StatelessWidget {
                             .map((post) => CardTitle(
                                   title: post.name,
                                   imageUrl: post.imageUrl,
-                                  duration: post.duration,
-                                  id: post.id,
+                                  duration: post.readingTime,
+                                  id: post.postID,
                                   isWorkout: false,
                                 ))
                             .toList(),
