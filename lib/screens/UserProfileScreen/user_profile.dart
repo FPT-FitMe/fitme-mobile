@@ -53,6 +53,24 @@ class UserProfileScreen extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Text("Mục tiêu cân nặng"),
+                  Text("68kg", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("Cân nặng hiện tại"),
+                  Text("68.5kg", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                ],
+              )
+            ],
+          ),
+          SizedBox(height: 20,),
           GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.achievement);
