@@ -9,8 +9,8 @@ class WorkoutLog {
   final int duration;
   final int totalCalories;
   final DateTime createdAt;
-  final int difficultFeedback;
-  final int experienceFeedback;
+  final int? difficultFeedback;
+  final int? experienceFeedback;
 
   WorkoutLog({
     required this.workoutLogID,
@@ -18,8 +18,8 @@ class WorkoutLog {
     required this.duration,
     required this.totalCalories,
     required this.createdAt,
-    required this.difficultFeedback,
-    required this.experienceFeedback,
+    this.difficultFeedback,
+    this.experienceFeedback,
   });
 
   factory WorkoutLog.fromJson(Map<String, dynamic> json) =>
