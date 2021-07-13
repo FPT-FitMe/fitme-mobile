@@ -2,7 +2,7 @@ import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/models/workout.dart';
 
 import 'package:fitme/widgets/card_title.dart';
-import 'package:fitme/models/post.dart';
+import 'package:fitme/models/post_old.dart';
 
 import 'package:flutter/material.dart';
 

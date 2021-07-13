@@ -1,17 +1,22 @@
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/exercise.dart';
+import 'package:fitme/models/post.dart';
 import 'package:fitme/repository/coach_repository.dart';
 import 'package:fitme/repository/exercise_repository.dart';
 import 'package:fitme/di/injection.dart';
+import 'package:fitme/repository/post_repository.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 
 class PraticePresenter {
   PraticeExploreView _praticeExploreView;
   late CoachRepository _coachRepository;
   late ExerciseRepository _exerciseRepository;
+  late PostRepository _postRepository;
 
   PraticePresenter(this._praticeExploreView) {
     _exerciseRepository = new Injector().exerciseRepository;
+    _coachRepository = new Injector().coachRepository;
+    _postRepository = new Injector().postRepository;
   }
 
   void loadAllExercise() async {
@@ -29,6 +34,16 @@ class PraticePresenter {
       List<Coach> listCoaches = await _coachRepository.getAllCoaches();
       _praticeExploreView.loadAllCoaches(listCoaches);
     } catch (e) {
+      print(e);
+    }
+  }
+
+  void loadAllPosts() async {
+    try {
+      List<Post> listPosts = await _postRepository.getAllPosts();
+      _praticeExploreView.loadPosts(listPosts);
+    } catch (e) {
+      _praticeExploreView.showEmptyList();
       print(e);
     }
   }

@@ -148,11 +148,11 @@ class TitleArticle extends StatelessWidget {
                       fit: FlexFit.tight,
                       child: _cardArticle(
                         context,
-                        post.id,
+                        post.postID,
                         post.imageUrl,
                         false,
                         post.name,
-                        post.duration,
+                        post.readingTime,
                         null,
                         false,
                         false,
@@ -168,7 +168,7 @@ class TitleArticle extends StatelessWidget {
 
   // chuyen qua trang detail cua exercise/meal
   void _selectArticle(
-      BuildContext ctx, int id, bool isWorkout, bool isMeal, bool isPost) {
+      BuildContext ctx, int? id, bool isWorkout, bool isMeal, bool isPost) {
     // Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
     if (isWorkout) {
       Navigator.push(
@@ -378,7 +378,7 @@ class TitleArticle extends StatelessWidget {
 
   Widget _cardArticle(
     BuildContext context,
-    int id,
+    int? id,
     String imageUrl,
     bool isPremium,
     String name,
