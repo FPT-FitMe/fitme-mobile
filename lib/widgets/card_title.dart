@@ -3,24 +3,36 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/fake_data.dart';
+<<<<<<< HEAD
 import 'package:fitme/models/meal_old.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
+=======
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/tag.dart';
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
 import 'package:flutter/material.dart';
 
 class CardTitle extends StatelessWidget {
   final String title;
   final String imageUrl;
   final int duration;
+<<<<<<< HEAD
   final double? cal;
   final int id;
   final List<String>? tag;
   final bool isWorkout;
+=======
+  final double? calories;
+  final int? id;
+  final List<Tag>? tags;
+  final bool isExercise;
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
   final List<Meal>? listMeal;
   final bool isShowStatus;
 
   CardTitle({
-    this.cal,
-    this.tag,
+    this.calories,
+    this.tags,
     this.listMeal,
     this.isShowStatus = true,
     required this.title,
@@ -74,6 +86,7 @@ class CardTitle extends StatelessWidget {
         ),
         subtitle: isWorkout
             ? Text(
+<<<<<<< HEAD
                 cal != null
                     ? convertDurationAndCalories(cal, duration)
                     : '$duration phút',
@@ -86,12 +99,25 @@ class CardTitle extends StatelessWidget {
                         : tag!.contains("Trưa")
                             ? '$duration phút - $cal kcals - Trưa'
                             : '$duration phút - $cal kcals - Tối',
+=======
+                calories != null
+                    ? '$duration phút - $calories cals'
+                    : '$duration phút',
+              )
+            : Text(
+                tags!.contains("Sáng")
+                    ? '$duration phút - $calories cals - Sáng'
+                    : tags!.contains("Trưa")
+                        ? '$duration phút - $calories cals - Trưa'
+                        : '$duration phút - $calories cals - Tối',
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
               ),
       ),
     );
   }
 
   void _selectArticle(BuildContext ctx, int? id) {
+<<<<<<< HEAD
     isWorkout
         ? Navigator.push(
             ctx,
@@ -100,6 +126,10 @@ class CardTitle extends StatelessWidget {
                 workoutID: id,
               ),
             ))
+=======
+    isExercise
+        ? Navigator.pushNamed(ctx, AppRoutes.detailPractice)
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
         : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
             'id': id,
             'listMeal': listMeal,

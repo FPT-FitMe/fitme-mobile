@@ -23,8 +23,11 @@ class AuthService implements AuthRepository {
         message: "Tài khoản không phải của người dùng. Vui lòng đăng nhập lại",
       );
     }
+<<<<<<< HEAD
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     _preferences.setInt("userID", int.parse(user.id.toString()));
+=======
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     await _storage.write(key: "isSurveyAnswered", value: user.gender);
     return user;

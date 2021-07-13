@@ -305,6 +305,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
             color: AppColors.primary,
           )
         ]).show();
+<<<<<<< HEAD
   }
 
   @override
@@ -312,5 +313,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
     setState(() {
       this.user = user;
     });
+=======
+>>>>>>> 96c2e29cbcfe8c911f02a3a404d2cef89017d7e6
   }
 }

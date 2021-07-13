@@ -2,7 +2,7 @@ import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/models/achivement.dart';
 import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
-import 'package:fitme/models/post.dart';
+import 'package:fitme/models/post_old.dart';
 import 'package:fitme/models/meal_log_old.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan_old.dart';
