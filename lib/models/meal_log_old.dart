@@ -1,14 +1,14 @@
-import 'package:fitme/models/exercise_old.dart';
+import 'package:fitme/models/meal_old.dart';
 
-class WorkoutLogOld {
+class MealLogOld {
   int traineeId;
-  Exercise exercise;
+  Meal meal;
   DateTime date;
   String content;
 
-  WorkoutLogOld({
+  MealLogOld({
     required this.traineeId,
-    required this.exercise,
+    required this.meal,
     required this.date,
     required this.content,
   });

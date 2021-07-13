@@ -1,7 +1,9 @@
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/fake_data.dart';
-import 'package:fitme/models/exercise_old.dart';
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/screens/FavoriteScreen/favorite_presenter.dart';
+import 'package:fitme/screens/FavoriteScreen/favorite_view.dart';
+import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:fitme/widgets/card_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +16,22 @@ class FavoriteScreen extends StatefulWidget {
   _FavoriteScreenState createState() => _FavoriteScreenState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> {
+class _FavoriteScreenState extends State<FavoriteScreen>
+    implements FavoriteView {
+  late FavoritePresenter _presenter;
+  bool _isLoading = true;
   int segmentedControlValue = 0;
+  List<Meal> listMeals = [];
+  List<Workout> listWorkouts = [];
+
+  _FavoriteScreenState() {
+    _presenter = new FavoritePresenter(this);
+    _presenter.loadFavouriteMeals();
+    _presenter.loadFavouriteWorkouts();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Meal> listMeal =
-        LIST_MEAL.where((meal) => meal.isFavorite == true).toList();
-    List<Exercise> listExercise =
-        LIST_EXERCISE.where((exercise) => exercise.isFavorite == true).toList();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -35,38 +44,50 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         children: [
           segmentedControl(),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
-          Column(
-            children: (segmentedControlValue == 1)
-                ? (listMeal.isNotEmpty)
-                    ? listMeal //dang le chi can truyen id la duoc roi
-                        .map((meal) => CardTitle(
-                              title: meal.name,
-                              imageUrl: meal.imageUrl,
-                              duration: meal.duration,
-                              cal: meal.cal,
-                              id: meal.id,
-                              isWorkout: false,
-                            ))
-                        .toList()
-                    : _buildNotFoundScreen()
-                : (listExercise.isNotEmpty)
-                    ? listExercise
-                        .map((exercise) => CardTitle(
-                              title: exercise.name,
-                              imageUrl: exercise.imageUrl,
-                              duration: exercise.duration,
-                              cal: exercise.cal,
-                              id: exercise.id,
-                              isWorkout: true,
-                            ))
-                        .toList()
-                    : _buildNotFoundScreen(),
-          ),
+          _isLoading == true
+              ? LoadingScreen()
+              : Column(children: showSelectedScreen()),
         ],
       ),
     );
+  }
+
+  List<Widget> showSelectedScreen() {
+    if (segmentedControlValue == 1) {
+      return listMeals.isNotEmpty
+          ? listMeals //dang le chi can truyen id la duoc roi
+              .map(
+                (meal) => CardTitle(
+                  title: meal.name,
+                  imageUrl: meal.imageUrl,
+                  duration: meal.cookingTime,
+                  cal: double.parse("${meal.calories}"),
+                  id: int.parse(meal.mealID.toString()),
+                  isWorkout: false,
+                  isShowStatus: false,
+                ),
+              )
+              .toList()
+          : _buildNotFoundScreen();
+    } else {
+      return listWorkouts.isNotEmpty
+          ? listWorkouts
+              .map(
+                (workout) => CardTitle(
+                  title: workout.name,
+                  imageUrl: workout.imageUrl,
+                  duration: int.parse(workout.estimatedDuration.toString()),
+                  cal: double.parse("${workout.estimatedCalories}"),
+                  id: int.parse(workout.workoutID.toString()),
+                  isWorkout: true,
+                  isShowStatus: false,
+                ),
+              )
+              .toList()
+          : _buildNotFoundScreen();
+    }
   }
 
   Widget segmentedControl() {
@@ -118,5 +139,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
       )
     ];
+  }
+
+  @override
+  void loadFavouriteMeals(List<Meal> listMeals) {
+    setState(() {
+      this.listMeals = listMeals;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void loadFavouriteWorkouts(List<Workout> listWorkouts) {
+    setState(() {
+      this.listWorkouts = listWorkouts;
+      _isLoading = false;
+    });
   }
 }

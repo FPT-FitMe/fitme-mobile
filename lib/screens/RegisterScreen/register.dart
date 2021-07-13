@@ -99,8 +99,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                           hintText: "*",
                           hintTextDirection: TextDirection.rtl,
                           hintStyle: TextStyle(color: Colors.red)),
-                      validator: MultiValidator(
-                          [RequiredValidator(errorText: "* Bắt buộc")]),
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "* Bắt buộc"),
+                        EmailValidator(errorText: "Email không hợp lệ")
+                      ]),
                     ),
                     SizedBox(
                       height: 20,

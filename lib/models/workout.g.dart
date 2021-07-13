@@ -8,10 +8,10 @@ part of 'workout.dart';
 
 Workout _$WorkoutFromJson(Map<String, dynamic> json) {
   return Workout(
-    workoutID: json['workoutID'] as int,
+    workoutID: json['workoutID'] as int?,
     description: json['description'] as String,
-    estimatedCalories: json['estimatedCalories'] as int,
-    estimatedDuration: json['estimatedDuration'] as int,
+    estimatedCalories: json['estimatedCalories'] as int?,
+    estimatedDuration: json['estimatedDuration'] as int?,
     imageUrl: json['imageUrl'] as String,
     isPremium: json['isPremium'] as bool,
     level: json['level'] as int,

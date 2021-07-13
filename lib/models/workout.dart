@@ -6,10 +6,10 @@ part 'workout.g.dart';
 
 @JsonSerializable()
 class Workout {
-  int workoutID;
+  int? workoutID;
   String description;
-  int estimatedCalories;
-  int estimatedDuration;
+  int? estimatedCalories;
+  int? estimatedDuration;
   String imageUrl;
   bool isPremium;
   int level;
@@ -21,10 +21,10 @@ class Workout {
   DateTime? lastModifiedDate;
 
   Workout({
-    required this.workoutID,
+    this.workoutID,
     required this.description,
-    required this.estimatedCalories,
-    required this.estimatedDuration,
+    this.estimatedCalories,
+    this.estimatedDuration,
     required this.imageUrl,
     required this.isPremium,
     required this.level,

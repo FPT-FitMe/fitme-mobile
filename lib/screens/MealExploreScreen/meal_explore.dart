@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
-import 'package:fitme/widgets/title_article.dart';
 import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:fitme/widgets/title_article_meal.dart';
-import 'package:fitme/widgets/title_article_pratice.dart';
 import 'package:flutter/material.dart';
 import 'package:fitme/fake_data.dart';
 

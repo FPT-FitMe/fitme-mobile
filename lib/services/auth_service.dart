@@ -5,6 +5,7 @@ import 'package:fitme/models/errors/AuthUserException.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/repository/auth_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService implements AuthRepository {
   Dio dio = new HttpService().dio;
@@ -22,7 +23,10 @@ class AuthService implements AuthRepository {
         message: "Tài khoản không phải của người dùng. Vui lòng đăng nhập lại",
       );
     }
+    SharedPreferences _preferences = await SharedPreferences.getInstance();
+    _preferences.setInt("userID", int.parse(user.id.toString()));
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
+    await _storage.write(key: "isSurveyAnswered", value: user.gender);
     return user;
   }
 

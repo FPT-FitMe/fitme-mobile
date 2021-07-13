@@ -1,10 +1,25 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
+import 'package:fitme/screens/PaymentScreen/payment_presenter.dart';
+import 'package:fitme/screens/PaymentScreen/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class PaymentScreen extends StatelessWidget {
+class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
+
+  @override
+  _PaymentScreenState createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> implements PaymentView {
+  late PaymentPresenter _presenter;
+
+  _PaymentScreenState() {
+    _presenter = new PaymentPresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +79,9 @@ class PaymentScreen extends StatelessWidget {
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _presenter.buySubscription();
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -83,5 +100,12 @@ class PaymentScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void success() async {
+    Fluttertoast.showToast(msg: "Bạn giờ đã là thành viên pro");
+    Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.mainScreen, (route) => false);
   }
 }

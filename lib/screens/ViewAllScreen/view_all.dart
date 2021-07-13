@@ -57,7 +57,7 @@ class ViewAllScreen extends StatelessWidget {
                               title: meal.name,
                               imageUrl: meal.imageUrl,
                               duration: meal.duration,
-                              cal: meal.cal,
+                              cal: double.parse(meal.cal.toString()),
                               id: meal.id,
                               isWorkout: false,
                               tag: meal.tag,
@@ -69,9 +69,11 @@ class ViewAllScreen extends StatelessWidget {
                             .map((workout) => CardTitle(
                                   title: workout.name,
                                   imageUrl: workout.imageUrl,
-                                  duration: workout.estimatedDuration,
-                                  cal: workout.estimatedCalories,
-                                  id: workout.workoutID,
+                                  duration: int.parse(
+                                      workout.estimatedDuration.toString()),
+                                  cal: double.parse(
+                                      workout.estimatedCalories.toString()),
+                                  id: int.parse(workout.workoutID.toString()),
                                   isWorkout: true,
                                 ))
                             .toList()
@@ -88,6 +90,4 @@ class ViewAllScreen extends StatelessWidget {
             ),
     );
   }
-
-
 }

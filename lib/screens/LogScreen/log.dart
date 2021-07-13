@@ -1,11 +1,14 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/fake_data.dart';
 import 'package:fitme/models/meal_log.dart';
-import 'package:fitme/models/workout_log_old.dart';
+import 'package:fitme/models/workout_log.dart';
+import 'package:fitme/screens/LogScreen/log_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'log_view.dart';
 
 class LogScreen extends StatefulWidget {
   const LogScreen({Key? key}) : super(key: key);
@@ -14,27 +17,37 @@ class LogScreen extends StatefulWidget {
   _LogScreenState createState() => _LogScreenState();
 }
 
-class _LogScreenState extends State<LogScreen> {
+class _LogScreenState extends State<LogScreen> implements LogView {
   DateTime selectedDate = DateTime.now();
   DateFormat formatter = DateFormat('dd-MM-yyyy');
   DateFormat timeFormatter = DateFormat('HH:mm');
   int _selectedIndex = 0;
-  List<WorkoutLog> workoutLogList = listWorkoutLog;
-  List<MealLog> mealLogList = listMealLog;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  List<WorkoutLog> workoutLogList = [];
+  List<MealLog> mealLogList = [];
+  late LogPresenter _presenter;
+
+  _LogScreenState() {
+    _presenter = new LogPresenter(this);
+    _presenter.loadMealLogs(selectedDate);
+    _presenter.loadWorkoutLogs(selectedDate);
+  }
 
   void _selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2020),
+      firstDate: DateTime(2021),
       lastDate: DateTime.now(),
     );
-    if (pickedDate != null && pickedDate != selectedDate)
+    if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;
-        // FIXME: change date will empty workout data
-        workoutLogList = [];
       });
+      _presenter.loadMealLogs(selectedDate);
+      _presenter.loadWorkoutLogs(selectedDate);
+    }
   }
 
   void _onScreenItemTapped(int index) {
@@ -79,22 +92,22 @@ class _LogScreenState extends State<LogScreen> {
         return ListTile(
           title: Padding(
             padding: EdgeInsets.only(bottom: 5),
-            child: Text(item.exercise.name),
+            child: Text(item.workout.name),
           ),
           subtitle: Text(
-            timeFormatter.format(item.date),
+            timeFormatter.format(item.createdAt),
           ),
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
-              item.exercise.imageUrl,
+              item.workout.imageUrl,
               fit: BoxFit.cover,
               width: 50,
               height: 50,
             ),
           ),
           trailing: Text(
-            "-${item.exercise.cal.toString()} kcals",
+            "-${item.totalCalories.toString()} kcals",
             style: TextStyle(color: AppColors.green500),
           ),
         );
@@ -103,6 +116,9 @@ class _LogScreenState extends State<LogScreen> {
   }
 
   _buildMealLogList() {
+    if (mealLogList.isEmpty) {
+      return _buildNotFoundScreen();
+    }
     return ListView.builder(
       itemCount: mealLogList.length,
       itemBuilder: (context, index) {
@@ -113,7 +129,7 @@ class _LogScreenState extends State<LogScreen> {
             child: Text(item.meal.name),
           ),
           subtitle: Text(
-            timeFormatter.format(item.date),
+            timeFormatter.format(item.createdAt),
           ),
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -125,7 +141,7 @@ class _LogScreenState extends State<LogScreen> {
             ),
           ),
           trailing: Text(
-            "+${item.meal.cal.toString()} kcals",
+            "+${item.meal.calories.toString()} kcals",
             style: TextStyle(color: AppColors.primary),
           ),
         );
@@ -185,14 +201,40 @@ class _LogScreenState extends State<LogScreen> {
         onTap: _onScreenItemTapped,
         elevation: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 10,
+      body: SmartRefresher(
+        controller: _refreshController,
+        onRefresh: refresh,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
+          child: _selectedIndex == 0
+              ? _buildWorkoutLogList()
+              : _buildMealLogList(),
         ),
-        child:
-            _selectedIndex == 0 ? _buildWorkoutLogList() : _buildMealLogList(),
       ),
     );
+  }
+
+  void refresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _presenter.loadMealLogs(selectedDate);
+    _presenter.loadWorkoutLogs(selectedDate);
+    _refreshController.refreshCompleted();
+  }
+
+  @override
+  void loadMealLogs(List<MealLog> listMealLogs) {
+    setState(() {
+      mealLogList = listMealLogs;
+    });
+  }
+
+  @override
+  void loadWorkoutLogs(List<WorkoutLog> listWorkoutLogs) {
+    setState(() {
+      workoutLogList = listWorkoutLogs;
+    });
   }
 }

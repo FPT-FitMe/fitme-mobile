@@ -67,7 +67,7 @@ class Search extends SearchDelegate {
                         title: exercise.name,
                         imageUrl: exercise.imageUrl,
                         duration: exercise.duration,
-                        cal: exercise.cal,
+                        cal: double.parse(exercise.cal.toString()),
                         id: exercise.id,
                         isWorkout: true))
                     .toList(),
@@ -80,7 +80,7 @@ class Search extends SearchDelegate {
                           title: meal.name,
                           imageUrl: meal.imageUrl,
                           duration: meal.duration,
-                          cal: meal.cal,
+                          cal: double.parse(meal.cal.toString()),
                           id: meal.id,
                           isWorkout: false,
                         ))

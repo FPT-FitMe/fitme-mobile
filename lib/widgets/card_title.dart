@@ -11,16 +11,18 @@ class CardTitle extends StatelessWidget {
   final String title;
   final String imageUrl;
   final int duration;
-  final int? cal;
+  final double? cal;
   final int id;
   final List<String>? tag;
   final bool isWorkout;
   final List<Meal>? listMeal;
+  final bool isShowStatus;
 
   CardTitle({
     this.cal,
     this.tag,
     this.listMeal,
+    this.isShowStatus = true,
     required this.title,
     required this.duration,
     required this.id,
@@ -76,11 +78,13 @@ class CardTitle extends StatelessWidget {
                     : '$duration phút',
               )
             : Text(
-                tag!.contains("Sáng")
-                    ? '$duration phút - $cal kcals - Sáng'
-                    : tag!.contains("Trưa")
-                        ? '$duration phút - $cal kcals - Trưa'
-                        : '$duration phút - $cal kcals - Tối',
+                tag == null
+                    ? '$duration phút - $cal kcals '
+                    : tag!.contains("Sáng")
+                        ? '$duration phút - $cal kcals - Sáng'
+                        : tag!.contains("Trưa")
+                            ? '$duration phút - $cal kcals - Trưa'
+                            : '$duration phút - $cal kcals - Tối',
               ),
       ),
     );
