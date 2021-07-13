@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:fitme/widgets/title_article.dart';
@@ -42,9 +43,11 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   List<Workout> listWorkout = [];
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
+  String name = "bạn";
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
+    loadUserName();
     _presenter.getListWorkoutComplete(_selectedDay);
     _presenter.getPlan(_selectedDay);
   }
@@ -56,6 +59,16 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
         _focusedDay = focusedDay;
         _presenter.getPlan(selectedDay);
         _presenter.getListWorkoutComplete(_selectedDay);
+      });
+    }
+  }
+
+  loadUserName() async {
+    SharedPreferences _preferences = await SharedPreferences.getInstance();
+    String? fullName = _preferences.getString("userFullname");
+    if (fullName != null) {
+      setState(() {
+        name = fullName;
       });
     }
   }
@@ -75,7 +88,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 15, 0, 15),
                       child: Text(
-                        "Chào Tùng Nguyễn,",
+                        "Chào $name,",
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,

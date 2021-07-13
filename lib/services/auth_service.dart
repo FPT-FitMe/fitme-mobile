@@ -25,6 +25,8 @@ class AuthService implements AuthRepository {
     }
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     _preferences.setInt("userID", int.parse(user.id.toString()));
+    _preferences.setString(
+        "userFullname", "${user.firstName} ${user.lastName}");
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     await _storage.write(key: "isSurveyAnswered", value: user.gender);
     return user;

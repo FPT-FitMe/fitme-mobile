@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/meal_log.dart';
+import 'package:fitme/models/weight_log.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/repository/trainee_repository.dart';
@@ -66,7 +67,6 @@ class TraineeService implements TraineeRepository {
   @override
   Future<WorkoutLog> logWorkout(Workout workout, int duration,
       int? difficultFeedback, int? experienceFeedback) async {
-    // TODO: implement logWorkout
     final id = workout.workoutID;
     final response = await dio.post("/trainee/logWorkout/$id", data: {
       "duration": duration,
@@ -82,6 +82,14 @@ class TraineeService implements TraineeRepository {
         .get("/trainee/log/meal/${date.day}-${date.month}-${date.year}");
     return (response.data as List)
         .map((workoutLog) => MealLog.fromJson(workoutLog))
+        .toList();
+  }
+
+  @override
+  Future<List<WeightLog>> getAllWeightLog() async {
+    final response = await dio.get("/trainee/log/weight");
+    return (response.data as List)
+        .map((weightLog) => WeightLog.fromJson(weightLog))
         .toList();
   }
 }

@@ -5,7 +5,7 @@ import 'package:fitme/models/user.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile_presenter.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile_view.dart';
-import 'package:fitme/widgets/calories_card.dart';
+import 'package:fitme/widgets/CaloriesCard/calories_card.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
               SizedBox(
                 height: 20,
               ),
-              CaloriesCard(),
+              if (user != null) CaloriesCard(user: this.user),
               SizedBox(
                 height: 30,
               ),
