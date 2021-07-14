@@ -1,10 +1,10 @@
-import 'package:fitme/models/workout.dart';
+import 'package:fitme/models/meal.dart';
 
-abstract class DetailPracticeView {
-  void loadWorkoutDetail(Workout workout, bool isFavorite);
+abstract class DetailMealView {
+  void loadMealDetail(Meal meal);
   void refresh();
   void showFailedModal(String message);
-  void showEmptyList();
+  void showEmpty();
   void addFavoriteSuccess();
   void addFavoriteFailed(String message);
   void unFavoriteSuccess();

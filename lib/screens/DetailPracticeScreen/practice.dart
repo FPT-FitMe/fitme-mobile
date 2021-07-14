@@ -7,6 +7,7 @@ import 'package:fitme/screens/DetailPracticeScreen/detail_practice_presenter.dar
 import 'package:fitme/screens/DetailPracticeScreen/detailt_practice_view.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -26,6 +27,7 @@ class _PracticeScreenState extends State<PracticeScreen>
       RefreshController(initialRefresh: false);
   late Workout? _workout;
   late int? _workoutID;
+  bool _isFavorite = false;
 
   _PracticeScreenState() {
     _presenter = new DetailPracticePresenter(this);
@@ -35,7 +37,6 @@ class _PracticeScreenState extends State<PracticeScreen>
   void initState() {
     super.initState();
     _workoutID = widget.workoutID;
-    print(_workoutID);
     _presenter.loadWorkoutByID(_workoutID!);
   }
 
@@ -54,9 +55,17 @@ class _PracticeScreenState extends State<PracticeScreen>
                   color: Theme.of(context).textTheme.bodyText1!.color,
                 ),
               ),
-              // hình ảnh hiện tại chỉ mang tính chất tượng trưng
-              // TODO: add to favorite list
-              Icon(Icons.favorite_outline),
+              _isFavorite
+                  ? GestureDetector(
+                      onTap: () => _unFavorite(),
+                      child: Icon(
+                        Icons.favorite,
+                        color: AppColors.primary,
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () => _addToFavorite(),
+                      child: Icon(Icons.favorite_outline))
             ],
           ),
         ),
@@ -213,6 +222,20 @@ class _PracticeScreenState extends State<PracticeScreen>
     });
   }
 
+  void _unFavorite() {
+    setState(() {
+      this._isFavorite = false;
+    });
+    _presenter.unFavorite(_workoutID!);
+  }
+
+  void _addToFavorite() {
+    setState(() {
+      this._isFavorite = true;
+    });
+    _presenter.addFavorite(_workoutID!);
+  }
+
   Widget _smallExercise(
       String title, String imageUrl, int numOfDoExercise, int? duration) {
     return Container(
@@ -247,10 +270,11 @@ class _PracticeScreenState extends State<PracticeScreen>
   }
 
   @override
-  void loadWorkoutDetail(Workout workout) {
+  void loadWorkoutDetail(Workout workout, bool isFavorite) {
     setState(() {
       _isLoading = false;
       this._workout = workout;
+      this._isFavorite = isFavorite;
     });
   }
 
@@ -286,5 +310,27 @@ class _PracticeScreenState extends State<PracticeScreen>
     var d = Duration(minutes: duration);
     List<String> parts = d.toString().split(':');
     return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút';
+  }
+
+  @override
+  void addFavoriteFailed(String message) {
+    // TODO: implement addFavoriteFailed
+  }
+
+  @override
+  void addFavoriteSuccess() {
+    // TODO: implement addFavoriteSuccess
+    Fluttertoast.showToast(msg: "Đã thêm vào list yêu thích");
+  }
+
+  @override
+  void unFavoriteFailed(String message) {
+    // TODO: implement unFavoriteFailed
+  }
+
+  @override
+  void unFavoriteSuccess() {
+    // TODO: implement unFavoriteSuccess
+    Fluttertoast.showToast(msg: "Đã xóa khỏi list yêu thích");
   }
 }

@@ -3,6 +3,8 @@ import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/workout.dart';
+import 'package:fitme/screens/CoachScreen/coach.dart';
+import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_presenter.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 import 'package:fitme/widgets/title_article.dart';
@@ -88,20 +90,8 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     );
   }
 
-  // @override
-  // void loadAllExercise(List<Exercise> listExercise) {
-  //   setState(() {
-  //     this.listExercise = listExercise;
-  //     listExercise2 = [
-  //       listExercise[0],
-  //       listExercise[1],
-  //     ];
-  //   });
-  // }
-
   @override
   void showEmptyList() {
-    // TODO: implement showEmptyList
     setState(() {
       this.listWorkout = [];
     });
@@ -146,9 +136,13 @@ Widget coachAvatar(BuildContext context, Coach coach) => Container(
         children: [
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.coachDetail, arguments: {
-                "id": coach.coachID,
-              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CoachScreen(
+                      coach: coach,
+                    ),
+                  ));
             },
             child: CircleAvatar(
               backgroundImage: NetworkImage(coach.imageUrl),
@@ -200,7 +194,13 @@ Widget carouselPage(List<Workout> listWorkout) => CarouselSlider(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.detailPractice);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PracticeScreen(
+                              workoutID: item.workoutID,
+                            ),
+                          ));
                     },
                     child: Image.network(item.imageUrl,
                         fit: BoxFit.cover, width: 1000),

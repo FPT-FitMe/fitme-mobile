@@ -1,22 +1,30 @@
-import 'package:fitme/models/personal_trainer.dart';
+import 'package:fitme/models/coach.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/models/post.dart';
+import 'package:fitme/screens/CoachScreen/coach_presenter.dart';
+import 'package:fitme/screens/CoachScreen/coach_view.dart';
 import 'package:fitme/widgets/title_article.dart';
 import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:flutter/material.dart';
-import 'package:fitme/fake_data.dart';
 
-class CoachScreen extends StatelessWidget {
-  const CoachScreen({Key? key}) : super(key: key);
+class CoachScreen extends StatelessWidget implements CoachExploreView {
+  final Coach? coach;
+  // const CoachScreen({Key? key, this.coach}) : super(key: key);
+  List<Meal> listMeal = [];
+  List<Workout> listWorkout = [];
+  List<Post> listPost = [];
+  late CoachPresenter _coachPresenter;
+
+  CoachScreen({this.coach}) {
+    _coachPresenter = new CoachPresenter(this);
+    _coachPresenter.getMealsByCoach(coach!.coachID);
+    _coachPresenter.getPostsByCoach(coach!.coachID);
+    _coachPresenter.getWorkoutsByCoach(coach!.coachID);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final routeArgs =
-    //     ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    // final coachId = routeArgs['id'] as int;
-    final map =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final id = map["id"];
-    final PersonalTrainer pt =
-        LIST_COACH.where((element) => element.id == id).first;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -32,7 +40,7 @@ class CoachScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              pt.imageUrl,
+              coach!.imageUrl,
               height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -43,7 +51,7 @@ class CoachScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    pt.fullname,
+                    coach!.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -52,27 +60,56 @@ class CoachScreen extends StatelessWidget {
                   SizedBox(
                     height: 4,
                   ),
-                  Text(pt.information),
+                  Text(coach!.introduction),
                 ],
               ),
             ),
             //phan bai tap va bua an
-            //TODO: merge di r t lam phan coach
-            // Column(
-            //   children: [
-            //     TitleArticle(
-            //       title: "Bài tập",
-            //       listWorkout: pt.,
-            //     ),
-            //     TitleArticleMeal(
-            //       title: "Bữa ăn",
-            //       listMeal: LIST_MEAL,
-            //     ),
-            //   ],
-            // ),
+            Column(
+              children: [
+                listWorkout.isNotEmpty
+                    ? TitleArticle(
+                        title: "Bài tập",
+                        listWorkout: listWorkout,
+                      )
+                    : Text(""),
+                listMeal.isNotEmpty
+                    ? TitleArticleMeal(
+                        title: "Bữa ăn",
+                        listMeal: listMeal,
+                      )
+                    : Text(""),
+                listPost.isNotEmpty
+                    ? TitleArticle(
+                        title: "Bài viết",
+                        listPost: listPost,
+                      )
+                    : Text(""),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void loadAllMealByCoach(List<Meal> listMeal) {
+    this.listMeal = listMeal;
+  }
+
+  @override
+  void loadAllPostByCoach(List<Post> listPost) {
+    this.listPost = listPost;
+  }
+
+  @override
+  void loadAllWorkoutByCoach(List<Workout> listWorkout) {
+    this.listWorkout = listWorkout;
+  }
+
+  @override
+  void showEmptyList() {
+    // TODO: implement showEmptyList
   }
 }

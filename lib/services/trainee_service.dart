@@ -84,4 +84,30 @@ class TraineeService implements TraineeRepository {
         .map((workoutLog) => MealLog.fromJson(workoutLog))
         .toList();
   }
+
+  @override
+  Future<bool> addFavoriteMeal(Meal meal) async {
+    final id = meal.mealID;
+    final response = await dio.post("/trainee/favorite/meal/$id");
+    return response.statusCode == 200 ? true : false;
+  }
+
+  @override
+  Future<bool> addFavoriteWorkout(int workoutID) async {
+    final response = await dio.post("/trainee/favorite/workout/$workoutID");
+    return response.statusCode == 200 ? true : false;
+  }
+
+  @override
+  Future<bool> unFavoriteMeal(Meal meal) async {
+    final id = meal.mealID;
+    final response = await dio.post("/trainee/unFavorite/meal/$id");
+    return response.statusCode == 200 ? true : false;
+  }
+
+  @override
+  Future<bool> unFavoriteWorkout(int workoutID) async {
+    final response = await dio.post("/trainee/unFavorite/workout/$workoutID");
+    return response.statusCode == 200 ? true : false;
+  }
 }
