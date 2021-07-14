@@ -47,6 +47,8 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   List<Meal> listFavoriteMeal = [];
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
+  int totalIn = 0;
+  int totalOut = 0;
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
@@ -305,12 +307,12 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                         height: 4,
                                       ),
                                       Text(
-                                          "  - Lượng calo tiêu thụ: ${getTotalCalOut(listWorkoutLog)} cals"),
+                                          "  - Lượng calo tiêu thụ: ${totalOut} cals"),
                                       SizedBox(
                                         height: 4,
                                       ),
                                       Text(
-                                          "  - Lượng calo nạp vào: ${getTotalCalIn(listMeallog)} cals"),
+                                          "  - Lượng calo nạp vào: ${totalIn} cals"),
                                     ],
                                   ),
                                 ),
@@ -416,6 +418,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
       _isLoading = false;
       this.listWorkoutLog = listWorkoutLog;
       this.listWorkout = listWorkout;
+      this.totalOut = getTotalCalOut(listWorkoutLog);
     });
   }
 
@@ -449,6 +452,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
     setState(() {
       _isLoading = false;
       this.listMeallog = listMealLog;
+      this.totalIn = getTotalCalIn(listMealLog);
     });
   }
 }

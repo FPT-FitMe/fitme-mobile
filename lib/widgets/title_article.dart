@@ -266,6 +266,7 @@ class TitleArticle extends StatelessWidget {
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
         'planMeal': planMeal,
         'mealID': planMeal.meal.mealID,
+        "dateTimeMeal": dateTimeNow,
         // 'listMeal': listMeal,
       }),
       child: SizedBox(

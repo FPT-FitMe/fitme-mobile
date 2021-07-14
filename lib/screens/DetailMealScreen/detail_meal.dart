@@ -32,7 +32,7 @@ class _DetailMealScreenState extends State<DetailMealScreen>
   late int? _mealID;
   PlanMeal? _planMeal;
   bool _isFavorite = false;
-
+  DateTime? dateTimeMeal;
   _DetailMealScreenState() {
     _presenter = new DetailMealPresenter(this);
   }
@@ -47,17 +47,25 @@ class _DetailMealScreenState extends State<DetailMealScreen>
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     _mealID = map["mealID"] as int;
     if (map["planMeal"] != null) _planMeal = map["planMeal"] as PlanMeal;
+    if (map["dateTimeMeal"] != null)
+      dateTimeMeal = map["dateTimeMeal"] as DateTime;
     _presenter.loadMealByID(_mealID!);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    PlanMeal? planMeal;
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    if (routeArgs['planMeal'] != null)
-      planMeal = routeArgs['planMeal'] as PlanMeal;
+    // PlanMeal? planMeal;
+    // final routeArgs =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    // if (routeArgs['planMeal'] != null)
+    //   planMeal = routeArgs['planMeal'] as PlanMeal;
+    bool isShow = true;
+    if (dateTimeMeal != null) {
+      if (dateTimeMeal!.day < DateTime.now().day) {
+        isShow = false;
+      }
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -145,7 +153,7 @@ class _DetailMealScreenState extends State<DetailMealScreen>
                 ),
               ),
             ),
-      bottomNavigationBar: planMeal != null
+      bottomNavigationBar: (_planMeal != null && isShow)
           ? Padding(
               padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
               child: Container(
@@ -171,9 +179,9 @@ class _DetailMealScreenState extends State<DetailMealScreen>
                   ],
                   onPressed: (int index) {
                     if (index == 0) {
-                      _skippedMeal(planMeal);
+                      _skippedMeal(_planMeal);
                     } else {
-                      _logMeal(planMeal);
+                      _logMeal(_planMeal);
                     }
                     setState(() {
                       for (int buttonIndex = 0;

@@ -1,6 +1,5 @@
 import 'package:fitme/di/injection.dart';
 import 'package:fitme/models/meal.dart';
-import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/repository/meal_repository.dart';
@@ -66,7 +65,8 @@ class DetailMealPresenter {
 
   Future<void> logMeal(PlanMeal planMeal) async {
     try {
-      MealLog mealLog = await _traineeRepository.logMeal(planMeal.meal);
+      // MealLog mealLog =
+      await _traineeRepository.logMeal(planMeal.meal);
       setStatusUpdatePlanDone(planMeal);
       _detailMealView.logMealSuccess();
     } catch (e) {
