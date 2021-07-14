@@ -9,4 +9,6 @@ abstract class DetailMealView {
   void addFavoriteFailed(String message);
   void unFavoriteSuccess();
   void unFavoriteFailed(String message);
+  void logMealSuccess();
+  void logMealFailed();
 }

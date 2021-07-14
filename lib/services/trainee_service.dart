@@ -110,4 +110,11 @@ class TraineeService implements TraineeRepository {
     final response = await dio.post("/trainee/unFavorite/workout/$workoutID");
     return response.statusCode == 200 ? true : false;
   }
+
+  @override
+  Future<MealLog> logMeal(Meal meal) async {
+    final id = meal.mealID;
+    final response = await dio.post("trainee/logMeal/$id");
+    return MealLog.fromJson(response.data);
+  }
 }

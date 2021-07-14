@@ -1,6 +1,5 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/tag.dart';
@@ -27,13 +26,6 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
     id = map["id"];
     listMeal = map["listMeal"];
     meal = listMeal.where((element) => element.mealID == id).first;
-    // setState(() {
-    //   if (meal.status == MealStatus.complete) {
-    //     isSelected[1] = true;
-    //   } else if (meal.status == MealStatus.skip) {
-    //     isSelected[0] = true;
-    //   }
-    // });
     super.didChangeDependencies();
   }
 

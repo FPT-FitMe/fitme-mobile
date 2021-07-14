@@ -1,5 +1,4 @@
 import 'package:fitme/constants/colors.dart';
-import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/workout.dart';
