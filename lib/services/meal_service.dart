@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:fitme/configs/http_service.dart';
 import 'package:fitme/models/meal.dart';

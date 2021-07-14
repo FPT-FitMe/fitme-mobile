@@ -55,8 +55,8 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                             CoachAvatar(context, listCoaches[0]),
-                            CoachAvatar(context, listCoaches[1]),
-                            CoachAvatar(context, listCoaches[2]),
+                            // CoachAvatar(context, listCoaches[1]),
+                            // CoachAvatar(context, listCoaches[2]),
                           ]),
                 TitleArticleBadge(
                   title: "Loại hình",

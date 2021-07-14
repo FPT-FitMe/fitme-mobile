@@ -7,6 +7,8 @@ import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/repository/workout_repository.dart';
 import 'package:fitme/services/auth_service.dart';
 import 'package:fitme/services/plan_service.dart';
+import 'package:fitme/services/exercise_service.dart';
+import 'package:fitme/services/post_service.dart';
 import 'package:fitme/services/trainee_service.dart';
 import 'package:fitme/services/workout_service.dart';
 import 'package:fitme/repository/image_repository.dart';

@@ -1,7 +1,5 @@
 import 'package:fitme/models/coach.dart';
-import 'package:fitme/models/exercise.dart';
 import 'package:fitme/repository/coach_repository.dart';
-import 'package:fitme/repository/exercise_repository.dart';
 import 'package:fitme/di/injection.dart';
 import 'package:fitme/screens/CoachScreen/coach_view.dart';
 

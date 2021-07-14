@@ -15,7 +15,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE, //now
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
@@ -23,7 +23,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE2, //old
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
   Plan(
@@ -31,7 +31,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE3, //new
       listMeal: LIST_MEAL3,
       listGoal: LIST_GOAL3,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
 ];
