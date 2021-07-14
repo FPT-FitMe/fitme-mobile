@@ -8,4 +8,6 @@ abstract class MealExploreView {
   void refesh();
   void showEmptyList();
   void showEmptyListMealTag(Tag tag);
+  void loadFavouriteMeals(List<Meal> listMeals);
 }
+  

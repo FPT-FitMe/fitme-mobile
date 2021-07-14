@@ -34,6 +34,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   List<Coach> listCoaches = [];
   List<Post> listPosts = [];
   List<Tag> listTags = [];
+  List<Workout> listFavoriteWorkout = [];
 
   _PraticeExploreScreenState() {
     _presenter = new PraticePresenter(this);
@@ -41,6 +42,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     _presenter.loadAllCoaches();
     _presenter.loadAllPosts();
     _presenter.loadAllTags();
+    _presenter.loadFavouriteWorkouts();
   }
 
   @override
@@ -164,6 +166,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                             ? TitleArticle(
                                 title: "Bài tập",
                                 listWorkout: listWorkout,
+                                listFavoriteWorkout: listFavoriteWorkout,
                               )
                             : Text(""),
                         listPosts.isNotEmpty
@@ -219,6 +222,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     _presenter.loadAllCoaches();
     _presenter.loadAllPosts();
     _presenter.loadAllTags();
+    _presenter.loadFavouriteWorkouts();
     _refreshController.refreshCompleted();
   }
 
@@ -280,6 +284,14 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'listWorkout': list,
       'topic': "bài tập tag " + tag.name,
+    });
+  }
+
+  @override
+  void loadFavouriteWorkouts(List<Workout> listWorkouts) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteWorkout = listWorkouts;
     });
   }
 }

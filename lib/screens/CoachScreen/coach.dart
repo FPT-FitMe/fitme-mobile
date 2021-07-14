@@ -25,6 +25,8 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
   List<Meal> listMeal = [];
   List<Workout> listWorkout = [];
   List<Post> listPost = [];
+  List<Workout> listFavoriteWorkout = [];
+  List<Meal> listFavoriteMeal = [];
   late Coach? _coach;
 
   _CoachScreenState() {
@@ -38,6 +40,8 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
     _coachPresenter.getMealsByCoach(_coach!.coachID);
     _coachPresenter.getPostsByCoach(_coach!.coachID);
     _coachPresenter.getWorkoutsByCoach(_coach!.coachID);
+    _coachPresenter.loadFavouriteMeals();
+    _coachPresenter.loadFavouriteWorkouts();
   }
 
   @override
@@ -93,12 +97,14 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
                             ? TitleArticle(
                                 title: "Bài tập",
                                 listWorkout: listWorkout,
+                                listFavoriteWorkout: listFavoriteWorkout,
                               )
                             : Text(""),
                         listMeal.isNotEmpty
                             ? TitleArticleMeal(
                                 title: "Bữa ăn",
                                 listMeal: listMeal,
+                                listFavoriteMeal: listFavoriteMeal,
                               )
                             : Text(""),
                         listPost.isNotEmpty
@@ -155,5 +161,21 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
     _coachPresenter.getPostsByCoach(_coach!.coachID);
     _coachPresenter.getWorkoutsByCoach(_coach!.coachID);
     _refreshController.refreshCompleted();
+  }
+
+  @override
+  void loadFavouriteMeals(List<Meal> listMeals) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteMeal = listMeals;
+    });
+  }
+
+  @override
+  void loadFavouriteWorkouts(List<Workout> listWorkouts) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteWorkout = listWorkouts;
+    });
   }
 }

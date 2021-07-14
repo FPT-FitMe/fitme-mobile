@@ -27,11 +27,13 @@ class _MealExploreScreenState extends State<MealExploreScreen>
       RefreshController(initialRefresh: false);
   List<Meal> listMeal = [];
   List<Tag> listTags = [];
+  List<Meal> listFavoriteMeal = [];
 
   _MealExploreScreenState() {
     _presenter = new MealPresenter(this);
     _presenter.loadAllMeals();
     _presenter.loadAllTags();
+    _presenter.loadFavouriteMeals();
   }
 
   @override
@@ -110,6 +112,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
                             TitleArticleMeal(
                               title: "Gợi ý dành cho bạn",
                               listMeal: listMeal,
+                              listFavoriteMeal: listFavoriteMeal,
                             ),
                           ],
                         ),
@@ -158,6 +161,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     await Future.delayed(Duration(milliseconds: 1000));
     _presenter.loadAllMeals();
     _presenter.loadAllTags();
+    _presenter.loadFavouriteMeals();
     _refreshController.refreshCompleted();
   }
 
@@ -191,6 +195,14 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_tag': listTags,
       'topic': "tag",
+    });
+  }
+
+  @override
+  void loadFavouriteMeals(List<Meal> listMeals) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteMeal = listMeals;
     });
   }
 }

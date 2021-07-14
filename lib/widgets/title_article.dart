@@ -2,13 +2,13 @@ import 'dart:ui';
 
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/models/plan_workout.dart';
 import 'package:fitme/models/post.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
-import 'package:fitme/screens/DetailMealScreen/detail_meal.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +17,9 @@ import 'package:fitme/constants/colors.dart';
 class TitleArticle extends StatelessWidget {
   final List<PlanWorkout>? listPlanWorkout;
   final Map<int, PlanMeal>? listPlanMeal;
+  final DateTime? dateTimeNow; // for plan
+  final List<Workout>? listFavoriteWorkout;
+  final List<Meal>? listFavoriteMeal;
   final List<Post>? listPost;
   final List<Workout>? listWorkout;
   final String title;
@@ -26,7 +29,10 @@ class TitleArticle extends StatelessWidget {
       this.listPlanWorkout,
       this.listPlanMeal,
       this.listPost,
-      this.listWorkout});
+      this.listWorkout,
+      this.listFavoriteWorkout,
+      this.listFavoriteMeal,
+      this.dateTimeNow});
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +65,18 @@ class TitleArticle extends StatelessWidget {
                 ),
                 (listPlanWorkout != null)
                     ? Text("")
-                    : InkWell(
-                        //TODO: viewall cua Meal ???
-                        onTap: () => _viewAllArticle(context, listPlanMeal,
-                            listWorkout, listPost, title),
-                        child: Text(
-                          "Hiện tất cả",
-                          style: TextStyle(
-                              fontSize: 10, color: AppColors.grayText),
-                        ),
-                      ),
+                    : listPlanMeal != null
+                        ? Text("")
+                        : InkWell(
+                            //Meal Explore khong co view All
+                            onTap: () => _viewAllArticle(
+                                context, listWorkout, listPost, title),
+                            child: Text(
+                              "Hiện tất cả",
+                              style: TextStyle(
+                                  fontSize: 10, color: AppColors.grayText),
+                            ),
+                          ),
               ],
             ),
           ),
@@ -186,9 +194,6 @@ class TitleArticle extends StatelessWidget {
               workoutID: id,
             ),
           ));
-      // Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
-      //   'workoutID': id,
-      // });
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
@@ -227,10 +232,8 @@ class TitleArticle extends StatelessWidget {
   }
 
 // chuyen qua trang viewAll
-  void _viewAllArticle(
-      BuildContext ctx, listMeal, listWorkout, listPost, String topic) {
+  void _viewAllArticle(BuildContext ctx, listWorkout, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
-      'list_meal': listMeal,
       'listWorkout': listWorkout,
       'list_post': listPost,
       'topic': topic,
@@ -241,8 +244,23 @@ class TitleArticle extends StatelessWidget {
     BuildContext context,
     PlanMeal? planMeal,
   ) {
-    //checkfavorite
+    bool isFavorite = false;
+    if (listFavoriteMeal != null && listFavoriteMeal!.isNotEmpty) {
+      var containt = listFavoriteMeal!
+          .where((element) => element.mealID == planMeal!.meal.mealID)
+          .toList();
+      if (containt.isNotEmpty) {
+        isFavorite = true;
+      }
+    }
     bool isSkipped = planMeal!.status == "skipped";
+    if (dateTimeNow != null) {
+      if (dateTimeNow!.day < DateTime.now().day) {
+        if (planMeal.status == null) {
+          isSkipped = true;
+        }
+      }
+    }
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
@@ -277,8 +295,7 @@ class TitleArticle extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    //TODO: check favorite
-                    if (true)
+                    if (isFavorite)
                       Positioned(
                         bottom: 70,
                         right: 10,
@@ -399,7 +416,22 @@ class TitleArticle extends StatelessWidget {
     String? status,
   ) {
     bool isFavorite = false;
+    if (listFavoriteWorkout != null && listFavoriteWorkout!.isNotEmpty) {
+      var containt = listFavoriteWorkout!
+          .where((element) => element.workoutID == id)
+          .toList();
+      if (containt.isNotEmpty) {
+        isFavorite = true;
+      }
+    }
     bool isSkipped = status == "skipped";
+    if (dateTimeNow != null) {
+      if (dateTimeNow!.day < DateTime.now().day) {
+        if (status == null) {
+          isSkipped = true;
+        }
+      }
+    }
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, false, isPost),
       child: Container(
@@ -440,19 +472,18 @@ class TitleArticle extends StatelessWidget {
                         ),
                       ),
                     ),
-                  // if (isFavorite)
-                  //   Positioned(
-                  //     bottom: 70,
-                  //     right: 10,
-                  //     child: Container(
-                  //       child: Icon(
-                  //         Icons.favorite,
-                  //         color: Colors.white,
-                  //         size: 17,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //neu la meal se co tag "sang/trua/toi"
+                  if (isFavorite)
+                    Positioned(
+                      bottom: 70,
+                      right: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
                 ],
               ),
               SizedBox(

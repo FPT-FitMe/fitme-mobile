@@ -13,4 +13,5 @@ abstract class PraticeExploreView {
   void refesh();
   void showFailedModal(String message);
   void showEmptyListWorkoutTag(Tag tag);
+  void loadFavouriteWorkouts(List<Workout> listWorkouts);
 }

@@ -2,14 +2,17 @@ import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:fitme/repository/meal_repository.dart';
 import 'package:fitme/di/injection.dart';
+import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/screens/MealExploreScreen/meal_explore_view.dart';
 
 class MealPresenter {
   MealExploreView _mealExploreView;
   late MealRepository _mealRepository;
+  late TraineeRepository _traineeRepository;
 
   MealPresenter(this._mealExploreView) {
     _mealRepository = new Injector().mealRepository;
+    _traineeRepository = new Injector().traineeRepository;
   }
 
   void loadAllMeals() async {
@@ -38,6 +41,15 @@ class MealPresenter {
     } catch (e) {
       print(e);
       _mealExploreView.showEmptyListMealTag(tag);
+    }
+  }
+
+  void loadFavouriteMeals() async {
+    try {
+      List<Meal> listMeals = await _traineeRepository.getFavouriteMeals();
+      _mealExploreView.loadFavouriteMeals(listMeals);
+    } catch (e) {
+      print(e);
     }
   }
 }

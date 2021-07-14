@@ -5,6 +5,7 @@ import 'package:fitme/models/workout.dart';
 import 'package:fitme/repository/coach_repository.dart';
 import 'package:fitme/di/injection.dart';
 import 'package:fitme/repository/post_repository.dart';
+import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/repository/workout_repository.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 
@@ -13,11 +14,13 @@ class PraticePresenter {
   late CoachRepository _coachRepository;
   late PostRepository _postRepository;
   late WorkoutRepository _workoutRepository;
+  late TraineeRepository _traineeRepository;
 
   PraticePresenter(this._praticeExploreView) {
     _coachRepository = new Injector().coachRepository;
     _postRepository = new Injector().postRepository;
     _workoutRepository = new Injector().workoutRepository;
+    _traineeRepository = new Injector().traineeRepository;
   }
 
   Future<void> getAllWorkouts() async {
@@ -66,6 +69,16 @@ class PraticePresenter {
     } catch (e) {
       print(e);
       _praticeExploreView.showEmptyListWorkoutTag(tag);
+    }
+  }
+
+  void loadFavouriteWorkouts() async {
+    try {
+      List<Workout> listWorkouts =
+          await _traineeRepository.getFavouriteWorkouts();
+      _praticeExploreView.loadFavouriteWorkouts(listWorkouts);
+    } catch (e) {
+      print(e);
     }
   }
 }

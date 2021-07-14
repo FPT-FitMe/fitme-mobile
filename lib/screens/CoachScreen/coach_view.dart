@@ -8,4 +8,6 @@ abstract class CoachExploreView {
   void loadAllMealByCoach(List<Meal> listMeal);
   void showEmptyList();
   void refresh();
+  void loadFavouriteMeals(List<Meal> listMeals);
+  void loadFavouriteWorkouts(List<Workout> listWorkouts);
 }

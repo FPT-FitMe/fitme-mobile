@@ -4,6 +4,7 @@ import 'package:fitme/models/post.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/repository/meal_repository.dart';
 import 'package:fitme/repository/post_repository.dart';
+import 'package:fitme/repository/trainee_repository.dart';
 import 'package:fitme/repository/workout_repository.dart';
 import 'package:fitme/screens/CoachScreen/coach_view.dart';
 
@@ -12,11 +13,13 @@ class CoachPresenter {
   late WorkoutRepository _workoutRepository;
   late PostRepository _postRepository;
   late MealRepository _mealRepository;
+  late TraineeRepository _traineeRepository;
 
   CoachPresenter(this._coachExploreView) {
     _workoutRepository = new Injector().workoutRepository;
     _postRepository = new Injector().postRepository;
     _mealRepository = new Injector().mealRepository;
+    _traineeRepository = new Injector().traineeRepository;
   }
 
   Future<void> getMealsByCoach(int coachID) async {
@@ -45,6 +48,25 @@ class CoachPresenter {
       _coachExploreView.loadAllWorkoutByCoach(list);
     } catch (e) {
       _coachExploreView.showEmptyList();
+      print(e);
+    }
+  }
+
+  void loadFavouriteMeals() async {
+    try {
+      List<Meal> listMeals = await _traineeRepository.getFavouriteMeals();
+      _coachExploreView.loadFavouriteMeals(listMeals);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void loadFavouriteWorkouts() async {
+    try {
+      List<Workout> listWorkouts =
+          await _traineeRepository.getFavouriteWorkouts();
+      _coachExploreView.loadFavouriteWorkouts(listWorkouts);
+    } catch (e) {
       print(e);
     }
   }
