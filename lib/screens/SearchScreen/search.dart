@@ -54,12 +54,18 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    //cai nay dang le lam trong api
+    List<Workout> resultWorkout = [];
+    List<Meal> resultMeal = [];
+    isEx
+        ? resultWorkout.addAll(
+            listWorkout.where((element) => element.name.contains(query)))
+        : resultMeal
+            .addAll(listMeal.where((element) => element.name.contains(query)));
     return isEx //neu nhu la ex thi list ex
-        ? (listWorkout.isEmpty
+        ? (resultWorkout.isEmpty
             ? _buildNotFoundScreen()
             : ListView(
-                children: listWorkout
+                children: resultWorkout
                     .map((workout) => CardTitle(
                         title: workout.name,
                         imageUrl: workout.imageUrl,
@@ -70,10 +76,10 @@ class Search extends SearchDelegate {
                         isWorkout: true))
                     .toList(),
               ))
-        : (listMeal.isEmpty
+        : (resultMeal.isEmpty
             ? _buildNotFoundScreen()
             : ListView(
-                children: listMeal
+                children: resultMeal
                     .map((meal) => CardTitle(
                           title: meal.name,
                           imageUrl: meal.imageUrl,

@@ -79,8 +79,7 @@ class CardTitle extends StatelessWidget {
               ),
             ))
         : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-            'id': id,
-            'listMeal': listMeal,
+            'mealID': id,
           });
   }
 
