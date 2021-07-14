@@ -20,7 +20,11 @@ class DetailPracticePresenter {
       Workout workout = await _workoutRepository.getWorkoutByID(id);
       List<Workout> list = await _traineeRepository.getFavouriteWorkouts();
       if (list.isNotEmpty) {
-        list.contains(workout) ? isFavorite = true : isFavorite = false;
+        var contain =
+            list.where((element) => element.workoutID == workout.workoutID);
+        if (contain.isNotEmpty) {
+          isFavorite = true;
+        }
       }
       _detailPracticeView.loadWorkoutDetail(workout, isFavorite);
     } catch (e) {
