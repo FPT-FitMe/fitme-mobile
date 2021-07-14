@@ -27,26 +27,6 @@ class CardTitle extends StatelessWidget {
     required this.imageUrl,
     required this.isWorkout,
   });
-  // Widget getTick(id) {
-  //   if (LIST_MEAL1[id].status == MealStatus.complete) {
-  //     return Icon(
-  //       Icons.check_circle,
-  //       color: AppColors.green500,
-  //       size: 17,
-  //     );
-  //   } else if (LIST_MEAL1[id].status == MealStatus.skip) {
-  //     return Icon(
-  //       CommunityMaterialIcons.minus_circle_outline,
-  //       color: AppColors.grayText,
-  //       size: 17,
-  //     );
-  //   }
-  //   return Icon(
-  //     CommunityMaterialIcons.minus_circle_outline,
-  //     color: Colors.transparent,
-  //     size: 17,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

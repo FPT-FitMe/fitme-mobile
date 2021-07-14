@@ -274,7 +274,6 @@ class _PracticeScreenState extends State<PracticeScreen>
     setState(() {
       _isLoading = false;
       this._workout = workout;
-      print(isFavorite);
       this._isFavorite = isFavorite;
     });
   }

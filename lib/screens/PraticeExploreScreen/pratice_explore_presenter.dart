@@ -1,5 +1,6 @@
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/post.dart';
+import 'package:fitme/models/tag.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/repository/coach_repository.dart';
 import 'package:fitme/di/injection.dart';
@@ -39,6 +40,15 @@ class PraticePresenter {
     }
   }
 
+  void loadAllTags() async {
+    try {
+      List<Tag> listTag = await _workoutRepository.getListTagWorkout();
+      _praticeExploreView.loadAllTag(listTag);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void loadAllPosts() async {
     try {
       List<Post> listPosts = await _postRepository.getAllPosts();
@@ -46,6 +56,16 @@ class PraticePresenter {
       _praticeExploreView.loadPosts(listPosts);
     } catch (e) {
       _praticeExploreView.showEmptyList();
+    }
+  }
+
+  Future<void> loadWorkouts(Tag tag) async {
+    try {
+      List<Workout> list = await _workoutRepository.getListWorkoutByTag(tag);
+      _praticeExploreView.loadWorkoutsByTag(list, tag);
+    } catch (e) {
+      print(e);
+      _praticeExploreView.showEmptyListWorkoutTag(tag);
     }
   }
 }

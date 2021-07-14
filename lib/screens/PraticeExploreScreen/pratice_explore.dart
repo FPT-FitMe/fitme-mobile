@@ -1,15 +1,21 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/coach.dart';
 import 'package:fitme/models/post.dart';
+import 'package:fitme/models/tag.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/CoachScreen/coach.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
+import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_presenter.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
 import 'package:fitme/widgets/title_article.dart';
-import 'package:fitme/widgets/title_article_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+const int MAX_COACH = 3;
+const int MAX_TAG = 3;
 
 class PraticeExploreScreen extends StatefulWidget {
   PraticeExploreScreen({Key? key}) : super(key: key);
@@ -21,15 +27,20 @@ class PraticeExploreScreen extends StatefulWidget {
 class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     implements PraticeExploreView {
   late PraticePresenter _presenter;
+  bool _isLoading = true;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   List<Workout> listWorkout = [];
   List<Coach> listCoaches = [];
   List<Post> listPosts = [];
+  List<Tag> listTags = [];
 
   _PraticeExploreScreenState() {
     _presenter = new PraticePresenter(this);
     _presenter.getAllWorkouts();
     _presenter.loadAllCoaches();
     _presenter.loadAllPosts();
+    _presenter.loadAllTags();
   }
 
   @override
@@ -37,68 +48,150 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     int maxListCoach = 0;
     if (listCoaches.isNotEmpty) {
       maxListCoach = listCoaches.length;
-      if (maxListCoach > 3) {
-        maxListCoach = 3;
+      if (maxListCoach > MAX_COACH) {
+        maxListCoach = MAX_COACH;
       }
     }
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                carouselPage(listWorkout),
-                TitleArticleBadge(
-                  title: "Huấn luyện viên",
-                ),
-                listCoaches.isEmpty
-                    ? SizedBox(height: 10)
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                            ...listCoaches.map((coach) {
-                              return coachAvatar(context, coach);
-                            }),
-                          ]),
-                TitleArticleBadge(
-                  title: "Loại hình",
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: tagSection(),
-                ),
-                listWorkout.isNotEmpty
-                    ? TitleArticle(
-                        title: "Bài tập",
-                        listWorkout: listWorkout,
-                      )
-                    : Text(""),
-                listPosts.isNotEmpty
-                    ? TitleArticle(
-                        title: "Bài viết",
-                        listPost: listPosts,
-                      )
-                    : Text(""),
-              ],
+    int maxListTag = 0;
+    if (listTags.isNotEmpty) {
+      maxListTag = listTags.length;
+      if (maxListTag > MAX_TAG) {
+        maxListTag = MAX_TAG;
+      }
+    }
+    return _isLoading == true
+        ? LoadingScreen()
+        : SmartRefresher(
+            controller: _refreshController,
+            onRefresh: refesh,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        carouselPage(listWorkout),
+                        listCoaches.isEmpty
+                            ? SizedBox(height: 10)
+                            : Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Huấn luyện viên",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      listCoaches.length > 3
+                                          ? InkWell(
+                                              onTap: () => _viewAllCoach(
+                                                  context, listCoaches),
+                                              child: Text(
+                                                "Hiện tất cả",
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: AppColors.grayText),
+                                              ),
+                                            )
+                                          : Text(""),
+                                    ],
+                                  ),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        ...listCoaches
+                                            .sublist(0, maxListCoach)
+                                            .map((coach) {
+                                          return coachAvatar(context, coach);
+                                        }),
+                                      ]),
+                                ],
+                              ),
+                        listTags.isEmpty
+                            ? SizedBox(height: 10)
+                            : Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Loại hình",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      listTags.length > 4
+                                          ? InkWell(
+                                              onTap: () => _viewAllTags(
+                                                  context, listTags),
+                                              child: Text(
+                                                "Hiện tất cả",
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: AppColors.grayText),
+                                              ),
+                                            )
+                                          : Text(""),
+                                    ],
+                                  ),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        ...listTags
+                                            .sublist(0, maxListTag)
+                                            .map((tag) {
+                                          return Row(
+                                            children: [
+                                              _createCustomChip(tag: tag),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                      ]),
+                                ],
+                              ),
+                        listWorkout.isNotEmpty
+                            ? TitleArticle(
+                                title: "Bài tập",
+                                listWorkout: listWorkout,
+                              )
+                            : Text(""),
+                        listPosts.isNotEmpty
+                            ? TitleArticle(
+                                title: "Bài viết",
+                                listPost: listPosts,
+                              )
+                            : Text(""),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   @override
   void showEmptyList() {
     setState(() {
-      this.listWorkout = [];
+      _isLoading = false;
     });
   }
 
   @override
   void loadAllCoaches(List<Coach> listCoaches) {
     setState(() {
+      _isLoading = false;
       this.listCoaches = listCoaches;
     });
   }
@@ -106,6 +199,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   @override
   void loadPosts(List<Post> listPosts) {
     setState(() {
+      _isLoading = false;
       this.listPosts = listPosts;
     });
   }
@@ -113,18 +207,80 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   @override
   void loadAllWorkout(List<Workout> listWorkout) {
     setState(() {
+      _isLoading = false;
       this.listWorkout = listWorkout;
     });
   }
 
   @override
-  void refesh() {
-    // TODO: implement refesh
+  Future<void> refesh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _presenter.getAllWorkouts();
+    _presenter.loadAllCoaches();
+    _presenter.loadAllPosts();
+    _presenter.loadAllTags();
+    _refreshController.refreshCompleted();
   }
 
   @override
   void showFailedModal(String message) {
     // TODO: implement showFailedModal
+  }
+
+  _viewAllCoach(BuildContext context, List<Coach> listCoaches) {
+    Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
+      'list_coach': listCoaches,
+      'topic': "Huấn luyện viên",
+    });
+  }
+
+  @override
+  void loadAllTag(List<Tag> listTag) {
+    setState(() {
+      _isLoading = false;
+      this.listTags = listTag;
+    });
+  }
+
+  _viewAllTags(BuildContext context, List<Tag> listTags) {
+    Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
+      'list_tag': listTags,
+      'topic': "tag",
+    });
+  }
+
+  @override
+  void loadWorkoutsByTag(List<Workout> listWorkout, Tag tag) {
+    Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
+      'listWorkout': listWorkout,
+      'topic': "bài tập tag " + tag.name,
+    });
+  }
+
+  Widget _createCustomChip({tag: Tag}) => GestureDetector(
+        onTap: () => _selectTag(tag),
+        child: Chip(
+          label: Text(tag.name),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: AppColors.grayText, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+
+  _selectTag(tag) {
+    _presenter.loadWorkouts(tag);
+  }
+
+  @override
+  void showEmptyListWorkoutTag(Tag tag) {
+    List<Workout> list = [];
+    Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
+      'listWorkout': list,
+      'topic': "bài tập tag " + tag.name,
+    });
   }
 }
 
@@ -239,30 +395,3 @@ String convertDurationAndCalories(dynamic cal, int duration) {
   int calories = cal.toInt();
   return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
 }
-
-Widget _createCustomChip({title: String}) => Chip(
-      label: Text(title),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColors.grayText, width: 1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-    );
-
-Widget tagSection() => Row(
-      children: [
-        _createCustomChip(title: "Yoga"),
-        SizedBox(
-          width: 10,
-        ),
-        _createCustomChip(title: 'Thể hình'),
-        SizedBox(
-          width: 10,
-        ),
-        _createCustomChip(title: 'TDNĐ'),
-        SizedBox(
-          width: 10,
-        ),
-      ],
-    );
