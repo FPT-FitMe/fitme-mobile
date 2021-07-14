@@ -1,4 +1,8 @@
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/workout.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_bar_presenter.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_bar_view.dart';
 import 'package:fitme/screens/MealExploreScreen/meal_explore.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
 import 'package:fitme/screens/SearchScreen/search.dart';
@@ -18,8 +22,19 @@ class BottomBarScreen extends StatefulWidget {
   _BottomBarScreenState createState() => _BottomBarScreenState();
 }
 
-class _BottomBarScreenState extends State<BottomBarScreen> {
+class _BottomBarScreenState extends State<BottomBarScreen>
+    implements BottomBarView {
+  late BottomBarPresenter _presenter;
+  List<Workout> listWorkoutSearch = [];
+  List<Meal> listMealSearch = [];
   int _selectedIndex = 0;
+
+  _BottomBarScreenState() {
+    _presenter = new BottomBarPresenter(this);
+    _presenter.loadMeals();
+    _presenter.loadWorkouts();
+  }
+
   final String name = "Tùng";
 
   //title la cai hien len appbar
@@ -135,7 +150,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onPressed: () {
             showSearch(
               context: context,
-              delegate: Search(true, false),
+              delegate: Search(
+                  isEx: true,
+                  isMeal: false,
+                  listMeal: [],
+                  listWorkout: listWorkoutSearch),
             );
           },
         ),
@@ -168,7 +187,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onPressed: () {
             showSearch(
               context: context,
-              delegate: Search(false, true),
+              delegate: Search(
+                  isEx: false,
+                  isMeal: true,
+                  listMeal: listMealSearch,
+                  listWorkout: []),
             );
           },
         ),
@@ -232,5 +255,24 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       ),
       backgroundColor: backgroundColor,
     );
+  }
+
+  @override
+  void loadMeals(List<Meal> listMeal) {
+    setState(() {
+      this.listMealSearch = listMeal;
+    });
+  }
+
+  @override
+  void loadWorkouts(List<Workout> listWorkout) {
+    setState(() {
+      this.listWorkoutSearch = listWorkout;
+    });
+  }
+
+  @override
+  void showEmptyList() {
+    // TODO: implement showEmptyList
   }
 }

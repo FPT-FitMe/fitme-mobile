@@ -1,17 +1,21 @@
-import 'package:fitme/models/exercise_old.dart';
-import 'package:fitme/models/meal_old.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/workout.dart';
 import 'package:fitme/widgets/card_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../fake_data.dart';
-
 class Search extends SearchDelegate {
   final bool isEx;
   final bool isMeal;
+  List<Workout> listWorkout = [];
+  List<Meal> listMeal = [];
   //result
 
-  Search(this.isEx, this.isMeal);
+  Search(
+      {required this.isEx,
+      required this.isMeal,
+      required this.listMeal,
+      required this.listWorkout});
 
   @override
   String? get searchFieldLabel => "Bạn đang tìm kiếm gì?";
@@ -50,39 +54,34 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<Exercise> exercistList = [];
-    List<Meal> mealList = [];
     //cai nay dang le lam trong api
-    isEx
-        ? exercistList.addAll(
-            LIST_EXERCISE.where((element) => element.name.contains(query)))
-        : mealList
-            .addAll(LIST_MEAL.where((element) => element.name.contains(query)));
     return isEx //neu nhu la ex thi list ex
-        ? (exercistList.isEmpty
+        ? (listWorkout.isEmpty
             ? _buildNotFoundScreen()
             : ListView(
-                children: exercistList
-                    .map((exercise) => CardTitle(
-                        title: exercise.name,
-                        imageUrl: exercise.imageUrl,
-                        duration: exercise.duration,
-                        calories: double.parse(exercise.cal.toString()),
-                        id: exercise.id,
+                children: listWorkout
+                    .map((workout) => CardTitle(
+                        title: workout.name,
+                        imageUrl: workout.imageUrl,
+                        duration: workout.estimatedDuration,
+                        calories:
+                            double.parse(workout.estimatedCalories.toString()),
+                        id: int.parse(workout.workoutID.toString()),
                         isWorkout: true))
                     .toList(),
               ))
-        : (mealList.isEmpty
+        : (listMeal.isEmpty
             ? _buildNotFoundScreen()
             : ListView(
-                children: mealList
+                children: listMeal
                     .map((meal) => CardTitle(
                           title: meal.name,
                           imageUrl: meal.imageUrl,
-                          duration: meal.duration,
-                          calories: double.parse(meal.cal.toString()),
-                          id: meal.id,
+                          duration: meal.cookingTime,
+                          calories: meal.calories,
+                          id: meal.mealID,
                           isWorkout: false,
+                          listMeal: listMeal,
                         ))
                     .toList(),
               ));
