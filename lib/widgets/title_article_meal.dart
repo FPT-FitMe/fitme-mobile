@@ -69,8 +69,8 @@ class TitleArticleMeal extends StatelessWidget {
   // chuyen qua trang detail cua meal
   void _selectArticle(BuildContext ctx, int? id) {
     Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-      'id': id,
-      'listMeal': listMeal,
+      'mealID': id,
+      // 'listMeal': listMeal,
     });
   }
 
@@ -78,6 +78,7 @@ class TitleArticleMeal extends StatelessWidget {
   void _viewAllArticle(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
+      'topic': "ăn",
     });
   }
 

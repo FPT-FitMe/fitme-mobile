@@ -114,7 +114,7 @@ class TraineeService implements TraineeRepository {
   @override
   Future<MealLog> logMeal(Meal meal) async {
     final id = meal.mealID;
-    final response = await dio.post("trainee/logMeal/$id");
+    final response = await dio.post("/trainee/logMeal/$id");
     return MealLog.fromJson(response.data);
   }
 }

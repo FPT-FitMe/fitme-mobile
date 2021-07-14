@@ -2,6 +2,7 @@ import 'package:fitme/di/injection.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/repository/meal_repository.dart';
 import 'package:fitme/repository/plan_repository.dart';
 import 'package:fitme/repository/trainee_repository.dart';
@@ -21,8 +22,16 @@ class DetailMealPresenter {
 
   Future<void> loadMealByID(int id) async {
     try {
+      bool isFavorite = false;
       Meal meal = await _mealRepository.getMealById(id);
-      _detailMealView.loadMealDetail(meal);
+      List<Meal> list = await _traineeRepository.getFavouriteMeals();
+      if (list.isNotEmpty) {
+        var contain = list.where((element) => element.mealID == meal.mealID);
+        if (contain.isNotEmpty) {
+          isFavorite = true;
+        }
+      }
+      _detailMealView.loadMealDetail(meal, isFavorite);
     } catch (e) {
       _detailMealView.showEmpty();
       print(e);
@@ -55,10 +64,10 @@ class DetailMealPresenter {
     }
   }
 
-  Future<void> logMeal(Meal meal) async {
+  Future<void> logMeal(PlanMeal planMeal) async {
     try {
-      MealLog mealLog = await _traineeRepository.logMeal(meal);
-      setStatusUpdatePlan(meal);
+      MealLog mealLog = await _traineeRepository.logMeal(planMeal.meal);
+      setStatusUpdatePlanDone(planMeal);
       _detailMealView.logMealSuccess();
     } catch (e) {
       _detailMealView.logMealFailed();
@@ -66,17 +75,36 @@ class DetailMealPresenter {
     }
   }
 
-  Future<void> setStatusUpdatePlan(Meal currentMeal) async {
+  Future<void> setStatusUpdatePlanDone(PlanMeal planMeal) async {
+    try {
+      await _planRepository.updatePlanMealDone(planMeal);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> setStatusUpdatePlanSkipped(PlanMeal planMeal) async {
+    try {
+      await _planRepository.updatePlanMealSkipped(planMeal);
+      _detailMealView.skipMealSuccess();
+    } catch (e) {
+      _detailMealView.skipMealFailed();
+      print(e);
+    }
+  }
+
+  Future<void> loadPlanMeal(PlanMeal planMeal) async {
     try {
       DateTime dateTime = DateTime.now();
       Plan plan = await _planRepository.getPlan(dateTime);
-      for (var i = 0; i < 3; i++) {
-        if (plan.planMeals[i] != null &&
-            plan.planMeals[i]!.meal == currentMeal) {
-          await _planRepository.updatePlanMealDone(plan.planMeals[i]);
+      for (PlanMeal pM in plan.planMeals.values) {
+        if (pM.id == planMeal.id) {
+          _detailMealView.loadPlanMeal(pM);
+          break;
         }
       }
     } catch (e) {
+      _detailMealView.showEmpty();
       print(e);
     }
   }

@@ -44,7 +44,9 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
     if (routeArgs['list_tag'] != null)
       listTag = routeArgs['list_tag'] as List<Tag>;
     String topic = routeArgs['topic'].toString();
-    if (topic.contains("ăn")) {
+    if (topic.contains("tag")) {
+      topic = topic;
+    } else if (topic.contains("ăn")) {
       topic = "đồ ăn";
     } else if (topic.contains("Bài tập") || topic.contains("Mục tiêu")) {
       topic = "bài tập";
@@ -52,8 +54,6 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
       topic = "bài viết";
     } else if (topic.contains("Huấn luyện viên")) {
       topic = "huấn luyện viên";
-    } else if (topic.contains("tag")) {
-      topic = topic;
     } else
       topic = "chủ đề đã hoàn thành";
     return Scaffold(

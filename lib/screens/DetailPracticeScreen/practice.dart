@@ -314,23 +314,21 @@ class _PracticeScreenState extends State<PracticeScreen>
 
   @override
   void addFavoriteFailed(String message) {
-    // TODO: implement addFavoriteFailed
+    Fluttertoast.showToast(msg: "Thêm vào list yêu thích lỗi!");
   }
 
   @override
   void addFavoriteSuccess() {
-    // TODO: implement addFavoriteSuccess
     Fluttertoast.showToast(msg: "Đã thêm vào list yêu thích");
   }
 
   @override
   void unFavoriteFailed(String message) {
-    // TODO: implement unFavoriteFailed
+    Fluttertoast.showToast(msg: "Xóa khỏi list yêu thích lỗi!");
   }
 
   @override
   void unFavoriteSuccess() {
-    // TODO: implement unFavoriteSuccess
     Fluttertoast.showToast(msg: "Đã xóa khỏi list yêu thích");
   }
 }

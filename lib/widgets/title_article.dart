@@ -8,6 +8,7 @@ import 'package:fitme/models/post.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
+import 'package:fitme/screens/DetailMealScreen/detail_meal.dart';
 import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 
@@ -191,10 +192,11 @@ class TitleArticle extends StatelessWidget {
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id,
-        'listMeal': listPlanMeal,
-      });
+      // Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+      //   'planMeal': planMeal,
+      //   'mealID': planMeal.meal.mealID,
+      //   // 'listMeal': listMeal,
+      // });
     } else if (isPost) {
       //
       Navigator.pushNamed(ctx, AppRoutes.postScreen);
@@ -244,7 +246,8 @@ class TitleArticle extends StatelessWidget {
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
-        'id': planMeal.meal.mealID,
+        'planMeal': planMeal,
+        'mealID': planMeal.meal.mealID,
         // 'listMeal': listMeal,
       }),
       child: SizedBox(
