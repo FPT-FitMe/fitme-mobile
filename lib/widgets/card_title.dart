@@ -61,9 +61,10 @@ class CardTitle extends StatelessWidget {
             : Text(
                 tags == null
                     ? '$duration phút - $calories kcals '
-                    : tags!.contains("Sáng")
+                    : tags!.contains(Tag(id: 4, name: "Bữa sáng", type: "meal"))
                         ? '$duration phút - $calories kcals - Sáng'
-                        : tags!.contains("Trưa")
+                        : tags!.contains(
+                                Tag(id: 5, name: "Bữa trưa", type: "meal"))
                             ? '$duration phút - $calories kcals - Trưa'
                             : '$duration phút - $calories kcals - Tối',
               ),
