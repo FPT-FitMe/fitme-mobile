@@ -33,6 +33,13 @@ class _CaloriesCardState extends State<CaloriesCard>
   }
 
   @override
+  void didUpdateWidget(covariant CaloriesCard oldWidget) {
+    _presenter.loadAllWeightLog();
+    _presenter.loadTargetWeight();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 400,
