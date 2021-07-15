@@ -2,6 +2,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NewUserInfoCompletedScreen extends StatelessWidget {
@@ -14,7 +15,9 @@ class NewUserInfoCompletedScreen extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              FlutterSecureStorage _storage = new FlutterSecureStorage();
+              await _storage.write(key: "isSurveyAnswered", value: "T");
               Navigator.pushNamedAndRemoveUntil(
                   context, AppRoutes.mainScreen, (route) => false);
             },

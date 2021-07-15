@@ -74,7 +74,7 @@ class _BottomDrawerState extends State<BottomDrawer> {
         color: Colors.white,
       ),
       child: DefaultTabController(
-        length: 3,
+        length: 1,
         initialIndex: widget.tabIndex != null ? widget.tabIndex! : 0,
         child: Column(
           children: [
@@ -108,8 +108,8 @@ class _BottomDrawerState extends State<BottomDrawer> {
             ),
             TabBar(
               tabs: [
-                Tab(text: "HOẠT ĐỘNG"),
-                Tab(text: "BỮA ĂN"),
+                // Tab(text: "HOẠT ĐỘNG"),
+                // Tab(text: "BỮA ĂN"),
                 Tab(text: "CÂN NẶNG"),
               ],
               indicatorWeight: 5,
@@ -125,8 +125,8 @@ class _BottomDrawerState extends State<BottomDrawer> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: TabBarView(
                 children: [
-                  _getActivityList(),
-                  _getLogMealTabBarView(),
+                  // _getActivityList(),
+                  // _getLogMealTabBarView(),
                   _getWeightLogTabBarView()
                 ],
               ),

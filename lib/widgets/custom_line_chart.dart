@@ -1,37 +1,62 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/target_weight.dart';
+import 'package:fitme/models/weight_log.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CustomLineChart extends StatelessWidget {
-  const CustomLineChart({Key? key}) : super(key: key);
+  final List<WeightLog> listWeightLogs;
+  final TargetWeight target;
+  const CustomLineChart({
+    Key? key,
+    required this.listWeightLogs,
+    required this.target,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double targetWeight = target.targetWeight;
+    int min = listWeightLogs
+        .reduce((curr, next) => curr.value < next.value ? curr : next)
+        .value
+        .floor();
+    int max = listWeightLogs
+        .reduce((curr, next) => curr.value > next.value ? curr : next)
+        .value
+        .ceil();
+    if (max == min) {
+      max = min + 1;
+    }
+    if (min > targetWeight) {
+      min = (targetWeight - 1).toInt();
+    }
+    double minDate = 0;
+    double maxDate = 6;
     return LineChart(
       LineChartData(
-        minX: 0,
-        maxX: 7,
-        minY: 60,
-        maxY: 65,
-        titlesData: _getTilesData(),
+        minX: minDate,
+        maxX: maxDate,
+        minY: min.toDouble(),
+        maxY: max.toDouble(),
+        titlesData: _getTilesData(min, max, minDate, maxDate),
         gridData: _getGridData(),
         borderData: _getBorderData(),
         lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Colors.transparent,
+            tooltipBgColor: Colors.white,
+            showOnTopOfTheChartBoxArea: true,
           ),
         ),
         lineBarsData: [
           LineChartBarData(
             spots: [
-              FlSpot(0, 65),
-              FlSpot(1, 65),
-              FlSpot(2, 65),
-              FlSpot(3, 65),
-              FlSpot(4, 65),
-              FlSpot(5, 65),
-              FlSpot(6, 65),
+              FlSpot(0, targetWeight),
+              FlSpot(1, targetWeight),
+              FlSpot(2, targetWeight),
+              FlSpot(3, targetWeight),
+              FlSpot(4, targetWeight),
+              FlSpot(5, targetWeight),
             ],
             colors: [AppColors.primary],
             dotData: FlDotData(
@@ -39,15 +64,12 @@ class CustomLineChart extends StatelessWidget {
             ),
           ),
           LineChartBarData(
-            spots: [
-              FlSpot(0, 60),
-              FlSpot(1, 61),
-              FlSpot(2, 61.5),
-              FlSpot(3, 61),
-              FlSpot(4, 62),
-              FlSpot(5, 63),
-              FlSpot(6, 64.5),
-            ],
+            spots: listWeightLogs
+                .asMap()
+                .map((key, value) =>
+                    MapEntry(key, FlSpot(key.toDouble(), value.value)))
+                .values
+                .toList(),
             colors: [Colors.blue[700] as Color],
             dotData: FlDotData(show: true),
           ),
@@ -56,7 +78,7 @@ class CustomLineChart extends StatelessWidget {
     );
   }
 
-  _getTilesData() {
+  _getTilesData(int min, int max, double minDate, double maxDate) {
     return FlTitlesData(
       bottomTitles: SideTitles(
         showTitles: true,
@@ -67,25 +89,24 @@ class CustomLineChart extends StatelessWidget {
           fontSize: 10,
         ),
         getTitles: (value) {
-          if (value > 0 && value < 7) {
-            var today = DateTime.now();
-            var date = today
-                .subtract(Duration(days: 49))
-                .add(Duration(days: (value * 7).toInt()));
+          if (value > minDate &&
+              value < maxDate &&
+              value < listWeightLogs.length) {
+            DateTime date = listWeightLogs[value.toInt()].createdAt;
             return "${date.day}/${date.month}";
-          } else if (value == 7) {
-            return "Tuần";
+          } else if (value == maxDate) {
+            return "Ngày";
           }
           return "";
         },
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        interval: 1,
         getTextStyles: (value) => TextStyle(
-            fontFamily: 'SF-Pro-Display',
-            color: AppColors.grayText,
-            fontSize: 10),
+          fontFamily: 'SF-Pro-Display',
+          color: AppColors.grayText,
+          fontSize: 10,
+        ),
       ),
     );
   }
@@ -94,8 +115,8 @@ class CustomLineChart extends StatelessWidget {
     return FlGridData(
       drawHorizontalLine: true,
       drawVerticalLine: true,
-      horizontalInterval: 1,
-      verticalInterval: 1,
+      // horizontalInterval: 1,
+      // verticalInterval: 1,
     );
   }
 
