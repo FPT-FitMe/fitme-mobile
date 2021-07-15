@@ -87,7 +87,9 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                               calories: meal.calories,
                               id: meal.mealID,
                               isWorkout: false,
+                              tags: meal.tags,
                               listMeal: listMeal,
+                              isPost: false,
                             ))
                         .toList()
                     : (listWorkout.isNotEmpty)
@@ -101,6 +103,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                                       workout.estimatedCalories.toString()),
                                   id: int.parse(workout.workoutID.toString()),
                                   isWorkout: true,
+                                  isPost: false,
                                 ))
                             .toList()
                         : (listPost.isNotEmpty)
@@ -111,6 +114,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                                       duration: post.readingTime,
                                       id: int.parse(post.postID.toString()),
                                       isWorkout: false,
+                                      isPost: true,
                                     ))
                                 .toList()
                             : (listCoach.isNotEmpty)

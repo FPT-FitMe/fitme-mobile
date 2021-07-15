@@ -15,6 +15,7 @@ class CardTitle extends StatelessWidget {
   final bool isWorkout;
   final List<Meal>? listMeal;
   final bool isShowStatus;
+  final bool isPost;
 
   CardTitle({
     this.calories,
@@ -26,6 +27,7 @@ class CardTitle extends StatelessWidget {
     required this.id,
     required this.imageUrl,
     required this.isWorkout,
+    required this.isPost,
   });
 
   @override
@@ -78,9 +80,13 @@ class CardTitle extends StatelessWidget {
                 workoutID: id,
               ),
             ))
-        : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-            'mealID': id,
-          });
+        : isPost
+            ? Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+                'postID': id,
+              })
+            : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+                'mealID': id,
+              });
   }
 
   String convertDurationAndCalories(dynamic cal, int duration) {

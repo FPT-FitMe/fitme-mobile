@@ -67,6 +67,7 @@ class Search extends SearchDelegate {
             : ListView(
                 children: resultWorkout
                     .map((workout) => CardTitle(
+                        isPost: false,
                         title: workout.name,
                         imageUrl: workout.imageUrl,
                         duration: workout.estimatedDuration,
@@ -87,6 +88,7 @@ class Search extends SearchDelegate {
                           calories: meal.calories,
                           id: meal.mealID,
                           isWorkout: false,
+                          isPost: false,
                           listMeal: listMeal,
                         ))
                     .toList(),

@@ -26,7 +26,7 @@ class _DetailMealScreenState extends State<DetailMealScreen>
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   var isSelected = [false, false];
-  bool isFavorite = false;
+  late bool isFavorite;
   late final map;
   late Meal? _meal;
   late int? _mealID;

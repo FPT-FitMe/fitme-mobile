@@ -136,8 +136,8 @@ class TitleArticle extends StatelessWidget {
                         int.parse(
                             planWorkout.workout.estimatedCalories.toString()),
                         true,
-                        false,
                         planWorkout.status,
+                        false,
                       ));
                 }),
               if (listWorkout != null)
@@ -153,8 +153,8 @@ class TitleArticle extends StatelessWidget {
                         int.parse(workout.estimatedDuration.toString()),
                         workout.estimatedCalories,
                         true,
-                        false,
                         null,
+                        false,
                       ));
                 }),
               if (listPost != null)
@@ -163,15 +163,15 @@ class TitleArticle extends StatelessWidget {
                       fit: FlexFit.tight,
                       child: _cardArticle(
                         context,
-                        post.postID,
+                        int.parse(post.postID.toString()),
                         post.imageUrl,
                         false,
                         post.name,
                         post.readingTime,
                         null,
                         false,
-                        false,
                         null,
+                        true,
                       ));
                 }),
             ],
@@ -202,8 +202,9 @@ class TitleArticle extends StatelessWidget {
       //   // 'listMeal': listMeal,
       // });
     } else if (isPost) {
-      //
-      Navigator.pushNamed(ctx, AppRoutes.postScreen);
+      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+        'postID': id,
+      });
     }
   }
 
@@ -412,8 +413,8 @@ class TitleArticle extends StatelessWidget {
     int duration,
     int? cal,
     bool isWorkout,
-    bool isPost,
     String? status,
+    bool isPost,
   ) {
     bool isFavorite = false;
     if (listFavoriteWorkout != null && listFavoriteWorkout!.isNotEmpty) {
