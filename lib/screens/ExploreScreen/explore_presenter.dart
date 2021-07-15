@@ -1,4 +1,6 @@
 import 'package:fitme/di/injection.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
@@ -37,6 +39,35 @@ class ExplorePresenter {
       _exploreView.loadWorkoutComplete(listWorkoutLog, listWorkout);
     } catch (e) {
       _exploreView.showEmptyWorkout();
+      print(e);
+    }
+  }
+
+  Future<void> getMealLog(DateTime dateTime) async {
+    try {
+      List<MealLog> listMealLog =
+          await _traineeRepository.getMealLogs(dateTime);
+      _exploreView.loadMealLog(listMealLog);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void loadFavouriteMeals() async {
+    try {
+      List<Meal> listMeals = await _traineeRepository.getFavouriteMeals();
+      _exploreView.loadFavouriteMeals(listMeals);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void loadFavouriteWorkouts() async {
+    try {
+      List<Workout> listWorkouts =
+          await _traineeRepository.getFavouriteWorkouts();
+      _exploreView.loadFavouriteWorkouts(listWorkouts);
+    } catch (e) {
       print(e);
     }
   }

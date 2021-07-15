@@ -1,4 +1,6 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/meal.dart';
+import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
@@ -39,14 +41,22 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   late ExplorePresenter _presenter;
   Plan? _selectedPlan;
   List<WorkoutLog> listWorkoutLog = [];
+  List<MealLog> listMeallog = [];
   List<Workout> listWorkout = [];
+  List<Workout> listFavoriteWorkout = [];
+  List<Meal> listFavoriteMeal = [];
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
+  int totalIn = 0;
+  int totalOut = 0;
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
     _presenter.getListWorkoutComplete(_selectedDay);
+    _presenter.getMealLog(_selectedDay);
     _presenter.getPlan(_selectedDay);
+    _presenter.loadFavouriteMeals();
+    _presenter.loadFavouriteWorkouts();
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -56,6 +66,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
         _focusedDay = focusedDay;
         _presenter.getPlan(selectedDay);
         _presenter.getListWorkoutComplete(_selectedDay);
+        _presenter.getMealLog(_selectedDay);
       });
     }
   }
@@ -75,6 +86,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 15, 0, 15),
                       child: Text(
+                        //TODO: lam di t luoi qua :)
                         "Chào Tùng Nguyễn,",
                         style: TextStyle(
                           fontSize: 22,
@@ -146,6 +158,9 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                             title: "Kế hoạch tập 🎯",
                                             listPlanWorkout:
                                                 _selectedPlan!.planWorkouts,
+                                            listFavoriteWorkout:
+                                                listFavoriteWorkout,
+                                            dateTimeNow: _selectedDay,
                                           )
                                         : Text(""),
                                     TitleArticleBadge(
@@ -263,11 +278,15 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                 TitleArticle(
                                   title: "Bữa ăn",
                                   listPlanMeal: _selectedPlan!.planMeals,
+                                  listFavoriteMeal: listFavoriteMeal,
+                                  dateTimeNow: _selectedDay,
                                 ),
                                 listWorkoutLog.isNotEmpty
                                     ? TitleArticle(
                                         title: "Bài tập đã hoàn thành",
                                         listWorkout: listWorkout,
+                                        listFavoriteWorkout:
+                                            listFavoriteWorkout,
                                       )
                                     : Text(""),
                                 Container(
@@ -288,13 +307,12 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                         height: 4,
                                       ),
                                       Text(
-                                          "  - Lượng calo tiêu thụ: ${getTotalCalOut(listWorkoutLog)} cals"),
+                                          "  - Lượng calo tiêu thụ: ${totalOut} cals"),
                                       SizedBox(
                                         height: 4,
                                       ),
-                                      //TODO: listMealLog
-                                      // Text(
-                                      //     "  - Lượng calo nạp vào: ${_selectedPlan.totalOfCaloIn} kcals"),
+                                      Text(
+                                          "  - Lượng calo nạp vào: ${totalIn} cals"),
                                     ],
                                   ),
                                 ),
@@ -317,6 +335,14 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
       sum = sum + wl.totalCalories;
     }
     return sum;
+  }
+
+  int getTotalCalIn(List<MealLog> list) {
+    double sum = 0;
+    for (MealLog ml in list) {
+      sum = sum + ml.meal.calories;
+    }
+    return sum.toInt();
   }
 
   Widget _buildNotFoundScreen() {
@@ -358,6 +384,8 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   void refesh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     _presenter.getPlan(_selectedDay);
+    _presenter.getMealLog(_selectedDay);
+    _presenter.getListWorkoutComplete(_selectedDay);
     _refreshController.refreshCompleted();
   }
 
@@ -390,6 +418,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
       _isLoading = false;
       this.listWorkoutLog = listWorkoutLog;
       this.listWorkout = listWorkout;
+      this.totalOut = getTotalCalOut(listWorkoutLog);
     });
   }
 
@@ -399,6 +428,31 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
       _isLoading = false;
       this.listWorkoutLog = [];
       this.listWorkout = [];
+    });
+  }
+
+  @override
+  void loadFavouriteMeals(List<Meal> listMeals) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteMeal = listMeals;
+    });
+  }
+
+  @override
+  void loadFavouriteWorkouts(List<Workout> listWorkouts) {
+    setState(() {
+      _isLoading = false;
+      this.listFavoriteWorkout = listWorkouts;
+    });
+  }
+
+  @override
+  void loadMealLog(List<MealLog> listMealLog) {
+    setState(() {
+      _isLoading = false;
+      this.listMeallog = listMealLog;
+      this.totalIn = getTotalCalIn(listMealLog);
     });
   }
 }

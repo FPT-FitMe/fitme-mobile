@@ -15,6 +15,7 @@ class CardTitle extends StatelessWidget {
   final bool isWorkout;
   final List<Meal>? listMeal;
   final bool isShowStatus;
+  final bool isPost;
 
   CardTitle({
     this.calories,
@@ -26,27 +27,8 @@ class CardTitle extends StatelessWidget {
     required this.id,
     required this.imageUrl,
     required this.isWorkout,
+    required this.isPost,
   });
-  // Widget getTick(id) {
-  //   if (LIST_MEAL1[id].status == MealStatus.complete) {
-  //     return Icon(
-  //       Icons.check_circle,
-  //       color: AppColors.green500,
-  //       size: 17,
-  //     );
-  //   } else if (LIST_MEAL1[id].status == MealStatus.skip) {
-  //     return Icon(
-  //       CommunityMaterialIcons.minus_circle_outline,
-  //       color: AppColors.grayText,
-  //       size: 17,
-  //     );
-  //   }
-  //   return Icon(
-  //     CommunityMaterialIcons.minus_circle_outline,
-  //     color: Colors.transparent,
-  //     size: 17,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +80,13 @@ class CardTitle extends StatelessWidget {
                 workoutID: id,
               ),
             ))
-        : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-            'id': id,
-            'listMeal': listMeal,
-          });
+        : isPost
+            ? Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+                'postID': id,
+              })
+            : Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+                'mealID': id,
+              });
   }
 
   String convertDurationAndCalories(dynamic cal, int duration) {

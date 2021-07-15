@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
+import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/plan_meal.dart';
 import 'package:fitme/models/plan_workout.dart';
 import 'package:fitme/models/post.dart';
@@ -16,6 +17,9 @@ import 'package:fitme/constants/colors.dart';
 class TitleArticle extends StatelessWidget {
   final List<PlanWorkout>? listPlanWorkout;
   final Map<int, PlanMeal>? listPlanMeal;
+  final DateTime? dateTimeNow; // for plan
+  final List<Workout>? listFavoriteWorkout;
+  final List<Meal>? listFavoriteMeal;
   final List<Post>? listPost;
   final List<Workout>? listWorkout;
   final String title;
@@ -25,15 +29,25 @@ class TitleArticle extends StatelessWidget {
       this.listPlanWorkout,
       this.listPlanMeal,
       this.listPost,
-      this.listWorkout});
+      this.listWorkout,
+      this.listFavoriteWorkout,
+      this.listFavoriteMeal,
+      this.dateTimeNow});
 
   @override
   Widget build(BuildContext context) {
-    int indexMaxListSuccess = 0;
-    if (listWorkout != null) {
-      indexMaxListSuccess = listWorkout!.length;
-      if (indexMaxListSuccess > 2) {
-        indexMaxListSuccess = 2;
+    int indexMaxListWorkout = 0;
+    int indexMaxListPost = 0;
+    if (listWorkout != null && listWorkout!.isNotEmpty) {
+      indexMaxListWorkout = listWorkout!.length;
+      if (indexMaxListWorkout > 2) {
+        indexMaxListWorkout = 2;
+      }
+    }
+    if (listPost != null && listPost!.isNotEmpty) {
+      indexMaxListPost = listPost!.length;
+      if (indexMaxListPost > 2) {
+        indexMaxListPost = 2;
       }
     }
     return Container(
@@ -51,16 +65,18 @@ class TitleArticle extends StatelessWidget {
                 ),
                 (listPlanWorkout != null)
                     ? Text("")
-                    : InkWell(
-                        //TODO: viewall cua Meal ???
-                        onTap: () => _viewAllArticle(context, listPlanMeal,
-                            listWorkout, listPost, title),
-                        child: Text(
-                          "Hiện tất cả",
-                          style: TextStyle(
-                              fontSize: 10, color: AppColors.grayText),
-                        ),
-                      ),
+                    : listPlanMeal != null
+                        ? Text("")
+                        : InkWell(
+                            //Meal Explore khong co view All
+                            onTap: () => _viewAllArticle(
+                                context, listWorkout, listPost, title),
+                            child: Text(
+                              "Hiện tất cả",
+                              style: TextStyle(
+                                  fontSize: 10, color: AppColors.grayText),
+                            ),
+                          ),
               ],
             ),
           ),
@@ -121,12 +137,12 @@ class TitleArticle extends StatelessWidget {
                         int.parse(
                             planWorkout.workout.estimatedCalories.toString()),
                         true,
-                        false,
                         planWorkout.status,
+                        false,
                       ));
                 }),
               if (listWorkout != null)
-                ...listWorkout!.sublist(0, indexMaxListSuccess).map((workout) {
+                ...listWorkout!.sublist(0, indexMaxListWorkout).map((workout) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
@@ -138,12 +154,12 @@ class TitleArticle extends StatelessWidget {
                         int.parse(workout.estimatedDuration.toString()),
                         workout.estimatedCalories,
                         true,
-                        false,
                         null,
+                        false,
                       ));
                 }),
               if (listPost != null)
-                ...listPost!.map((post) {
+                ...listPost!.sublist(0, indexMaxListPost).map((post) {
                   return Flexible(
                       fit: FlexFit.tight,
                       child: _cardArticle(
@@ -155,8 +171,8 @@ class TitleArticle extends StatelessWidget {
                         post.readingTime,
                         null,
                         false,
-                        false,
                         null,
+                        true,
                       ));
                 }),
             ],
@@ -178,19 +194,18 @@ class TitleArticle extends StatelessWidget {
               workoutID: id,
             ),
           ));
-      // Navigator.of(ctx).pushNamed(AppRoutes.detailPractice, arguments: {
-      //   'workoutID': id,
-      // });
     } else if (isMeal) {
       // Them field isButton check xem phai nut chuc nang k roi goi method tao log
       //_onLogMealTapped(ctx);
-      Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-        'id': id,
-        'listMeal': listPlanMeal,
-      });
+      // Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
+      //   'planMeal': planMeal,
+      //   'mealID': planMeal.meal.mealID,
+      //   // 'listMeal': listMeal,
+      // });
     } else if (isPost) {
-      //
-      Navigator.pushNamed(ctx, AppRoutes.postScreen);
+      Navigator.pushNamed(ctx, AppRoutes.postScreen, arguments: {
+        'postID': id,
+      });
     }
   }
 
@@ -218,10 +233,8 @@ class TitleArticle extends StatelessWidget {
   }
 
 // chuyen qua trang viewAll
-  void _viewAllArticle(
-      BuildContext ctx, listMeal, listWorkout, listPost, String topic) {
+  void _viewAllArticle(BuildContext ctx, listWorkout, listPost, String topic) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
-      'list_meal': listMeal,
       'listWorkout': listWorkout,
       'list_post': listPost,
       'topic': topic,
@@ -232,12 +245,29 @@ class TitleArticle extends StatelessWidget {
     BuildContext context,
     PlanMeal? planMeal,
   ) {
-    //checkfavorite
+    bool isFavorite = false;
+    if (listFavoriteMeal != null && listFavoriteMeal!.isNotEmpty) {
+      var containt = listFavoriteMeal!
+          .where((element) => element.mealID == planMeal!.meal.mealID)
+          .toList();
+      if (containt.isNotEmpty) {
+        isFavorite = true;
+      }
+    }
     bool isSkipped = planMeal!.status == "skipped";
+    if (dateTimeNow != null) {
+      if (dateTimeNow!.day < DateTime.now().day) {
+        if (planMeal.status == null) {
+          isSkipped = true;
+        }
+      }
+    }
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
-        'id': planMeal.meal.mealID,
+        'planMeal': planMeal,
+        'mealID': planMeal.meal.mealID,
+        "dateTimeMeal": dateTimeNow,
         // 'listMeal': listMeal,
       }),
       child: SizedBox(
@@ -267,8 +297,7 @@ class TitleArticle extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    //TODO: check favorite
-                    if (true)
+                    if (isFavorite)
                       Positioned(
                         bottom: 70,
                         right: 10,
@@ -385,11 +414,26 @@ class TitleArticle extends StatelessWidget {
     int duration,
     int? cal,
     bool isWorkout,
-    bool isPost,
     String? status,
+    bool isPost,
   ) {
     bool isFavorite = false;
+    if (listFavoriteWorkout != null && listFavoriteWorkout!.isNotEmpty) {
+      var containt = listFavoriteWorkout!
+          .where((element) => element.workoutID == id)
+          .toList();
+      if (containt.isNotEmpty) {
+        isFavorite = true;
+      }
+    }
     bool isSkipped = status == "skipped";
+    if (dateTimeNow != null) {
+      if (dateTimeNow!.day < DateTime.now().day) {
+        if (status == null) {
+          isSkipped = true;
+        }
+      }
+    }
     return GestureDetector(
       onTap: () => _selectArticle(context, id, isWorkout, false, isPost),
       child: Container(
@@ -430,19 +474,18 @@ class TitleArticle extends StatelessWidget {
                         ),
                       ),
                     ),
-                  // if (isFavorite)
-                  //   Positioned(
-                  //     bottom: 70,
-                  //     right: 10,
-                  //     child: Container(
-                  //       child: Icon(
-                  //         Icons.favorite,
-                  //         color: Colors.white,
-                  //         size: 17,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //neu la meal se co tag "sang/trua/toi"
+                  if (isFavorite)
+                    Positioned(
+                      bottom: 70,
+                      right: 10,
+                      child: Container(
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
                 ],
               ),
               SizedBox(

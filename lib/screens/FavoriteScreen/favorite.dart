@@ -67,6 +67,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   id: int.parse(meal.mealID.toString()),
                   isWorkout: false,
                   isShowStatus: false,
+                  isPost: false,
                 ),
               )
               .toList()
@@ -83,6 +84,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   id: int.parse(workout.workoutID.toString()),
                   isWorkout: true,
                   isShowStatus: false,
+                  isPost: false,
                 ),
               )
               .toList()

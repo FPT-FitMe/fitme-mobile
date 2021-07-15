@@ -8,12 +8,23 @@ import 'package:fitme/constants/colors.dart';
 
 class TitleArticleMeal extends StatelessWidget {
   final List<Meal> listMeal;
+  final List<Meal> listFavoriteMeal;
   final String title;
 
-  const TitleArticleMeal({required this.title, required this.listMeal});
+  const TitleArticleMeal(
+      {required this.title,
+      required this.listMeal,
+      required this.listFavoriteMeal});
 
   @override
   Widget build(BuildContext context) {
+    int indexMaxListMeal = 0;
+    if (listMeal.isNotEmpty) {
+      indexMaxListMeal = listMeal.length;
+      if (indexMaxListMeal > 2) {
+        indexMaxListMeal = 2;
+      }
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
       child: Column(
@@ -39,7 +50,7 @@ class TitleArticleMeal extends StatelessWidget {
           ),
           Row(
             children: [
-              ...listMeal.map((meal) {
+              ...listMeal.sublist(0, indexMaxListMeal).map((meal) {
                 return Flexible(
                     fit: FlexFit.tight,
                     child: _cardArticle(
@@ -62,9 +73,8 @@ class TitleArticleMeal extends StatelessWidget {
   // chuyen qua trang detail cua meal
   void _selectArticle(BuildContext ctx, int? id) {
     Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
-      'id': id,
-      'listMeal': listMeal,
-      'isFavorite': true,
+      'mealID': id,
+      // 'listMeal': listMeal,
     });
   }
 
@@ -72,11 +82,20 @@ class TitleArticleMeal extends StatelessWidget {
   void _viewAllArticle(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
+      'topic': "ăn",
     });
   }
 
   Widget _cardArticle(BuildContext context, int? id, String imageUrl,
       bool isPremium, String name, int duration, double? cal, List<Tag>? tags) {
+    bool isFavorite = false;
+    if (listFavoriteMeal.isNotEmpty) {
+      var containt =
+          listFavoriteMeal.where((element) => element.mealID == id).toList();
+      if (containt.isNotEmpty) {
+        isFavorite = true;
+      }
+    }
     return GestureDetector(
       onTap: () => _selectArticle(context, id),
       child: Card(
@@ -98,12 +117,37 @@ class TitleArticleMeal extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                if (isFavorite)
+                  Positioned(
+                    bottom: 70,
+                    right: 10,
+                    child: Container(
+                      child: Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 17,
+                      ),
+                    ),
+                  ),
+                if (isPremium)
+                  Positioned(
+                    bottom: 70,
+                    left: 10,
+                    child: Container(
+                      child: Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                        size: 17,
+                      ),
+                    ),
+                  ),
                 Positioned(
                   top: 68,
                   child: Container(
                     width: 85,
                     height: 30,
-                    child: tags!.contains("Sáng")
+                    child: tags!.contains(
+                            Tag(id: 4, name: "Bữa sáng", type: "meal"))
                         ? Card(
                             color: Color(0xFFFFDC5D),
                             shape: RoundedRectangleBorder(
@@ -113,7 +157,8 @@ class TitleArticleMeal extends StatelessWidget {
                               child: Text("Sáng"),
                             ),
                           )
-                        : tags.contains("Trưa")
+                        : tags.contains(
+                                Tag(id: 5, name: "Bữa trưa", type: "meal"))
                             ? Card(
                                 color: Color(0xFFFFAC33),
                                 shape: RoundedRectangleBorder(

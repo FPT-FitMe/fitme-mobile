@@ -11,4 +11,12 @@ class PostService implements PostRepository {
     final response = await dio.get("/posts");
     return (response.data as List).map((post) => Post.fromJson(post)).toList();
   }
+
+  @override
+  Future<List<Post>> getAllPostsByCoach(int coachID) async {
+    final response = await dio.get("/posts?coachID=$coachID");
+    return (response.data as List)
+        .map((workout) => Post.fromJson(workout))
+        .toList();
+  }
 }
