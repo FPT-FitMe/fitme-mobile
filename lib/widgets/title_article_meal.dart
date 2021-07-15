@@ -64,6 +64,7 @@ class TitleArticleMeal extends StatelessWidget {
     Navigator.pushNamed(ctx, AppRoutes.detailMeal, arguments: {
       'id': id,
       'listMeal': listMeal,
+      'isFavorite': true,
     });
   }
 

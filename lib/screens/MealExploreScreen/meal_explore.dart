@@ -97,6 +97,7 @@ Widget _carouselPage(List<Meal> listMeal) => CarouselSlider(
                           arguments: {
                             'id': item.mealID,
                             'listMeal': listMeal,
+                            'isFavorite': false,
                           });
                     },
                     child: Image.network(item.imageUrl,

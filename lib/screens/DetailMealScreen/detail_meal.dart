@@ -15,7 +15,7 @@ class DetailMealScreen extends StatefulWidget {
 
 class _DetailMealScreenState extends State<DetailMealScreen> {
   var isSelected = [false, false];
-  bool isFavorite = false;
+  late bool isFavorite;
   late final map;
   late final id;
   late final Meal meal;
@@ -26,6 +26,7 @@ class _DetailMealScreenState extends State<DetailMealScreen> {
     map = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     id = map["id"];
     listMeal = map["listMeal"];
+    isFavorite = map["isFavorite"];
     meal = listMeal.where((element) => element.mealID == id).first;
     // setState(() {
     //   if (meal.status == MealStatus.complete) {
