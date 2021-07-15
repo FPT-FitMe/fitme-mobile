@@ -5,6 +5,7 @@ import 'package:fitme/models/post.dart';
 import 'package:fitme/screens/CoachScreen/coach_presenter.dart';
 import 'package:fitme/screens/CoachScreen/coach_view.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
+import 'package:fitme/utils/user_utils.dart';
 import 'package:fitme/widgets/title_article.dart';
 import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
   List<Post> listPost = [];
   List<Workout> listFavoriteWorkout = [];
   List<Meal> listFavoriteMeal = [];
+  bool _isPremiumUser = false;
   late Coach? _coach;
 
   _CoachScreenState() {
@@ -42,6 +44,15 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
     _coachPresenter.getWorkoutsByCoach(_coach!.coachID);
     _coachPresenter.loadFavouriteMeals();
     _coachPresenter.loadFavouriteWorkouts();
+    checkIfUserIsPremium();
+  }
+
+  void checkIfUserIsPremium() async {
+    bool isUserPremium = await UserUtils.checkIfUserIsPremium();
+    if (isUserPremium)
+      setState(() {
+        _isPremiumUser = true;
+      });
   }
 
   @override
@@ -98,6 +109,7 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
                                 title: "Bài tập",
                                 listWorkout: listWorkout,
                                 listFavoriteWorkout: listFavoriteWorkout,
+                                isPremiumUser: _isPremiumUser,
                               )
                             : Text(""),
                         listMeal.isNotEmpty
@@ -105,12 +117,14 @@ class _CoachScreenState extends State<CoachScreen> implements CoachExploreView {
                                 title: "Bữa ăn",
                                 listMeal: listMeal,
                                 listFavoriteMeal: listFavoriteMeal,
+                                isPremiumUser: _isPremiumUser,
                               )
                             : Text(""),
                         listPost.isNotEmpty
                             ? TitleArticle(
                                 title: "Bài viết",
                                 listPost: listPost,
+                                isPremiumUser: _isPremiumUser,
                               )
                             : Text(""),
                       ],

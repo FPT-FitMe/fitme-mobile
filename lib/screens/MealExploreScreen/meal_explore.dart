@@ -6,8 +6,10 @@ import 'package:fitme/models/tag.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:fitme/screens/MealExploreScreen/meal_explore_presenter.dart';
 import 'package:fitme/screens/MealExploreScreen/meal_explore_view.dart';
+import 'package:fitme/utils/user_utils.dart';
 import 'package:fitme/widgets/title_article_meal.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 const int MAX_TAG = 3;
@@ -28,12 +30,22 @@ class _MealExploreScreenState extends State<MealExploreScreen>
   List<Meal> listMeal = [];
   List<Tag> listTags = [];
   List<Meal> listFavoriteMeal = [];
+  bool _isPremiumUser = false;
 
   _MealExploreScreenState() {
     _presenter = new MealPresenter(this);
     _presenter.loadAllMeals();
     _presenter.loadAllTags();
     _presenter.loadFavouriteMeals();
+    checkIfUserIsPremium();
+  }
+
+  void checkIfUserIsPremium() async {
+    bool isUserPremium = await UserUtils.checkIfUserIsPremium();
+    if (isUserPremium)
+      setState(() {
+        _isPremiumUser = true;
+      });
   }
 
   @override
@@ -58,7 +70,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _carouselPage(listMeal),
+                        _carouselPage(listMeal, _isPremiumUser),
                         Column(
                           children: [
                             listTags.isEmpty
@@ -113,6 +125,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
                               title: "Gợi ý dành cho bạn",
                               listMeal: listMeal,
                               listFavoriteMeal: listFavoriteMeal,
+                              isPremiumUser: _isPremiumUser,
                             ),
                           ],
                         ),
@@ -153,6 +166,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
       'topic': "đồ ăn tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -171,6 +185,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': list,
       'topic': "đồ ăn tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -195,6 +210,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_tag': listTags,
       'topic': "tag",
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -207,7 +223,7 @@ class _MealExploreScreenState extends State<MealExploreScreen>
   }
 }
 
-Widget _carouselPage(List<Meal> listMeal) => CarouselSlider(
+Widget _carouselPage(List<Meal> listMeal, bool isPremiumUser) => CarouselSlider(
       options: CarouselOptions(
         height: 250,
         autoPlay: true,
@@ -223,12 +239,15 @@ Widget _carouselPage(List<Meal> listMeal) => CarouselSlider(
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                        context, AppRoutes.detailMeal,
-                        arguments: {
-                          'mealID': item.mealID,
-                          // 'listMeal': listMeal,
-                        }),
+                    onTap: () =>
+                        (item.isPremium && isPremiumUser) || !item.isPremium
+                            ? Navigator.pushNamed(context, AppRoutes.detailMeal,
+                                arguments: {
+                                    'mealID': item.mealID,
+                                    // 'listMeal': listMeal,
+                                  })
+                            : Fluttertoast.showToast(
+                                msg: "Bạn không phải là thành viên pro"),
                     child: Image.network(item.imageUrl,
                         fit: BoxFit.cover, width: 1000),
                   ),

@@ -10,8 +10,13 @@ import 'package:fitme/constants/colors.dart';
 class TitleArticleBadge extends StatelessWidget {
   final List<Meal>? listMeal;
   final String title;
+  final bool isPremiumUser;
 
-  const TitleArticleBadge({required this.title, this.listMeal});
+  const TitleArticleBadge({
+    required this.title,
+    this.listMeal,
+    required this.isPremiumUser,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +61,7 @@ class TitleArticleBadge extends StatelessWidget {
   void _viewAllArticle(BuildContext ctx, listMeal) {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
+      'isPremiumUser': this.isPremiumUser,
     });
   }
 }

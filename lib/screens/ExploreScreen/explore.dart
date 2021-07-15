@@ -51,6 +51,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   int totalIn = 0;
   int totalOut = 0;
   String _userName = "";
+  bool _isPremiumUser = false;
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
@@ -163,118 +164,119 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                             listFavoriteWorkout:
                                                 listFavoriteWorkout,
                                             dateTimeNow: _selectedDay,
+                                            isPremiumUser: _isPremiumUser,
                                           )
                                         : Text(""),
-                                    TitleArticleBadge(
-                                      title: "Thêm hoạt động khác",
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 5, 10, 5),
-                                      child: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  child: InkWell(
-                                                    onTap: () =>
-                                                        showModalBottomSheet(
-                                                            context: context,
-                                                            isScrollControlled:
-                                                                true,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return BottomDrawer(
-                                                                activityType: 1,
-                                                                isToday: true,
-                                                              );
-                                                            }),
-                                                    child: CircleAvatar(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      radius: 25,
-                                                      child: ClipOval(
-                                                        child: Image.asset(
-                                                          'assets/images/diary/activity_running.png',
-                                                          fit: BoxFit.fitHeight,
-                                                          width: 80,
-                                                          height: 25,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  decoration: new BoxDecoration(
-                                                    border: new Border.all(
-                                                      color: AppColors.grayText
-                                                          .withOpacity(0.4),
-                                                      width: 1,
-                                                    ),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 5),
-                                                Text("Chạy bộ"),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  child: InkWell(
-                                                    onTap: () =>
-                                                        showModalBottomSheet(
-                                                            context: context,
-                                                            isScrollControlled:
-                                                                true,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return BottomDrawer(
-                                                                activityType: 2,
-                                                                isToday: true,
-                                                              );
-                                                            }),
-                                                    child: CircleAvatar(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      radius: 25,
-                                                      child: ClipOval(
-                                                        child: Image.asset(
-                                                          'assets/images/diary/activity_cycling.png',
-                                                          fit: BoxFit.fitHeight,
-                                                          width: 80,
-                                                          height: 25,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  decoration: new BoxDecoration(
-                                                    border: new Border.all(
-                                                      color: AppColors.grayText
-                                                          .withOpacity(0.4),
-                                                      width: 1,
-                                                    ),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 5),
-                                                Text("Đạp xe đạp")
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    // TitleArticleBadge(
+                                    //   title: "Thêm hoạt động khác",
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.fromLTRB(
+                                    //       20, 5, 10, 5),
+                                    //   child: Container(
+                                    //     child: Row(
+                                    //       mainAxisAlignment:
+                                    //           MainAxisAlignment.start,
+                                    //       children: [
+                                    //         Column(
+                                    //           mainAxisAlignment:
+                                    //               MainAxisAlignment.center,
+                                    //           children: [
+                                    //             Container(
+                                    //               child: InkWell(
+                                    //                 onTap: () =>
+                                    //                     showModalBottomSheet(
+                                    //                         context: context,
+                                    //                         isScrollControlled:
+                                    //                             true,
+                                    //                         builder:
+                                    //                             (BuildContext
+                                    //                                 context) {
+                                    //                           return BottomDrawer(
+                                    //                             activityType: 1,
+                                    //                             isToday: true,
+                                    //                           );
+                                    //                         }),
+                                    //                 child: CircleAvatar(
+                                    //                   backgroundColor:
+                                    //                       Colors.transparent,
+                                    //                   radius: 25,
+                                    //                   child: ClipOval(
+                                    //                     child: Image.asset(
+                                    //                       'assets/images/diary/activity_running.png',
+                                    //                       fit: BoxFit.fitHeight,
+                                    //                       width: 80,
+                                    //                       height: 25,
+                                    //                     ),
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               decoration: new BoxDecoration(
+                                    //                 border: new Border.all(
+                                    //                   color: AppColors.grayText
+                                    //                       .withOpacity(0.4),
+                                    //                   width: 1,
+                                    //                 ),
+                                    //                 shape: BoxShape.circle,
+                                    //               ),
+                                    //             ),
+                                    //             SizedBox(height: 5),
+                                    //             Text("Chạy bộ"),
+                                    //           ],
+                                    //         ),
+                                    //         SizedBox(
+                                    //           width: 20,
+                                    //         ),
+                                    //         Column(
+                                    //           mainAxisAlignment:
+                                    //               MainAxisAlignment.center,
+                                    //           children: [
+                                    //             Container(
+                                    //               child: InkWell(
+                                    //                 onTap: () =>
+                                    //                     showModalBottomSheet(
+                                    //                         context: context,
+                                    //                         isScrollControlled:
+                                    //                             true,
+                                    //                         builder:
+                                    //                             (BuildContext
+                                    //                                 context) {
+                                    //                           return BottomDrawer(
+                                    //                             activityType: 2,
+                                    //                             isToday: true,
+                                    //                           );
+                                    //                         }),
+                                    //                 child: CircleAvatar(
+                                    //                   backgroundColor:
+                                    //                       Colors.transparent,
+                                    //                   radius: 25,
+                                    //                   child: ClipOval(
+                                    //                     child: Image.asset(
+                                    //                       'assets/images/diary/activity_cycling.png',
+                                    //                       fit: BoxFit.fitHeight,
+                                    //                       width: 80,
+                                    //                       height: 25,
+                                    //                     ),
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               decoration: new BoxDecoration(
+                                    //                 border: new Border.all(
+                                    //                   color: AppColors.grayText
+                                    //                       .withOpacity(0.4),
+                                    //                   width: 1,
+                                    //                 ),
+                                    //                 shape: BoxShape.circle,
+                                    //               ),
+                                    //             ),
+                                    //             SizedBox(height: 5),
+                                    //             Text("Đạp xe đạp")
+                                    //           ],
+                                    //         ),
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 TitleArticle(
@@ -282,6 +284,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                   listPlanMeal: _selectedPlan!.planMeals,
                                   listFavoriteMeal: listFavoriteMeal,
                                   dateTimeNow: _selectedDay,
+                                  isPremiumUser: _isPremiumUser,
                                 ),
                                 listWorkoutLog.isNotEmpty
                                     ? TitleArticle(
@@ -289,6 +292,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                         listWorkout: listWorkout,
                                         listFavoriteWorkout:
                                             listFavoriteWorkout,
+                                        isPremiumUser: _isPremiumUser,
                                       )
                                     : Text(""),
                                 _selectedDay.day <= DateTime.now().day
@@ -466,6 +470,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
     setState(() {
       _isLoading = false;
       this._userName = user.firstName + " " + user.lastName;
+      this._isPremiumUser = user.isPremium!;
     });
   }
 }
