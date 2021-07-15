@@ -1,6 +1,6 @@
 import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
-import 'package:fitme/models/post.dart';
+import 'package:fitme/models/post_old.dart';
 
 class Plan {
   final int id;

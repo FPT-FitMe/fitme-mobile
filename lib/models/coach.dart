@@ -3,14 +3,14 @@ part 'coach.g.dart';
 
 @JsonSerializable()
 class Coach {
-  int? coachID;
+  int coachID;
   String name;
   String contact;
   String introduction;
   String imageUrl;
 
   Coach({
-    this.coachID,
+    required this.coachID,
     required this.name,
     required this.contact,
     required this.introduction,
