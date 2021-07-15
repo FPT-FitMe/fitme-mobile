@@ -1,6 +1,7 @@
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/user.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 
@@ -15,4 +16,5 @@ abstract class ExploreView {
   void showEmptyWorkout();
   void loadFavouriteMeals(List<Meal> listMeals);
   void loadFavouriteWorkouts(List<Workout> listWorkouts);
+  void loadUserInform(User user);
 }

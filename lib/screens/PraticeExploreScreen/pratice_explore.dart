@@ -405,5 +405,8 @@ String convertDurationAndCalories(dynamic cal, int duration) {
   var d = Duration(minutes: duration);
   List<String> parts = d.toString().split(':');
   int calories = cal.toInt();
+  if (d.inHours <= 0) {
+    return '${parts[1].padLeft(2, '0')} phút - $calories cals';
+  }
   return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
 }

@@ -2,6 +2,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/meal_log.dart';
 import 'package:fitme/models/plan.dart';
+import 'package:fitme/models/user.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
 import 'package:fitme/screens/BottomBarScreen/bottom_drawer_menu.dart';
@@ -49,6 +50,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
   DateTime _selectedDay = DateTime.now();
   int totalIn = 0;
   int totalOut = 0;
+  String _userName = "";
 
   _ExploreScreenState() {
     _presenter = new ExplorePresenter(this);
@@ -57,6 +59,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
     _presenter.getPlan(_selectedDay);
     _presenter.loadFavouriteMeals();
     _presenter.loadFavouriteWorkouts();
+    _presenter.loadUserProfile();
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -86,8 +89,7 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 15, 0, 15),
                       child: Text(
-                        //TODO: lam di t luoi qua :)
-                        "Chào Tùng Nguyễn,",
+                        "Chào " + _userName + ",",
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -289,33 +291,36 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
                                             listFavoriteWorkout,
                                       )
                                     : Text(""),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  // margin: EdgeInsets.symmetric(vertical: 15),
-                                  width: double.infinity,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Tổng kết",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                          "  - Lượng calo tiêu thụ: ${totalOut} cals"),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                          "  - Lượng calo nạp vào: ${totalIn} cals"),
-                                    ],
-                                  ),
-                                ),
+                                _selectedDay.day <= DateTime.now().day
+                                    ? Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        // margin: EdgeInsets.symmetric(vertical: 15),
+                                        width: double.infinity,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Tổng kết",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.left,
+                                            ),
+                                            SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text(
+                                                "  - Lượng calo tiêu thụ: ${totalOut} cals"),
+                                            SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text(
+                                                "  - Lượng calo nạp vào: ${totalIn} cals"),
+                                          ],
+                                        ),
+                                      )
+                                    : Text(""),
                               ],
                             ),
                           ),
@@ -453,6 +458,14 @@ class _ExploreScreenState extends State<ExploreScreen> implements ExploreView {
       _isLoading = false;
       this.listMeallog = listMealLog;
       this.totalIn = getTotalCalIn(listMealLog);
+    });
+  }
+
+  @override
+  void loadUserInform(User user) {
+    setState(() {
+      _isLoading = false;
+      this._userName = user.firstName + " " + user.lastName;
     });
   }
 }

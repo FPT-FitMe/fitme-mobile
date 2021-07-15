@@ -309,6 +309,9 @@ class _PracticeScreenState extends State<PracticeScreen>
   String convertDuration(int duration) {
     var d = Duration(minutes: duration);
     List<String> parts = d.toString().split(':');
+    if (d.inHours <= 0) {
+      return '${parts[1].padLeft(2, '0')} phút';
+    }
     return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút';
   }
 

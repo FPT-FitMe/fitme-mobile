@@ -62,7 +62,7 @@ class _DetailMealScreenState extends State<DetailMealScreen>
     //   planMeal = routeArgs['planMeal'] as PlanMeal;
     bool isShow = true;
     if (dateTimeMeal != null) {
-      if (dateTimeMeal!.day < DateTime.now().day) {
+      if (dateTimeMeal!.day != DateTime.now().day) {
         isShow = false;
       }
     }
@@ -135,8 +135,7 @@ class _DetailMealScreenState extends State<DetailMealScreen>
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: timeSection(_meal!.cookingTime.toString(),
-                          _meal!.calories.toString()),
+                      child: timeSection(_meal!.cookingTime, _meal!.calories),
                     ),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
@@ -390,7 +389,7 @@ Widget tagSection(List<Tag> tags) => Builder(builder: (BuildContext context) {
               .toList());
     });
 
-Widget timeSection(String duration, String cal) => Container(
+Widget timeSection(int duration, double cal) => Container(
       child: Row(
         children: [
           Icon(
@@ -400,7 +399,7 @@ Widget timeSection(String duration, String cal) => Container(
           ),
           SizedBox(width: 5),
           Text(
-            duration + ' phút',
+            convertDuration(duration),
             softWrap: true,
             style: TextStyle(
               fontSize: 15,
@@ -414,7 +413,7 @@ Widget timeSection(String duration, String cal) => Container(
           ),
           SizedBox(width: 5),
           Text(
-            cal + ' cals',
+            convertCalories(cal),
             softWrap: true,
             style: TextStyle(
               fontSize: 15,
@@ -448,3 +447,17 @@ Widget textSection(Meal meal) => Container(
         ],
       ),
     );
+
+String convertDuration(int duration) {
+  var d = Duration(minutes: duration);
+  List<String> parts = d.toString().split(':');
+  if (d.inHours <= 0) {
+    return '${parts[1].padLeft(2, '0')} phút';
+  }
+  return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút';
+}
+
+String convertCalories(dynamic cal) {
+  int calories = cal.toInt();
+  return '$calories cals';
+}

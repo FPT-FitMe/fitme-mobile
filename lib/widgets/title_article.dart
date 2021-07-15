@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/plan_meal.dart';
@@ -96,28 +95,28 @@ class TitleArticle extends StatelessWidget {
                     _cardArticleMeal(context, listPlanMeal![0]),
                     _cardArticleMeal(context, listPlanMeal![1]),
                     _cardArticleMeal(context, listPlanMeal![2]),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 20),
-                        InkWell(
-                          onTap: () => showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (BuildContext context) {
-                                return BottomDrawer(
-                                  tabIndex: 1,
-                                  isToday: true,
-                                );
-                              }),
-                          child: Icon(
-                              CommunityMaterialIcons.plus_circle_outline,
-                              size: 50),
-                        ),
-                        SizedBox(height: 10),
-                        Text("Thêm bữa ăn"),
-                      ],
-                    )
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: <Widget>[
+                    //     SizedBox(height: 20),
+                    //     InkWell(
+                    //       onTap: () => showModalBottomSheet(
+                    //           context: context,
+                    //           isScrollControlled: true,
+                    //           builder: (BuildContext context) {
+                    //             return BottomDrawer(
+                    //               tabIndex: 1,
+                    //               isToday: true,
+                    //             );
+                    //           }),
+                    //       child: Icon(
+                    //           CommunityMaterialIcons.plus_circle_outline,
+                    //           size: 50),
+                    //     ),
+                    //     SizedBox(height: 10),
+                    //     Text("Thêm bữa ăn"),
+                    //   ],
+                    // )
                   ],
                 )),
           Row(
@@ -528,11 +527,17 @@ String convertDurationAndCalories(dynamic cal, int duration) {
   var d = Duration(minutes: duration);
   List<String> parts = d.toString().split(':');
   int calories = cal.toInt();
+  if (d.inHours <= 0) {
+    return '${parts[1].padLeft(2, '0')} phút - $calories cals';
+  }
   return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút - $calories cals';
 }
 
 String convertDuration(int duration) {
   var d = Duration(minutes: duration);
   List<String> parts = d.toString().split(':');
+  if (d.inHours <= 0) {
+    return '${parts[1].padLeft(2, '0')} phút';
+  }
   return '${parts[0].padLeft(2, '0')} giờ ${parts[1].padLeft(2, '0')} phút';
 }
