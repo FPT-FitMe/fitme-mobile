@@ -4,7 +4,7 @@ part 'exercise.g.dart';
 
 @JsonSerializable()
 class Exercise {
-  int? exerciseID;
+  int exerciseID;
   int baseDuration;
   int baseRepPerRound;
   int baseKcal;

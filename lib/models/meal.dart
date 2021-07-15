@@ -10,7 +10,7 @@ class Meal {
   double calories;
   double carbAmount;
   int cookingTime;
-  String? description;
+  String description;
   double fatAmount;
   String imageUrl;
   bool isPremium;
@@ -23,7 +23,7 @@ class Meal {
     required this.calories,
     required this.carbAmount,
     required this.cookingTime,
-    this.description,
+    required this.description,
     required this.fatAmount,
     required this.isPremium,
     required this.imageUrl,

@@ -1,19 +1,36 @@
-class Post {
-  final int id;
-  final String name;
-  final String imageUrl;
-  final String headline;
-  final String content;
-  final int duration;
-  final int authorID;
+import 'package:fitme/models/coach.dart';
+import 'package:fitme/models/user.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'post.g.dart';
 
-  const Post({
-    required this.id,
-    required this.name,
+@JsonSerializable()
+class Post {
+  final int? postID;
+  final String contentHeader;
+  final String contentBody;
+  final Coach coachProfile;
+  final User? creator;
+  final String imageUrl;
+  final String name;
+  final int readingTime;
+  final bool? isActive;
+  final DateTime? createdDate;
+  final DateTime? lastModifiedDate;
+
+  Post({
+    this.postID,
+    this.creator,
+    required this.contentBody,
+    required this.contentHeader,
     required this.imageUrl,
-    required this.headline,
-    required this.content,
-    required this.duration,
-    required this.authorID,
+    required this.readingTime,
+    this.isActive,
+    required this.name,
+    required this.coachProfile,
+    this.createdDate,
+    this.lastModifiedDate,
   });
+
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+  Map<String, dynamic> toJson() => _$PostToJson(this);
 }

@@ -63,10 +63,11 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   title: meal.name,
                   imageUrl: meal.imageUrl,
                   duration: meal.cookingTime,
-                  cal: double.parse("${meal.calories}"),
+                  calories: double.parse("${meal.calories}"),
                   id: int.parse(meal.mealID.toString()),
                   isWorkout: false,
                   isShowStatus: false,
+                  isPost: false,
                 ),
               )
               .toList()
@@ -79,10 +80,11 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   title: workout.name,
                   imageUrl: workout.imageUrl,
                   duration: int.parse(workout.estimatedDuration.toString()),
-                  cal: double.parse("${workout.estimatedCalories}"),
+                  calories: double.parse("${workout.estimatedCalories}"),
                   id: int.parse(workout.workoutID.toString()),
                   isWorkout: true,
                   isShowStatus: false,
+                  isPost: false,
                 ),
               )
               .toList()

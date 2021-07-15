@@ -2,10 +2,10 @@ import 'package:fitme/constants/meal_status.dart';
 import 'package:fitme/models/achivement.dart';
 import 'package:fitme/models/exercise_old.dart';
 import 'package:fitme/models/meal_old.dart';
-import 'package:fitme/models/post.dart';
 import 'package:fitme/models/meal_log_old.dart';
 import 'package:fitme/models/personal_trainer.dart';
 import 'package:fitme/models/plan_old.dart';
+import 'package:fitme/models/post_old.dart';
 import 'package:fitme/models/survey.dart';
 import 'package:fitme/models/workout_log_old.dart';
 
@@ -15,7 +15,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE, //now
       listMeal: LIST_MEAL,
       listGoal: LIST_GOAL,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 325,
       totalOfCaloOut: 250),
   Plan(
@@ -23,7 +23,7 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE2, //old
       listMeal: LIST_MEAL2,
       listGoal: LIST_GOAL2,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
   Plan(
@@ -31,13 +31,23 @@ final LIST_PLAN = [
       listExercise: LIST_EXERCISE3, //new
       listMeal: LIST_MEAL3,
       listGoal: LIST_GOAL3,
-      listPost: LIST_POST,
+      listPost: [],
       totalOfCaloIn: 200,
       totalOfCaloOut: 110),
 ];
 const LIST_COACH = const [
   PersonalTrainer(
       id: 0,
+      name: 'Ariana Grande',
+      imageUrl: "https://i.imgur.com/u4EVYZC.jpg",
+      tagName: 'Boxing, Thể hình',
+      information:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      listExcersice: LIST_EXERCISE,
+      listMeal: LIST_MEAL,
+      fullname: "Ariana Grande"),
+  PersonalTrainer(
+      id: 1,
       name: 'Lalisa',
       imageUrl:
           'https://i.pinimg.com/originals/0f/56/51/0f56511d7e416da63782dd0cc73816f1.png',
@@ -48,7 +58,7 @@ const LIST_COACH = const [
       listMeal: LIST_MEAL,
       fullname: 'Lalisa Monoban'),
   PersonalTrainer(
-      id: 1,
+      id: 2,
       name: 'Rose',
       imageUrl: "https://i.imgur.com/zCiPWRn.jpeg",
       tagName: 'Yoga, Thể hình',
@@ -57,16 +67,6 @@ const LIST_COACH = const [
       listExcersice: LIST_EXERCISE,
       listMeal: LIST_MEAL,
       fullname: "Rose"),
-  PersonalTrainer(
-      id: 2,
-      name: 'Ariana Grande',
-      imageUrl: "https://i.imgur.com/u4EVYZC.jpg",
-      tagName: 'Boxing, Thể hình',
-      information:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      listExcersice: LIST_EXERCISE,
-      listMeal: LIST_MEAL,
-      fullname: "Ariana Grande"),
 ];
 
 const List<Exercise> LIST_GOAL = const [

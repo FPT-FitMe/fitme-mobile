@@ -27,4 +27,9 @@ abstract class TraineeRepository {
   Future<List<WeightLog>> getAllWeightLog();
   Future<WeightLog> logWeight(double value);
   Future<TargetWeight> getTargetWeight();
+  Future<MealLog> logMeal(Meal meal);
+  Future<bool> addFavoriteWorkout(int workoutID);
+  Future<bool> unFavoriteWorkout(int workoutID);
+  Future<bool> addFavoriteMeal(Meal meal);
+  Future<bool> unFavoriteMeal(Meal meal);
 }

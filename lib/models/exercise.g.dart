@@ -8,7 +8,7 @@ part of 'exercise.dart';
 
 Exercise _$ExerciseFromJson(Map<String, dynamic> json) {
   return Exercise(
-    exerciseID: json['exerciseID'] as int?,
+    exerciseID: json['exerciseID'] as int,
     baseDuration: json['baseDuration'] as int,
     baseKcal: json['baseKcal'] as int,
     baseRepPerRound: json['baseRepPerRound'] as int,
