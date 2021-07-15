@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
               SizedBox(
                 height: 20,
               ),
-              if (user != null) CaloriesCard(user: this.user),
+              CaloriesCard(user: this.user!),
               SizedBox(
                 height: 30,
               ),

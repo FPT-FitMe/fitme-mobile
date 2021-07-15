@@ -1,5 +1,6 @@
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/meal_log.dart';
+import 'package:fitme/models/target_weight.dart';
 import 'package:fitme/models/weight_log.dart';
 import 'package:fitme/models/workout.dart';
 import 'package:fitme/models/workout_log.dart';
@@ -24,4 +25,6 @@ abstract class TraineeRepository {
   Future<WorkoutLog> logWorkout(Workout workout, int duration,
       int? difficultFeedback, int? experienceFeedback);
   Future<List<WeightLog>> getAllWeightLog();
+  Future<WeightLog> logWeight(double value);
+  Future<TargetWeight> getTargetWeight();
 }

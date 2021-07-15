@@ -1,4 +1,5 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/target_weight.dart';
 import 'package:fitme/models/user.dart';
 import 'package:fitme/models/weight_log.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
@@ -8,8 +9,11 @@ import 'package:fitme/widgets/custom_line_chart.dart';
 import 'package:flutter/material.dart';
 
 class CaloriesCard extends StatefulWidget {
-  final User? user;
-  const CaloriesCard({Key? key, required this.user}) : super(key: key);
+  final User user;
+  const CaloriesCard({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   _CaloriesCardState createState() => _CaloriesCardState();
@@ -19,17 +23,19 @@ class _CaloriesCardState extends State<CaloriesCard>
     implements CaloriesCardView {
   late CaloriesCardPresenter _presenter;
   List<WeightLog> _listWeightLogs = [];
+  TargetWeight? _target;
   bool _isLoading = true;
 
   _CaloriesCardState() {
     _presenter = new CaloriesCardPresenter(this);
     _presenter.loadAllWeightLog();
+    _presenter.loadTargetWeight();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
+      height: 400,
       padding: EdgeInsets.fromLTRB(16, 16, 32, 16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -62,13 +68,16 @@ class _CaloriesCardState extends State<CaloriesCard>
             ],
           ),
           SizedBox(
-            height: 40,
+            height: 60,
           ),
           _isLoading
               ? LoadingScreen()
-              : _listWeightLogs.isNotEmpty
+              : _listWeightLogs.isNotEmpty && _target != null
                   ? Expanded(
-                      child: CustomLineChart(listWeightLogs: _listWeightLogs),
+                      child: CustomLineChart(
+                        listWeightLogs: _listWeightLogs,
+                        target: _target!,
+                      ),
                     )
                   : Container(
                       height: 200,
@@ -79,7 +88,7 @@ class _CaloriesCardState extends State<CaloriesCard>
           SizedBox(
             height: 10,
           ),
-          !_isLoading && _listWeightLogs.isNotEmpty
+          _listWeightLogs.isNotEmpty
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -109,7 +118,10 @@ class _CaloriesCardState extends State<CaloriesCard>
                     SizedBox(
                       width: 5,
                     ),
-                    Text("Cân nặng đã giảm"),
+                    if (_target != null && _listWeightLogs.isNotEmpty)
+                      Text(_listWeightLogs[0].value > _target!.targetWeight
+                          ? "Cân nặng đã giảm"
+                          : "Cân nặng đã tăng"),
                   ],
                 )
               : Container()
@@ -124,5 +136,14 @@ class _CaloriesCardState extends State<CaloriesCard>
       this._listWeightLogs = listWeightLogs;
       this._isLoading = false;
     });
+  }
+
+  @override
+  void loadTargetWeight(TargetWeight? targetWeight) {
+    if (targetWeight != null) {
+      setState(() {
+        this._target = targetWeight;
+      });
+    }
   }
 }

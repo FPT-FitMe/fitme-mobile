@@ -1,15 +1,21 @@
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/target_weight.dart';
 import 'package:fitme/models/weight_log.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CustomLineChart extends StatelessWidget {
   final List<WeightLog> listWeightLogs;
-  const CustomLineChart({Key? key, required this.listWeightLogs})
-      : super(key: key);
+  final TargetWeight target;
+  const CustomLineChart({
+    Key? key,
+    required this.listWeightLogs,
+    required this.target,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double targetWeight = target.targetWeight;
     int min = listWeightLogs
         .reduce((curr, next) => curr.value < next.value ? curr : next)
         .value
@@ -18,6 +24,12 @@ class CustomLineChart extends StatelessWidget {
         .reduce((curr, next) => curr.value > next.value ? curr : next)
         .value
         .ceil();
+    if (max == min) {
+      max = min + 1;
+    }
+    if (min > targetWeight) {
+      min = (targetWeight - 1).toInt();
+    }
     double minDate = 0;
     double maxDate = 6;
     return LineChart(
@@ -32,25 +44,25 @@ class CustomLineChart extends StatelessWidget {
         lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Colors.transparent,
+            tooltipBgColor: Colors.white,
+            showOnTopOfTheChartBoxArea: true,
           ),
         ),
         lineBarsData: [
-          // LineChartBarData(
-          //   spots: [
-          //     FlSpot(0, 65),
-          //     FlSpot(1, 65),
-          //     FlSpot(2, 65),
-          //     FlSpot(3, 65),
-          //     FlSpot(4, 65),
-          //     FlSpot(5, 65),
-          //     FlSpot(6, 65),
-          //   ],
-          //   colors: [AppColors.primary],
-          //   dotData: FlDotData(
-          //     show: true,
-          //   ),
-          // ),
+          LineChartBarData(
+            spots: [
+              FlSpot(0, targetWeight),
+              FlSpot(1, targetWeight),
+              FlSpot(2, targetWeight),
+              FlSpot(3, targetWeight),
+              FlSpot(4, targetWeight),
+              FlSpot(5, targetWeight),
+            ],
+            colors: [AppColors.primary],
+            dotData: FlDotData(
+              show: true,
+            ),
+          ),
           LineChartBarData(
             spots: listWeightLogs
                 .asMap()
@@ -77,7 +89,9 @@ class CustomLineChart extends StatelessWidget {
           fontSize: 10,
         ),
         getTitles: (value) {
-          if (value > minDate && value < maxDate) {
+          if (value > minDate &&
+              value < maxDate &&
+              value < listWeightLogs.length) {
             DateTime date = listWeightLogs[value.toInt()].createdAt;
             return "${date.day}/${date.month}";
           } else if (value == maxDate) {
@@ -88,7 +102,6 @@ class CustomLineChart extends StatelessWidget {
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        interval: (max - min) / listWeightLogs.length,
         getTextStyles: (value) => TextStyle(
           fontFamily: 'SF-Pro-Display',
           color: AppColors.grayText,
@@ -102,8 +115,8 @@ class CustomLineChart extends StatelessWidget {
     return FlGridData(
       drawHorizontalLine: true,
       drawVerticalLine: true,
-      horizontalInterval: 1,
-      verticalInterval: 1,
+      // horizontalInterval: 1,
+      // verticalInterval: 1,
     );
   }
 

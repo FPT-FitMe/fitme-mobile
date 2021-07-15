@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:duration_picker/duration_picker.dart';
 import 'package:fitme/constants/colors.dart';
+import 'package:fitme/models/target_weight.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_form_presenter.dart';
+import 'package:fitme/screens/BottomBarScreen/bottom_drawer_form_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -142,11 +146,18 @@ class WeightLogForm extends StatefulWidget {
   _WeightLogFormState createState() => _WeightLogFormState();
 }
 
-class _WeightLogFormState extends State<WeightLogForm> {
+class _WeightLogFormState extends State<WeightLogForm>
+    implements BottomDrawerFormView {
   final _formKey = GlobalKey<FormState>();
+  late BottomDrawerFormPresenter _presenter;
 
   // TextEditingController _weightController = TextEditingController();
   double latestWeight = 55.2;
+
+  _WeightLogFormState() {
+    _presenter = new BottomDrawerFormPresenter(this);
+    _presenter.loadTargetWeight();
+  }
 
   void increaseLogWeightValue() {
     setState(() {
@@ -196,7 +207,9 @@ class _WeightLogFormState extends State<WeightLogForm> {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _presenter.logWeight(latestWeight);
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -205,15 +218,30 @@ class _WeightLogFormState extends State<WeightLogForm> {
               child: Text(
                 "Cập nhật cân nặng",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void showToast(message) {
+    Fluttertoast.showToast(msg: message);
+  }
+
+  @override
+  void loadTargetWeight(TargetWeight? targetWeight) {
+    if (targetWeight != null) {
+      setState(() {
+        this.latestWeight = targetWeight.currentWeight;
+      });
+    }
   }
 }
 
@@ -228,7 +256,7 @@ class MealLogForm extends StatefulWidget {
 
 class _MealLogFormState extends State<MealLogForm> {
   final _formKey = GlobalKey<FormState>();
-  var _mealImage = null;
+  var _mealImage;
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
