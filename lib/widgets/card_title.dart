@@ -4,6 +4,7 @@ import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:fitme/models/meal.dart';
 import 'package:fitme/models/tag.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CardTitle extends StatelessWidget {
   final String title;
@@ -16,6 +17,8 @@ class CardTitle extends StatelessWidget {
   final List<Meal>? listMeal;
   final bool isShowStatus;
   final bool isPost;
+  final bool isPremiumContent;
+  final bool isUserPremium;
 
   CardTitle({
     this.calories,
@@ -28,12 +31,17 @@ class CardTitle extends StatelessWidget {
     required this.imageUrl,
     required this.isWorkout,
     required this.isPost,
+    required this.isPremiumContent,
+    required this.isUserPremium,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _selectArticle(context, id),
+      onTap: () =>
+          isPost || (isPremiumContent && isUserPremium) || !isPremiumContent
+              ? _selectArticle(context, id)
+              : Fluttertoast.showToast(msg: "Bạn không phải là thành viên pro"),
       child: ListTile(
         // trailing: getTick(id),
         leading: ClipRRect(

@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:fitme/models/meal.dart';
 
 import 'package:fitme/constants/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TitleArticleMeal extends StatelessWidget {
   final List<Meal> listMeal;
   final List<Meal> listFavoriteMeal;
   final String title;
+  final bool isPremiumUser;
 
-  const TitleArticleMeal(
-      {required this.title,
-      required this.listMeal,
-      required this.listFavoriteMeal});
+  const TitleArticleMeal({
+    required this.title,
+    required this.listMeal,
+    required this.listFavoriteMeal,
+    required this.isPremiumUser,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +58,16 @@ class TitleArticleMeal extends StatelessWidget {
                 return Flexible(
                     fit: FlexFit.tight,
                     child: _cardArticle(
-                        context,
-                        meal.mealID,
-                        meal.imageUrl,
-                        meal.isPremium,
-                        meal.name,
-                        meal.cookingTime,
-                        meal.calories,
-                        meal.tags));
+                      context,
+                      meal.mealID,
+                      meal.imageUrl,
+                      meal.isPremium,
+                      meal.name,
+                      meal.cookingTime,
+                      meal.calories,
+                      meal.tags,
+                      this.isPremiumUser,
+                    ));
               }),
             ],
           ),
@@ -83,11 +89,21 @@ class TitleArticleMeal extends StatelessWidget {
     Navigator.of(ctx).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
       'topic': "ăn",
+      'isPremiumUser': this.isPremiumUser,
     });
   }
 
-  Widget _cardArticle(BuildContext context, int? id, String imageUrl,
-      bool isPremium, String name, int duration, double? cal, List<Tag>? tags) {
+  Widget _cardArticle(
+    BuildContext context,
+    int? id,
+    String imageUrl,
+    bool isPremium,
+    String name,
+    int duration,
+    double? cal,
+    List<Tag>? tags,
+    bool isPremiumUser,
+  ) {
     bool isFavorite = false;
     if (listFavoriteMeal.isNotEmpty) {
       var containt =
@@ -97,7 +113,9 @@ class TitleArticleMeal extends StatelessWidget {
       }
     }
     return GestureDetector(
-      onTap: () => _selectArticle(context, id),
+      onTap: () => (isPremium && this.isPremiumUser) || !isPremium
+          ? _selectArticle(context, id)
+          : Fluttertoast.showToast(msg: "Bạn không phải là thành viên pro"),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

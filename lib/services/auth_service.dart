@@ -27,6 +27,7 @@ class AuthService implements AuthRepository {
     _preferences.setInt("userID", int.parse(user.id.toString()));
     await _storage.write(key: "userToken", value: response.data["jwtToken"]);
     await _storage.write(key: "isSurveyAnswered", value: user.gender);
+    await _storage.write(key: "isPremium", value: user.premium.toString());
     return user;
   }
 

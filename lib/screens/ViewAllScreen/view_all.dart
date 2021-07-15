@@ -22,6 +22,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
   List<Post> listPost = [];
   List<Coach> listCoach = [];
   List<Tag> listTag = [];
+  bool _isPremiumUser = false;
 
   ViewAllScreen() {
     _presenter = new ViewAllPresenter(this);
@@ -33,6 +34,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
     this._context = context;
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    _isPremiumUser = routeArgs['isPremiumUser'] as bool;
     if (routeArgs['list_meal'] != null)
       listMeal = routeArgs['list_meal'] as List<Meal>;
     if (routeArgs['listWorkout'] != null)
@@ -90,6 +92,8 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                               tags: meal.tags,
                               listMeal: listMeal,
                               isPost: false,
+                              isPremiumContent: meal.isPremium,
+                              isUserPremium: _isPremiumUser,
                             ))
                         .toList()
                     : (listWorkout.isNotEmpty)
@@ -104,6 +108,8 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                                   id: int.parse(workout.workoutID.toString()),
                                   isWorkout: true,
                                   isPost: false,
+                                  isPremiumContent: workout.isPremium,
+                                  isUserPremium: _isPremiumUser,
                                 ))
                             .toList()
                         : (listPost.isNotEmpty)
@@ -115,6 +121,8 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
                                       id: int.parse(post.postID.toString()),
                                       isWorkout: false,
                                       isPost: true,
+                                      isPremiumContent: false,
+                                      isUserPremium: _isPremiumUser,
                                     ))
                                 .toList()
                             : (listCoach.isNotEmpty)
@@ -134,6 +142,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
     Navigator.of(_context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_meal': listMeal,
       'topic': "đồ ăn tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -142,6 +151,7 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
     Navigator.of(_context).pushNamed(AppRoutes.viewAll, arguments: {
       'listWorkout': listWorkout,
       'topic': "bài tập tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -152,12 +162,14 @@ class ViewAllScreen extends StatelessWidget implements ViewAllView {
       Navigator.of(_context).pushNamed(AppRoutes.viewAll, arguments: {
         'listWorkout': list,
         'topic': "bài tập tag " + tag.name,
+        'isPremiumUser': this._isPremiumUser,
       });
     } else {
       List<Meal> list = [];
       Navigator.of(_context).pushNamed(AppRoutes.viewAll, arguments: {
         'list_meal': list,
         'topic': "đồ ăn tag " + tag.name,
+        'isPremiumUser': this._isPremiumUser,
       });
     }
   }

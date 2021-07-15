@@ -9,9 +9,11 @@ import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_presenter.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore_view.dart';
+import 'package:fitme/utils/user_utils.dart';
 import 'package:fitme/widgets/title_article.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 const int MAX_COACH = 3;
@@ -35,6 +37,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
   List<Post> listPosts = [];
   List<Tag> listTags = [];
   List<Workout> listFavoriteWorkout = [];
+  bool _isPremiumUser = false;
 
   _PraticeExploreScreenState() {
     _presenter = new PraticePresenter(this);
@@ -43,6 +46,15 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     _presenter.loadAllPosts();
     _presenter.loadAllTags();
     _presenter.loadFavouriteWorkouts();
+    checkIfUserIsPremium();
+  }
+
+  void checkIfUserIsPremium() async {
+    bool isUserPremium = await UserUtils.checkIfUserIsPremium();
+    if (isUserPremium)
+      setState(() {
+        _isPremiumUser = true;
+      });
   }
 
   @override
@@ -74,7 +86,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        carouselPage(listWorkout),
+                        carouselPage(listWorkout, this._isPremiumUser),
                         listCoaches.isEmpty
                             ? SizedBox(height: 10)
                             : Column(
@@ -167,12 +179,14 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
                                 title: "Bài tập",
                                 listWorkout: listWorkout,
                                 listFavoriteWorkout: listFavoriteWorkout,
+                                isPremiumUser: _isPremiumUser,
                               )
                             : Text(""),
                         listPosts.isNotEmpty
                             ? TitleArticle(
                                 title: "Bài viết",
                                 listPost: listPosts,
+                                isPremiumUser: _isPremiumUser,
                               )
                             : Text(""),
                       ],
@@ -235,6 +249,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_coach': listCoaches,
       'topic': "Huấn luyện viên",
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -250,6 +265,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'list_tag': listTags,
       'topic': "tag",
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -258,6 +274,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'listWorkout': listWorkout,
       'topic': "bài tập tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -284,6 +301,7 @@ class _PraticeExploreScreenState extends State<PraticeExploreScreen>
     Navigator.of(context).pushNamed(AppRoutes.viewAll, arguments: {
       'listWorkout': list,
       'topic': "bài tập tag " + tag.name,
+      'isPremiumUser': this._isPremiumUser,
     });
   }
 
@@ -343,7 +361,8 @@ Widget coachAvatar(BuildContext context, Coach coach) => Container(
 
 CarouselController buttonCarouselController = CarouselController();
 
-Widget carouselPage(List<Workout> listWorkout) => CarouselSlider(
+Widget carouselPage(List<Workout> listWorkout, bool isPremiumUser) =>
+    CarouselSlider(
       carouselController: buttonCarouselController,
       options: CarouselOptions(
         height: 250,
@@ -361,13 +380,16 @@ Widget carouselPage(List<Workout> listWorkout) => CarouselSlider(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PracticeScreen(
-                              workoutID: item.workoutID,
-                            ),
-                          ));
+                      (item.isPremium && isPremiumUser) || !item.isPremium
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PracticeScreen(
+                                  workoutID: item.workoutID,
+                                ),
+                              ))
+                          : Fluttertoast.showToast(
+                              msg: "Bạn không phải là thành viên pro");
                     },
                     child: Image.network(item.imageUrl,
                         fit: BoxFit.cover, width: 1000),

@@ -3,6 +3,7 @@ import 'package:fitme/constants/colors.dart';
 import 'package:fitme/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -31,7 +32,10 @@ class SettingScreen extends StatelessWidget {
       bottomSheet: GestureDetector(
         onTap: () async {
           FlutterSecureStorage _storage = new FlutterSecureStorage();
+          SharedPreferences _preferences =
+              await SharedPreferences.getInstance();
           await _storage.deleteAll();
+          _preferences.clear();
           Navigator.pushNamedAndRemoveUntil(
               context, AppRoutes.login, (route) => false);
         },

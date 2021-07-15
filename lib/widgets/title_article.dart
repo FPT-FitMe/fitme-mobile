@@ -12,6 +12,7 @@ import 'package:fitme/screens/DetailPracticeScreen/practice.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitme/constants/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TitleArticle extends StatelessWidget {
   final List<PlanWorkout>? listPlanWorkout;
@@ -22,16 +23,19 @@ class TitleArticle extends StatelessWidget {
   final List<Post>? listPost;
   final List<Workout>? listWorkout;
   final String title;
+  final bool isPremiumUser;
 
-  const TitleArticle(
-      {required this.title,
-      this.listPlanWorkout,
-      this.listPlanMeal,
-      this.listPost,
-      this.listWorkout,
-      this.listFavoriteWorkout,
-      this.listFavoriteMeal,
-      this.dateTimeNow});
+  const TitleArticle({
+    required this.title,
+    required this.isPremiumUser,
+    this.listPlanWorkout,
+    this.listPlanMeal,
+    this.listPost,
+    this.listWorkout,
+    this.listFavoriteWorkout,
+    this.listFavoriteMeal,
+    this.dateTimeNow,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -237,6 +241,7 @@ class TitleArticle extends StatelessWidget {
       'listWorkout': listWorkout,
       'list_post': listPost,
       'topic': topic,
+      'isPremiumUser': this.isPremiumUser,
     });
   }
 
@@ -262,13 +267,15 @@ class TitleArticle extends StatelessWidget {
       }
     }
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
-        'planMeal': planMeal,
-        'mealID': planMeal.meal.mealID,
-        "dateTimeMeal": dateTimeNow,
-        // 'listMeal': listMeal,
-      }),
+      onTap: () => (planMeal.meal.isPremium && this.isPremiumUser) ||
+              !planMeal.meal.isPremium
+          ? Navigator.pushNamed(context, AppRoutes.detailMeal, arguments: {
+              'planMeal': planMeal,
+              'mealID': planMeal.meal.mealID,
+              "dateTimeMeal": dateTimeNow,
+              // 'listMeal': listMeal,
+            })
+          : Fluttertoast.showToast(msg: "Bạn không phải là thành viên pro"),
       child: SizedBox(
         child: Container(
           foregroundDecoration: isSkipped
@@ -434,7 +441,9 @@ class TitleArticle extends StatelessWidget {
       }
     }
     return GestureDetector(
-      onTap: () => _selectArticle(context, id, isWorkout, false, isPost),
+      onTap: () => isPost || (isPremium && this.isPremiumUser) || !isPremium
+          ? _selectArticle(context, id, isWorkout, false, isPost)
+          : Fluttertoast.showToast(msg: "Bạn không phải là thành viên pro"),
       child: Container(
         foregroundDecoration: isSkipped
             ? BoxDecoration(

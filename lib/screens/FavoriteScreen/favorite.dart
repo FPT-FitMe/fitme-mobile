@@ -4,6 +4,7 @@ import 'package:fitme/models/workout.dart';
 import 'package:fitme/screens/FavoriteScreen/favorite_presenter.dart';
 import 'package:fitme/screens/FavoriteScreen/favorite_view.dart';
 import 'package:fitme/screens/LoadingScreen/loading.dart';
+import 'package:fitme/utils/user_utils.dart';
 import 'package:fitme/widgets/card_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,21 @@ class _FavoriteScreenState extends State<FavoriteScreen>
   int segmentedControlValue = 0;
   List<Meal> listMeals = [];
   List<Workout> listWorkouts = [];
+  bool _isPremiumUser = false;
 
   _FavoriteScreenState() {
     _presenter = new FavoritePresenter(this);
     _presenter.loadFavouriteMeals();
     _presenter.loadFavouriteWorkouts();
+    checkIfUserIsPremium();
+  }
+
+  void checkIfUserIsPremium() async {
+    bool isUserPremium = await UserUtils.checkIfUserIsPremium();
+    if (isUserPremium)
+      setState(() {
+        _isPremiumUser = true;
+      });
   }
 
   @override
@@ -68,6 +79,8 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   isWorkout: false,
                   isShowStatus: false,
                   isPost: false,
+                  isPremiumContent: meal.isPremium,
+                  isUserPremium: _isPremiumUser,
                 ),
               )
               .toList()
@@ -85,6 +98,8 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   isWorkout: true,
                   isShowStatus: false,
                   isPost: false,
+                  isPremiumContent: workout.isPremium,
+                  isUserPremium: _isPremiumUser,
                 ),
               )
               .toList()

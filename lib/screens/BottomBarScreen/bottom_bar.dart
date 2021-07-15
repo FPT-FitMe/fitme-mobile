@@ -7,6 +7,7 @@ import 'package:fitme/screens/MealExploreScreen/meal_explore.dart';
 import 'package:fitme/screens/PraticeExploreScreen/pratice_explore.dart';
 import 'package:fitme/screens/SearchScreen/search.dart';
 import 'package:fitme/screens/UserProfileScreen/user_profile.dart';
+import 'package:fitme/utils/user_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
@@ -28,14 +29,24 @@ class _BottomBarScreenState extends State<BottomBarScreen>
   List<Workout> listWorkoutSearch = [];
   List<Meal> listMealSearch = [];
   int _selectedIndex = 0;
+  bool _isPremiumUser = false;
 
   _BottomBarScreenState() {
     _presenter = new BottomBarPresenter(this);
     _presenter.loadMeals();
     _presenter.loadWorkouts();
+    checkIfUserIsPremium();
   }
 
   final String name = "Tùng";
+
+  void checkIfUserIsPremium() async {
+    bool isUserPremium = await UserUtils.checkIfUserIsPremium();
+    if (isUserPremium)
+      setState(() {
+        _isPremiumUser = true;
+      });
+  }
 
   //title la cai hien len appbar
   final List<Map<String, dynamic>> _screens = [
@@ -151,10 +162,12 @@ class _BottomBarScreenState extends State<BottomBarScreen>
             showSearch(
               context: context,
               delegate: Search(
-                  isEx: true,
-                  isMeal: false,
-                  listMeal: [],
-                  listWorkout: listWorkoutSearch),
+                isEx: true,
+                isMeal: false,
+                listMeal: [],
+                listWorkout: listWorkoutSearch,
+                isPremiumUser: this._isPremiumUser,
+              ),
             );
           },
         ),
@@ -188,10 +201,12 @@ class _BottomBarScreenState extends State<BottomBarScreen>
             showSearch(
               context: context,
               delegate: Search(
-                  isEx: false,
-                  isMeal: true,
-                  listMeal: listMealSearch,
-                  listWorkout: []),
+                isEx: false,
+                isMeal: true,
+                listMeal: listMealSearch,
+                listWorkout: [],
+                isPremiumUser: this._isPremiumUser,
+              ),
             );
           },
         ),

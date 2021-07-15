@@ -7,15 +7,18 @@ import 'package:flutter_svg/svg.dart';
 class Search extends SearchDelegate {
   final bool isEx;
   final bool isMeal;
+  final bool isPremiumUser;
   List<Workout> listWorkout = [];
   List<Meal> listMeal = [];
   //result
 
-  Search(
-      {required this.isEx,
-      required this.isMeal,
-      required this.listMeal,
-      required this.listWorkout});
+  Search({
+    required this.isEx,
+    required this.isMeal,
+    required this.listMeal,
+    required this.listWorkout,
+    required this.isPremiumUser,
+  });
 
   @override
   String? get searchFieldLabel => "Bạn đang tìm kiếm gì?";
@@ -67,14 +70,17 @@ class Search extends SearchDelegate {
             : ListView(
                 children: resultWorkout
                     .map((workout) => CardTitle(
-                        isPost: false,
-                        title: workout.name,
-                        imageUrl: workout.imageUrl,
-                        duration: workout.estimatedDuration,
-                        calories:
-                            double.parse(workout.estimatedCalories.toString()),
-                        id: int.parse(workout.workoutID.toString()),
-                        isWorkout: true))
+                          isPost: false,
+                          title: workout.name,
+                          imageUrl: workout.imageUrl,
+                          duration: workout.estimatedDuration,
+                          calories: double.parse(
+                              workout.estimatedCalories.toString()),
+                          id: int.parse(workout.workoutID.toString()),
+                          isWorkout: true,
+                          isPremiumContent: workout.isPremium,
+                          isUserPremium: isPremiumUser,
+                        ))
                     .toList(),
               ))
         : (resultMeal.isEmpty
@@ -90,6 +96,8 @@ class Search extends SearchDelegate {
                           isWorkout: false,
                           isPost: false,
                           listMeal: listMeal,
+                          isPremiumContent: meal.isPremium,
+                          isUserPremium: isPremiumUser,
                         ))
                     .toList(),
               ));
