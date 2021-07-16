@@ -61,9 +61,9 @@ class Search extends SearchDelegate {
     List<Meal> resultMeal = [];
     isEx
         ? resultWorkout.addAll(
-            listWorkout.where((element) => element.name.contains(query)))
+            listWorkout.where((element) => element.name.toLowerCase().contains(query.toLowerCase())))
         : resultMeal
-            .addAll(listMeal.where((element) => element.name.contains(query)));
+            .addAll(listMeal.where((element) => element.name.toLowerCase().contains(query.toLowerCase())));
     return isEx //neu nhu la ex thi list ex
         ? (resultWorkout.isEmpty
             ? _buildNotFoundScreen()
